@@ -1,0 +1,10 @@
+.gradle
+*.iml
+gradle
+gradlew
+gradle-wrapper.properties
+local.properties
+.idea
+.DS_Store
+build
+bin

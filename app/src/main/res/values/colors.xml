@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#e4e4e4</color>
+    <color name="colorPrimaryDark">#dfdfdf</color>
+    <color name="colorAccent">#FF1744</color>
+
+    <color name="colorButton">#D11439</color>
+
+    <color name="mainBodyColor">#f6f9ea</color>
+    <color name="tabColor">#B9C7E3</color>
+
+
+    <color name="colorText">#FFFFFF</color>
+    <color name="colorPrimaryText">#212121</color>
+    <color name="colorSecondaryText">#727272</color>
+    <color name="hintColor">#B6B6B6</color>
+    <color name="searchTextColor">#212121</color>
+    <color name="colorDivider">#B6B6B6</color>
+    <color name="colorPrimaryLight">#B3E5FC</color>
+    <color name="linkColor">#1E70B7</color>
+
+    <color name="coverPhotoBackGround">#929293</color>
+    <color name="userNameLayoutColor">#5F5F5F</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="crim">#EDEFAD</color>
+    <color name="dark_yellow">#BABE61</color>
+    <color name="dark_blue">#00aEEE</color>
+    <color name="holo_blue_dark">#ff0099cc</color>
+    <color name="view_divider_color">#949393</color>
+    <color name="actionbar_color">#A865CC</color>
+    <color name="color_text_selected">#DADADA</color>
+    <color name="color_text_normal">#00000000</color>
+    <color name="actionbar_main_color">#FF6839</color>
+    <color name="Black">#000000</color>
+
+    <color name="cardViewBackGround">#D5EDF7</color>
+    <color name="cardViewBackGround2">#195261</color>
+    <color name="cardViewBackGround3">#AA9FA9</color>
+    <color name="cardViewBackGround4">#94538A</color>
+    <color name="cardViewBackGround5">#CDA5CF</color>
+    <color name="CadetBlue">#5F9EA0</color>
+    <color name="DarkGoldenRod">#B8860B</color>
+    <color name="DarkGreen">#006400</color>
+    <color name="DarkOrange">#FF8C00</color>
+    <color name="Crimson">#DC143C</color>
+    <color name="Fuchsia">#FF00FF</color>
+    <color name="SaddleBrown">#8B4513</color>
+    <color name="MidnightBlue">#191970</color>
+    <color name="transparent">#00000000</color>
+
+    <color name="transparentBackground">#66303030</color>
+
+
+    <color name="yellow">#FFD00A</color>
+    <color name="green">#80C25E</color>
+
+    <color name="send_item_layout_border_color">#D6D8D7</color>
+    <color name="gray_send_item_layout">#F1F3F2</color>
+
+    <color name="match_username_text">#212121</color>
+
+    <color name="background_tab_pressed">#6633B5E5</color>
+    <color name="match_other_text">#757575</color>
+
+    <color name="setting_color">#414042</color>
+    <color name="divider_color">#9A999A</color>
+
+    <color name="ranking_divider_color">#D8D8D8</color>
+    <color name="red">#e20f2f</color>
+    <color name="orange">#ff5b00</color>
+    <color name="gender_unselect_color">#939598</color>
+
+    <color name="text_color">#A9A9A9</color>
+
+    <color name="shakeText">#D1382A</color>
+
+    <color name="randomcolor1">#7B1FA2</color>
+    <color name="randomcolormiddle1">#E1BEE7</color>
+
+    <color name="randomcolor2">#C51162</color>
+    <color name="randomcolormiddle2">#F48FB1</color>
+
+    <color name="randomcolor3">#283593</color>
+    <color name="randomcolormiddle3">#C5CAE9</color>
+
+    <color name="randomcolor4">#00695C</color>
+    <color name="randomcolormiddle4">#80CBC4</color>
+
+    <color name="randomcolor5">#FFD600</color>
+    <color name="randomcolormiddle5">#FFE57F</color>
+</resources>

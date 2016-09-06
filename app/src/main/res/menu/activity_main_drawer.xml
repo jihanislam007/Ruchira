@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_dash_board"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="DashBoard" />
+        <item
+            android:id="@+id/nav_order"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Order" />
+        <item
+            android:id="@+id/nav_status"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Status" />
+        <item
+            android:id="@+id/nav_order_summary"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Order Summary" />
+
+        <item
+            android:id="@+id/nav_outlets"
+            android:icon="@drawable/ic_menu_send"
+            android:title="Outlets" />
+
+        <item
+            android:id="@+id/nav_promotions"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Promotions" />
+
+        <item
+            android:id="@+id/nav_product_price"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Products &amp; Prices" />
+    </group>
+
+    <!--<item android:title="">-->
+        <!--<menu>-->
+
+    <group
+        android:id="@+id/menu_bottom"
+        android:checkableBehavior="single">
+            <item
+                android:id="@+id/nav_profile"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Profile" />
+            <item
+                android:id="@+id/nav_setting"
+                android:icon="@drawable/ic_menu_manage"
+                android:title="Setting" />
+
+    </group>
+        <!--</menu>-->
+    <!--</item>-->
+
+</menu>
