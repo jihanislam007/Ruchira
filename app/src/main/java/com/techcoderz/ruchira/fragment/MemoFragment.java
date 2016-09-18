@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -27,6 +28,7 @@ public class MemoFragment extends RuchiraFragment {
     Fragment toLaunchFragment = null;
 
     TextView view_more_txt;
+    Button confirm_btn;
 
     public MemoFragment() {
     }
@@ -47,10 +49,16 @@ public class MemoFragment extends RuchiraFragment {
     }
 
     private void initialize(View rootView) {
-
+        confirm_btn = (Button)rootView.findViewById(R.id.confirm_btn);
     }
 
     private void action(){
+        confirm_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openAddNewOrderFragment();
+            }
+        });
     }
 
     private void fetchDataFromServer() {
@@ -87,8 +95,8 @@ public class MemoFragment extends RuchiraFragment {
     }
 
 
-    private void openViewDetailsFragment() {
-        toLaunchFragment = new ViewDetailsFragment();
+    private void openAddNewOrderFragment() {
+        toLaunchFragment = new AddNewOrderFragment();
         if (toLaunchFragment != null) {
             ViewUtils.launchFragmentKeepingInBackStack(ownerActivity, toLaunchFragment);
             toLaunchFragment = null;

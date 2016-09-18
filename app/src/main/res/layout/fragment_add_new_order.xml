@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:text="Order : 10880.50"
+            android:text="Shope Name"
             android:textColor="@color/Black" />
 
         <TextView
@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:text="LPC : 2.50"
+            android:text="Address"
             android:textColor="@color/Black" />
 
         <LinearLayout
@@ -33,33 +33,52 @@
             android:layout_below="@+id/main_layout"
             android:orientation="horizontal">
 
-            <RadioButton
+            <RadioGroup
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:text="Ordered"/>
+                android:orientation="horizontal">
 
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Not Ordered"/>
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:text="Ordered"/>
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Not Ordered"/>
+            </RadioGroup>
         </LinearLayout>
 
-        <Spinner
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:textAlignment="center"></Spinner>
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:textAlignment="center"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:text="Product Category"
+            android:background="@drawable/roundshape_selector"
+            android:drawableRight="@android:drawable/arrow_down_float"
+            android:layout_marginTop="10dp"/>
+
+        <!--<Spinner-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:textAlignment="center"></Spinner>-->
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:layout_gravity="center"
             android:layout_below="@+id/main_layout"
             android:orientation="horizontal">
-            <include layout="@layout/row_add_new_order" />
             <include layout="@layout/row_add_new_order" />
             <include layout="@layout/row_add_new_order" />
         </LinearLayout>
@@ -89,7 +108,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:background="@color/colorButton"
+            android:background="@drawable/roundshape_selector"
             android:text="Order"
             android:textAllCaps="false"
             android:textColor="@color/white"
@@ -100,7 +119,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:background="@color/colorButton"
+            android:background="@drawable/roundshape_selector"
             android:text="Memo"
             android:textAllCaps="false"
             android:textColor="@color/white"

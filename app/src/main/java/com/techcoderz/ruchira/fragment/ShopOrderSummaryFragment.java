@@ -20,16 +20,15 @@ import com.techcoderz.ruchira.utills.ViewUtils;
 import org.json.JSONObject;
 
 /**
- * Created by Shahriar on 9/18/2016.
+ * Created by priom on 9/19/16.
  */
-public class AddNewOrderFragment extends RuchiraFragment {
-    private final static String TAG = "AddNewOrderFragment";
+public class ShopOrderSummaryFragment extends RuchiraFragment {
+    private final static String TAG = "ShopOrderSummaryFragment";
     String url = "http://sondhan.com/articleApi/android/category";
     Fragment toLaunchFragment = null;
-    private LinearLayout linear_layout;
-    private Button orderBtn,memoBtn;
+    private LinearLayout first_layout,first_layout2,first_layout3;
 
-    public AddNewOrderFragment() {
+    public ShopOrderSummaryFragment() {
     }
 
     @Override
@@ -40,7 +39,7 @@ public class AddNewOrderFragment extends RuchiraFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_add_new_order, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_shop_order_summary, container, false);
 
         initialize(rootView);
         action();
@@ -48,21 +47,30 @@ public class AddNewOrderFragment extends RuchiraFragment {
     }
 
     private void initialize(View rootView) {
-        orderBtn = (Button)rootView.findViewById(R.id.order_btn);
-        memoBtn = (Button)rootView.findViewById(R.id.memo_btn);
+        first_layout = (LinearLayout)rootView.findViewById(R.id.first_layout);
+        first_layout2 = (LinearLayout)rootView.findViewById(R.id.first_layout2);
+        first_layout3 = (LinearLayout)rootView.findViewById(R.id.first_layout3);
     }
+
     private void action(){
-        orderBtn.setOnClickListener(new View.OnClickListener() {
+        first_layout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                openOrderDetailsFragment();
+            public void onClick(View view) {
+                openCustomerOrderDetailsFragment();
             }
         });
 
-        memoBtn.setOnClickListener(new View.OnClickListener() {
+        first_layout2.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                openMemoFragment();
+            public void onClick(View view) {
+                openCustomerOrderDetailsFragment();
+            }
+        });
+
+        first_layout3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openCustomerOrderDetailsFragment();
             }
         });
     }
@@ -101,16 +109,8 @@ public class AddNewOrderFragment extends RuchiraFragment {
     }
 
 
-    private void openOrderDetailsFragment() {
-        toLaunchFragment = new OrderDetailsFragment();
-        if (toLaunchFragment != null) {
-            ViewUtils.launchFragmentKeepingInBackStack(ownerActivity, toLaunchFragment);
-            toLaunchFragment = null;
-        }
-    }
-
-    private void openMemoFragment() {
-        toLaunchFragment = new MemoFragment();
+    private void openCustomerOrderDetailsFragment() {
+        toLaunchFragment = new CustomerOrderDetailsFragment();
         if (toLaunchFragment != null) {
             ViewUtils.launchFragmentKeepingInBackStack(ownerActivity, toLaunchFragment);
             toLaunchFragment = null;

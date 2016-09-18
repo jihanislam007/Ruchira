@@ -15,14 +15,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:text="Order" />
+            android:text="Order : 10880.85" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:text="LPC" />
+            android:text="LPC : 2.50" />
 
         <Button
             android:layout_width="match_parent"
@@ -42,6 +42,7 @@
             android:weightSum="1">
 
             <TextView
+                android:id="@+id/yet_to_visit_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
@@ -53,6 +54,7 @@
                 android:textColor="@color/white" />
 
             <TextView
+                android:id="@+id/ordered_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
@@ -63,6 +65,7 @@
                 android:textColor="@color/white" />
 
             <TextView
+                android:id="@+id/not_ordered_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
@@ -78,10 +81,46 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/first_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
         android:layout_below="@+id/main_information"
+        android:orientation="horizontal">
+
+        <include layout="@layout/row_yet_to_visit" />
+
+        <include layout="@layout/row_yet_to_visit" />
+
+        <include layout="@layout/row_yet_to_visit" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/second_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/first_layout"
+        android:orientation="horizontal">
+
+        <include layout="@layout/row_yet_to_visit" />
+
+        <include layout="@layout/row_yet_to_visit" />
+
+        <include layout="@layout/row_yet_to_visit" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/third_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/second_layout"
         android:orientation="horizontal">
 
         <include layout="@layout/row_yet_to_visit" />

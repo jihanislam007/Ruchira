@@ -121,7 +121,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorAccent"
-            android:layout_marginTop="10dp"
             android:layout_below="@+id/main_information"
             android:orientation="vertical">
 
@@ -137,7 +136,7 @@
             android:id="@+id/ok_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/colorAccent"
+            android:background="@drawable/roundshape_selector"
             android:layout_marginTop="20dp"
             android:text="Ok"
             android:textColor="@color/white"

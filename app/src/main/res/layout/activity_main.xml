@@ -71,7 +71,11 @@
         android:layout_gravity="start"
         android:choiceMode="singleChoice"
         android:fitsSystemWindows="true"
+        android:background="@color/colorAccent"
+        app:itemIconTint="@color/white"
+        app:itemTextColor="@color/white"
+        app:headerLayout="@layout/nav_header_main"
         app:menu="@menu/activity_main_drawer" />
-    <!--app:headerLayout="@layout/drawer_list_item"-->
+
 
 </android.support.v4.widget.DrawerLayout>

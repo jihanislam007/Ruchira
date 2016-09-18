@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#e4e4e4</color>
-    <color name="colorPrimaryDark">#dfdfdf</color>
+    <color name="colorPrimary">#d9d9d9</color>
+    <color name="colorPrimaryDark">#ebeaea</color>
     <color name="colorAccent">#FF1744</color>
 
     <color name="colorButton">#D11439</color>
@@ -12,7 +12,7 @@
 
     <color name="colorText">#FFFFFF</color>
     <color name="colorPrimaryText">#212121</color>
-    <color name="colorSecondaryText">#727272</color>
+    <color name="colorSecondaryText">#7b7b7b</color>
     <color name="hintColor">#B6B6B6</color>
     <color name="searchTextColor">#212121</color>
     <color name="colorDivider">#B6B6B6</color>

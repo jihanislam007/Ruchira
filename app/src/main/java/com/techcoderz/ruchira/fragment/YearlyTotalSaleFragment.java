@@ -6,8 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -20,16 +18,14 @@ import com.techcoderz.ruchira.utills.ViewUtils;
 import org.json.JSONObject;
 
 /**
- * Created by Shahriar on 9/18/2016.
+ * Created by priom on 9/19/16.
  */
-public class AddNewOrderFragment extends RuchiraFragment {
-    private final static String TAG = "AddNewOrderFragment";
+public class YearlyTotalSaleFragment extends RuchiraFragment {
+    private final static String TAG = "YearlyTotalSaleFragment";
     String url = "http://sondhan.com/articleApi/android/category";
     Fragment toLaunchFragment = null;
-    private LinearLayout linear_layout;
-    private Button orderBtn,memoBtn;
 
-    public AddNewOrderFragment() {
+    public YearlyTotalSaleFragment() {
     }
 
     @Override
@@ -40,7 +36,7 @@ public class AddNewOrderFragment extends RuchiraFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_add_new_order, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_yearly_total_sell, container, false);
 
         initialize(rootView);
         action();
@@ -48,23 +44,9 @@ public class AddNewOrderFragment extends RuchiraFragment {
     }
 
     private void initialize(View rootView) {
-        orderBtn = (Button)rootView.findViewById(R.id.order_btn);
-        memoBtn = (Button)rootView.findViewById(R.id.memo_btn);
     }
-    private void action(){
-        orderBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openOrderDetailsFragment();
-            }
-        });
 
-        memoBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openMemoFragment();
-            }
-        });
+    private void action(){
     }
 
     private void fetchDataFromServer() {
@@ -101,16 +83,8 @@ public class AddNewOrderFragment extends RuchiraFragment {
     }
 
 
-    private void openOrderDetailsFragment() {
-        toLaunchFragment = new OrderDetailsFragment();
-        if (toLaunchFragment != null) {
-            ViewUtils.launchFragmentKeepingInBackStack(ownerActivity, toLaunchFragment);
-            toLaunchFragment = null;
-        }
-    }
-
-    private void openMemoFragment() {
-        toLaunchFragment = new MemoFragment();
+    private void openCustomerOrderDetailsFragment() {
+        toLaunchFragment = new CustomerOrderDetailsFragment();
         if (toLaunchFragment != null) {
             ViewUtils.launchFragmentKeepingInBackStack(ownerActivity, toLaunchFragment);
             toLaunchFragment = null;

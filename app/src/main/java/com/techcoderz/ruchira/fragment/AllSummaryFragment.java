@@ -6,8 +6,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -20,16 +20,16 @@ import com.techcoderz.ruchira.utills.ViewUtils;
 import org.json.JSONObject;
 
 /**
- * Created by Shahriar on 9/18/2016.
+ * Created by priom on 9/19/16.
  */
-public class AddNewOrderFragment extends RuchiraFragment {
-    private final static String TAG = "AddNewOrderFragment";
+public class AllSummaryFragment extends RuchiraFragment {
+    private final static String TAG = "AllSummaryFragment";
     String url = "http://sondhan.com/articleApi/android/category";
     Fragment toLaunchFragment = null;
-    private LinearLayout linear_layout;
-    private Button orderBtn,memoBtn;
 
-    public AddNewOrderFragment() {
+    private RelativeLayout editProfileLayout,sendFeedbackLayout,aboutLayout;
+
+    public AllSummaryFragment() {
     }
 
     @Override
@@ -40,29 +40,44 @@ public class AddNewOrderFragment extends RuchiraFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_add_new_order, container, false);
-
+        View rootView = inflater.inflate(R.layout.fragment_all_summary, container, false);
+        setupActionBar();
         initialize(rootView);
         action();
         return rootView;
     }
 
-    private void initialize(View rootView) {
-        orderBtn = (Button)rootView.findViewById(R.id.order_btn);
-        memoBtn = (Button)rootView.findViewById(R.id.memo_btn);
+    private void setupActionBar() {
+        ownerActivity.getSupportActionBar().show();
+//        ownerActivity.getSupportActionBar().setIcon(R.drawable.logo);
+//        ownerActivity.getSupportActionBar().setLogo(R.drawable.logo);
     }
+
+    private void initialize(View rootView) {
+        editProfileLayout = (RelativeLayout)rootView.findViewById(R.id.editProfileLayout);
+        sendFeedbackLayout = (RelativeLayout)rootView.findViewById(R.id.sendFeedbackLayout);
+        aboutLayout = (RelativeLayout)rootView.findViewById(R.id.aboutLayout);
+    }
+
     private void action(){
-        orderBtn.setOnClickListener(new View.OnClickListener() {
+        editProfileLayout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                openOrderDetailsFragment();
+            public void onClick(View view) {
+                openTodaysTotalSaleFragment();
             }
         });
 
-        memoBtn.setOnClickListener(new View.OnClickListener() {
+        sendFeedbackLayout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                openMemoFragment();
+            public void onClick(View view) {
+                openMonthlyTotalSaleFragment();
+            }
+        });
+
+        aboutLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openYearlyTotalSaleFragment();
             }
         });
     }
@@ -101,16 +116,24 @@ public class AddNewOrderFragment extends RuchiraFragment {
     }
 
 
-    private void openOrderDetailsFragment() {
-        toLaunchFragment = new OrderDetailsFragment();
+    private void openMonthlyTotalSaleFragment() {
+        toLaunchFragment = new MonthlyTotalSaleFragment();
         if (toLaunchFragment != null) {
             ViewUtils.launchFragmentKeepingInBackStack(ownerActivity, toLaunchFragment);
             toLaunchFragment = null;
         }
     }
 
-    private void openMemoFragment() {
-        toLaunchFragment = new MemoFragment();
+    private void openTodaysTotalSaleFragment() {
+        toLaunchFragment = new TodaysTotalSaleFragment();
+        if (toLaunchFragment != null) {
+            ViewUtils.launchFragmentKeepingInBackStack(ownerActivity, toLaunchFragment);
+            toLaunchFragment = null;
+        }
+    }
+
+    private void openYearlyTotalSaleFragment() {
+        toLaunchFragment = new YearlyTotalSaleFragment();
         if (toLaunchFragment != null) {
             ViewUtils.launchFragmentKeepingInBackStack(ownerActivity, toLaunchFragment);
             toLaunchFragment = null;

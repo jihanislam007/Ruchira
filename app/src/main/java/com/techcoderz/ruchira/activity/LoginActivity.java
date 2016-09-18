@@ -105,6 +105,15 @@ public class LoginActivity extends AppCompatActivity {
 //                handleUserLogin();
             }
         });
+
+        forgetpass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                openMainPage();
+                startForgetPasswordActivity();
+//                handleUserLogin();
+            }
+        });
 //        signup.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -230,6 +239,13 @@ public class LoginActivity extends AppCompatActivity {
 
     private void startLauncherActivity() {
         Intent intent = new Intent(this, MainActivity2.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+
+    private void startForgetPasswordActivity(){
+        Intent intent = new Intent(this, ForgetPasswordActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
