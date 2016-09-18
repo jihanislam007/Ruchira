@@ -30,8 +30,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!--<activity-->
+        <!--android:name=".activity.MainActivity"-->
+        <!--android:label="@string/title_activity_main" />-->
+
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.MainActivity2"
+            android:label="@string/title_activity_main" />
+
+        <activity
+            android:name=".activity.ForgetPasswordActivity"
             android:label="@string/title_activity_main" />
     </application>
 

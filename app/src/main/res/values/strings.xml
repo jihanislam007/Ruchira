@@ -25,4 +25,7 @@
     <string name="title_item_list">Items</string>
     <string name="title_item_detail">Item Detail</string>
     <string name="forget_password">Forget password</string>
+    <string name="drawer_open">Drawer Open</string>
+    <string name="drawer_close">Drawer Close</string>
+    <string name="please_key_in_all_information">Please key in all information</string>
 </resources>

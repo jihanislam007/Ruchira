@@ -11,13 +11,13 @@
             android:icon="@drawable/ic_menu_gallery"
             android:title="Order" />
         <item
-            android:id="@+id/nav_status"
+            android:id="@+id/nav_todays_status"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Status" />
+            android:title="Today`s Status" />
         <item
-            android:id="@+id/nav_order_summary"
+            android:id="@+id/nav_all_summary"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Order Summary" />
+            android:title="All Summary" />
 
         <item
             android:id="@+id/nav_outlets"
@@ -32,7 +32,7 @@
         <item
             android:id="@+id/nav_product_price"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Products &amp; Prices" />
+            android:title="All Products &amp; Prices" />
     </group>
 
     <!--<item android:title="">-->
@@ -44,7 +44,7 @@
             <item
                 android:id="@+id/nav_profile"
                 android:icon="@drawable/ic_menu_share"
-                android:title="Profile" />
+                android:title="Shop Profile" />
             <item
                 android:id="@+id/nav_setting"
                 android:icon="@drawable/ic_menu_manage"
