@@ -119,7 +119,7 @@ public class MainActivity2 extends RuchiraActivity implements NavigationView.OnN
             }
         });
 
-        toolbar.setTitleTextColor(Color.parseColor("#519c3f"));
+//        toolbar.setTitleTextColor(Color.parseColor("#519c3f"));
         mDrawerLayout.setDrawerListener(drawerToggle);
         drawerToggle.syncState();
         savedInstanceState = getIntent().getExtras();
@@ -359,13 +359,12 @@ public class MainActivity2 extends RuchiraActivity implements NavigationView.OnN
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(null);
 //        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        getSupportActionBar().setDisplayShowHomeEnabled(false);
+//        getSupportActionBar().setDisplayShowTitleEnabled(false);
+//
+//
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+//        getSupportActionBar().setDisplayShowHomeEnabled(false);
 //        getSupportActionBar().setIcon(R.drawable.logo);
 //        toolbar.setLogo(R.drawable.logo);
 //        toolbar.setNavigationIcon(R.drawable.logo);
