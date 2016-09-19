@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorAccent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/settingFragmentLayout">
 
@@ -10,15 +11,6 @@
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:background="@color/white" />
-
-
-    <View
-        android:id="@+id/divider1"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@color/ranking_divider_color" />
 
     <RelativeLayout
         android:id="@+id/editProfileLayout"
@@ -31,8 +23,8 @@
             android:id="@+id/tutorialText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Today`s Status"
-            android:textColor="@color/Black"
+            android:text="Todays Total Salary"
+            android:textColor="@color/white"
             android:textSize="16sp" />
 
     </RelativeLayout>
@@ -57,8 +49,8 @@
             android:id="@+id/feedbackText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Yesterday`s status"
-            android:textColor="@color/Black"
+            android:text="Monthly Salary"
+            android:textColor="@color/white"
             android:textSize="16sp" />
 
     </RelativeLayout>
@@ -83,8 +75,8 @@
             android:id="@+id/aboutText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="About"
-            android:textColor="@color/Black"
+            android:text="Yearly Salary"
+            android:textColor="@color/white"
             android:textSize="16sp" />
 
     </RelativeLayout>
@@ -95,34 +87,6 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_below="@+id/aboutLayout"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@color/ranking_divider_color" />
-
-    <RelativeLayout
-        android:id="@+id/logoutLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="20dp"
-        android:layout_below="@+id/divider4">
-
-
-        <TextView
-            android:id="@+id/exitTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Log Out"
-            android:textColor="@color/Black"
-            android:textSize="16sp" />
-
-    </RelativeLayout>
-
-
-    <View
-        android:id="@+id/divider5"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_below="@+id/logoutLayout"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:background="@color/ranking_divider_color" />

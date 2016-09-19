@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorPrimary"
+    android:foregroundTint="@color/Black"
+    android:textAlignment="center"
     android:minHeight="?attr/actionBarSize"
     android:titleTextColor="@color/colorPrimaryDark"
     local:popupTheme="@style/ThemeOverlay.AppCompat.Light"

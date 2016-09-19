@@ -49,9 +49,19 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/shadow_layout"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_below="@+id/main_layout"
+        android:background="@color/color_text_selected"
+        android:orientation="vertical"></LinearLayout>
+
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/main_layout"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/shadow_layout"
         android:orientation="vertical">
         <include layout="@layout/row_dashboard" />
         <include layout="@layout/row_dashboard" />

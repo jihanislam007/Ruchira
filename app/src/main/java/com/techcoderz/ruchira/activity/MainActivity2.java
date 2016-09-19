@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.techcoderz.ruchira.R;
+import com.techcoderz.ruchira.fragment.AllSummaryFragment;
 import com.techcoderz.ruchira.fragment.DashBoardFragment;
 import com.techcoderz.ruchira.fragment.OrderFragment;
 import com.techcoderz.ruchira.fragment.OutletsFragment;
@@ -120,7 +121,7 @@ public class MainActivity2 extends RuchiraActivity implements NavigationView.OnN
         });
 
 //        toolbar.setTitleTextColor(Color.parseColor("#519c3f"));
-        mDrawerLayout.setDrawerListener(drawerToggle);
+        mDrawerLayout.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
         savedInstanceState = getIntent().getExtras();
 
@@ -187,14 +188,14 @@ public class MainActivity2 extends RuchiraActivity implements NavigationView.OnN
                 mDrawerLayout.closeDrawer(GravityCompat.START);
                 break;
 
-//            case R.id.nav_all_summary:
-//                Log.e(TAG, mSelectedId + "");
-//                LifeStyleFragment lifeStyleFragment = new LifeStyleFragment();
-//                ViewUtils.launchFragmentWithoutKeepingInBackStack(this, lifeStyleFragment);
-//                updateToolBar("Note");
-//                mDrawerLayout.closeDrawer(GravityCompat.START);
-//                break;
-//
+            case R.id.nav_all_summary:
+                Log.e(TAG, mSelectedId + "");
+                AllSummaryFragment allSummaryFragment = new AllSummaryFragment();
+                ViewUtils.launchFragmentWithoutKeepingInBackStack(this, allSummaryFragment);
+                updateToolBar("All Summary");
+                mDrawerLayout.closeDrawer(GravityCompat.START);
+                break;
+
             case R.id.nav_outlets:
                 Log.e(TAG, mSelectedId + "");
                 OutletsFragment outletsFragment = new OutletsFragment();

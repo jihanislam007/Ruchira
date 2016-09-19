@@ -6,7 +6,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -27,6 +29,8 @@ public class OrderDetailsFragment extends RuchiraFragment {
     Fragment toLaunchFragment = null;
     private LinearLayout linear_layout;
 
+    Button submit_btn,cancel_btn;
+
     public OrderDetailsFragment() {
     }
 
@@ -46,8 +50,23 @@ public class OrderDetailsFragment extends RuchiraFragment {
     }
 
     private void initialize(View rootView) {
+        submit_btn = (Button)rootView.findViewById(R.id.submit_btn);
+        cancel_btn = (Button)rootView.findViewById(R.id.cancel_btn);
     }
     private void action(){
+        submit_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(ownerActivity, "order Submitted successfully", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        cancel_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openAddNewOrderFragment();
+            }
+        });
     }
 
     private void fetchDataFromServer() {
@@ -84,8 +103,8 @@ public class OrderDetailsFragment extends RuchiraFragment {
     }
 
 
-    private void openOpenShopProfile() {
-        toLaunchFragment = new ShopProfileFragment();
+    private void openAddNewOrderFragment() {
+        toLaunchFragment = new AddNewOrderFragment();
         if (toLaunchFragment != null) {
             ViewUtils.launchFragmentKeepingInBackStack(ownerActivity, toLaunchFragment);
             toLaunchFragment = null;

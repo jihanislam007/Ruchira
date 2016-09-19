@@ -1,5 +1,6 @@
 package com.techcoderz.ruchira.fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -7,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -25,7 +27,8 @@ public class OrderFragment extends RuchiraFragment {
     private final static String TAG = "OrderFragment";
     String url = "http://sondhan.com/articleApi/android/category";
     Fragment toLaunchFragment = null;
-    private LinearLayout linear_layout;
+    private TextView yet_to_visit_btn,ordered_btn,not_ordered_btn;
+    private LinearLayout first_layout,second_layout,third_layout;
 
     public OrderFragment() {
     }
@@ -46,12 +49,41 @@ public class OrderFragment extends RuchiraFragment {
     }
 
     private void initialize(View rootView) {
-        linear_layout = (LinearLayout)rootView.findViewById(R.id.linear_layout);
+        yet_to_visit_btn = (TextView)rootView.findViewById(R.id.yet_to_visit_btn);
+        ordered_btn = (TextView)rootView.findViewById(R.id.ordered_btn);
+        not_ordered_btn = (TextView)rootView.findViewById(R.id.not_ordered_btn);
+        first_layout = (LinearLayout)rootView.findViewById(R.id.first_layout);
+        second_layout = (LinearLayout)rootView.findViewById(R.id.second_layout);
+        third_layout = (LinearLayout)rootView.findViewById(R.id.third_layout);
     }
     private void action(){
-        linear_layout.setOnClickListener(new View.OnClickListener() {
+        yet_to_visit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                third_layout.setVisibility(View.VISIBLE);
+                third_layout.setBackgroundColor(Color.WHITE);
+                second_layout.setBackgroundColor(Color.WHITE);
+                second_layout.setVisibility(View.VISIBLE);
+            }
+        });
+        ordered_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                third_layout.setVisibility(View.GONE);
+            }
+        });
+        not_ordered_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                third_layout.setVisibility(View.GONE);
+                second_layout.setVisibility(View.GONE);
+                first_layout.setBackgroundColor(Color.WHITE);
+            }
+        });
+
+        first_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 openOpenShopProfile();
             }
         });

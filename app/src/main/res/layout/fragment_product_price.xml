@@ -5,15 +5,36 @@
     android:id="@+id/container_body"
     android:orientation="vertical">
 
-    <Spinner
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@color/color_text_selected"
+        android:orientation="vertical"></LinearLayout>
+
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
+
         android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:spinnerMode="dropdown"
-        android:popupBackground="@color/colorAccent"
-        android:textAlignment="center"/>
+        android:textAlignment="center"
+        android:padding="10dp"
+        android:textColor="@color/white"
+        android:text="Uniliver Bangladesh"
+        android:background="@drawable/roundshape_selector"
+        android:drawableRight="@android:drawable/arrow_down_float"
+        android:layout_marginTop="10dp"/>
+
+    <!--<Spinner-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="10dp"-->
+        <!--android:layout_marginRight="10dp"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:spinnerMode="dropdown"-->
+        <!--android:popupBackground="@color/colorAccent"-->
+        <!--android:textAlignment="center"/>-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,14 +45,19 @@
         android:padding="5dp">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:backgroundTint="@color/white"
             android:background="@android:drawable/ic_input_get" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:padding="5dp"
             android:text="Uniliver Bangladesh"
             android:textColor="@color/white" />
 
@@ -40,7 +66,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="2dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
         android:background="@color/Black"
         android:orientation="horizontal">
         <TextView
@@ -104,7 +133,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight=".1"
-            android:background="@color/Black"
+            android:textAlignment="center"
+            android:background="@drawable/rectangle_shape_show_black"
             android:textColor="@color/white"
             android:text="show"/>
     </LinearLayout>
@@ -139,7 +169,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight=".1"
-            android:background="@color/Black"
+            android:textAlignment="center"
+            android:background="@drawable/rectangle_shape_show_black"
             android:textColor="@color/white"
             android:text="show"/>
     </LinearLayout>

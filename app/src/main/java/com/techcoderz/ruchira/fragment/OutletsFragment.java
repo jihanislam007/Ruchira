@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -25,6 +26,8 @@ public class OutletsFragment extends RuchiraFragment {
     String url = "http://sondhan.com/articleApi/android/category";
     Fragment toLaunchFragment = null;
 
+    private LinearLayout linear_layout;
+
     public OutletsFragment() {
     }
 
@@ -39,10 +42,21 @@ public class OutletsFragment extends RuchiraFragment {
         View rootView = inflater.inflate(R.layout.fragment_outlets, container, false);
 
         initialize(rootView);
+        action();
         return rootView;
     }
 
     private void initialize(View rootView) {
+        linear_layout = (LinearLayout)rootView.findViewById(R.id.linear_layout);
+    }
+
+    private void action() {
+        linear_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openShopOrderSummaryFragment();
+            }
+        });
     }
 
     private void fetchDataFromServer() {
@@ -79,11 +93,11 @@ public class OutletsFragment extends RuchiraFragment {
     }
 
 
-    private void openDirectoryFragment() {
-//        toLaunchFragment = new DirectoryFragment();
-//        if (toLaunchFragment != null) {
-//            ViewUtils.launchFragmentWithoutKeepingInBackStack(ownerActivity, toLaunchFragment);
-//            toLaunchFragment = null;
-//        }
+    private void openShopOrderSummaryFragment() {
+        toLaunchFragment = new ShopOrderSummaryFragment();
+        if (toLaunchFragment != null) {
+            ViewUtils.launchFragmentWithoutKeepingInBackStack(ownerActivity, toLaunchFragment);
+            toLaunchFragment = null;
+        }
     }
 }

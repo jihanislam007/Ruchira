@@ -8,10 +8,17 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="150dp"
         android:background="@color/colorAccent">
 
     </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@color/color_text_selected"
+        android:orientation="vertical"></LinearLayout>
+
 
     <!-- Login progress -->
     <ProgressBar
@@ -52,9 +59,8 @@
                 android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableEnd="@android:drawable/ic_menu_delete"
-                android:drawableRight="@android:drawable/ic_menu_delete"
                 android:hint="@string/prompt_email"
+                android:padding="10dp"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
                 android:singleLine="true" />
@@ -67,10 +73,9 @@
 
             <EditText
                 android:id="@+id/password"
+                android:padding="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableEnd="@android:drawable/ic_menu_delete"
-                android:drawableRight="@android:drawable/ic_menu_delete"
                 android:hint="@string/prompt_password"
                 android:imeActionId="@+id/login"
                 android:imeActionLabel="@string/action_sign_in_short"
@@ -90,6 +95,7 @@
             android:background="@color/colorButton"
             android:text="@string/action_log_in"
             android:textAllCaps="false"
+            android:textColor="@color/white"
             android:textStyle="bold" />
 
         <Button

@@ -10,14 +10,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        card_view:cardBackgroundColor="@color/cardViewBackGround"
+        card_view:cardBackgroundColor="@color/colorAccent"
         card_view:cardCornerRadius="8dp"
         card_view:cardUseCompatPadding="true">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:padding="20dp"
+            android:textColor="@color/white"
             android:text="Chocolate 250 g" />
 
     </android.support.v7.widget.CardView>

@@ -8,14 +8,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:background="@color/colorButton"
         android:orientation="horizontal"
         android:padding="5dp">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:backgroundTint="@color/white"
             android:background="@android:drawable/ic_input_get" />
 
         <TextView
@@ -23,6 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Chocolate 250 gm"
+            android:padding="5dp"
             android:textColor="@color/white" />
 
     </LinearLayout>
@@ -31,12 +35,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="10dp"
+        android:layout_marginTop="30dp"
         android:orientation="horizontal">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight=".05"
-            android:text="Product Name"/>
+            android:background="@color/color_text_selected"
+            android:text="Product Name : "/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -111,8 +117,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight=".05"
-            android:text="Other"/>
+            android:background="@color/color_text_selected"
+            android:text="Other : "/>
 
 
     </LinearLayout>
