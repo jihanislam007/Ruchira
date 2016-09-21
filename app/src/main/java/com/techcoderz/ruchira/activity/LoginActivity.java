@@ -37,6 +37,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.techcoderz.ruchira.R;
+import com.techcoderz.ruchira.application.RuchiraApplication;
 import com.techcoderz.ruchira.utills.AppConfig;
 import com.techcoderz.ruchira.utills.NetworkUtils;
 import com.techcoderz.ruchira.utills.TaskUtils;
@@ -85,24 +86,24 @@ public class LoginActivity extends AppCompatActivity {
 
     private void initialize() {
         loginBtn = (Button) findViewById(R.id.email_sign_in_button);
-//        email = (EditText) findViewById(R.id.email_et);
-//        password = (EditText) findViewById(R.id.password_et);
+        email = (EditText) findViewById(R.id.email);
+        password = (EditText) findViewById(R.id.password);
 //        signup = (TextView) findViewById(R.id.signup_tv);
         forgetpass = (TextView) findViewById(R.id.forget_password_button);
     }
 
     private void action() {
-//        if (UserPreferences.getEmail(this) != "" && UserPreferences.getPassword(this) != "") {
-//            email.setText(UserPreferences.getEmail(this));
-//            password.setText(UserPreferences.getPassword(this));
-//        }
+        if (UserPreferences.getEmail(this) != "" && UserPreferences.getPassword(this) != "") {
+            email.setText(UserPreferences.getEmail(this));
+            password.setText(UserPreferences.getPassword(this));
+        }
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                openMainPage();
-                startLauncherActivity();
-//                handleUserLogin();
+//                startLauncherActivity();
+                handleUserLogin();
             }
         });
 
@@ -182,7 +183,7 @@ public class LoginActivity extends AppCompatActivity {
         };
 
         // Adding request to request queue
-//        SondhanApplication.getInstance().addToRequestQueue(strReq, tag_string_req);
+        RuchiraApplication.getInstance().addToRequestQueue(strReq, tag_string_req);
 
     }
 
@@ -196,12 +197,11 @@ public class LoginActivity extends AppCompatActivity {
 
             JSONObject obj = new JSONObject(result);
 
-            int responseResult = obj.getInt("success");
+            int responseResult = obj.getInt("response");
             Log.d(TAG, result.toString());
             if (responseResult == 1) {
                 UserPreferences.savePassword(this, password.toString().trim());
                 UserPreferences.saveEmail(this, mail.toString().trim());
-                UserPreferences.saveToken(this, obj.getString("uid"));
                 startLauncherActivity();
                 finish();
                 return;

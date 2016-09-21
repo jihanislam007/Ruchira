@@ -12,13 +12,13 @@ import com.techcoderz.ruchira.utills.FcsCacheManager;
 /**
  * Created by Shahriar on 6/15/2016.
  */
-public class SondhanApplication extends MultiDexApplication {
+public class RuchiraApplication extends MultiDexApplication {
 
-    public static final String TAG = SondhanApplication.class.getSimpleName();
+    public static final String TAG = RuchiraApplication.class.getSimpleName();
 
     private RequestQueue mRequestQueue;
 
-    private static SondhanApplication mInstance;
+    private static RuchiraApplication mInstance;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -27,7 +27,7 @@ public class SondhanApplication extends MultiDexApplication {
         FcsCacheManager.getInstance().init(getApplicationContext());
     }
 
-    public static synchronized SondhanApplication getInstance() {
+    public static synchronized RuchiraApplication getInstance() {
         return mInstance;
     }
 

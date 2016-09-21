@@ -56,8 +56,6 @@ public class DashBoardFragment extends RuchiraFragment {
 
     private void setupActionBar() {
         ownerActivity.getSupportActionBar().show();
-//        ownerActivity.getSupportActionBar().setIcon(R.drawable.logo);
-//        ownerActivity.getSupportActionBar().setLogo(R.drawable.logo);
     }
 
     private void initialize(View rootView) {
