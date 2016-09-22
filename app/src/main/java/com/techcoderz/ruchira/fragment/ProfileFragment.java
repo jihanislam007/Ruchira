@@ -38,8 +38,14 @@ public class ProfileFragment extends RuchiraFragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
 
+        setupToolbar();
         initialize(rootView);
         return rootView;
+    }
+
+    private void setupToolbar() {
+        ownerActivity.getSupportActionBar().show();
+        ownerActivity.getSupportActionBar().setTitle("Profile");
     }
 
     private void initialize(View rootView) {

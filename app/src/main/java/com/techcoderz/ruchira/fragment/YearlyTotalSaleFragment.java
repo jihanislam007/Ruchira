@@ -38,9 +38,15 @@ public class YearlyTotalSaleFragment extends RuchiraFragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_yearly_total_sell, container, false);
 
+        setupToolbar();
         initialize(rootView);
         action();
         return rootView;
+    }
+
+    private void setupToolbar() {
+        ownerActivity.getSupportActionBar().show();
+        ownerActivity.getSupportActionBar().setTitle("Yearly Total Status");
     }
 
     private void initialize(View rootView) {

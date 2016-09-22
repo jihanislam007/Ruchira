@@ -44,6 +44,11 @@ public class CustomerOrderDetailsFragment extends RuchiraFragment {
         return rootView;
     }
 
+    private void setupToolbar() {
+        ownerActivity.getSupportActionBar().show();
+        ownerActivity.getSupportActionBar().setTitle("Customer Order Details");
+    }
+
     private void setupActionBar() {
         ownerActivity.getSupportActionBar().show();
 //        ownerActivity.getSupportActionBar().setIcon(R.drawable.logo);

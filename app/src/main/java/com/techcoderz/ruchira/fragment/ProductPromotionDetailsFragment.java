@@ -41,9 +41,15 @@ public class ProductPromotionDetailsFragment extends RuchiraFragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_product_promotion_details, container, false);
 
+        setupToolbar();
         initialize(rootView);
         action();
         return rootView;
+    }
+
+    private void setupToolbar() {
+        ownerActivity.getSupportActionBar().show();
+        ownerActivity.getSupportActionBar().setTitle("Product Promotion Details");
     }
 
     private void initialize(View rootView) {

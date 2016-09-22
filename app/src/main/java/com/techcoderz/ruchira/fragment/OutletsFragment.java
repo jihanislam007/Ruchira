@@ -41,13 +41,19 @@ public class OutletsFragment extends RuchiraFragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_outlets, container, false);
 
+        setupToolbar();
         initialize(rootView);
         action();
         return rootView;
     }
 
+    private void setupToolbar() {
+        ownerActivity.getSupportActionBar().show();
+        ownerActivity.getSupportActionBar().setTitle("All Outlets");
+    }
+
     private void initialize(View rootView) {
-        linear_layout = (LinearLayout)rootView.findViewById(R.id.linear_layout);
+        linear_layout = (LinearLayout) rootView.findViewById(R.id.linear_layout);
     }
 
     private void action() {

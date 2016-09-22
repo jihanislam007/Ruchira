@@ -30,6 +30,7 @@ import com.techcoderz.ruchira.fragment.OrderFragment;
 import com.techcoderz.ruchira.fragment.OutletsFragment;
 import com.techcoderz.ruchira.fragment.ProductPriceFragment;
 import com.techcoderz.ruchira.fragment.ProductPromotionFragment;
+import com.techcoderz.ruchira.fragment.ProfileFragment;
 import com.techcoderz.ruchira.fragment.SettingFragment;
 import com.techcoderz.ruchira.fragment.ShopProfileFragment;
 import com.techcoderz.ruchira.fragment.TodayStatusFragment;
@@ -222,9 +223,9 @@ public class MainActivity2 extends RuchiraActivity implements NavigationView.OnN
 //
             case R.id.nav_profile:
                 Log.e(TAG, mSelectedId + "");
-                ShopProfileFragment shopProfileFragment = new ShopProfileFragment();
-                ViewUtils.launchFragmentWithoutKeepingInBackStack(this, shopProfileFragment);
-                updateToolBar("Shope Profile");
+                ProfileFragment profileFragment = new ProfileFragment();
+                ViewUtils.launchFragmentWithoutKeepingInBackStack(this, profileFragment);
+                updateToolBar("Profile");
                 mDrawerLayout.closeDrawer(GravityCompat.START);
                 break;
 

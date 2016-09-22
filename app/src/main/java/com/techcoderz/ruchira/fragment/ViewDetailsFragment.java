@@ -36,9 +36,14 @@ public class ViewDetailsFragment extends RuchiraFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_view_deatils, container, false);
-
+        setupToolbar();
         initialize(rootView);
         return rootView;
+    }
+
+    private void setupToolbar() {
+        ownerActivity.getSupportActionBar().show();
+        ownerActivity.getSupportActionBar().setTitle("View Details");
     }
 
     private void initialize(View rootView) {

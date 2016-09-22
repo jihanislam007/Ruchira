@@ -15,6 +15,7 @@
         card_view:cardUseCompatPadding="true">
 
         <TextView
+            android:id="@+id/item_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="20dp"

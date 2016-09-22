@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -28,6 +29,7 @@ public class AddNewOrderFragment extends RuchiraFragment {
     Fragment toLaunchFragment = null;
     private LinearLayout linear_layout;
     private Button orderBtn,memoBtn;
+    private TextView item_btn;
 
     public AddNewOrderFragment() {
     }
@@ -48,11 +50,11 @@ public class AddNewOrderFragment extends RuchiraFragment {
     }
 
     private void initialize(View rootView) {
-        orderBtn = (Button)rootView.findViewById(R.id.order_btn);
         memoBtn = (Button)rootView.findViewById(R.id.memo_btn);
+        item_btn = (TextView) rootView.findViewById(R.id.item_btn);
     }
     private void action(){
-        orderBtn.setOnClickListener(new View.OnClickListener() {
+        item_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openOrderDetailsFragment();

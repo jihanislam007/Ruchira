@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/relative_layout"
+    xmlns:custom="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -27,5 +29,29 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:background="@mipmap/ic_launcher" />
+
+    <com.github.silvestrpredko.dotprogressbar.DotProgressBar
+        android:id="@+id/dot_progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        custom:amount="3"
+        android:layout_marginTop="30dp"
+        custom:duration="@android:integer/config_mediumAnimTime"
+        custom:endColor="@color/colorAccent"
+        custom:startColor="@color/colorButton"
+        android:layout_below="@+id/imageView2"
+        android:layout_centerInParent="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/color_text_selected"
+        android:orientation="vertical"></LinearLayout>
+
 
 </RelativeLayout>

@@ -41,9 +41,15 @@ public class ShopOrderSummaryFragment extends RuchiraFragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_shop_order_summary, container, false);
 
+        setupToolbar();
         initialize(rootView);
         action();
         return rootView;
+    }
+
+    private void setupToolbar() {
+        ownerActivity.getSupportActionBar().show();
+        ownerActivity.getSupportActionBar().setTitle("Shop Order Summary");
     }
 
     private void initialize(View rootView) {

@@ -39,9 +39,15 @@ public class TodaysTotalSaleFragment extends RuchiraFragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_todays_sell_status, container, false);
 
+        setupToolbar();
         initialize(rootView);
         action();
         return rootView;
+    }
+
+    private void setupToolbar() {
+        ownerActivity.getSupportActionBar().show();
+        ownerActivity.getSupportActionBar().setTitle("Today`s Total Status");
     }
 
     private void initialize(View rootView) {

@@ -38,12 +38,18 @@ public class MonthlyTotalSaleFragment extends RuchiraFragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_monthly_total_sell, container, false);
 
+        setupToolbar();
         initialize(rootView);
         action();
         return rootView;
     }
 
     private void initialize(View rootView) {
+    }
+
+    private void setupToolbar() {
+        ownerActivity.getSupportActionBar().show();
+        ownerActivity.getSupportActionBar().setTitle("Monthly Total Status");
     }
 
     private void action(){

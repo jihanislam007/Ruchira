@@ -39,10 +39,15 @@ public class ShopProfileFragment extends RuchiraFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_shope_profile, container, false);
-
+        setupToolbar();
         initialize(rootView);
         action();
         return rootView;
+    }
+
+    private void setupToolbar() {
+        ownerActivity.getSupportActionBar().show();
+        ownerActivity.getSupportActionBar().setTitle("Shope Profile");
     }
 
     private void initialize(View rootView) {
