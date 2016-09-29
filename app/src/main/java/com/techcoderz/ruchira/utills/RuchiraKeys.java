@@ -11,6 +11,7 @@ public class RuchiraKeys {
     // KEYS IN SHARED PREFFERENCE
     public static final String LAID = "iaid";
     public static final String ATOKEN = "session_id";
+    public static final String ID = "id";
     public static final String DISPLAYNAME = "name";
     public static final String USER_INFO = "userInfo";
     public static final String USER_EMAIL = "email";

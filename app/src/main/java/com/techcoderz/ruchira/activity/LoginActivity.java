@@ -202,6 +202,8 @@ public class LoginActivity extends AppCompatActivity {
             if (responseResult == 1) {
                 UserPreferences.savePassword(this, password.toString().trim());
                 UserPreferences.saveEmail(this, mail.toString().trim());
+                UserPreferences.saveToken(this, obj.getString("tokenKey"));
+                UserPreferences.saveId(this, obj.getString("userId"));
                 startLauncherActivity();
                 finish();
                 return;
@@ -244,7 +246,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    private void startForgetPasswordActivity(){
+    private void startForgetPasswordActivity() {
         Intent intent = new Intent(this, ForgetPasswordActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);

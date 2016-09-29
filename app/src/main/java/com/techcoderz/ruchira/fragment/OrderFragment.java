@@ -20,15 +20,19 @@ import com.techcoderz.ruchira.utills.ViewUtils;
 
 import org.json.JSONObject;
 
+import java.util.List;
+
 /**
  * Created by Shahriar on 9/14/2016.
  */
 public class OrderFragment extends RuchiraFragment {
     private final static String TAG = "OrderFragment";
-    String url = "http://sondhan.com/articleApi/android/category";
+    String url = "http://gear-go.com/ruchira/index.php/home/orderapi";
     Fragment toLaunchFragment = null;
     private TextView yet_to_visit_btn,ordered_btn,not_ordered_btn;
     private LinearLayout first_layout,second_layout,third_layout;
+
+//    private List<Outlet> OutletList;
 
     public OrderFragment() {
     }
@@ -45,6 +49,7 @@ public class OrderFragment extends RuchiraFragment {
 
         initialize(rootView);
         action();
+        fetchDataFromServer();
         return rootView;
     }
 

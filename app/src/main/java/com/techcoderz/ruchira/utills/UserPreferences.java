@@ -126,7 +126,7 @@ public class UserPreferences {
     }
 
 
-    public static void saveIsProfilePictureOrAvatarChanged(Context context, boolean isChanged){
+    public static void saveIsProfilePictureOrAvatarChanged(Context context, boolean isChanged) {
         SharedPreferences userInfo = getSharedPreferences(context);
 
         SharedPreferences.Editor editor = userInfo.edit();
@@ -134,12 +134,12 @@ public class UserPreferences {
         editor.apply();
     }
 
-    public static boolean  getIsProfilePictureOrAvatarChanged(Context context){
+    public static boolean getIsProfilePictureOrAvatarChanged(Context context) {
         SharedPreferences userInfo = getSharedPreferences(context);
         return userInfo.getBoolean(RuchiraKeys.IsProfilePictureOrAvatarChanged, true);
     }
 
-    public static void saveReceivedEvaluationId(Context context, String receivedEvaluationId){
+    public static void saveReceivedEvaluationId(Context context, String receivedEvaluationId) {
         SharedPreferences userInfo = getSharedPreferences(context);
 
         SharedPreferences.Editor editor = userInfo.edit();
@@ -147,12 +147,12 @@ public class UserPreferences {
         editor.apply();
     }
 
-    public static String getReceivedEvaluationId(Context context){
+    public static String getReceivedEvaluationId(Context context) {
         SharedPreferences userInfo = getSharedPreferences(context);
-        return userInfo.getString(RuchiraKeys.RECEIVED_EVALUATION_ID,"0");
+        return userInfo.getString(RuchiraKeys.RECEIVED_EVALUATION_ID, "0");
     }
 
-    public static void saveSentEvaluationId(Context context, String sentEvaluationId){
+    public static void saveSentEvaluationId(Context context, String sentEvaluationId) {
         SharedPreferences userInfo = getSharedPreferences(context);
 
         SharedPreferences.Editor editor = userInfo.edit();
@@ -160,12 +160,12 @@ public class UserPreferences {
         editor.apply();
     }
 
-    public static String getSentEvaluationId(Context context){
+    public static String getSentEvaluationId(Context context) {
         SharedPreferences userInfo = getSharedPreferences(context);
         return userInfo.getString(RuchiraKeys.SENT_EVALUATION_ID, "0");
     }
 
-    public static void saveNotificationToggle(Context context, boolean isChecked){
+    public static void saveNotificationToggle(Context context, boolean isChecked) {
         SharedPreferences userInfo = getSharedPreferences(context);
 
         SharedPreferences.Editor editor = userInfo.edit();
@@ -173,7 +173,7 @@ public class UserPreferences {
         editor.apply();
     }
 
-    public static boolean getNotificationToggle(Context context){
+    public static boolean getNotificationToggle(Context context) {
         SharedPreferences userInfo = getSharedPreferences(context);
         return userInfo.getBoolean(RuchiraKeys.IS_NOTIFICATION_ENABLE, true);
     }
@@ -184,6 +184,15 @@ public class UserPreferences {
 
         SharedPreferences.Editor editor = userInfo.edit();
         editor.putString(RuchiraKeys.ATOKEN, atoken);
+        editor.apply();
+    }
+
+    public static void saveId(Context context, String id) {
+        Log.d(TAG, "atoken " + id);
+        SharedPreferences userInfo = getSharedPreferences(context);
+
+        SharedPreferences.Editor editor = userInfo.edit();
+        editor.putString(RuchiraKeys.ID, id);
         editor.apply();
     }
 
@@ -243,7 +252,7 @@ public class UserPreferences {
         editor.commit();
     }
 
-    public static void saveGcmId(Context context, String gcmId){
+    public static void saveGcmId(Context context, String gcmId) {
         Log.d(TAG, "saveGcmId " + gcmId);
         SharedPreferences userInfo = getSharedPreferences(context);
 
@@ -252,7 +261,7 @@ public class UserPreferences {
         editor.commit();
     }
 
-    public static void saveQRCode(Context context, String qrCode){
+    public static void saveQRCode(Context context, String qrCode) {
         SharedPreferences userInfo = getSharedPreferences(context);
 
         SharedPreferences.Editor editor = userInfo.edit();
@@ -287,6 +296,11 @@ public class UserPreferences {
     public static String getToken(Context context) {
         SharedPreferences userInfo = getSharedPreferences(context);
         return userInfo.getString(RuchiraKeys.ATOKEN, null);
+    }
+
+    public static String getId(Context context) {
+        SharedPreferences userInfo = getSharedPreferences(context);
+        return userInfo.getString(RuchiraKeys.ID, null);
     }
 
     public static String getLaid(Context context) {
