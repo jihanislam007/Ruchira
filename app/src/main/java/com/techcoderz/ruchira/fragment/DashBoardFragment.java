@@ -19,11 +19,16 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.techcoderz.ruchira.R;
+import com.techcoderz.ruchira.application.RuchiraApplication;
+import com.techcoderz.ruchira.utills.AppConfig;
 import com.techcoderz.ruchira.utills.CustomAsyncTask;
+import com.techcoderz.ruchira.utills.UserPreferences;
 import com.techcoderz.ruchira.utills.ViewUtils;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -33,17 +38,17 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Shahriar on 9/14/2016.
  */
 public class DashBoardFragment extends RuchiraFragment {
     private final static String TAG = "DashBoardFragment";
-    String url = "http://techcoderz.com/ratingApp/catagory_list.php";
     Fragment toLaunchFragment = null;
-    GetNewsListTask getNewsListTask;
-    TextView view_more_txt;
+    TextView view_more_txt,blance_txt;
 
     public DashBoardFragment() {
     }
@@ -60,8 +65,7 @@ public class DashBoardFragment extends RuchiraFragment {
         setupActionBar();
         initialize(rootView);
         action();
-//        fetchDataFromServer();
-        fetchDataFromServer2();
+        fetchDataFromServer();
         return rootView;
     }
 
@@ -72,6 +76,7 @@ public class DashBoardFragment extends RuchiraFragment {
     private void initialize(View rootView) {
 
         view_more_txt = (TextView)rootView.findViewById(R.id.view_more_txt);
+        blance_txt = (TextView)rootView.findViewById(R.id.blance_txt);
     }
 
     private void action(){
@@ -85,105 +90,60 @@ public class DashBoardFragment extends RuchiraFragment {
 
     private void fetchDataFromServer() {
 
-        JsonObjectRequest jsonRequest = new JsonObjectRequest(
-                Request.Method.GET, url, "", new Response.Listener<JSONObject>() {
+        String tag_string_req = "req_dashboard";
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                AppConfig.URL_DASHBOARD, new Response.Listener<String>() {
 
             @Override
-            public void onResponse(JSONObject response) {
-                Log.e(TAG, response.toString());
-                execute(response.toString());
-
+            public void onResponse(String response) {
+                Log.e(TAG, "Login Response: " + response.toString());
+                execute(response);
             }
         }, new Response.ErrorListener() {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
+                Log.e(TAG, "Login Error: " + error.getMessage());
             }
-        });
+        }) {
 
-        Volley.newRequestQueue(ownerActivity).add(jsonRequest);
-
-    }
-
-
-
-    private void fetchDataFromServer2() {
-        if (getNewsListTask == null) {
-            getNewsListTask = new GetNewsListTask(ownerActivity);
-            getNewsListTask.execute();
-        }
-    }
-
-    public String getAllTrendingNews() {
-        try {
-            URL serverUrl = new URL(url);
-
-            HttpURLConnection con = (HttpURLConnection) serverUrl.openConnection();
-            con.setRequestMethod("GET");
-
-            int responseCode = con.getResponseCode();
-
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
-            StringBuffer responseBuffer = new StringBuffer();
-
-            String inputLine;
-            while ((inputLine = bufferedReader.readLine()) != null) {
-                responseBuffer.append(inputLine);
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting parameters to login url
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("id", UserPreferences.getId(ownerActivity));
+                params.put("token", UserPreferences.getToken(ownerActivity));
+                return params;
             }
 
-            bufferedReader.close();
+        };
 
-            return responseBuffer.toString();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
+        // Adding request to request queue
+        RuchiraApplication.getInstance().addToRequestQueue(strReq, tag_string_req);
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-
-    class GetNewsListTask extends CustomAsyncTask<String, Void, String> {
-
-        Context mContext;
-
-        public GetNewsListTask(Context context) {
-            super(context);
-            this.mContext = context;
-        }
-
-        @Override
-        protected String doInBackground(String... params) {
-
-            return getAllTrendingNews();
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-
-            Log.d(TAG, "result " + result);
-            processResult2(result);
-        }
-    }
-
-    private void processResult2(String result) {
-        Toast.makeText(ownerActivity, result, Toast.LENGTH_SHORT).show();
     }
 
     private void execute(String result) {
-        Toast.makeText(ownerActivity, result, Toast.LENGTH_SHORT).show();
+        Log.d(TAG, result.toString());
+
+        try {
+
+            JSONObject obj = new JSONObject(result);
+
+            int responseResult = obj.getInt("success");
+            Log.d(TAG, result.toString());
+            if (responseResult == 1) {
+                blance_txt.setText(obj.getString("balance"));
+                return;
+
+            } else {
+                ViewUtils.alertUser(ownerActivity, "Server Error");
+                return;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
-
-    private void processResult(String result) {
-    }
-
-    private void processResult() {
-
-    }
-
 
     private void openViewDetailsFragment() {
         toLaunchFragment = new ViewDetailsFragment();

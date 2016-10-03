@@ -23,7 +23,7 @@ import org.json.JSONObject;
  */
 public class TodaysTotalSaleFragment extends RuchiraFragment {
     private final static String TAG = "TodaysTotalSaleFragment";
-    String url = "http://sondhan.com/articleApi/android/category";
+    String url = "http://gear-go.com/ruchira/index.php/home/apitodaysale";
     Fragment toLaunchFragment = null;
 
     public TodaysTotalSaleFragment() {
