@@ -3,6 +3,7 @@ package com.techcoderz.ruchira.activity;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
@@ -155,12 +156,22 @@ public class LoginActivity extends AppCompatActivity {
 
     private void fetchDataFromServer(final String email, final String password) {
         String tag_string_req = "req_login";
+        ProgressDialog progressDialog = null;
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Loading");
+        progressDialog.setMessage("Please wait...");
+        progressDialog.setCancelable(false);
+        progressDialog.setIndeterminate(true);
+        progressDialog.show();
+        final ProgressDialog finalProgressDialog = progressDialog;
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 AppConfig.URL_Login, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
                 Log.e(TAG, "Login Response: " + response.toString());
+                finalProgressDialog.dismiss();
                 handleResult(response, email, password);
             }
         }, new Response.ErrorListener() {
@@ -197,7 +208,7 @@ public class LoginActivity extends AppCompatActivity {
 
             JSONObject obj = new JSONObject(result);
 
-            int responseResult = obj.getInt("response");
+            int responseResult = obj.getInt("success");
             Log.d(TAG, result.toString());
             if (responseResult == 1) {
                 UserPreferences.savePassword(this, password.toString().trim());

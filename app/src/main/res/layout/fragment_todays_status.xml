@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
     android:id="@+id/container_body"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
@@ -17,10 +17,11 @@
             android:layout_height="15dp"
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
-            android:backgroundTint="@color/white"
-            android:background="@android:drawable/ic_input_get" />
+            android:background="@android:drawable/ic_input_get"
+            android:backgroundTint="@color/white" />
 
         <TextView
+            android:id="@+id/date_txt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -66,6 +67,7 @@
             android:textColor="@color/Black" />
 
         <TextView
+            android:id="@+id/this_month_txt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
@@ -92,6 +94,7 @@
             android:textColor="@color/Black" />
 
         <TextView
+            android:id="@+id/current_achive_txt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
@@ -118,6 +121,7 @@
             android:textColor="@color/Black" />
 
         <TextView
+            android:id="@+id/remainnig_target_txt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
@@ -144,6 +148,7 @@
             android:textColor="@color/Black" />
 
         <TextView
+            android:id="@+id/remainnig_visit_txt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
@@ -170,6 +175,7 @@
             android:textColor="@color/Black" />
 
         <TextView
+            android:id="@+id/avg_target_visit_txt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
@@ -178,9 +184,6 @@
             android:textColor="@color/Black" />
 
     </LinearLayout>
-
-
-
 
 
     <LinearLayout
@@ -219,6 +222,7 @@
             android:textColor="@color/Black" />
 
         <TextView
+            android:id="@+id/total_outlet_txt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
@@ -245,6 +249,7 @@
             android:textColor="@color/Black" />
 
         <TextView
+            android:id="@+id/outlet_remained_txt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
@@ -297,6 +302,7 @@
             android:textColor="@color/Black" />
 
         <TextView
+            android:id="@+id/outlet_visited_txt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
@@ -357,8 +363,6 @@
             android:textColor="@color/Black" />
 
     </LinearLayout>
-
-
 
 
 </LinearLayout>

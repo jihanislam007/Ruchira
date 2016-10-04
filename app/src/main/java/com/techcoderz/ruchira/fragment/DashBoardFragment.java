@@ -1,5 +1,6 @@
 package com.techcoderz.ruchira.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -48,7 +49,7 @@ import java.util.Map;
 public class DashBoardFragment extends RuchiraFragment {
     private final static String TAG = "DashBoardFragment";
     Fragment toLaunchFragment = null;
-    TextView view_more_txt,blance_txt;
+    TextView view_more_txt, blance_txt, ordersummary_txt, todays_target_txt, outlet_remainning_txt;
 
     public DashBoardFragment() {
     }
@@ -74,12 +75,14 @@ public class DashBoardFragment extends RuchiraFragment {
     }
 
     private void initialize(View rootView) {
-
-        view_more_txt = (TextView)rootView.findViewById(R.id.view_more_txt);
-        blance_txt = (TextView)rootView.findViewById(R.id.blance_txt);
+        view_more_txt = (TextView) rootView.findViewById(R.id.view_more_txt);
+        blance_txt = (TextView) rootView.findViewById(R.id.blance_txt);
+        ordersummary_txt = (TextView) rootView.findViewById(R.id.ordersummary_txt);
+        todays_target_txt = (TextView) rootView.findViewById(R.id.todays_target_txt);
+        outlet_remainning_txt = (TextView) rootView.findViewById(R.id.outlet_remainning_txt);
     }
 
-    private void action(){
+    private void action() {
         view_more_txt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,19 +94,29 @@ public class DashBoardFragment extends RuchiraFragment {
     private void fetchDataFromServer() {
 
         String tag_string_req = "req_dashboard";
+        ProgressDialog progressDialog = null;
+
+        progressDialog = new ProgressDialog(ownerActivity);
+        progressDialog.setTitle("Loading");
+        progressDialog.setMessage("Please wait...");
+        progressDialog.setCancelable(false);
+        progressDialog.setIndeterminate(true);
+        progressDialog.show();
+        final ProgressDialog finalProgressDialog = progressDialog;
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 AppConfig.URL_DASHBOARD, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
-                Log.e(TAG, "Login Response: " + response.toString());
+                Log.e(TAG, "dashboard Response: " + response.toString());
+                finalProgressDialog.dismiss();
                 execute(response);
             }
         }, new Response.ErrorListener() {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "Login Error: " + error.getMessage());
+                Log.e(TAG, "dashboard Error: " + error.getMessage());
             }
         }) {
 
@@ -134,6 +147,9 @@ public class DashBoardFragment extends RuchiraFragment {
             Log.d(TAG, result.toString());
             if (responseResult == 1) {
                 blance_txt.setText(obj.getString("balance"));
+                ordersummary_txt.setText(obj.getString("orderSummary"));
+                todays_target_txt.setText(obj.getString("todayTarget"));
+                outlet_remainning_txt.setText(obj.getString("outletRemaining"));
                 return;
 
             } else {

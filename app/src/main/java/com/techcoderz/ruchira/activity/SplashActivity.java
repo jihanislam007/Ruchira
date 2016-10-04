@@ -7,22 +7,32 @@ import android.widget.RelativeLayout;
 
 import com.github.silvestrpredko.dotprogressbar.DotProgressBar;
 import com.techcoderz.ruchira.R;
+import com.techcoderz.ruchira.utills.UserPreferences;
 
 /**
  * Created by Shahriar on 6/30/2016.
  */
 public class SplashActivity extends AppCompatActivity {
-    private final String TAG= "SplashActivity";
+    private final String TAG = "SplashActivity";
 
     private DotProgressBar dotProgressBar;
     private RelativeLayout relativeLayout;
 
-    private Runnable changeActivity = new Runnable() {
+    private Runnable loginActivity = new Runnable() {
         @Override
         public void run() {
             startActivity(new Intent(SplashActivity.this, LoginActivity.class));
         }
     };
+
+    private Runnable mainActivity = new Runnable() {
+        @Override
+        public void run() {
+            startActivity(new Intent(SplashActivity.this, MainActivity2.class));
+        }
+    };
+
+    String checkToken = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +45,6 @@ public class SplashActivity extends AppCompatActivity {
 //        dotProgressBar.setStartColor(startColor);
 //        dotProgressBar.setEndColor(endColor);
 //        dotProgressBar.setDotAmount(amount);
-
-
-
-
-
-
 
 //        Thread timer = new Thread() {
 //            public void run() {
@@ -59,14 +63,24 @@ public class SplashActivity extends AppCompatActivity {
 //        timer.start();
     }
 
-    private void initialize(){
+    private void initialize() {
         relativeLayout = (RelativeLayout) findViewById(R.id.relative_layout);
-        dotProgressBar = (DotProgressBar)findViewById(R.id.dot_progress_bar);
+        dotProgressBar = (DotProgressBar) findViewById(R.id.dot_progress_bar);
+        checkToken = UserPreferences.getToken(SplashActivity.this);
     }
 
-    private void action(){
+    private void action() {
         dotProgressBar.setAnimationTime(1000);
-        relativeLayout.postDelayed(changeActivity, 4000);
+
+        if (checkToken != null) {
+            if (getIntent().getBooleanExtra("EXIT", false)) {
+                relativeLayout.postDelayed(mainActivity, 4000);
+            } else {
+                relativeLayout.postDelayed(mainActivity, 4000);
+            }
+        } else {
+            relativeLayout.postDelayed(loginActivity, 4000);
+        }
     }
 
     @Override

@@ -80,9 +80,10 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
-                android:text="Output" />
+                android:text="Order Summary" />
 
             <TextView
+                android:id="@+id/ordersummary_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/textView2"
@@ -114,9 +115,10 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
-                android:text="Output" />
+                android:text="Todays Target" />
 
             <TextView
+                android:id="@+id/todays_target_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/textView3"
@@ -148,9 +150,10 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
-                android:text="Output" />
+                android:text="Outlet Remainning" />
 
             <TextView
+                android:id="@+id/outlet_remainning_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/textView4"

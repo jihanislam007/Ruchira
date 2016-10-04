@@ -10,8 +10,19 @@ import android.util.Log;
 import android.util.Patterns;
 
 import com.techcoderz.ruchira.R;
+import com.techcoderz.ruchira.model.Beat;
+import com.techcoderz.ruchira.model.OutletRemainning;
+import com.techcoderz.ruchira.model.Target;
+import com.techcoderz.ruchira.model.TodayOrder;
+import com.techcoderz.ruchira.model.TodaySale;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -124,6 +135,114 @@ public class TaskUtils {
                 break;
         }
         Log.d("Screen Resolution ", deviceScreenResType);
+    }
+
+
+    public static List<TodaySale> setTodayTotalSale(String json) {
+        ArrayList<TodaySale> TodayTotalSaleList = new ArrayList<>();
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+
+            JSONObject jsonObject2 = jsonObject.getJSONObject("todaySale");
+
+//            for (int i = 0; i < jsonArray.length(); i++) {
+            TodaySale todaySale = new TodaySale();
+            todaySale.setYesterdeay(jsonObject2.getString("yesterday"));
+            todaySale.setMonthAccumulation(jsonObject2.getString("monthAccumulation"));
+            todaySale.setMonthDailyAvg(jsonObject2.getString("monthDailyAvg"));
+            todaySale.setMonthWeeklyAvg(jsonObject2.getString("monthWeeklyAvg"));
+            todaySale.setTodaySale(jsonObject2.getString("todaSale"));
+            TodayTotalSaleList.add(todaySale);
+//            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return TodayTotalSaleList;
+    }
+
+    public static List<TodayOrder> setTodayOrder(String json) {
+        ArrayList<TodayOrder> TodayTotalOrderList = new ArrayList<>();
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+            JSONObject jsonObject2 = jsonObject.getJSONObject("todayOrder");
+
+//            for (int i = 0; i < jsonObject2.length(); i++) {
+            TodayOrder todayOrder = new TodayOrder();
+            todayOrder.setYesterdeay(jsonObject2.getString("yesterday"));
+            todayOrder.setMonthAccumulation(jsonObject2.getString("monthAccumulation"));
+            todayOrder.setMonthDailyAvg(jsonObject2.getString("monthDailyAvg"));
+            todayOrder.setMonthWeeklyAvg(jsonObject2.getString("monthWeeklyAvg"));
+            todayOrder.setTodayOrder(jsonObject2.getString("todayOrder"));
+            TodayTotalOrderList.add(todayOrder);
+//            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return TodayTotalOrderList;
+    }
+
+    public static List<Target> setTarget(String json) {
+        ArrayList<Target> TodayTotalOrderList = new ArrayList<>();
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+            JSONObject jsonObject2 = jsonObject.getJSONObject("target");
+
+//            for (int i = 0; i < jsonObject2.length(); i++) {
+            Target todayOrder = new Target();
+            todayOrder.setThisMonth(jsonObject2.getString("thisMonth"));
+            todayOrder.setCurrentAchive(jsonObject2.getString("currentAchieve"));
+            todayOrder.setRemainningTarget(jsonObject2.getString("remainingTarget"));
+            todayOrder.setAvgTargetVisit(jsonObject2.getString("avgTargetVisit"));
+            TodayTotalOrderList.add(todayOrder);
+//            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return TodayTotalOrderList;
+    }
+
+
+    public static List<Beat> setBeat(String json) {
+        ArrayList<Beat> bannerImageList = new ArrayList<>();
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+
+            JSONArray jsonArray = jsonObject.getJSONArray("beat");
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                Beat bannerImage = new Beat();
+                bannerImage.setId(jsonArray.getJSONObject(i).getString("id"));
+                bannerImage.setTitle(jsonArray.getJSONObject(i).getString("title"));
+                bannerImageList.add(bannerImage);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return bannerImageList;
+    }
+
+    public static List<OutletRemainning> setOutletRemainning(String json) {
+        ArrayList<OutletRemainning> TodayTotalOrderList = new ArrayList<>();
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+            JSONObject jsonObject2 = jsonObject.getJSONObject("outletRemaining");
+
+//            for (int i = 0; i < jsonObject2.length(); i++) {
+            OutletRemainning todayOrder = new OutletRemainning();
+            todayOrder.setTotalOutlet(jsonObject2.getString("totalOutlet"));
+            todayOrder.setOutletVisited(jsonObject2.getString("outletVisited"));
+            todayOrder.setOutletRemained(jsonObject2.getString("outletRemained"));
+            TodayTotalOrderList.add(todayOrder);
+//            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return TodayTotalOrderList;
     }
 
 

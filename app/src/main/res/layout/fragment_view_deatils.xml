@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container_body"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/container_body"
     android:orientation="vertical">
 
     <LinearLayout
@@ -47,13 +47,14 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/total_bit_txt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorButton"
+            android:paddingBottom="5dp"
             android:paddingLeft="20dp"
             android:paddingRight="2dp"
             android:paddingTop="2dp"
-            android:paddingBottom="5dp"
             android:text="04"
             android:textColor="@color/white" />
     </LinearLayout>
@@ -61,32 +62,32 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginTop="20dp"
+            android:orientation="horizontal"
             android:paddingLeft="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
                 android:text="Todays Sale"
-                android:textColor="@color/Black" />
+                android:textColor="@color/Black"
+                android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/today_sale_txt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_marginRight="20dp"
                 android:gravity="end|right"
                 android:text="10654 BDT" />
-
         </LinearLayout>
 
         <View
@@ -106,12 +107,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingRight="2dp"
-            android:paddingTop="2dp"
             android:layout_marginLeft="20dp"
+            android:orientation="horizontal"
             android:paddingBottom="2dp"
-            android:paddingLeft="10dp">
+            android:paddingLeft="10dp"
+            android:paddingRight="2dp"
+            android:paddingTop="2dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -119,6 +120,7 @@
                 android:text="YesterDay" />
 
             <TextView
+                android:id="@+id/sale_yesterDay_txt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
@@ -146,12 +148,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingRight="2dp"
-            android:paddingTop="2dp"
             android:layout_marginLeft="20dp"
+            android:orientation="horizontal"
             android:paddingBottom="2dp"
-            android:paddingLeft="10dp">
+            android:paddingLeft="10dp"
+            android:paddingRight="2dp"
+            android:paddingTop="2dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -159,6 +161,7 @@
                 android:text="This month`s accumulation" />
 
             <TextView
+                android:id="@+id/sale_monthAccumulation_txt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
@@ -187,11 +190,55 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingRight="2dp"
-            android:paddingTop="2dp"
-            android:layout_marginLeft="20dp"
             android:paddingBottom="2dp"
-            android:paddingLeft="10dp">
+            android:paddingLeft="10dp"
+            android:paddingRight="2dp"
+            android:paddingTop="2dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:paddingBottom="2dp"
+                android:paddingRight="2dp"
+                android:paddingTop="2dp"
+                android:text="This month Week Avg" />
+
+            <TextView
+                android:id="@+id/sale_month_week_avg_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginRight="20dp"
+                android:gravity="end|right"
+                android:text="10654 BDT" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="3dp"
+            android:background="@color/Black" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:orientation="horizontal"
+            android:paddingBottom="2dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="2dp"
+            android:paddingTop="2dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -199,6 +246,8 @@
                 android:text="This month day avg" />
 
             <TextView
+
+                android:id="@+id/sale_month_day_avg_txt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
@@ -216,54 +265,6 @@
             android:background="@color/Black" />
 
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingRight="2dp"
-            android:paddingTop="2dp"
-            android:paddingBottom="2dp"
-            android:paddingLeft="10dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingRight="2dp"
-                android:paddingTop="2dp"
-                android:layout_marginLeft="20dp"
-                android:paddingBottom="2dp"
-                android:text="This month day forecast" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginRight="20dp"
-                android:gravity="end|right"
-                android:text="10654 BDT" />
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="3dp"
-            android:background="@color/Black" />
-
-    </LinearLayout>
-
-
-
-
-
 
 
     <LinearLayout
@@ -281,12 +282,13 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:textStyle="bold"
                 android:layout_height="wrap_content"
                 android:text="Todays Order"
-                android:textColor="@color/Black" />
+                android:textColor="@color/Black"
+                android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/today_order_txt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
@@ -299,8 +301,8 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="3dp"
             android:layout_marginLeft="20dp"
+            android:layout_marginTop="3dp"
             android:background="@color/colorAccent" />
 
     </LinearLayout>
@@ -314,12 +316,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingRight="2dp"
             android:layout_marginLeft="20dp"
-            android:paddingTop="2dp"
+            android:orientation="horizontal"
             android:paddingBottom="2dp"
-            android:paddingLeft="10dp">
+            android:paddingLeft="10dp"
+            android:paddingRight="2dp"
+            android:paddingTop="2dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -327,6 +329,7 @@
                 android:text="YesterDay" />
 
             <TextView
+                android:id="@+id/order_yesterday_txt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
@@ -354,12 +357,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingRight="2dp"
-            android:paddingTop="2dp"
-            android:paddingBottom="2dp"
             android:layout_marginLeft="20dp"
-            android:paddingLeft="10dp">
+            android:orientation="horizontal"
+            android:paddingBottom="2dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="2dp"
+            android:paddingTop="2dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -367,6 +370,7 @@
                 android:text="This month`s accumulation" />
 
             <TextView
+                android:id="@+id/order_monthAccumulation_txt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
@@ -379,8 +383,8 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="3dp"
             android:layout_marginLeft="20dp"
+            android:layout_marginTop="3dp"
             android:background="@color/Black" />
 
     </LinearLayout>
@@ -394,12 +398,53 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingRight="2dp"
-            android:paddingTop="2dp"
-            android:paddingBottom="2dp"
             android:layout_marginLeft="20dp"
-            android:paddingLeft="10dp">
+            android:orientation="horizontal"
+            android:paddingBottom="2dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="2dp"
+            android:paddingTop="2dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="This month Weekly Avg" />
+
+            <TextView
+                android:id="@+id/order_monthWeekly_avg_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginRight="20dp"
+                android:gravity="end|right"
+                android:text="10654 BDT" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="3dp"
+            android:background="@color/Black" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:orientation="horizontal"
+            android:paddingBottom="2dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="2dp"
+            android:paddingTop="2dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -407,46 +452,7 @@
                 android:text="This month day avg" />
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginRight="20dp"
-                android:gravity="end|right"
-                android:text="10654 BDT" />
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="3dp"
-            android:background="@color/Black" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingRight="2dp"
-            android:layout_marginLeft="20dp"
-            android:paddingTop="2dp"
-            android:paddingBottom="2dp"
-            android:paddingLeft="10dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="This month day forecast" />
-
-            <TextView
+                android:id="@+id/order_monthDailyAvg_txt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
