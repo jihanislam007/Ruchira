@@ -5,6 +5,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatSpinner;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +24,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.techcoderz.ruchira.R;
 import com.techcoderz.ruchira.adapter.OrderBeatSpinnerAdapter;
+import com.techcoderz.ruchira.adapter.OutletAdapter;
 import com.techcoderz.ruchira.application.RuchiraApplication;
 import com.techcoderz.ruchira.model.Beat;
 import com.techcoderz.ruchira.model.Outlet;
@@ -46,13 +49,20 @@ public class OrderFragment extends RuchiraFragment {
     String url = "http://gear-go.com/ruchira/index.php/home/orderapi";
     Fragment toLaunchFragment = null;
     private TextView yet_to_visit_btn, ordered_btn, not_ordered_btn;
-    private LinearLayout first_layout, second_layout, third_layout;
 
     private List<Beat> beatList;
     private List<Outlet> outletList;
 
     private AppCompatSpinner beat_spinner;
     private OrderBeatSpinnerAdapter orderBeatSpinnerAdapter;
+
+    private String location;
+
+    private RecyclerView outlet_rcview;
+    private OutletAdapter outletAdapter;
+    private GridLayoutManager gridLayoutManager;
+
+
 
     public OrderFragment() {
     }
@@ -77,55 +87,55 @@ public class OrderFragment extends RuchiraFragment {
         yet_to_visit_btn = (TextView) rootView.findViewById(R.id.yet_to_visit_btn);
         ordered_btn = (TextView) rootView.findViewById(R.id.ordered_btn);
         not_ordered_btn = (TextView) rootView.findViewById(R.id.not_ordered_btn);
-        first_layout = (LinearLayout) rootView.findViewById(R.id.first_layout);
-        second_layout = (LinearLayout) rootView.findViewById(R.id.second_layout);
-        third_layout = (LinearLayout) rootView.findViewById(R.id.third_layout);
         beat_spinner = (AppCompatSpinner) rootView.findViewById(R.id.beat_spinner);
+
+        outlet_rcview = (RecyclerView) rootView.findViewById(R.id.outlet_rcview);
 
         beatList = new ArrayList<>();
         outletList = new ArrayList<>();
         orderBeatSpinnerAdapter = new OrderBeatSpinnerAdapter(ownerActivity, R.layout.beat_list, beatList);
         orderBeatSpinnerAdapter.setDropDownViewResource(R.layout.beat_list);
 
+        gridLayoutManager = new GridLayoutManager(ownerActivity, 3);
+        outletAdapter = new OutletAdapter(ownerActivity,outletList);
+
+        outlet_rcview.setAdapter(outletAdapter);
+        outlet_rcview.setHasFixedSize(true);
+        outlet_rcview.setLayoutManager(gridLayoutManager);
+
     }
 
     private void action() {
-        yet_to_visit_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                third_layout.setVisibility(View.VISIBLE);
-                third_layout.setBackgroundColor(Color.WHITE);
-                second_layout.setBackgroundColor(Color.WHITE);
-                second_layout.setVisibility(View.VISIBLE);
-            }
-        });
-        ordered_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                third_layout.setVisibility(View.GONE);
-            }
-        });
-        not_ordered_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                third_layout.setVisibility(View.GONE);
-                second_layout.setVisibility(View.GONE);
-                first_layout.setBackgroundColor(Color.WHITE);
-            }
-        });
-
-        first_layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openOpenShopProfile();
-            }
-        });
+//        yet_to_visit_btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                third_layout.setVisibility(View.VISIBLE);
+//                third_layout.setBackgroundColor(Color.WHITE);
+//                second_layout.setBackgroundColor(Color.WHITE);
+//                second_layout.setVisibility(View.VISIBLE);
+//            }
+//        });
+//        ordered_btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                third_layout.setVisibility(View.GONE);
+//            }
+//        });
+//        not_ordered_btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                third_layout.setVisibility(View.GONE);
+//                second_layout.setVisibility(View.GONE);
+//                first_layout.setBackgroundColor(Color.WHITE);
+//            }
+//        });
 
         beat_spinner.setAdapter(orderBeatSpinnerAdapter);
 
         beat_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                location = beatList.get(position).getTitle();
                 fetchDataFromServerForOutlet(beatList.get(position).getId());
                 Log.e(TAG, "beatList.get(position).getId() : " + beatList.get(position).getId());
             }
@@ -267,7 +277,7 @@ public class OrderFragment extends RuchiraFragment {
             Log.d(TAG, result.toString());
             if (responseResult == 1) {
                 outletList.addAll(TaskUtils.setOutlet(result));
-                orderBeatSpinnerAdapter.notifyDataSetChanged();
+//                outletAdapter.notifyDataSetChanged();
 
                 return;
 
