@@ -79,64 +79,13 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/first_layout"
-        android:layout_width="wrap_content"
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/main_information"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
-
-        <include layout="@layout/row_yet_to_visit" />
-
-        <include layout="@layout/row_yet_to_visit" />
-
-        <include layout="@layout/row_yet_to_visit" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/second_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/first_layout"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
-
-        <include layout="@layout/row_yet_to_visit" />
-
-        <include layout="@layout/row_yet_to_visit" />
-
-        <include layout="@layout/row_yet_to_visit" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/third_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/second_layout"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
-
-        <include layout="@layout/row_yet_to_visit" />
-
-        <include layout="@layout/row_yet_to_visit" />
-
-        <include layout="@layout/row_yet_to_visit" />
-
-    </LinearLayout>
-
-
-    <!--<android.support.v7.widget.RecyclerView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_below="@+id/main_information"-->
-        <!--android:layout_marginLeft="5dp"-->
-        <!--android:layout_marginRight="5dp"-->
-        <!--android:layout_marginTop="5dp"/>-->
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"/>
 
 </RelativeLayout>

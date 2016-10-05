@@ -11,6 +11,7 @@ import android.util.Patterns;
 
 import com.techcoderz.ruchira.R;
 import com.techcoderz.ruchira.model.Beat;
+import com.techcoderz.ruchira.model.Outlet;
 import com.techcoderz.ruchira.model.OutletRemainning;
 import com.techcoderz.ruchira.model.Target;
 import com.techcoderz.ruchira.model.TodayOrder;
@@ -223,6 +224,27 @@ public class TaskUtils {
         }
 
         return bannerImageList;
+    }
+
+    public static List<Outlet> setOutlet(String json) {
+        ArrayList<Outlet> outletList = new ArrayList<>();
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+
+            JSONArray jsonArray = jsonObject.getJSONArray("outlet");
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                Outlet outlet = new Outlet();
+                outlet.setOid(jsonArray.getJSONObject(i).getString("id"));
+                outlet.setTitle(jsonArray.getJSONObject(i).getString("title"));
+                outlet.setGroup(jsonArray.getJSONObject(i).getString("group"));
+                outletList.add(outlet);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return outletList;
     }
 
     public static List<OutletRemainning> setOutletRemainning(String json) {
