@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
     android:id="@+id/container_body"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -10,60 +10,78 @@
         android:orientation="vertical">
 
         <!--<Spinner-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginLeft="10dp"-->
-            <!--android:layout_marginRight="10dp"-->
-            <!--android:layout_marginTop="10dp"-->
-            <!--android:textAlignment="center" />-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="10dp"-->
+        <!--android:layout_marginRight="10dp"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:textAlignment="center" />-->
 
 
-        <TextView
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="5dp"-->
+        <!--android:layout_marginRight="5dp"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:background="@drawable/roundshape_selector"-->
+        <!--android:drawableRight="@android:drawable/arrow_down_float"-->
+        <!--android:padding="10dp"-->
+        <!--android:text="Bit Name"-->
+        <!--android:textAlignment="center"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:textSize="28sp"-->
+        <!--android:textStyle="bold" />-->
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/beat_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:textStyle="bold"
             android:layout_marginRight="5dp"
-            android:textAlignment="center"
-            android:padding="10dp"
-            android:textColor="@color/white"
-            android:text="Bit Name"
-            android:textSize="28sp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/roundshape_selector"
-            android:drawableRight="@android:drawable/arrow_down_float"
-            android:layout_marginTop="10dp"/>
+            android:padding="10dp"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:textSize="17sp"
             android:gravity="center"
             android:text="All Shope Name"
-            android:textColor="@color/Black" />
+            android:textColor="@color/Black"
+            android:textSize="17sp" />
 
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-          android:layout_gravity="center"
             android:layout_below="@+id/main_information"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
-            <include layout="@layout/row_yet_to_visit" />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/outlet_rcview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/main_information"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp" />
 
-            <include layout="@layout/row_yet_to_visit" />
+            <!--<include layout="@layout/row_yet_to_visit" />-->
 
-            <include layout="@layout/row_yet_to_visit" />
+            <!--<include layout="@layout/row_yet_to_visit" />-->
+
+            <!--<include layout="@layout/row_yet_to_visit" />-->
 
         </LinearLayout>
 
-        <!--<android.support.v7.widget.RecyclerView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginLeft="10dp"-->
-            <!--android:layout_marginRight="10dp"-->
-            <!--android:layout_marginTop="10dp"></android.support.v7.widget.RecyclerView>-->
 
     </LinearLayout>
 

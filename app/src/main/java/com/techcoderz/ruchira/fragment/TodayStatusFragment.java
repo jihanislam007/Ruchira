@@ -115,7 +115,7 @@ public class TodayStatusFragment extends RuchiraFragment {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("id", UserPreferences.getId(ownerActivity));
-                params.put("token", UserPreferences.getToken(ownerActivity));
+                params.put("tokenKey", UserPreferences.getToken(ownerActivity));
                 return params;
             }
 

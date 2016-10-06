@@ -196,6 +196,15 @@ public class UserPreferences {
         editor.apply();
     }
 
+    public static void saveCompanyName(Context context, String companyName) {
+        Log.d(TAG, "companyName " + companyName);
+        SharedPreferences userInfo = getSharedPreferences(context);
+
+        SharedPreferences.Editor editor = userInfo.edit();
+        editor.putString(RuchiraKeys.COMPANY_NAME, companyName);
+        editor.apply();
+    }
+
     public static void saveDisplayName(Context context, String displayName) {
         Log.d(TAG, "displayName " + displayName);
         SharedPreferences userInfo = getSharedPreferences(context);
@@ -291,6 +300,11 @@ public class UserPreferences {
     public static String getDisplayName(Context context) {
         SharedPreferences userInfo = getSharedPreferences(context);
         return userInfo.getString(RuchiraKeys.DISPLAYNAME, null);
+    }
+
+    public static String getCompanyName(Context context) {
+        SharedPreferences userInfo = getSharedPreferences(context);
+        return userInfo.getString(RuchiraKeys.COMPANY_NAME, null);
     }
 
     public static String getToken(Context context) {

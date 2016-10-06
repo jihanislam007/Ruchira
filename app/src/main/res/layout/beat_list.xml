@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/beatTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/Black"
-        android:layout_margin="10dp"
-        android:textSize="22dp"/>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/beatTextView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:textAlignment="center"
+    android:drawableRight="@android:drawable/arrow_down_float"
+    android:textColor="@color/white"
+    android:textSize="22dp" />

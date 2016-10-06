@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.techcoderz.ruchira.R;
+import com.techcoderz.ruchira.fragment.ShopOrderSummaryFragment;
 import com.techcoderz.ruchira.fragment.ShopProfileFragment;
 import com.techcoderz.ruchira.model.Outlet;
 import com.techcoderz.ruchira.utills.ViewUtils;
@@ -27,10 +28,12 @@ public class OutletAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private List<Outlet> outletList = new ArrayList<>();
     private Context context;
     Fragment toLaunchFragment = null;
+    private int type;
 
-    public OutletAdapter(Context context, List<Outlet> outletList) {
+    public OutletAdapter(Context context, List<Outlet> outletList, int type) {
         this.outletList = outletList;
         this.context = context;
+        this.type = type;
 
         if (toLaunchFragment != null) {
             ViewUtils.launchFragmentKeepingInBackStack(context, toLaunchFragment);
@@ -56,7 +59,11 @@ public class OutletAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 ((RecyclerViewSubHolders) holder).wholeContent.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        openOpenShopProfile(outletList.get(position).getOid());
+                        if (type == 0) {
+                            openOpenShopProfile(outletList.get(position).getOid());
+                        } else {
+                            openShopOrderSummaryFragment();
+                        }
                     }
                 });
             }
@@ -80,12 +87,19 @@ public class OutletAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
     }
 
+    private void openShopOrderSummaryFragment() {
+        toLaunchFragment = new ShopOrderSummaryFragment();
+        if (toLaunchFragment != null) {
+            ViewUtils.launchFragmentKeepingInBackStack(context, toLaunchFragment);
+            toLaunchFragment = null;
+        }
+    }
+
 
     class RecyclerViewSubHolders extends RecyclerView.ViewHolder {
 
-        public TextView shop_name_txt,location_txt;
+        public TextView shop_name_txt, location_txt;
         public LinearLayout wholeContent;
-        Fragment toLaunchFragment = null;
 
         public RecyclerViewSubHolders(View itemView) {
             super(itemView);

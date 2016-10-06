@@ -97,7 +97,7 @@ public class OrderFragment extends RuchiraFragment {
         orderBeatSpinnerAdapter.setDropDownViewResource(R.layout.beat_list);
 
         gridLayoutManager = new GridLayoutManager(ownerActivity, 3);
-        outletAdapter = new OutletAdapter(ownerActivity,outletList);
+        outletAdapter = new OutletAdapter(ownerActivity,outletList,0);
 
         outlet_rcview.setAdapter(outletAdapter);
         outlet_rcview.setHasFixedSize(true);
@@ -182,8 +182,8 @@ public class OrderFragment extends RuchiraFragment {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("id", UserPreferences.getId(ownerActivity));
-                params.put("token", UserPreferences.getToken(ownerActivity));
-                params.put("bitId",id);
+                params.put("tokenKey", UserPreferences.getToken(ownerActivity));
+                params.put("beatId",id);
                 return params;
             }
 
@@ -229,7 +229,7 @@ public class OrderFragment extends RuchiraFragment {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("id", UserPreferences.getId(ownerActivity));
-                params.put("token", UserPreferences.getToken(ownerActivity));
+                params.put("tokenKey", UserPreferences.getToken(ownerActivity));
                 return params;
             }
 
@@ -277,7 +277,7 @@ public class OrderFragment extends RuchiraFragment {
             Log.d(TAG, result.toString());
             if (responseResult == 1) {
                 outletList.addAll(TaskUtils.setOutlet(result));
-//                outletAdapter.notifyDataSetChanged();
+                outletAdapter.notifyDataSetChanged();
 
                 return;
 

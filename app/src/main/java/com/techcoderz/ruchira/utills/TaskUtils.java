@@ -13,6 +13,8 @@ import com.techcoderz.ruchira.R;
 import com.techcoderz.ruchira.model.Beat;
 import com.techcoderz.ruchira.model.Outlet;
 import com.techcoderz.ruchira.model.OutletRemainning;
+import com.techcoderz.ruchira.model.Promotion;
+import com.techcoderz.ruchira.model.Report;
 import com.techcoderz.ruchira.model.Target;
 import com.techcoderz.ruchira.model.TodayOrder;
 import com.techcoderz.ruchira.model.TodaySale;
@@ -224,6 +226,89 @@ public class TaskUtils {
         }
 
         return bannerImageList;
+    }
+
+    public static List<Promotion> setPromotion(String json) {
+        ArrayList<Promotion> promotionList = new ArrayList<>();
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+
+            JSONArray jsonArray = jsonObject.getJSONArray("promotion");
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                Promotion promotion = new Promotion();
+                promotion.setPromotionId(jsonArray.getJSONObject(i).getString("id"));
+                promotion.setTitle(jsonArray.getJSONObject(i).getString("title"));
+                promotionList.add(promotion);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return promotionList;
+    }
+
+    public static List<Report> setYearlyReport(String json) {
+        ArrayList<Report> reportList = new ArrayList<>();
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+
+            JSONArray jsonArray = jsonObject.getJSONArray("report");
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                Report report = new Report();
+                report.setMonth(jsonArray.getJSONObject(i).getString("month"));
+                report.setOrrder(jsonArray.getJSONObject(i).getString("orders"));
+                report.setAmmount(jsonArray.getJSONObject(i).getString("amount"));
+                reportList.add(report);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return reportList;
+    }
+
+    public static List<Report> setTodayReport(String json) {
+        ArrayList<Report> reportList = new ArrayList<>();
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+
+            JSONArray jsonArray = jsonObject.getJSONArray("report");
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                Report report = new Report();
+                report.setMonth(jsonArray.getJSONObject(i).getString("productName"));
+                report.setOrrder(jsonArray.getJSONObject(i).getString("quantity"));
+                report.setAmmount(jsonArray.getJSONObject(i).getString("amount"));
+                reportList.add(report);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return reportList;
+    }
+
+    public static List<Report> setMonthlyReport(String json) {
+        ArrayList<Report> reportList = new ArrayList<>();
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+
+            JSONArray jsonArray = jsonObject.getJSONArray("report");
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                Report report = new Report();
+                report.setMonth(jsonArray.getJSONObject(i).getString("date"));
+                report.setOrrder(jsonArray.getJSONObject(i).getString("orders"));
+                report.setAmmount(jsonArray.getJSONObject(i).getString("amount"));
+                reportList.add(report);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return reportList;
     }
 
     public static List<Outlet> setOutlet(String json) {

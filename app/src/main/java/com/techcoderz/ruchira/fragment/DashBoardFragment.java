@@ -49,7 +49,7 @@ import java.util.Map;
 public class DashBoardFragment extends RuchiraFragment {
     private final static String TAG = "DashBoardFragment";
     Fragment toLaunchFragment = null;
-    TextView view_more_txt, blance_txt, ordersummary_txt, todays_target_txt, outlet_remainning_txt;
+    TextView view_more_txt, blance_txt, ordersummary_txt, todays_target_txt, outlet_remainning_txt, remainning_txt;
 
     public DashBoardFragment() {
     }
@@ -80,6 +80,7 @@ public class DashBoardFragment extends RuchiraFragment {
         ordersummary_txt = (TextView) rootView.findViewById(R.id.ordersummary_txt);
         todays_target_txt = (TextView) rootView.findViewById(R.id.todays_target_txt);
         outlet_remainning_txt = (TextView) rootView.findViewById(R.id.outlet_remainning_txt);
+        remainning_txt = (TextView) rootView.findViewById(R.id.remainning_txt);
     }
 
     private void action() {
@@ -125,7 +126,7 @@ public class DashBoardFragment extends RuchiraFragment {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("id", UserPreferences.getId(ownerActivity));
-                params.put("token", UserPreferences.getToken(ownerActivity));
+                params.put("tokenKey", UserPreferences.getToken(ownerActivity));
                 return params;
             }
 
@@ -149,6 +150,7 @@ public class DashBoardFragment extends RuchiraFragment {
                 blance_txt.setText(obj.getString("balance"));
                 ordersummary_txt.setText(obj.getString("orderSummary"));
                 todays_target_txt.setText(obj.getString("todayTarget"));
+                remainning_txt.setText(obj.getString("remaining"));
                 outlet_remainning_txt.setText(obj.getString("outletRemaining"));
                 return;
 

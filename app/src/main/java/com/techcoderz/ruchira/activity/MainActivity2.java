@@ -63,7 +63,7 @@ public class MainActivity2 extends RuchiraActivity implements NavigationView.OnN
     private int backPressedCount;
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private TextView drawerUserName;
-    private TextView userEmail;
+    private TextView userEmail,profile_name_txt,company_name_txt;
     private CircleImageView drawerProfilePic;
     private ImageView drawerCoverPhoto;
     private Fragment fragmentToLaunch;
@@ -100,6 +100,10 @@ public class MainActivity2 extends RuchiraActivity implements NavigationView.OnN
         mDrawer.setNavigationItemSelectedListener(this);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        profile_name_txt = (TextView) findViewById(R.id.profile_name_txt);
+        company_name_txt = (TextView) findViewById(R.id.company_name_txt);
+
+
 
 //        HomeFragment homeFragment = new HomeFragment();
 //        ViewUtils.launchFragmentWithoutKeepingInBackStack(this, homeFragment);
@@ -108,34 +112,38 @@ public class MainActivity2 extends RuchiraActivity implements NavigationView.OnN
 
     private void action(Bundle savedInstanceState) {
         if (!NetworkUtils.hasInternetConnection(this)) {
-        }
-        drawerRefresh();
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
-                    getSupportFragmentManager().popBackStack();
-                } else {
-                    mDrawerLayout.openDrawer(GravityCompat.START);
-                }
+            if(!UserPreferences.getDisplayName(this).equals("")&&!UserPreferences.getCompanyName(this).equals("")){
+                profile_name_txt.setText(UserPreferences.getDisplayName(this));
+                company_name_txt.setText(UserPreferences.getCompanyName(this));
             }
-        });
+
+            drawerRefresh();
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                        getSupportFragmentManager().popBackStack();
+                    } else {
+                        mDrawerLayout.openDrawer(GravityCompat.START);
+                    }
+                }
+            });
 
 //        toolbar.setTitleTextColor(Color.parseColor("#519c3f"));
-        mDrawerLayout.addDrawerListener(drawerToggle);
-        drawerToggle.syncState();
-        savedInstanceState = getIntent().getExtras();
+            mDrawerLayout.addDrawerListener(drawerToggle);
+            drawerToggle.syncState();
+            savedInstanceState = getIntent().getExtras();
 
 
-        Log.d("savedInstanceState", savedInstanceState + "");
+            Log.d("savedInstanceState", savedInstanceState + "");
 
-        if (savedInstanceState == null) {
-            mSelectedId = savedInstanceState == null ? R.id.nav_dash_board : savedInstanceState.getInt("SELECTED_ID");
+            if (savedInstanceState == null) {
+                mSelectedId = savedInstanceState == null ? R.id.nav_dash_board : savedInstanceState.getInt("SELECTED_ID");
+            }
+            Log.e(TAG, mSelectedId + "");
+            itemSelection(mSelectedId);
+
         }
-        Log.e(TAG, mSelectedId + "");
-        itemSelection(mSelectedId);
-
-
     }
 
     private void drawerRefresh() {
