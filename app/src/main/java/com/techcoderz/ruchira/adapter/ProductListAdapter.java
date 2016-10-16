@@ -59,7 +59,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 ((ProductListAdapter.RecyclerViewSubHolders) holder).wholeContent.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        openOrderDetailsFragment();
+                        openOrderDetailsFragment(position);
                     }
                 });
             }
@@ -83,11 +83,12 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
     }
 
-    private void openOrderDetailsFragment() {
+    private void openOrderDetailsFragment(int position) {
         toLaunchFragment = new OrderDetailsFragment();
         if (toLaunchFragment != null) {
             Bundle bundle = new Bundle();
             bundle.putString("getShopeId",shopeId);
+            bundle.putString("getproductId",productList.get(position).getProductId());
             toLaunchFragment.setArguments(bundle);
             ViewUtils.launchFragmentKeepingInBackStack(context, toLaunchFragment);
             toLaunchFragment = null;

@@ -19,5 +19,7 @@ public class AppConfig {
     public static String URL_PRODUCT_CATEGORY = "http://gear-go.com/ruchira/index.php/home/apiorderproduct";
     public static String URL_PRODUCT_LIST = "http://gear-go.com/ruchira/index.php/home/apiproduct";
 
+    public static String URL_ORDER_SUBMIT = "http://gear-go.com/ruchira/index.php/home/apiordersubmit";
+    public static String URL_ORDER_ITEM_SUBMIT = "http://gear-go.com/ruchira/index.php/home/apiorderitemsubmit";
 
 }

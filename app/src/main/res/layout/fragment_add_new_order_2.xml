@@ -46,6 +46,7 @@
                 android:textColor="@color/white" />
 
             <EditText
+                android:id="@+id/ctn_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -75,6 +76,7 @@
                 android:textColor="@color/white" />
 
             <EditText
+                android:id="@+id/pcs_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -104,6 +106,7 @@
                 android:textColor="@color/white" />
 
             <EditText
+                android:id="@+id/value_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
