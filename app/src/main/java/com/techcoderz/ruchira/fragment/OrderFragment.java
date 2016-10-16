@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,9 +23,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.astuetz.PagerSlidingTabStrip;
 import com.techcoderz.ruchira.R;
 import com.techcoderz.ruchira.adapter.OrderBeatSpinnerAdapter;
 import com.techcoderz.ruchira.adapter.OutletAdapter;
+import com.techcoderz.ruchira.adapter.TabbedFragmentStatePagerAdapter;
 import com.techcoderz.ruchira.application.RuchiraApplication;
 import com.techcoderz.ruchira.model.Beat;
 import com.techcoderz.ruchira.model.Outlet;
@@ -62,6 +65,7 @@ public class OrderFragment extends RuchiraFragment {
     private OutletAdapter outletAdapter;
     private GridLayoutManager gridLayoutManager;
 
+    private int position2 = 0;
 
 
     public OrderFragment() {
@@ -97,7 +101,7 @@ public class OrderFragment extends RuchiraFragment {
         orderBeatSpinnerAdapter.setDropDownViewResource(R.layout.beat_list);
 
         gridLayoutManager = new GridLayoutManager(ownerActivity, 3);
-        outletAdapter = new OutletAdapter(ownerActivity,outletList,0);
+        outletAdapter = new OutletAdapter(ownerActivity, outletList, 0);
 
         outlet_rcview.setAdapter(outletAdapter);
         outlet_rcview.setHasFixedSize(true);
@@ -106,29 +110,28 @@ public class OrderFragment extends RuchiraFragment {
     }
 
     private void action() {
-//        yet_to_visit_btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                third_layout.setVisibility(View.VISIBLE);
-//                third_layout.setBackgroundColor(Color.WHITE);
-//                second_layout.setBackgroundColor(Color.WHITE);
-//                second_layout.setVisibility(View.VISIBLE);
-//            }
-//        });
-//        ordered_btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                third_layout.setVisibility(View.GONE);
-//            }
-//        });
-//        not_ordered_btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                third_layout.setVisibility(View.GONE);
-//                second_layout.setVisibility(View.GONE);
-//                first_layout.setBackgroundColor(Color.WHITE);
-//            }
-//        });
+        yet_to_visit_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e(TAG, position2 + "");
+                fetchDataFromServerForOutlet(beatList.get(position2).getId(), "0");
+            }
+        });
+        ordered_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e(TAG, position2 + "");
+                fetchDataFromServerForOutlet(beatList.get(position2).getId(), "1");
+
+            }
+        });
+        not_ordered_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e(TAG, position2 + "");
+                fetchDataFromServerForOutlet(beatList.get(position2).getId(), "2");
+            }
+        });
 
         beat_spinner.setAdapter(orderBeatSpinnerAdapter);
 
@@ -136,7 +139,8 @@ public class OrderFragment extends RuchiraFragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 location = beatList.get(position).getTitle();
-                fetchDataFromServerForOutlet(beatList.get(position).getId());
+                position2 = position;
+                fetchDataFromServerForOutlet(beatList.get(position).getId(), "0");
                 Log.e(TAG, "beatList.get(position).getId() : " + beatList.get(position).getId());
             }
 
@@ -147,7 +151,7 @@ public class OrderFragment extends RuchiraFragment {
     }
 
 
-    private void fetchDataFromServerForOutlet(final String id) {
+    private void fetchDataFromServerForOutlet(final String id, final String option) {
 
         ProgressDialog progressDialog = null;
 
@@ -167,7 +171,7 @@ public class OrderFragment extends RuchiraFragment {
             public void onResponse(String response) {
                 Log.e(TAG, "order Response: " + response.toString());
                 finalProgressDialog.dismiss();
-                processResultForOutlet(response);
+                processResultForOutlet(response, option);
             }
         }, new Response.ErrorListener() {
 
@@ -183,7 +187,7 @@ public class OrderFragment extends RuchiraFragment {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("id", UserPreferences.getId(ownerActivity));
                 params.put("tokenKey", UserPreferences.getToken(ownerActivity));
-                params.put("beatId",id);
+                params.put("beatId", id);
                 return params;
             }
 
@@ -265,7 +269,7 @@ public class OrderFragment extends RuchiraFragment {
         }
     }
 
-    private void processResultForOutlet(String result) {
+    private void processResultForOutlet(String result, String option) {
         Log.d(TAG, result.toString());
         outletList.clear();
 
@@ -276,7 +280,13 @@ public class OrderFragment extends RuchiraFragment {
             int responseResult = obj.getInt("success");
             Log.d(TAG, result.toString());
             if (responseResult == 1) {
-                outletList.addAll(TaskUtils.setOutlet(result));
+                List<Outlet> tempOutletList = new ArrayList<>();
+                tempOutletList.addAll(TaskUtils.setOutlet(result));
+                for (int i = 0; i < tempOutletList.size(); i++) {
+                    if (tempOutletList.get(i).getFlag().equals(option)) {
+                        outletList.add(tempOutletList.get(i));
+                    }
+                }
                 outletAdapter.notifyDataSetChanged();
 
                 return;
@@ -288,10 +298,6 @@ public class OrderFragment extends RuchiraFragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    }
-
-    private void processResult() {
-
     }
 
 

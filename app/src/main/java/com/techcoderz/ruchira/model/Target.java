@@ -9,6 +9,7 @@ public class Target {
     String currentAchive;
     String remainningTarget;
     String avgTargetVisit;
+    String remainingVisit;
 
     public String getThisMonth() {
         return thisMonth;
@@ -40,5 +41,13 @@ public class Target {
 
     public void setAvgTargetVisit(String avgTargetVisit) {
         this.avgTargetVisit = avgTargetVisit;
+    }
+
+    public String getRemainingVisit() {
+        return remainingVisit;
+    }
+
+    public void setRemainingVisit(String remainingVisit) {
+        this.remainingVisit = remainingVisit;
     }
 }

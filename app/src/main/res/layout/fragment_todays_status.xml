@@ -276,6 +276,7 @@
             android:textColor="@color/Black" />
 
         <TextView
+            android:id="@+id/achive_today_txt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
@@ -329,6 +330,7 @@
             android:textColor="@color/Black" />
 
         <TextView
+            android:id="@+id/achive_percent_sr_txt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"

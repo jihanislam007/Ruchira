@@ -8,6 +8,7 @@ public class Outlet {
     String oid;
     String title;
     String group;
+    String flag;
 
     public String getOid() {
         return oid;
@@ -33,5 +34,11 @@ public class Outlet {
         this.group = group;
     }
 
+    public String getFlag() {
+        return flag;
+    }
 
+    public void setFlag(String flag) {
+        this.flag = flag;
+    }
 }

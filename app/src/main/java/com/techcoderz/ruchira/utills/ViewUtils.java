@@ -17,6 +17,7 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 import com.techcoderz.ruchira.R;
+import com.techcoderz.ruchira.activity.LoginActivity;
 import com.techcoderz.ruchira.activity.RuchiraActivity;
 
 import java.io.File;
@@ -63,6 +64,12 @@ public class ViewUtils {
         supportFragmentManager.beginTransaction().replace(R.id.container_body, fragmentToLaunch)
                 .commit();
 
+    }
+
+    public static void startLoginActivity(Context context) {
+        Intent intent = new Intent(context, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        context.startActivity(intent);
     }
 
 

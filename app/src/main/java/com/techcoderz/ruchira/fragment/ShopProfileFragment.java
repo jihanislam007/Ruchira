@@ -18,6 +18,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.squareup.picasso.Picasso;
 import com.techcoderz.ruchira.R;
 import com.techcoderz.ruchira.adapter.PromotionAdapter;
 import com.techcoderz.ruchira.application.RuchiraApplication;
@@ -51,9 +52,10 @@ public class ShopProfileFragment extends RuchiraFragment {
     private List<Promotion> promotionList;
 
     private CircleImageView profile_image;
-    private TextView address_txt, profile_name_txt;
+    private TextView address_txt, profile_name_txt, channel_txt, starting_date_txt;
     private RecyclerView promotion_rcview;
     private PromotionAdapter promotionAdapter;
+    private String shopeProfileId="";
 
     public ShopProfileFragment() {
     }
@@ -87,6 +89,9 @@ public class ShopProfileFragment extends RuchiraFragment {
         promotion_rcview = (RecyclerView) rootView.findViewById(R.id.promotion_rcview);
         profile_name_txt = (TextView) rootView.findViewById(R.id.profile_name_txt);
         address_txt = (TextView) rootView.findViewById(R.id.address_txt);
+        channel_txt = (TextView) rootView.findViewById(R.id.channel_txt);
+        starting_date_txt = (TextView) rootView.findViewById(R.id.starting_date_txt);
+        profile_image = (CircleImageView) rootView.findViewById(R.id.profile_image);
         promotionAdapter = new PromotionAdapter(ownerActivity, promotionList);
 
         LinearLayoutManager manager = new LinearLayoutManager(ownerActivity);
@@ -162,8 +167,15 @@ public class ShopProfileFragment extends RuchiraFragment {
             int responseResult = obj.getInt("success");
             Log.d(TAG, result.toString());
             if (responseResult == 1) {
+                shopeProfileId = obj.getString("id");
+//                UserPreferences.saveShopeProfileId(ownerActivity,obj.getString("id"));
                 profile_name_txt.setText(obj.getString("name"));
                 address_txt.setText(obj.getString("address"));
+                channel_txt.setText(obj.getString("channel"));
+                Picasso.with(ownerActivity)
+                        .load(obj.getString("image"))
+                        .into(profile_image);
+                starting_date_txt.setText(obj.getString("startDate"));
                 promotionList.addAll(TaskUtils.setPromotion(result));
                 promotionAdapter.notifyDataSetChanged();
 
@@ -181,6 +193,9 @@ public class ShopProfileFragment extends RuchiraFragment {
     private void openAddNewOrderFragment() {
         toLaunchFragment = new AddNewOrderFragment();
         if (toLaunchFragment != null) {
+            Bundle bundle = new Bundle();
+            bundle.putString("getShopeId",shopeProfileId);
+            toLaunchFragment.setArguments(bundle);
             ViewUtils.launchFragmentKeepingInBackStack(ownerActivity, toLaunchFragment);
             toLaunchFragment = null;
         }

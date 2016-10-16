@@ -205,6 +205,15 @@ public class UserPreferences {
         editor.apply();
     }
 
+    public static void saveShopeProfileId(Context context, String ShopeProfileId) {
+        Log.d(TAG, "ShopeProfileId " + ShopeProfileId);
+        SharedPreferences userInfo = getSharedPreferences(context);
+
+        SharedPreferences.Editor editor = userInfo.edit();
+        editor.putString(RuchiraKeys.SHOPE_PROFILE_ID, ShopeProfileId);
+        editor.apply();
+    }
+
     public static void saveDisplayName(Context context, String displayName) {
         Log.d(TAG, "displayName " + displayName);
         SharedPreferences userInfo = getSharedPreferences(context);
@@ -286,6 +295,11 @@ public class UserPreferences {
         editor.commit();
     }
 
+    public static String getShopeProfileId(Context context) {
+        SharedPreferences userInfo = getSharedPreferences(context);
+        return userInfo.getString(RuchiraKeys.SHOPE_PROFILE_ID, null);
+    }
+
     public static String getCoverPicLogin(Context context) {
         SharedPreferences userInfo = getSharedPreferences(context);
         return userInfo.getString(RuchiraKeys.USER_COVER_PIC_LOGIN, null);
@@ -363,9 +377,9 @@ public class UserPreferences {
         SharedPreferences.Editor editor = userInfo.edit();
         editor.remove(RuchiraKeys.ATOKEN).apply();
         editor.remove(RuchiraKeys.DISPLAYNAME).apply();
-        editor.remove(RuchiraKeys.ATOKEN).apply();
         editor.remove(RuchiraKeys.USER_COVER_PIC_LOGIN).apply();
         editor.remove(RuchiraKeys.USER_PROFILE_PIC_LOGIN).apply();
+        editor.remove(RuchiraKeys.COMPANY_NAME).apply();
 
         editor.remove(RuchiraKeys.RECEIVED_EVALUATION_ID).apply();
         editor.remove(RuchiraKeys.SENT_EVALUATION_ID).apply();

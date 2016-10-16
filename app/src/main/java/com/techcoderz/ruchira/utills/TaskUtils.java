@@ -13,6 +13,8 @@ import com.techcoderz.ruchira.R;
 import com.techcoderz.ruchira.model.Beat;
 import com.techcoderz.ruchira.model.Outlet;
 import com.techcoderz.ruchira.model.OutletRemainning;
+import com.techcoderz.ruchira.model.ProductCategory;
+import com.techcoderz.ruchira.model.ProductList;
 import com.techcoderz.ruchira.model.Promotion;
 import com.techcoderz.ruchira.model.Report;
 import com.techcoderz.ruchira.model.Target;
@@ -106,6 +108,11 @@ public class TaskUtils {
         return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
+    public static void clearUserInfo(Context context) {
+        UserPreferences.clearUserInfo(context);
+//        DBRequestHandler.clearDatabase();
+    }
+
     public static void saveNavigationDrawerSelectedItem(Context context, RuchiraKeys.DRAWER_ITEMS drawerItems) {
         Log.d(TAG, "save current page " + drawerItems.name());
         SharedPreferences userInfo = context.getSharedPreferences(
@@ -154,7 +161,7 @@ public class TaskUtils {
             todaySale.setMonthAccumulation(jsonObject2.getString("monthAccumulation"));
             todaySale.setMonthDailyAvg(jsonObject2.getString("monthDailyAvg"));
             todaySale.setMonthWeeklyAvg(jsonObject2.getString("monthWeeklyAvg"));
-            todaySale.setTodaySale(jsonObject2.getString("todaSale"));
+//            todaySale.setTodaySale(jsonObject2.getString("todaSale"));
             TodayTotalSaleList.add(todaySale);
 //            }
         } catch (JSONException e) {
@@ -176,7 +183,7 @@ public class TaskUtils {
             todayOrder.setMonthAccumulation(jsonObject2.getString("monthAccumulation"));
             todayOrder.setMonthDailyAvg(jsonObject2.getString("monthDailyAvg"));
             todayOrder.setMonthWeeklyAvg(jsonObject2.getString("monthWeeklyAvg"));
-            todayOrder.setTodayOrder(jsonObject2.getString("todayOrder"));
+//            todayOrder.setTodayOrder(jsonObject2.getString("todayOrder"));
             TodayTotalOrderList.add(todayOrder);
 //            }
         } catch (JSONException e) {
@@ -198,6 +205,7 @@ public class TaskUtils {
             todayOrder.setCurrentAchive(jsonObject2.getString("currentAchieve"));
             todayOrder.setRemainningTarget(jsonObject2.getString("remainingTarget"));
             todayOrder.setAvgTargetVisit(jsonObject2.getString("avgTargetVisit"));
+            todayOrder.setRemainingVisit(jsonObject2.getString("remainingVisit"));
             TodayTotalOrderList.add(todayOrder);
 //            }
         } catch (JSONException e) {
@@ -205,6 +213,26 @@ public class TaskUtils {
         }
 
         return TodayTotalOrderList;
+    }
+
+    public static List<ProductCategory> setProductCategory(String json) {
+        ArrayList<ProductCategory> productCategoryList = new ArrayList<>();
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+
+            JSONArray jsonArray = jsonObject.getJSONArray("productCategory");
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                ProductCategory bannerImage = new ProductCategory();
+                bannerImage.setId(jsonArray.getJSONObject(i).getString("id"));
+                bannerImage.setName(jsonArray.getJSONObject(i).getString("name"));
+                productCategoryList.add(bannerImage);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return productCategoryList;
     }
 
 
@@ -311,6 +339,29 @@ public class TaskUtils {
         return reportList;
     }
 
+
+    public static List<ProductList> setProductList(String json) {
+        ArrayList<ProductList> productList = new ArrayList<>();
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+
+            JSONArray jsonArray = jsonObject.getJSONArray("product");
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                ProductList product = new ProductList();
+                product.setProductId(jsonArray.getJSONObject(i).getString("productId"));
+                product.setProductName(jsonArray.getJSONObject(i).getString("productName"));
+                product.setSellingPrice(jsonArray.getJSONObject(i).getString("sellingPrice"));
+                product.setFlag(jsonArray.getJSONObject(i).getString("flag"));
+                productList.add(product);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return productList;
+    }
+
     public static List<Outlet> setOutlet(String json) {
         ArrayList<Outlet> outletList = new ArrayList<>();
         try {
@@ -323,6 +374,7 @@ public class TaskUtils {
                 outlet.setOid(jsonArray.getJSONObject(i).getString("id"));
                 outlet.setTitle(jsonArray.getJSONObject(i).getString("title"));
                 outlet.setGroup(jsonArray.getJSONObject(i).getString("group"));
+                outlet.setFlag(jsonArray.getJSONObject(i).getString("flag"));
                 outletList.add(outlet);
             }
         } catch (JSONException e) {

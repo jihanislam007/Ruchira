@@ -8,6 +8,8 @@ public class OutletRemainning {
     String totalOutlet;
     String outletVisited;
     String outletRemained;
+    String outletAchieve;
+    String achieveInPercent;
 
     public String getTotalOutlet() {
         return totalOutlet;
@@ -31,5 +33,21 @@ public class OutletRemainning {
 
     public void setOutletRemained(String outletRemained) {
         this.outletRemained = outletRemained;
+    }
+
+    public String getOutletAchieve() {
+        return outletAchieve;
+    }
+
+    public void setOutletAchieve(String outletAchieve) {
+        this.outletAchieve = outletAchieve;
+    }
+
+    public String getAchieveInPercent() {
+        return achieveInPercent;
+    }
+
+    public void setAchieveInPercent(String achieveInPercent) {
+        this.achieveInPercent = achieveInPercent;
     }
 }

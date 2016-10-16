@@ -16,5 +16,8 @@ public class AppConfig {
     public static String URL_MONTHLY_TOTAL_SALE = "http://gear-go.com/ruchira/index.php/home/apimonthlysale";
     public static String URL_TODAY_TOTAL_SALE = "http://gear-go.com/ruchira/index.php/home/apitodaysale";
 
+    public static String URL_PRODUCT_CATEGORY = "http://gear-go.com/ruchira/index.php/home/apiorderproduct";
+    public static String URL_PRODUCT_LIST = "http://gear-go.com/ruchira/index.php/home/apiproduct";
+
 
 }

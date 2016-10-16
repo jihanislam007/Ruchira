@@ -40,7 +40,7 @@ public class TodayStatusFragment extends RuchiraFragment {
     private String url = "http://sondhan.com/articleApi/android/category";
     private Fragment toLaunchFragment = null;
     private TextView date_txt, this_month_txt, current_achive_txt, remainnig_target_txt, remainnig_visit_txt, avg_target_visit_txt;
-    private TextView total_outlet_txt, outlet_remained_txt, outlet_visited_txt;
+    private TextView total_outlet_txt, outlet_remained_txt, outlet_visited_txt, achive_percent_sr_txt, achive_today_txt;
 
     private List<Target> targetList;
     private List<OutletRemainning> outletRemainningList;
@@ -75,6 +75,9 @@ public class TodayStatusFragment extends RuchiraFragment {
         total_outlet_txt = (TextView) rootView.findViewById(R.id.total_outlet_txt);
         outlet_remained_txt = (TextView) rootView.findViewById(R.id.outlet_remained_txt);
         outlet_visited_txt = (TextView) rootView.findViewById(R.id.outlet_visited_txt);
+
+        achive_percent_sr_txt = (TextView) rootView.findViewById(R.id.achive_percent_sr_txt);
+        achive_today_txt = (TextView) rootView.findViewById(R.id.achive_today_txt);
 
         targetList = new ArrayList<>();
         outletRemainningList = new ArrayList<>();
@@ -146,10 +149,13 @@ public class TodayStatusFragment extends RuchiraFragment {
                 current_achive_txt.setText(targetList.get(0).getCurrentAchive());
                 remainnig_target_txt.setText(targetList.get(0).getRemainningTarget());
                 avg_target_visit_txt.setText(targetList.get(0).getAvgTargetVisit());
+                remainnig_visit_txt.setText(targetList.get(0).getRemainingVisit());
 
                 total_outlet_txt.setText(outletRemainningList.get(0).getTotalOutlet());
                 outlet_remained_txt.setText(outletRemainningList.get(0).getOutletRemained());
                 outlet_visited_txt.setText(outletRemainningList.get(0).getOutletVisited());
+                achive_today_txt.setText(outletRemainningList.get(0).getOutletAchieve());
+                achive_percent_sr_txt.setText(outletRemainningList.get(0).getAchieveInPercent());
 
                 return;
 

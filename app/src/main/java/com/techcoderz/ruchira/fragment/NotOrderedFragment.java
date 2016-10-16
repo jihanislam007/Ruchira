@@ -6,9 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -21,19 +19,21 @@ import com.techcoderz.ruchira.utills.ViewUtils;
 import org.json.JSONObject;
 
 /**
- * Created by Shahriar on 9/18/2016.
+ * Created by Shahriar on 10/13/2016.
  */
-public class OrderDetailsFragment extends RuchiraFragment {
-    private final static String TAG = "OrderDetailsFragment";
+
+public class NotOrderedFragment extends RuchiraFragment {
+    private final static String TAG = "NotOrderedFragment";
     String url = "http://sondhan.com/articleApi/android/category";
     Fragment toLaunchFragment = null;
-    private LinearLayout linear_layout;
+    private LinearLayout first_layout,first_layout2,first_layout3;
 
-    Button submit_btn,cancel_btn;
-    private Bundle bundle;
-    private String shopeId;
+    public NotOrderedFragment() {
+    }
 
-    public OrderDetailsFragment() {
+    public static NotOrderedFragment newInstance() {
+        NotOrderedFragment notOrderedFragment = new NotOrderedFragment();
+        return notOrderedFragment;
     }
 
     @Override
@@ -44,7 +44,8 @@ public class OrderDetailsFragment extends RuchiraFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_add_new_order_2, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_shop_order_summary, container, false);
+
         setupToolbar();
         initialize(rootView);
         action();
@@ -53,27 +54,34 @@ public class OrderDetailsFragment extends RuchiraFragment {
 
     private void setupToolbar() {
         ownerActivity.getSupportActionBar().show();
-        ownerActivity.getSupportActionBar().setTitle("Add New Order");
+        ownerActivity.getSupportActionBar().setTitle("Shop Order Summary");
     }
 
     private void initialize(View rootView) {
-        bundle = getArguments();
-        submit_btn = (Button)rootView.findViewById(R.id.submit_btn);
-        cancel_btn = (Button)rootView.findViewById(R.id.cancel_btn);
-        shopeId =  bundle.getString("getShopeId");
+        first_layout = (LinearLayout)rootView.findViewById(R.id.first_layout);
+        first_layout2 = (LinearLayout)rootView.findViewById(R.id.first_layout2);
+        first_layout3 = (LinearLayout)rootView.findViewById(R.id.first_layout3);
     }
+
     private void action(){
-        submit_btn.setOnClickListener(new View.OnClickListener() {
+        first_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(ownerActivity, "order Submitted successfully", Toast.LENGTH_SHORT).show();
+                openCustomerOrderDetailsFragment();
             }
         });
 
-        cancel_btn.setOnClickListener(new View.OnClickListener() {
+        first_layout2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openAddNewOrderFragment();
+                openCustomerOrderDetailsFragment();
+            }
+        });
+
+        first_layout3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openCustomerOrderDetailsFragment();
             }
         });
     }
@@ -112,12 +120,9 @@ public class OrderDetailsFragment extends RuchiraFragment {
     }
 
 
-    private void openAddNewOrderFragment() {
-        toLaunchFragment = new AddNewOrderFragment();
+    private void openCustomerOrderDetailsFragment() {
+        toLaunchFragment = new CustomerOrderDetailsFragment();
         if (toLaunchFragment != null) {
-            Bundle bundle = new Bundle();
-            bundle.putString("getShopeId",shopeId);
-            toLaunchFragment.setArguments(bundle);
             ViewUtils.launchFragmentKeepingInBackStack(ownerActivity, toLaunchFragment);
             toLaunchFragment = null;
         }

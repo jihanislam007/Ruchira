@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
 import com.techcoderz.ruchira.R;
 import com.techcoderz.ruchira.fragment.AllSummaryFragment;
 import com.techcoderz.ruchira.fragment.DashBoardFragment;
@@ -63,7 +64,7 @@ public class MainActivity2 extends RuchiraActivity implements NavigationView.OnN
     private int backPressedCount;
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private TextView drawerUserName;
-    private TextView userEmail,profile_name_txt,company_name_txt;
+    private TextView userEmail;
     private CircleImageView drawerProfilePic;
     private ImageView drawerCoverPhoto;
     private Fragment fragmentToLaunch;
@@ -74,14 +75,17 @@ public class MainActivity2 extends RuchiraActivity implements NavigationView.OnN
     private int drawerItemToOpen;
     private CoordinatorLayout coordinatorLayout;
     private ProgressDialog progressDialog;
+    private static String TAG = "MainActivity2";
 
-    private static String TAG = "MainActivity";
+    private ImageView profile_image;
+    private TextView profile_name_txt, company_name_txt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setToolbar();
+
         if (android.os.Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
@@ -90,19 +94,22 @@ public class MainActivity2 extends RuchiraActivity implements NavigationView.OnN
         Utills(savedInstanceState);
 
         initialize();
-        action(savedInstanceState);
+        action();
     }
 
     private void initialize() {
-
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.main_content);
         mDrawer = (NavigationView) findViewById(R.id.main_drawer);
         mDrawer.setNavigationItemSelectedListener(this);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        profile_name_txt = (TextView) findViewById(R.id.profile_name_txt);
-        company_name_txt = (TextView) findViewById(R.id.company_name_txt);
 
+        View rootView = mDrawer.inflateHeaderView(R.layout.nav_header_main);
+
+
+        profile_image = (ImageView) rootView.findViewById(R.id.imageView);
+        profile_name_txt = (TextView) rootView.findViewById(R.id.profile_name_txt);
+        company_name_txt = (TextView) rootView.findViewById(R.id.company_name_txt);
 
 
 //        HomeFragment homeFragment = new HomeFragment();
@@ -110,40 +117,49 @@ public class MainActivity2 extends RuchiraActivity implements NavigationView.OnN
 
     }
 
-    private void action(Bundle savedInstanceState) {
+    private void action() {
         if (!NetworkUtils.hasInternetConnection(this)) {
-            if(!UserPreferences.getDisplayName(this).equals("")&&!UserPreferences.getCompanyName(this).equals("")){
-                profile_name_txt.setText(UserPreferences.getDisplayName(this));
-                company_name_txt.setText(UserPreferences.getCompanyName(this));
-            }
-
-            drawerRefresh();
-            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
-                        getSupportFragmentManager().popBackStack();
-                    } else {
-                        mDrawerLayout.openDrawer(GravityCompat.START);
-                    }
-                }
-            });
-
-//        toolbar.setTitleTextColor(Color.parseColor("#519c3f"));
-            mDrawerLayout.addDrawerListener(drawerToggle);
-            drawerToggle.syncState();
-            savedInstanceState = getIntent().getExtras();
-
-
-            Log.d("savedInstanceState", savedInstanceState + "");
-
-            if (savedInstanceState == null) {
-                mSelectedId = savedInstanceState == null ? R.id.nav_dash_board : savedInstanceState.getInt("SELECTED_ID");
-            }
-            Log.e(TAG, mSelectedId + "");
-            itemSelection(mSelectedId);
-
         }
+        drawerRefresh();
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                    getSupportFragmentManager().popBackStack();
+                } else {
+                    mDrawerLayout.openDrawer(GravityCompat.START);
+                }
+            }
+        });
+        mDrawerLayout.setDrawerListener(drawerToggle);
+        drawerToggle.syncState();
+        Bundle savedInstanceState = getIntent().getExtras();
+
+
+        Log.d("savedInstanceState", savedInstanceState + "");
+
+        if (savedInstanceState == null) {
+            mSelectedId = savedInstanceState == null ? R.id.nav_dash_board : savedInstanceState.getInt("SELECTED_ID");
+        }
+        Log.e(TAG, mSelectedId + "");
+        if (mSelectedId == 0) {
+            DashBoardFragment homeFragment = new DashBoardFragment();
+            ViewUtils.launchFragmentWithoutKeepingInBackStack(this, homeFragment);
+        } else {
+            itemSelection(mSelectedId);
+        }
+
+        if (UserPreferences.getToken(this) != null) {
+            profile_name_txt.setText(UserPreferences.getDisplayName(this));
+            Picasso.with(this)
+                    .load(UserPreferences.getProfilePicLogin(this))
+                    .into(profile_image);
+            company_name_txt.setText(UserPreferences.getCompanyName(this));
+        } else {
+            drawerUserName.setText("Guest");
+        }
+
+
     }
 
     private void drawerRefresh() {
@@ -297,44 +313,49 @@ public class MainActivity2 extends RuchiraActivity implements NavigationView.OnN
 
     @Override
     public void onBackPressed() {
-        try {
-            int backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
-            if (backStackEntryCount < 1) {
-                backPressedCount++;
-                handleAppFinish();
-                return;
+        if (UserPreferences.getToken(this) != null) {
+            try {
+                int backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
+                if (backStackEntryCount < 1) {
+                    backPressedCount++;
+                    handleAppFinish();
+                    return;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
         super.onBackPressed();
+
     }
 
     private void handleAppFinish() {
-        if (backPressedCount == 2) {
-            Toast.makeText(this, "Press again to exit the app", Toast.LENGTH_LONG).show();
-        }
-        if (backPressedCount > 2) {
-            //super.onCreate(null);
-
-            FragmentManager fm = this.getSupportFragmentManager();
-            for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
-                fm.popBackStack();
+        if (UserPreferences.getToken(this) != null) {
+            if (backPressedCount == 2) {
+                Toast.makeText(this, "Press again to exit the app", Toast.LENGTH_LONG).show();
             }
+            if (backPressedCount > 2) {
+                //super.onCreate(null);
 
-            Intent intent = new Intent(Intent.ACTION_MAIN);
-            intent.addCategory(Intent.CATEGORY_HOME);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.replaceExtras(new Bundle());
-            //intent.setAction("");
-            //intent.setData(null);
-            intent.putExtra("EXIT", true);// ***Change Here***
+                FragmentManager fm = this.getSupportFragmentManager();
+                for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
+                    fm.popBackStack();
+                }
 
-            startActivity(intent);
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.replaceExtras(new Bundle());
+                //intent.setAction("");
+                //intent.setData(null);
+                intent.putExtra("EXIT", true);// ***Change Here***
+
+                startActivity(intent);
 
 
-            //finish();
-            System.exit(0);
+                //finish();
+                System.exit(0);
+            }
         }
     }
 
@@ -380,6 +401,7 @@ public class MainActivity2 extends RuchiraActivity implements NavigationView.OnN
 //        toolbar.setNavigationIcon(R.drawable.logo);
 
     }
+
 
     public void updateDrawerToggle() {
         if (drawerToggle == null) {

@@ -12,6 +12,7 @@ public class RuchiraKeys {
     public static final String LAID = "iaid";
     public static final String ATOKEN = "session_id";
     public static final String ID = "id";
+    public static final String SHOPE_PROFILE_ID = "shopeProfileId";
     public static final String COMPANY_NAME = "companyName";
     public static final String DISPLAYNAME = "name";
     public static final String USER_INFO = "userInfo";

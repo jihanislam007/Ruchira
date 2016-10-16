@@ -29,6 +29,8 @@ public class MemoFragment extends RuchiraFragment {
 
     TextView view_more_txt;
     Button confirm_btn;
+    private Bundle bundle;
+    private String shopeId;
 
     public MemoFragment() {
     }
@@ -54,7 +56,9 @@ public class MemoFragment extends RuchiraFragment {
     }
 
     private void initialize(View rootView) {
+        bundle = getArguments();
         confirm_btn = (Button)rootView.findViewById(R.id.confirm_btn);
+        shopeId =  bundle.getString("getShopeId");
     }
 
     private void action(){
@@ -103,6 +107,9 @@ public class MemoFragment extends RuchiraFragment {
     private void openAddNewOrderFragment() {
         toLaunchFragment = new AddNewOrderFragment();
         if (toLaunchFragment != null) {
+            Bundle bundle = new Bundle();
+            bundle.putString("getShopeId",shopeId);
+            toLaunchFragment.setArguments(bundle);
             ViewUtils.launchFragmentKeepingInBackStack(ownerActivity, toLaunchFragment);
             toLaunchFragment = null;
         }

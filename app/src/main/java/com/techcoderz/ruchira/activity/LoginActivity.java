@@ -215,7 +215,11 @@ public class LoginActivity extends AppCompatActivity {
                 UserPreferences.saveEmail(this, mail.toString().trim());
                 UserPreferences.saveToken(this, obj.getString("tokenKey"));
                 UserPreferences.saveId(this, obj.getString("userId"));
+
+                UserPreferences.saveProfilePicLogin(this, obj.getString("profileImg"));
+
                 UserPreferences.saveDisplayName(this, obj.getString("name"));
+
                 UserPreferences.saveCompanyName(this, obj.getString("companyName"));
                 startLauncherActivity();
                 finish();

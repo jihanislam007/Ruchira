@@ -31,6 +31,7 @@ public class OutletAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private int type;
 
     public OutletAdapter(Context context, List<Outlet> outletList, int type) {
+
         this.outletList = outletList;
         this.context = context;
         this.type = type;
@@ -52,6 +53,7 @@ public class OutletAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof RecyclerViewSubHolders) {
             if (outletList.size() > 0) {
+
                 ((RecyclerViewSubHolders) holder).shop_name_txt.setText(outletList.get(position).getTitle());
                 ((RecyclerViewSubHolders) holder).location_txt.setText(outletList.get(position).getGroup());
 
