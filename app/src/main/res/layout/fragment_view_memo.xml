@@ -1,52 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
     android:id="@+id/container_body"
-    android:orientation="vertical"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
         android:background="@color/color_text_selected"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="10dp">
 
         <TextView
+            android:id="@+id/shope_name_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/Black"
-            android:text="Shope Name"/>
+            android:text="Shope Name"
+            android:textColor="@color/Black" />
 
         <TextView
+            android:id="@+id/order_id_txt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="end"
-            android:textColor="@color/Black"
-            android:text="Order Id : #002354656"/>
+            android:text="Order Id : #002354656"
+            android:textColor="@color/Black" />
     </LinearLayout>
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/name_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/Black"
-            android:text="Mr. Shahriar Mahmud"/>
+            android:text="Mr. Shahriar Mahmud"
+            android:textColor="@color/Black" />
 
         <TextView
+            android:id="@+id/cell_no_txt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="end"
-            android:textColor="@color/Black"
-            android:text="Cell : +8801543234456"/>
+            android:text="Cell : +8801543234456"
+            android:textColor="@color/Black" />
     </LinearLayout>
 
     <LinearLayout
@@ -56,10 +60,11 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/status_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/Black"
-            android:text="Status : Panding"/>
+            android:text="Status : Panding"
+            android:textColor="@color/Black" />
 
     </LinearLayout>
 
@@ -76,10 +81,11 @@
             android:layout_height="15dp"
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
-            android:backgroundTint="@color/white"
-            android:background="@android:drawable/ic_input_get" />
+            android:background="@android:drawable/ic_input_get"
+            android:backgroundTint="@color/white" />
 
         <TextView
+            android:id="@+id/date_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -88,131 +94,75 @@
             android:textColor="@color/white" />
 
         <TextView
+            android:id="@+id/order_time_txt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
             android:layout_gravity="right|end"
             android:gravity="right|end"
+            android:padding="5dp"
             android:text="Order Time : 08.45 am"
             android:textColor="@color/white" />
 
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
         android:background="@color/Black"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight=".3"
-            android:textColor="@color/white"
-            android:text="Orderd Item"/>
+        android:orientation="horizontal"
+        android:paddingBottom="2dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="2dp"
+        android:paddingTop="2dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:layout_weight=".3"
-            android:text="Quentity"/>
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:text="Order Item"
+            android:textAlignment="center"
+            android:textColor="@color/white" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight=".3"
-            android:textColor="@color/white"
-            android:text="ammount"/>
-    </LinearLayout>
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_weight=".35"
+            android:text="Quantity"
+            android:textAlignment="center"
+            android:textColor="@color/white" />
 
-    <LinearLayout
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="5dp"
+            android:text="Ammount"
+            android:textAlignment="center"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/report_rcview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight=".3"
-            android:text="Choklet 250 gm"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight=".3"
-            android:text="1"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight=".3"
-            android:text="55 BDT"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight=".3"
-            android:text="Choklet 250 gm"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight=".3"
-            android:text="3"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight=".3"
-            android:text="80 BDT"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight=".3"
-            android:text="Choklet 250 gm"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight=".3"
-            android:text="1"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight=".3"
-            android:text="55 BDT"/>
-    </LinearLayout>
-
-    <!--<android.support.v7.widget.RecyclerView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content">-->
-    <!--</android.support.v7.widget.RecyclerView>-->
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/Black"/>
+        android:background="@color/Black" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/colorButton"
         android:layout_gravity="end"
+        android:background="@color/colorButton"
         android:orientation="horizontal"
         android:padding="5dp">
 
@@ -220,10 +170,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Total sell : "
+            android:text="Subtotal : "
             android:textColor="@color/white" />
 
         <TextView
+            android:id="@+id/subtotal_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -243,9 +194,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Total sell : " />
+            android:text="Grand total : " />
 
         <TextView
+            android:id="@+id/grand_total_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -254,10 +206,10 @@
     </LinearLayout>
 
     <View
-        android:layout_gravity="end"
         android:layout_width="135dp"
         android:layout_height="1dp"
-        android:background="@color/Black"/>
+        android:layout_gravity="end"
+        android:background="@color/Black" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -270,9 +222,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Total sell : " />
+            android:text="Total paid : " />
 
         <TextView
+            android:id="@+id/total_paid_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -281,10 +234,39 @@
     </LinearLayout>
 
     <View
-        android:layout_gravity="end"
         android:layout_width="135dp"
         android:layout_height="1dp"
-        android:background="@color/Black"/>
+        android:layout_gravity="end"
+        android:background="@color/Black" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Total Refunded : " />
+
+        <TextView
+            android:id="@+id/total_refunded_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="270 BDT" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="135dp"
+        android:layout_height="1dp"
+        android:layout_gravity="end"
+        android:background="@color/Black" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -297,9 +279,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Total sell : " />
+            android:text="Total Due : " />
 
         <TextView
+            android:id="@+id/total_due_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -308,49 +291,21 @@
     </LinearLayout>
 
     <View
-        android:layout_gravity="end"
         android:layout_width="135dp"
         android:layout_height="1dp"
-        android:background="@color/Black"/>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:orientation="horizontal"
-        android:padding="5dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Total sell : " />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="270 BDT" />
-
-    </LinearLayout>
-
-    <View
-        android:layout_gravity="end"
-        android:layout_width="135dp"
-        android:layout_height="1dp"
-        android:background="@color/Black"/>
+        android:background="@color/Black" />
 
     <Button
         android:id="@+id/confirm_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="Confirm"
         android:layout_gravity="center|bottom"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/roundshape_selector"
+        android:text="Confirm"
         android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:background="@drawable/roundshape_selector"/>
-
+        android:textColor="@color/white" />
 
 
 </LinearLayout>

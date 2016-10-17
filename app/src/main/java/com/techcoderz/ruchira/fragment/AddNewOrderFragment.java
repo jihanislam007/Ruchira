@@ -350,15 +350,6 @@ public class AddNewOrderFragment extends RuchiraFragment {
 
     }
 
-
-    private void openOrderDetailsFragment() {
-        toLaunchFragment = new OrderDetailsFragment();
-        if (toLaunchFragment != null) {
-            ViewUtils.launchFragmentKeepingInBackStack(ownerActivity, toLaunchFragment);
-            toLaunchFragment = null;
-        }
-    }
-
     private void openMemoFragment() {
         toLaunchFragment = new MemoFragment();
         if (toLaunchFragment != null) {

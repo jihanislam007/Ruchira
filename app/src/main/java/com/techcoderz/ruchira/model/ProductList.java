@@ -9,6 +9,7 @@ public class ProductList {
     String productName;
     String sellingPrice;
     String flag;
+    String promotionId;
 
     public String getProductId() {
         return productId;
@@ -40,5 +41,13 @@ public class ProductList {
 
     public void setFlag(String flag) {
         this.flag = flag;
+    }
+
+    public String getPromotionId() {
+        return promotionId;
+    }
+
+    public void setPromotionId(String promotionId) {
+        this.promotionId = promotionId;
     }
 }

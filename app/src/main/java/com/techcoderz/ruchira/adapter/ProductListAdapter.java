@@ -72,23 +72,13 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         return this.productList.size();
     }
 
-    private void openOpenShopProfile(String oId) {
-        toLaunchFragment = new ShopProfileFragment();
-        if (toLaunchFragment != null) {
-            Bundle bundle = new Bundle();
-            bundle.putString("getOid", oId);
-            toLaunchFragment.setArguments(bundle);
-            ViewUtils.launchFragmentKeepingInBackStack(context, toLaunchFragment);
-            toLaunchFragment = null;
-        }
-    }
-
     private void openOrderDetailsFragment(int position) {
         toLaunchFragment = new OrderDetailsFragment();
         if (toLaunchFragment != null) {
             Bundle bundle = new Bundle();
             bundle.putString("getShopeId",shopeId);
             bundle.putString("getproductId",productList.get(position).getProductId());
+            bundle.putString("getpromotionId",productList.get(position).getPromotionId());
             toLaunchFragment.setArguments(bundle);
             ViewUtils.launchFragmentKeepingInBackStack(context, toLaunchFragment);
             toLaunchFragment = null;

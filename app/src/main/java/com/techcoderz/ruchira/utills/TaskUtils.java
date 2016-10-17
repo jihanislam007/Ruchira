@@ -11,6 +11,8 @@ import android.util.Patterns;
 
 import com.techcoderz.ruchira.R;
 import com.techcoderz.ruchira.model.Beat;
+import com.techcoderz.ruchira.model.Order;
+import com.techcoderz.ruchira.model.OrderSummary;
 import com.techcoderz.ruchira.model.Outlet;
 import com.techcoderz.ruchira.model.OutletRemainning;
 import com.techcoderz.ruchira.model.ProductCategory;
@@ -256,6 +258,72 @@ public class TaskUtils {
         return bannerImageList;
     }
 
+    public static List<OrderSummary> setOrderSummaryList(String json) {
+        ArrayList<OrderSummary> orderSummaryList = new ArrayList<>();
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+
+            JSONArray jsonArray = jsonObject.getJSONArray("order");
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                OrderSummary orderSummary = new OrderSummary();
+                orderSummary.setOrderDate(jsonArray.getJSONObject(i).getString("orderDate"));
+                orderSummary.setInvoiceNo(jsonArray.getJSONObject(i).getString("invoiceNo"));
+                orderSummary.setAmount(jsonArray.getJSONObject(i).getString("amount"));
+                orderSummaryList.add(orderSummary);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return orderSummaryList;
+    }
+
+
+    public static List<Order> setOrderListDetails(String json) {
+        ArrayList<Order> orderList = new ArrayList<>();
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+
+            JSONArray jsonArray = jsonObject.getJSONArray("orderList");
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                Order order = new Order();
+                order.setProductName(jsonArray.getJSONObject(i).getString("productName"));
+                order.setProductName(jsonArray.getJSONObject(i).getString("productName"));
+                order.setCost(jsonArray.getJSONObject(i).getString("cost"));
+                order.setQuantity(jsonArray.getJSONObject(i).getString("quanity"));
+                orderList.add(order);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return orderList;
+    }
+
+
+    public static List<Order> setOrderList(String json) {
+        ArrayList<Order> orderList = new ArrayList<>();
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+
+            JSONArray jsonArray = jsonObject.getJSONArray("orderList");
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                Order order = new Order();
+                order.setProductName(jsonArray.getJSONObject(i).getString("productName"));
+                order.setCost(jsonArray.getJSONObject(i).getString("cost"));
+                order.setQuantity(jsonArray.getJSONObject(i).getString("quanity"));
+                orderList.add(order);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return orderList;
+    }
+
     public static List<Promotion> setPromotion(String json) {
         ArrayList<Promotion> promotionList = new ArrayList<>();
         try {
@@ -353,6 +421,7 @@ public class TaskUtils {
                 product.setProductName(jsonArray.getJSONObject(i).getString("productName"));
                 product.setSellingPrice(jsonArray.getJSONObject(i).getString("sellingPrice"));
                 product.setFlag(jsonArray.getJSONObject(i).getString("flag"));
+                product.setPromotionId(jsonArray.getJSONObject(i).getString("promotionId"));
                 productList.add(product);
             }
         } catch (JSONException e) {

@@ -27,7 +27,6 @@ import com.astuetz.PagerSlidingTabStrip;
 import com.techcoderz.ruchira.R;
 import com.techcoderz.ruchira.adapter.OrderBeatSpinnerAdapter;
 import com.techcoderz.ruchira.adapter.OutletAdapter;
-import com.techcoderz.ruchira.adapter.TabbedFragmentStatePagerAdapter;
 import com.techcoderz.ruchira.application.RuchiraApplication;
 import com.techcoderz.ruchira.model.Beat;
 import com.techcoderz.ruchira.model.Outlet;
@@ -49,7 +48,6 @@ import java.util.Map;
  */
 public class OrderFragment extends RuchiraFragment {
     private final static String TAG = "OrderFragment";
-    String url = "http://gear-go.com/ruchira/index.php/home/orderapi";
     Fragment toLaunchFragment = null;
     private TextView yet_to_visit_btn, ordered_btn, not_ordered_btn;
 
@@ -58,8 +56,6 @@ public class OrderFragment extends RuchiraFragment {
 
     private AppCompatSpinner beat_spinner;
     private OrderBeatSpinnerAdapter orderBeatSpinnerAdapter;
-
-    private String location;
 
     private RecyclerView outlet_rcview;
     private OutletAdapter outletAdapter;
@@ -138,7 +134,6 @@ public class OrderFragment extends RuchiraFragment {
         beat_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                location = beatList.get(position).getTitle();
                 position2 = position;
                 fetchDataFromServerForOutlet(beatList.get(position).getId(), "0");
                 Log.e(TAG, "beatList.get(position).getId() : " + beatList.get(position).getId());
@@ -297,15 +292,6 @@ public class OrderFragment extends RuchiraFragment {
             }
         } catch (JSONException e) {
             e.printStackTrace();
-        }
-    }
-
-
-    private void openOpenShopProfile() {
-        toLaunchFragment = new ShopProfileFragment();
-        if (toLaunchFragment != null) {
-            ViewUtils.launchFragmentKeepingInBackStack(ownerActivity, toLaunchFragment);
-            toLaunchFragment = null;
         }
     }
 }
