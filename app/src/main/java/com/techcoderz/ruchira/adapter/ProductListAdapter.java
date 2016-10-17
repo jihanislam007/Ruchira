@@ -79,6 +79,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             bundle.putString("getShopeId",shopeId);
             bundle.putString("getproductId",productList.get(position).getProductId());
             bundle.putString("getpromotionId",productList.get(position).getPromotionId());
+            bundle.putString("getSellingPrice",productList.get(position).getSellingPrice());
             toLaunchFragment.setArguments(bundle);
             ViewUtils.launchFragmentKeepingInBackStack(context, toLaunchFragment);
             toLaunchFragment = null;

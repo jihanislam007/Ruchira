@@ -47,7 +47,7 @@ public class OrderDetailsFragment extends RuchiraFragment {
 
     Button submit_btn, cancel_btn;
     private Bundle bundle;
-    private String shopeId, productId,promotionId;
+    private String shopeId, productId,promotionId,sellingPrice;
     private EditText ctn_et, pcs_et, value_et;
 
     public OrderDetailsFragment() {
@@ -64,7 +64,6 @@ public class OrderDetailsFragment extends RuchiraFragment {
         View rootView = inflater.inflate(R.layout.fragment_add_new_order_2, container, false);
         setupToolbar();
         initialize(rootView);
-        fetchDataFromServer();
         action();
         return rootView;
     }
@@ -94,77 +93,14 @@ public class OrderDetailsFragment extends RuchiraFragment {
             }
         });
 
+//        value_et.setText(ctn_et.getText()*);
+
         cancel_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openAddNewOrderFragment();
             }
         });
-    }
-
-    private void fetchDataFromServer() {
-
-        ProgressDialog progressDialog = null;
-
-        Calendar c = Calendar.getInstance();
-        System.out.println("Current time => " + c.getTime());
-
-        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
-        final String formattedDate = df.format(c.getTime());
-
-
-        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+6:00"));
-        Date currentLocalTime = cal.getTime();
-        DateFormat date = new SimpleDateFormat("HH:mm a");
-// you can get seconds by adding  "...:ss" to it
-        date.setTimeZone(TimeZone.getTimeZone("GMT+6:00"));
-
-        final String localTime = date.format(currentLocalTime);
-
-        progressDialog = new ProgressDialog(ownerActivity);
-        progressDialog.setTitle("Loading");
-        progressDialog.setMessage("Please wait...");
-        progressDialog.setCancelable(false);
-        progressDialog.setIndeterminate(true);
-        progressDialog.show();
-
-        String tag_string_req = "req_submit_order";
-        final ProgressDialog finalProgressDialog = progressDialog;
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                AppConfig.URL_ORDER_SUBMIT, new Response.Listener<String>() {
-
-            @Override
-            public void onResponse(String response) {
-                Log.e(TAG, "submit_order Response: " + response.toString());
-                finalProgressDialog.dismiss();
-                executeForOrderSubmit(response);
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "submit_order Error: " + error.getMessage());
-            }
-        }) {
-
-            @Override
-            protected Map<String, String> getParams() {
-                // Posting parameters to login url
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("tokenKey", UserPreferences.getToken(ownerActivity));
-                params.put("id", UserPreferences.getId(ownerActivity));
-                params.put("outletId", shopeId);
-                params.put("orderDate", formattedDate);
-                params.put("orderTime", localTime);
-//                params.put("tokenKey", UserPreferences.getToken(ownerActivity));
-                return params;
-            }
-
-        };
-
-        // Adding request to request queue
-        RuchiraApplication.getInstance().addToRequestQueue(strReq, tag_string_req);
-
     }
 
     private void fetchDataFromServerOrderItemSubmit() {
@@ -203,11 +139,11 @@ public class OrderDetailsFragment extends RuchiraFragment {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("id", UserPreferences.getId(ownerActivity));
                 params.put("tokenKey", UserPreferences.getToken(ownerActivity));
-//                params.put("productId", productId);
+                params.put("orderId", UserPreferences.getOrderId(ownerActivity));
                 params.put("productId", productId);
-                params.put("ctn", ctn_et.getText().toString());
-                params.put("pcs", pcs_et.getText().toString());
-                params.put("value", value_et.getText().toString());
+                params.put("quantity", ctn_et.getText().toString());
+//                params.put("pcs", pcs_et.getText().toString());
+                params.put("cost", value_et.getText().toString());
                 params.put("promotionId", promotionId);
                 return params;
             }
@@ -240,28 +176,6 @@ public class OrderDetailsFragment extends RuchiraFragment {
             e.printStackTrace();
         }
     }
-
-    private void executeForOrderSubmit(String result) {
-        Log.d(TAG, result.toString());
-
-        try {
-
-            JSONObject obj = new JSONObject(result);
-
-            int responseResult = obj.getInt("success");
-            Log.d(TAG, result.toString());
-            if (responseResult == 1) {
-                return;
-
-            } else {
-                ViewUtils.alertUser(ownerActivity, "Server Error");
-                return;
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
 
     private void openAddNewOrderFragment() {
         toLaunchFragment = new AddNewOrderFragment();

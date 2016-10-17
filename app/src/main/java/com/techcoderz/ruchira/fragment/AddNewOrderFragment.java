@@ -158,28 +158,11 @@ public class AddNewOrderFragment extends RuchiraFragment {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 // find which radio button is selected
-
-//                if (relationshipStatus.equals("Ordered")) {
-//                    Log.e(TAG,relationshipStatus);
-//                    fetchDataFromServerForProductList(productCategoryList.get(position2).getId(), "0");
-//                } else if (relationshipStatus.equals("Not Ordered")) {
-//                    Log.e(TAG,relationshipStatus);
-//                    fetchDataFromServerForProductList(productCategoryList.get(position2).getId(), "1");
-//                }
-
-
                 if(checkedId == R.id.order_rb) {
                     fetchDataFromServerForProductList(productCategoryList.get(position2).getId(), "0");
                 } else if(checkedId == R.id.not_order_rb) {
                     fetchDataFromServerForProductList(productCategoryList.get(position2).getId(), "1");
                 }
-
-
-//                if (checkedId == R.id.order_rb) {
-//                    fetchDataFromServerForProductList(productCategoryList.get(position2).getId(), "0");
-//                } else if (checkedId == R.id.not_order_rb) {
-//                    fetchDataFromServerForProductList(productCategoryList.get(position2).getId(), "1");
-//                }
             }
 
         });
@@ -295,6 +278,7 @@ public class AddNewOrderFragment extends RuchiraFragment {
             if (responseResult == 1) {
                 outlet_name_txt.setText(obj.getString("outletName"));
                 outletAddress_txt.setText(obj.getString("outletAddress"));
+                UserPreferences.saveOrderId(ownerActivity,obj.getString("orderId"));
                 productCategoryList.addAll(TaskUtils.setProductCategory(result));
                 productCategorySpinnerAdapter.notifyDataSetChanged();
                 return;

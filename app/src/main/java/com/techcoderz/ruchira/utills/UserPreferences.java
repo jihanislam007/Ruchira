@@ -40,6 +40,15 @@ public class UserPreferences {
         editor.apply();
     }
 
+    public static void saveOrderId(Context context, String orderId) {
+        Log.d(TAG, "orderId : " + orderId);
+        SharedPreferences userInfo = getSharedPreferences(context);
+
+        SharedPreferences.Editor editor = userInfo.edit();
+        editor.putString(RuchiraKeys.USER_ORDER_ID, orderId);
+        editor.apply();
+    }
+
     public static void saveContactNumber(Context context, String contactNumber) {
         Log.d(TAG, "contactNumber " + contactNumber);
         SharedPreferences userInfo = getSharedPreferences(context);
@@ -97,6 +106,11 @@ public class UserPreferences {
     public static String getName(Context context) {
         SharedPreferences userInfo = getSharedPreferences(context);
         return userInfo.getString(RuchiraKeys.USER_NAME, null);
+    }
+
+    public static String getOrderId(Context context) {
+        SharedPreferences userInfo = getSharedPreferences(context);
+        return userInfo.getString(RuchiraKeys.USER_ORDER_ID, null);
     }
 
     public static String getEmail(Context context) {
