@@ -45,7 +45,7 @@ public class CustomerOrderDetailsFragment extends RuchiraFragment {
 
     private List<Order> orderList;
     private RecyclerView report_rcview;
-    private TextView name_txt, phone_txt, id_txt, date_txt, total_txt;
+    private TextView shope_name_txt, order_id_txt, name_txt, cell_no_txt, customer_id_txt,email_txt,status_txt;
     private LinearLayoutManager manager;
     private OrderAdapter orderAdapter;
 
@@ -148,18 +148,18 @@ public class CustomerOrderDetailsFragment extends RuchiraFragment {
                 orderList.addAll(TaskUtils.setOrderList(result));
                 orderAdapter.notifyDataSetChanged();
 
-//                shope_name_txt.setText(obj.getString("outletName"));
-//                order_id_txt.setText("#" + obj.getString("code"));
-//                name_txt.setText("ownerName");
-//                cell_no_txt.setText(obj.getString("phone"));
-//                status_txt.setText(obj.getString("status"));
-//                date_txt.setText(obj.getString("orderDate"));
-//                order_time_txt.setText(obj.getString("orderTime"));
-//                subtotal_txt.setText(obj.getString("subTotal"));
-//                grand_total_txt.setText(obj.getString("total"));
-//                total_paid_txt.setText(obj.getString("totalPaid"));
-//                total_refunded_txt.setText(obj.getString("totalRefund"));
-//                total_due_txt.setText(obj.getString("totalDue"));
+                shope_name_txt.setText(obj.getString("outletName"));
+                order_id_txt.setText("#" + obj.getString("code"));
+                name_txt.setText("ownerName");
+                cell_no_txt.setText(obj.getString("phone"));
+                status_txt.setText(obj.getString("status"));
+                date_txt.setText(obj.getString("orderDate"));
+                order_time_txt.setText(obj.getString("orderTime"));
+                subtotal_txt.setText(obj.getString("subTotal"));
+                grand_total_txt.setText(obj.getString("total"));
+                total_paid_txt.setText(obj.getString("totalPaid"));
+                total_refunded_txt.setText(obj.getString("totalRefund"));
+                total_due_txt.setText(obj.getString("totalDue"));
 
                 return;
 

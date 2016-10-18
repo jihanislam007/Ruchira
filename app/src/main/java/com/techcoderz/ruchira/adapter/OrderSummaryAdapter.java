@@ -1,21 +1,17 @@
 package com.techcoderz.ruchira.adapter;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.techcoderz.ruchira.R;
 import com.techcoderz.ruchira.fragment.CustomerOrderDetailsFragment;
-import com.techcoderz.ruchira.fragment.ShopProfileFragment;
 import com.techcoderz.ruchira.model.OrderSummary;
-import com.techcoderz.ruchira.model.Report;
 import com.techcoderz.ruchira.utills.ViewUtils;
 
 import java.util.ArrayList;
@@ -52,14 +48,14 @@ public class OrderSummaryAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-        if (holder instanceof ReportAdapter.RecyclerViewSubHolders) {
+        if (holder instanceof OrderSummaryAdapter.RecyclerViewSubHolders) {
             if (orderSummaryList.size() > 0) {
                 ((OrderSummaryAdapter.RecyclerViewSubHolders) holder).name_txt.setText(orderSummaryList.get(position).getOrderDate());
                 ((OrderSummaryAdapter.RecyclerViewSubHolders) holder).quantity_txt.setText(orderSummaryList.get(position).getInvoiceNo());
                 ((OrderSummaryAdapter.RecyclerViewSubHolders) holder).ammount_txt.setText(orderSummaryList.get(position).getAmount());
 
 
-                ((OutletAdapter.RecyclerViewSubHolders) holder).wholeContent.setOnClickListener(new View.OnClickListener() {
+                ((OrderSummaryAdapter.RecyclerViewSubHolders) holder).wholeContent.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         openCustomerOrderDetailsFragment();
