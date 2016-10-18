@@ -339,6 +339,7 @@ public class AddNewOrderFragment extends RuchiraFragment {
         if (toLaunchFragment != null) {
             Bundle bundle = new Bundle();
             bundle.putString("getShopeId",shopeId);
+            bundle.putString("getOrderId",UserPreferences.getOrderId(ownerActivity));
             toLaunchFragment.setArguments(bundle);
             ViewUtils.launchFragmentKeepingInBackStack(ownerActivity, toLaunchFragment);
             toLaunchFragment = null;

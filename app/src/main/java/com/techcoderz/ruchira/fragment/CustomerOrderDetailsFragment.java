@@ -98,14 +98,14 @@ public class CustomerOrderDetailsFragment extends RuchiraFragment {
         progressDialog.setIndeterminate(true);
         progressDialog.show();
 
-        String tag_string_req = "req_memo";
+        String tag_string_req = "customer_order_details_req";
         final ProgressDialog finalProgressDialog = progressDialog;
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 AppConfig.URL_ORDER_SUMMARY_DETAILS, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
-                Log.e(TAG, "memo Response: " + response.toString());
+                Log.e(TAG, "customer_order_details Response: " + response.toString());
                 finalProgressDialog.dismiss();
                 executeForMemo(response);
             }
@@ -113,7 +113,7 @@ public class CustomerOrderDetailsFragment extends RuchiraFragment {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "memo Error: " + error.getMessage());
+                Log.e(TAG, "customer_order_details Error: " + error.getMessage());
             }
         }) {
 
@@ -148,18 +148,18 @@ public class CustomerOrderDetailsFragment extends RuchiraFragment {
                 orderList.addAll(TaskUtils.setOrderList(result));
                 orderAdapter.notifyDataSetChanged();
 
-                shope_name_txt.setText(obj.getString("outletName"));
-                order_id_txt.setText("#" + obj.getString("code"));
-                name_txt.setText("ownerName");
-                cell_no_txt.setText(obj.getString("phone"));
-                status_txt.setText(obj.getString("status"));
-                date_txt.setText(obj.getString("orderDate"));
-                order_time_txt.setText(obj.getString("orderTime"));
-                subtotal_txt.setText(obj.getString("subTotal"));
-                grand_total_txt.setText(obj.getString("total"));
-                total_paid_txt.setText(obj.getString("totalPaid"));
-                total_refunded_txt.setText(obj.getString("totalRefund"));
-                total_due_txt.setText(obj.getString("totalDue"));
+//                shope_name_txt.setText(obj.getString("outletName"));
+//                order_id_txt.setText("#" + obj.getString("code"));
+//                name_txt.setText("ownerName");
+//                cell_no_txt.setText(obj.getString("phone"));
+//                status_txt.setText(obj.getString("status"));
+//                date_txt.setText(obj.getString("orderDate"));
+//                order_time_txt.setText(obj.getString("orderTime"));
+//                subtotal_txt.setText(obj.getString("subTotal"));
+//                grand_total_txt.setText(obj.getString("total"));
+//                total_paid_txt.setText(obj.getString("totalPaid"));
+//                total_refunded_txt.setText(obj.getString("totalRefund"));
+//                total_due_txt.setText(obj.getString("totalDue"));
 
                 return;
 

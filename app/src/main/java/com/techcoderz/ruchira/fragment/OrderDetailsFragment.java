@@ -47,7 +47,7 @@ public class OrderDetailsFragment extends RuchiraFragment {
 
     Button submit_btn, cancel_btn;
     private Bundle bundle;
-    private String shopeId, productId,promotionId,sellingPrice;
+    private String shopeId, productId, promotionId, sellingPrice;
     private EditText ctn_et, pcs_et, value_et;
 
     public OrderDetailsFragment() {
@@ -80,6 +80,7 @@ public class OrderDetailsFragment extends RuchiraFragment {
         shopeId = bundle.getString("getShopeId");
         productId = bundle.getString("getproductId");
         promotionId = bundle.getString("getpromotionId");
+        sellingPrice = bundle.getString("getSellingPrice");
         ctn_et = (EditText) rootView.findViewById(R.id.ctn_et);
         pcs_et = (EditText) rootView.findViewById(R.id.pcs_et);
         value_et = (EditText) rootView.findViewById(R.id.value_et);
@@ -93,7 +94,7 @@ public class OrderDetailsFragment extends RuchiraFragment {
             }
         });
 
-//        value_et.setText(ctn_et.getText()*);
+//        value_et.setText(ctn_et.getText() *);
 
         cancel_btn.setOnClickListener(new View.OnClickListener() {
             @Override

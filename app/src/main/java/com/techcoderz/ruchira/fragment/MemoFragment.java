@@ -50,7 +50,7 @@ public class MemoFragment extends RuchiraFragment {
 
     Button confirm_btn;
     private Bundle bundle;
-    private String shopeId;
+    private String shopeId, orderId;
 
 
     private List<Order> orderList;
@@ -87,6 +87,7 @@ public class MemoFragment extends RuchiraFragment {
         orderList = new ArrayList<>();
         confirm_btn = (Button) rootView.findViewById(R.id.confirm_btn);
         shopeId = bundle.getString("getShopeId");
+        orderId = bundle.getString("getOrderId");
         report_rcview = (RecyclerView) rootView.findViewById(R.id.report_rcview);
 
         shope_name_txt = (TextView) rootView.findViewById(R.id.shope_name_txt);
@@ -122,47 +123,53 @@ public class MemoFragment extends RuchiraFragment {
 
     private void fetchDataFromServer() {
 
-        ProgressDialog progressDialog = null;
+        if (orderId != null || !orderId.equals("")) {
+            ProgressDialog progressDialog = null;
 
-        progressDialog = new ProgressDialog(ownerActivity);
-        progressDialog.setTitle("Loading");
-        progressDialog.setMessage("Please wait...");
-        progressDialog.setCancelable(false);
-        progressDialog.setIndeterminate(true);
-        progressDialog.show();
+            progressDialog = new ProgressDialog(ownerActivity);
+            progressDialog.setTitle("Loading");
+            progressDialog.setMessage("Please wait...");
+            progressDialog.setCancelable(false);
+            progressDialog.setIndeterminate(true);
+            progressDialog.show();
 
-        String tag_string_req = "req_memo";
-        final ProgressDialog finalProgressDialog = progressDialog;
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                AppConfig.URL_MEMO, new Response.Listener<String>() {
+            String tag_string_req = "req_memo";
+            final ProgressDialog finalProgressDialog = progressDialog;
+            StringRequest strReq = new StringRequest(Request.Method.POST,
+                    AppConfig.URL_MEMO, new Response.Listener<String>() {
 
-            @Override
-            public void onResponse(String response) {
-                Log.e(TAG, "memo Response: " + response.toString());
-                finalProgressDialog.dismiss();
-                executeForMemo(response);
-            }
-        }, new Response.ErrorListener() {
+                @Override
+                public void onResponse(String response) {
+                    Log.e(TAG, "memo Response: " + response.toString());
+                    finalProgressDialog.dismiss();
+                    executeForMemo(response);
+                }
+            }, new Response.ErrorListener() {
 
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "memo Error: " + error.getMessage());
-            }
-        }) {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e(TAG, "memo Error: " + error.getMessage());
+                }
+            }) {
 
-            @Override
-            protected Map<String, String> getParams() {
-                // Posting parameters to login url
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("id", UserPreferences.getId(ownerActivity));
-                params.put("tokenKey", UserPreferences.getToken(ownerActivity));
-                return params;
-            }
+                @Override
+                protected Map<String, String> getParams() {
+                    // Posting parameters to login url
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("id", UserPreferences.getId(ownerActivity));
+                    params.put("tokenKey", UserPreferences.getToken(ownerActivity));
+                    if (orderId != null || !orderId.equals(""))
+                        params.put("orderId", orderId);
+                    return params;
+                }
 
-        };
+            };
 
-        // Adding request to request queue
-        RuchiraApplication.getInstance().addToRequestQueue(strReq, tag_string_req);
+            // Adding request to request queue
+            RuchiraApplication.getInstance().addToRequestQueue(strReq, tag_string_req);
+        } else {
+            ViewUtils.alertUser(ownerActivity, "No Memo Available");
+        }
 
     }
 
@@ -174,15 +181,15 @@ public class MemoFragment extends RuchiraFragment {
 
             JSONObject obj = new JSONObject(result);
 
-            int responseResult = obj.getInt("success");
+            int responseResult = obj.getInt("response");
             Log.d(TAG, result.toString());
             if (responseResult == 1) {
                 orderList.addAll(TaskUtils.setOrderList(result));
                 orderAdapter.notifyDataSetChanged();
 
                 shope_name_txt.setText(obj.getString("outletName"));
-                order_id_txt.setText("#" + obj.getString("code"));
-                name_txt.setText("ownerName");
+//                order_id_txt.setText("#" + obj.getString("code"));
+                name_txt.setText(obj.getString("ownerName"));
                 cell_no_txt.setText(obj.getString("phone"));
                 status_txt.setText(obj.getString("status"));
                 date_txt.setText(obj.getString("orderDate"));

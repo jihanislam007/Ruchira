@@ -89,13 +89,15 @@ public class ShopOrderSummaryFragment extends RuchiraFragment {
 
         manager = new LinearLayoutManager(ownerActivity);
         orderSummaryAdapter = new OrderSummaryAdapter(ownerActivity, orderSummaryList);
+        report_rcview.setAdapter(orderSummaryAdapter);
+        report_rcview.setHasFixedSize(true);
+        report_rcview.setLayoutManager(manager);
+
 
     }
 
     private void action() {
-        report_rcview.setAdapter(orderSummaryAdapter);
-        report_rcview.setHasFixedSize(true);
-        report_rcview.setLayoutManager(manager);
+
     }
 
     private void fetchDataFromServer() {
@@ -134,7 +136,7 @@ public class ShopOrderSummaryFragment extends RuchiraFragment {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("id", UserPreferences.getId(ownerActivity));
                 params.put("tokenKey", UserPreferences.getToken(ownerActivity));
-//                params.put("tokenKey", UserPreferences.getToken(ownerActivity));
+                params.put("tokenKey", UserPreferences.getOrderId(ownerActivity));
                 return params;
             }
 
@@ -160,7 +162,7 @@ public class ShopOrderSummaryFragment extends RuchiraFragment {
                 name_txt.setText(obj.getString("outletName"));
                 sale_date_txt.setText(obj.getString("startDate"));
                 address_txt.setText(obj.getString("outletAddress"));
-                date_txt.setText("");
+                date_txt.setText(obj.getString("orderDate"));
 
                 orderSummaryList.addAll(TaskUtils.setOrderSummaryList(result));
                 orderSummaryAdapter.notifyDataSetChanged();
