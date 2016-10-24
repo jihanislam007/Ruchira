@@ -324,16 +324,6 @@ public class AddNewOrderFragment extends RuchiraFragment {
         }
     }
 
-    private void execute(String result) {
-    }
-
-    private void processResult(String result) {
-    }
-
-    private void processResult() {
-
-    }
-
     private void openMemoFragment() {
         toLaunchFragment = new MemoFragment();
         if (toLaunchFragment != null) {

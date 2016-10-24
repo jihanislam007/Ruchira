@@ -93,13 +93,6 @@ public class MonthlyTotalSaleFragment extends RuchiraFragment {
     }
 
     private void action() {
-        Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int day = calendar.get(Calendar.DATE);
-        String monthname = (String) android.text.format.DateFormat.format("MMMM", new Date());
-
-        date_txt.setText(monthname + " " + day + "," + year);
-
     }
 
     private void fetchDataFromServer() {
@@ -168,6 +161,7 @@ public class MonthlyTotalSaleFragment extends RuchiraFragment {
                 id_txt.setText("RS ID # " + obj.getString("userId"));
                 phone_txt.setText("Cell : " + obj.getString("userPhone"));
                 name_txt.setText(obj.getString("userName"));
+                date_txt.setText(obj.getString("month"));
                 total_txt.setText(obj.getString("total"));
                 reportList.addAll(TaskUtils.setMonthlyReport(result));
                 reportAdapter.notifyDataSetChanged();

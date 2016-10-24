@@ -3,6 +3,8 @@ package com.techcoderz.ruchira.fragment;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -47,8 +50,10 @@ public class OrderDetailsFragment extends RuchiraFragment {
 
     Button submit_btn, cancel_btn;
     private Bundle bundle;
-    private String shopeId, productId, promotionId, sellingPrice;
-    private EditText ctn_et, pcs_et, value_et;
+    private String shopeId, productId, promotionId;
+    int pricePerCarton, pricePerPiece;
+    private EditText ctn_et, pcs_et;
+    private TextView value_et;
 
     public OrderDetailsFragment() {
     }
@@ -80,10 +85,12 @@ public class OrderDetailsFragment extends RuchiraFragment {
         shopeId = bundle.getString("getShopeId");
         productId = bundle.getString("getproductId");
         promotionId = bundle.getString("getpromotionId");
-        sellingPrice = bundle.getString("getSellingPrice");
+        pricePerCarton = bundle.getInt("getPricePerCarton");
+        pricePerPiece = bundle.getInt("getPricePerPiece");
+
         ctn_et = (EditText) rootView.findViewById(R.id.ctn_et);
         pcs_et = (EditText) rootView.findViewById(R.id.pcs_et);
-        value_et = (EditText) rootView.findViewById(R.id.value_et);
+        value_et = (TextView) rootView.findViewById(R.id.value_et);
     }
 
     private void action() {
@@ -94,7 +101,26 @@ public class OrderDetailsFragment extends RuchiraFragment {
             }
         });
 
-//        value_et.setText(ctn_et.getText() *);
+        int calculateValue = ((Integer.valueOf(ctn_et.getText().toString()) * pricePerCarton) + (Integer.valueOf(pcs_et.getText().toString()) * pricePerPiece));
+        int calculateValue1 =0;
+        value_et.setText("abc");
+
+        ctn_et.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                calculateValue1 = Integer.valueOf(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         cancel_btn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,6 +1,7 @@
 package com.techcoderz.ruchira.activity;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
@@ -15,6 +16,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -255,11 +257,10 @@ public class MainActivity2 extends RuchiraActivity implements NavigationView.OnN
 
             case R.id.nav_setting:
                 Log.e(TAG, mSelectedId + "");
-                fragmentToLaunch = new SettingFragment();
-                setTitle("Settings");
-                updateToolBar("Settings");
-                mTitle = "Settings";
-                TaskUtils.saveNavigationDrawerSelectedItem(this, RuchiraKeys.DRAWER_ITEMS.SETTINGS);
+                setTitle("Logout");
+                updateToolBar("Logout");
+                mTitle = "Logout";
+                signOff();
                 mDrawerLayout.closeDrawer(GravityCompat.START);
                 break;
         }
@@ -272,6 +273,27 @@ public class MainActivity2 extends RuchiraActivity implements NavigationView.OnN
     private void updateToolBar(String notifications) {
         getSupportActionBar().setTitle(notifications);
 //        toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary));
+    }
+    private void signOff() {
+        if (NetworkUtils.hasInternetConnection(this)) {
+
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setTitle("Log out?");
+            alertDialogBuilder.setMessage("All cached data will be removed from this device, and will be restored when you log in again.");
+            alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    TaskUtils.clearUserInfo(MainActivity2.this);
+                    ViewUtils.startLoginActivity(MainActivity2.this);
+                }
+            });
+            alertDialogBuilder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.cancel();
+                }
+            });
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+        }
     }
 
     @Override

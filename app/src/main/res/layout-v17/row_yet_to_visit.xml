@@ -9,7 +9,7 @@
         android:id="@+id/linear_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/colorButton"
+        android:background="@drawable/focusing_selector"
         android:orientation="vertical"
         android:layout_margin="5dp"
         android:padding="15dp">
@@ -18,19 +18,17 @@
             android:id="@+id/shop_name_txt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorButton"
             android:text="Shope Name"
             android:textAlignment="center"
-            android:textColor="@color/white" />
+            android:textColor="@drawable/button_text_color" />
 
         <TextView
             android:id="@+id/location_txt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorButton"
             android:text="Location"
             android:textAlignment="center"
-            android:textColor="@color/white" />
+            android:textColor="@drawable/button_text_color"/>
 
     </LinearLayout>
 

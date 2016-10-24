@@ -44,11 +44,11 @@
             <item
                 android:id="@+id/nav_profile"
                 android:icon="@drawable/ic_menu_share"
-                android:title="Shop Profile" />
+                android:title="Profile" />
             <item
                 android:id="@+id/nav_setting"
                 android:icon="@drawable/ic_menu_manage"
-                android:title="Setting" />
+                android:title="Logout" />
 
     </group>
         <!--</menu>-->

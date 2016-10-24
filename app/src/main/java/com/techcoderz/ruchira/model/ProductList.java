@@ -7,9 +7,11 @@ package com.techcoderz.ruchira.model;
 public class ProductList {
     String productId;
     String productName;
-    String sellingPrice;
+    int pricePerPiece;
     String flag;
     String promotionId;
+    int pricePerCarton;
+    String productSku;
 
     public String getProductId() {
         return productId;
@@ -27,14 +29,6 @@ public class ProductList {
         this.productName = productName;
     }
 
-    public String getSellingPrice() {
-        return sellingPrice;
-    }
-
-    public void setSellingPrice(String sellingPrice) {
-        this.sellingPrice = sellingPrice;
-    }
-
     public String getFlag() {
         return flag;
     }
@@ -49,5 +43,29 @@ public class ProductList {
 
     public void setPromotionId(String promotionId) {
         this.promotionId = promotionId;
+    }
+
+    public int getPricePerPiece() {
+        return pricePerPiece;
+    }
+
+    public void setPricePerPiece(int pricePerPiece) {
+        this.pricePerPiece = pricePerPiece;
+    }
+
+    public int getPricePerCarton() {
+        return pricePerCarton;
+    }
+
+    public void setPricePerCarton(int pricePerCarton) {
+        this.pricePerCarton = pricePerCarton;
+    }
+
+    public String getProductSku() {
+        return productSku;
+    }
+
+    public void setProductSku(String productSku) {
+        this.productSku = productSku;
     }
 }

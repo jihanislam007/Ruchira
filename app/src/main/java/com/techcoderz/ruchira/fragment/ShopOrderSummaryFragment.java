@@ -34,6 +34,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,7 +43,7 @@ import java.util.Map;
  * Created by priom on 9/19/16.
  */
 public class ShopOrderSummaryFragment extends RuchiraFragment {
-    private final static String TAG = "ShopOrderSummaryFragment";
+    private final static String TAG = "OrderSummaryFragment";
     String url = "http://sondhan.com/articleApi/android/category";
     Fragment toLaunchFragment = null;
 
@@ -136,9 +137,15 @@ public class ShopOrderSummaryFragment extends RuchiraFragment {
                 protected Map<String, String> getParams() {
                     // Posting parameters to login url
                     Map<String, String> params = new HashMap<String, String>();
+                    Calendar calendar = Calendar.getInstance();
+                    int year = calendar.get(Calendar.YEAR);
+                    int month = calendar.get(Calendar.MONTH);
+
                     params.put("id", UserPreferences.getId(ownerActivity));
                     params.put("tokenKey", UserPreferences.getToken(ownerActivity));
                     params.put("orderId", UserPreferences.getOrderId(ownerActivity));
+                    params.put("year", year + "");
+                    params.put("month", month + "");
                     return params;
                 }
 

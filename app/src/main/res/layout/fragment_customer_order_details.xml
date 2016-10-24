@@ -127,31 +127,31 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/billing_to_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Techcoderz Limited"/>
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="32/2, Orintal latimi"/>
-
-            <TextView
+                android:id="@+id/billing_address_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Shopping mall, new market"/>
 
             <TextView
+                android:id="@+id/billing_city_post_code_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Dhaka - 1205"/>
 
             <TextView
+                android:id="@+id/billing_cell_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Cell : +8801673562265"/>
 
             <TextView
+                android:id="@+id/billing_mail_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="info@techcoderz.com"/>
@@ -171,31 +171,31 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/shipping_to_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Techcoderz Limited"/>
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="32/2, Orintal latimi"/>
-
-            <TextView
+                android:id="@+id/shipping_address_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Shopping mall, new market"/>
 
             <TextView
+                android:id="@+id/shipping_city_post_code_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Dhaka - 1205"/>
 
             <TextView
+                android:id="@+id/shipping_cell_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Cell : +8801673562265"/>
 
             <TextView
+                android:id="@+id/shipping_mail_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="info@techcoderz.com"/>

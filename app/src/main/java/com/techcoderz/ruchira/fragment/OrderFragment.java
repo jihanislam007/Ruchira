@@ -50,7 +50,6 @@ public class OrderFragment extends RuchiraFragment {
     private final static String TAG = "OrderFragment";
     Fragment toLaunchFragment = null;
     private TextView yet_to_visit_btn, ordered_btn, not_ordered_btn;
-
     private List<Beat> beatList;
     private List<Outlet> outletList;
 

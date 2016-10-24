@@ -27,4 +27,18 @@ public class AppConfig {
 
     public static String URL_ORDER_SUMMARY_DETAILS = "http://gear-go.com/ruchira/index.php/home/apiorderdetails";
 
+    public static String URL_PROFILE = "http://gear-go.com/ruchira/index.php/home/apiprofile";
+    public static String URL_FORGETPASSWORD = " http://gear-go.com/ruchira/index.php/home/apiforgotpassword";
+
+    public static String URL_COMPANY = "http://gear-go.com/ruchira/index.php/home/apicompany";
+
+    public static String URL_PROMOTION = "http://gear-go.com/ruchira/index.php/home/apipromotion";
+    public static String URL_PROMOTION_DETAILS = "http://gear-go.com/ruchira/index.php/home/apipromotiondetails";
+
+    public static String URL_PRODUCT_WITH_PRICE = "http://gear-go.com/ruchira/index.php/home/apiproduct";
+
+    public static String URL_PRODUCT_WITH_PRICE_DETAILS = "http://gear-go.com/ruchira/index.php/home/apiproductdetails";
+
+
+
 }

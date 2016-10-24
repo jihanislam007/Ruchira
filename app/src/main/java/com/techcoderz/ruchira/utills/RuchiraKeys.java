@@ -19,6 +19,7 @@ public class RuchiraKeys {
     public static final String USER_EMAIL = "email";
     public static final String USER_PASSWORD = "password";
     public static final String USER_ORDER_ID = "orderID";
+    public static final String USER_COMPANY_ID = "companyID";
     public static final String USER_CONTACT_NUMBER = "contactNumber";
     public static final String USER_DOB = "dob";
     public static final String USER_ALARM_HOUR = "hour";

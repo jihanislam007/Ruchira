@@ -49,6 +49,15 @@ public class UserPreferences {
         editor.apply();
     }
 
+    public static void saveCompanyId(Context context, String companyID) {
+        Log.d(TAG, "companyID : " + companyID);
+        SharedPreferences userInfo = getSharedPreferences(context);
+
+        SharedPreferences.Editor editor = userInfo.edit();
+        editor.putString(RuchiraKeys.USER_COMPANY_ID, companyID);
+        editor.apply();
+    }
+
     public static void saveContactNumber(Context context, String contactNumber) {
         Log.d(TAG, "contactNumber " + contactNumber);
         SharedPreferences userInfo = getSharedPreferences(context);
@@ -132,6 +141,11 @@ public class UserPreferences {
     public static String getPassword(Context context) {
         SharedPreferences userInfo = getSharedPreferences(context);
         return userInfo.getString(RuchiraKeys.USER_PASSWORD, null);
+    }
+
+    public static String getCompanyId(Context context) {
+        SharedPreferences userInfo = getSharedPreferences(context);
+        return userInfo.getString(RuchiraKeys.USER_COMPANY_ID, null);
     }
 
     public static String getGender(Context context) {

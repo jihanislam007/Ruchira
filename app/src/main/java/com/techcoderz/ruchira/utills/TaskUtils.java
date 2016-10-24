@@ -4,13 +4,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.nfc.Tag;
 import android.os.Environment;
 import android.provider.Settings;
 import android.util.Log;
 import android.util.Patterns;
 
 import com.techcoderz.ruchira.R;
+import com.techcoderz.ruchira.model.Area;
 import com.techcoderz.ruchira.model.Beat;
+import com.techcoderz.ruchira.model.Billing;
+import com.techcoderz.ruchira.model.Company;
 import com.techcoderz.ruchira.model.Order;
 import com.techcoderz.ruchira.model.OrderSummary;
 import com.techcoderz.ruchira.model.Outlet;
@@ -19,6 +23,7 @@ import com.techcoderz.ruchira.model.ProductCategory;
 import com.techcoderz.ruchira.model.ProductList;
 import com.techcoderz.ruchira.model.Promotion;
 import com.techcoderz.ruchira.model.Report;
+import com.techcoderz.ruchira.model.Shipping;
 import com.techcoderz.ruchira.model.Target;
 import com.techcoderz.ruchira.model.TodayOrder;
 import com.techcoderz.ruchira.model.TodaySale;
@@ -258,6 +263,26 @@ public class TaskUtils {
         return bannerImageList;
     }
 
+    public static List<Company> setCompany(String json) {
+        ArrayList<Company> companyList = new ArrayList<>();
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+
+            JSONArray jsonArray = jsonObject.getJSONArray("company");
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                Company company = new Company();
+                company.setCompanyId(jsonArray.getJSONObject(i).getString("companyId"));
+                company.setCompanyName(jsonArray.getJSONObject(i).getString("name"));
+                companyList.add(company);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return companyList;
+    }
+
     public static List<OrderSummary> setOrderSummaryList(String json) {
         ArrayList<OrderSummary> orderSummaryList = new ArrayList<>();
         try {
@@ -314,7 +339,7 @@ public class TaskUtils {
                 Order order = new Order();
                 order.setProductName(jsonArray.getJSONObject(i).getString("productName"));
                 order.setCost(jsonArray.getJSONObject(i).getString("cost"));
-                order.setQuantity(jsonArray.getJSONObject(i).getString("quanity"));
+                order.setQuantity(jsonArray.getJSONObject(i).getString("productQuantity"));
                 orderList.add(order);
             }
         } catch (JSONException e) {
@@ -322,6 +347,88 @@ public class TaskUtils {
         }
 
         return orderList;
+    }
+
+    public static List<Shipping> setShippingList(String json) {
+        ArrayList<Shipping> shippingList = new ArrayList<>();
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+
+            JSONObject jsonObject2 = jsonObject.getJSONObject("shipping");
+            Shipping shipping = new Shipping();
+            shipping.setAddress(jsonObject2.getString("address"));
+            shipping.setCity(jsonObject2.getString("city"));
+            shipping.setEmail(jsonObject2.getString("email"));
+            shipping.setPhone(jsonObject2.getString("phone"));
+            shipping.setPostcode(jsonObject2.getString("postcode"));
+            shipping.setTo(jsonObject2.getString("to"));
+            shippingList.add(shipping);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return shippingList;
+    }
+
+
+    public static List<Promotion> setProductPromotion(String json, int a) {
+        ArrayList<Promotion> promotionList = new ArrayList<>();
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+
+            JSONArray jsonArray = jsonObject.getJSONArray("promtion");
+
+            if (a == 0) {
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    Promotion promotion = new Promotion();
+                    promotion.setPromotionId(jsonArray.getJSONObject(i).getString("promotionId"));
+                    promotion.setProductName(jsonArray.getJSONObject(i).getString("productName"));
+                    promotion.setTitle(jsonArray.getJSONObject(i).getString("promotionTitle"));
+                    promotion.setPromotionStartDate(jsonArray.getJSONObject(i).getString("promotionStartDate"));
+                    promotion.setPromotionEndDate(jsonArray.getJSONObject(i).getString("promotionEndDate"));
+                    promotionList.add(promotion);
+                }
+            } else {
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    Promotion promotion = new Promotion();
+                    promotion.setPromotionId(jsonArray.getJSONObject(i).getString("promotionId"));
+                    promotion.setTitle(jsonArray.getJSONObject(i).getString("promotionTitle"));
+                    promotion.setPromotionStartDate(jsonArray.getJSONObject(i).getString("promotionStartDate"));
+                    promotion.setPromotionEndDate(jsonArray.getJSONObject(i).getString("promotionEndDate"));
+                    promotionList.add(promotion);
+                }
+            }
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return promotionList;
+    }
+
+    public static List<Billing> setBillingList(String json) {
+        ArrayList<Billing> billingList = new ArrayList<>();
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+
+            JSONObject jsonObject2 = jsonObject.getJSONObject("billing");
+
+            Billing billing = new Billing();
+            billing.setAddress(jsonObject2.getString("address"));
+            billing.setCity(jsonObject2.getString("city"));
+            billing.setEmail(jsonObject2.getString("email"));
+            billing.setPhone(jsonObject2.getString("phone"));
+            billing.setPostcode(jsonObject2.getString("postcode"));
+            billing.setTo(jsonObject2.getString("to"));
+            billingList.add(billing);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return billingList;
     }
 
     public static List<Promotion> setPromotion(String json) {
@@ -386,6 +493,26 @@ public class TaskUtils {
         return reportList;
     }
 
+    public static List<Area> setArea(String json) {
+        ArrayList<Area> areaList = new ArrayList<>();
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+
+            JSONArray jsonArray = jsonObject.getJSONArray("area");
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                Area area = new Area();
+                area.setBeatId(jsonArray.getJSONObject(i).getString("beatId"));
+                area.setBeatName(jsonArray.getJSONObject(i).getString("beatName"));
+                areaList.add(area);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return areaList;
+    }
+
     public static List<Report> setMonthlyReport(String json) {
         ArrayList<Report> reportList = new ArrayList<>();
         try {
@@ -419,9 +546,12 @@ public class TaskUtils {
                 ProductList product = new ProductList();
                 product.setProductId(jsonArray.getJSONObject(i).getString("productId"));
                 product.setProductName(jsonArray.getJSONObject(i).getString("productName"));
-                product.setSellingPrice(jsonArray.getJSONObject(i).getString("sellingPrice"));
+                product.setProductSku(jsonArray.getJSONObject(i).getString("productSku"));
                 product.setFlag(jsonArray.getJSONObject(i).getString("flag"));
                 product.setPromotionId(jsonArray.getJSONObject(i).getString("promotionId"));
+
+                product.setPricePerCarton(jsonArray.getJSONObject(i).getInt("pricePerCarton"));
+                product.setPricePerPiece(jsonArray.getJSONObject(i).getInt("pricePerPiece"));
                 productList.add(product);
             }
         } catch (JSONException e) {
@@ -464,6 +594,9 @@ public class TaskUtils {
             todayOrder.setTotalOutlet(jsonObject2.getString("totalOutlet"));
             todayOrder.setOutletVisited(jsonObject2.getString("outletVisited"));
             todayOrder.setOutletRemained(jsonObject2.getString("outletRemained"));
+
+            todayOrder.setAchieveInPercent(jsonObject2.getString("achieveInPercent"));
+            todayOrder.setOutletAchieve(jsonObject2.getString("outletAchieve"));
             TodayTotalOrderList.add(todayOrder);
 //            }
         } catch (JSONException e) {

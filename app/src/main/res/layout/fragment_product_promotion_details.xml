@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container_body"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/container_body"
     android:orientation="vertical">
 
     <LinearLayout
@@ -18,10 +18,11 @@
             android:layout_height="15dp"
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
-            android:backgroundTint="@color/white"
-            android:background="@android:drawable/ic_input_get" />
+            android:background="@android:drawable/ic_input_get"
+            android:backgroundTint="@color/white" />
 
         <TextView
+            android:id="@+id/title_product_name_txt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -35,168 +36,108 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:paddingLeft="20dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingLeft="20dp">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight=".05"
             android:background="@color/color_text_selected"
-            android:text="Product Name : "/>
+            android:text="Product Name : " />
 
         <TextView
+            android:id="@+id/product_name_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight=".3"
-            android:text="Chocolate 250 gm"/>
+            android:text="Chocolate 250 gm" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingLeft="20dp">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight=".2"
-            android:text="SKU"/>
+            android:text="SKU" />
 
         <TextView
+            android:id="@+id/sku_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight=".3"
-            android:text="CH02"/>
+            android:text="CH02" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingLeft="20dp">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight=".05"
-            android:text="Product Id"/>
+            android:text="Product Id" />
 
         <TextView
+            android:id="@+id/product_id_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight=".3"
-            android:text="# 524325267"/>
+            android:text="# 524325267" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingLeft="20dp">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight=".05"
-            android:text="Price"/>
+            android:text="Price" />
 
         <TextView
+            android:id="@+id/selling_price_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight=".3"
-            android:text="2000 BDT"/>
+            android:text="2000 BDT" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingLeft="20dp">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/color_text_selected"
-            android:text="Promotion : "/>
+            android:text="Promotion : " />
 
     </LinearLayout>
 
-    <LinearLayout
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/report_rcview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight=".05"
-            android:text="1 free for 3 buy"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight=".05"
-            android:text="5% off for 500 BDT Sale"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight=".05"
-            android:text="3 free for 10 Sale"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight=".05"
-            android:text="Start Date :"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight=".3"
-            android:text="02.02.16"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight=".05"
-            android:text="End Date : "/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight=".3"
-            android:text="08.02.16"/>
-
-    </LinearLayout>
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp" />
 
 </LinearLayout>
