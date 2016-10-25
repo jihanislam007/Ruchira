@@ -155,7 +155,7 @@ public class ProductPriceFragment extends RuchiraFragment {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("id", UserPreferences.getId(ownerActivity));
+                params.put("userId", UserPreferences.getId(ownerActivity));
                 params.put("tokenKey", UserPreferences.getToken(ownerActivity));
                 params.put("companyId", id);
                 return params;
@@ -203,7 +203,7 @@ public class ProductPriceFragment extends RuchiraFragment {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("id", UserPreferences.getId(ownerActivity));
+                params.put("userId", UserPreferences.getId(ownerActivity));
                 params.put("tokenKey", UserPreferences.getToken(ownerActivity));
                 return params;
             }

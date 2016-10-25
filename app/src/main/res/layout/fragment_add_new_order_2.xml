@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
     android:id="@+id/container_body"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -11,6 +11,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/sku_txt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -19,6 +20,7 @@
             android:textColor="@color/Black" />
 
         <TextView
+            android:id="@+id/price_txt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -53,9 +55,9 @@
                 android:layout_marginRight="10dp"
                 android:background="@drawable/rectangle_shape"
                 android:hint="Enter CTN"
-                android:text="0"
                 android:inputType="number"
                 android:padding="10dp"
+                android:text="0"
                 android:textAlignment="center" />
         </LinearLayout>
 
@@ -85,9 +87,9 @@
                 android:layout_marginRight="10dp"
                 android:background="@drawable/rectangle_shape"
                 android:hint="Enter PCS"
-                android:text="0"
                 android:inputType="number"
                 android:padding="10dp"
+                android:text="0"
                 android:textAlignment="center" />
         </LinearLayout>
 
@@ -137,31 +139,32 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
         android:layout_margin="20dp"
-        android:weightSum="1"
-        android:layout_alignParentBottom="true">
+        android:orientation="horizontal"
+        android:weightSum="1">
+
         <Button
             android:id="@+id/cancel_btn"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
             android:layout_weight=".5"
+            android:background="@drawable/rounder_shape_selector_deep_color"
             android:text="Cancle"
             android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:layout_marginRight="5dp"
-            android:background="@color/colorAccent"
-            android:layout_height="wrap_content" />
+            android:textColor="@drawable/button_text_color" />
 
         <Button
             android:id="@+id/submit_btn"
             android:layout_width="wrap_content"
-            android:layout_weight=".5"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
+            android:layout_weight=".5"
+            android:background="@drawable/rounder_shape_selector_deep_color"
             android:text="Submit"
             android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:background="@color/colorAccent"
-            android:layout_height="wrap_content" />
+            android:textColor="@drawable/button_text_color" />
     </LinearLayout>
 
 

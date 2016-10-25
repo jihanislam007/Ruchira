@@ -34,7 +34,6 @@ import java.util.Map;
  */
 public class ProductWithPriceDetailsFragment extends RuchiraFragment {
     private final static String TAG = "WithPriceFragment";
-    String url = "http://sondhan.com/articleApi/android/category";
     Fragment toLaunchFragment = null;
 
     private Bundle bundle;
@@ -117,7 +116,7 @@ public class ProductWithPriceDetailsFragment extends RuchiraFragment {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("id", UserPreferences.getId(ownerActivity));
+                params.put("userId", UserPreferences.getId(ownerActivity));
                 params.put("tokenKey", UserPreferences.getToken(ownerActivity));
                 params.put("productId", productId);
                 return params;

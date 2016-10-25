@@ -53,7 +53,7 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
                 ((ProductAdapter.RecyclerViewSubHolders) holder).product_name_txt.setText(productList.get(position).getProductName());
                 ((ProductAdapter.RecyclerViewSubHolders) holder).promotion_title_txt.setText(productList.get(position).getProductId());
-                ((ProductAdapter.RecyclerViewSubHolders) holder).end_date_txt.setText(productList.get(position).getPricePerCarton());
+                ((ProductAdapter.RecyclerViewSubHolders) holder).end_date_txt.setText(productList.get(position).getPricePerPiece()+"");
                 ((ProductAdapter.RecyclerViewSubHolders) holder).show_txt.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

@@ -25,7 +25,6 @@ import com.android.volley.toolbox.Volley;
 import com.techcoderz.ruchira.R;
 import com.techcoderz.ruchira.application.RuchiraApplication;
 import com.techcoderz.ruchira.utills.AppConfig;
-import com.techcoderz.ruchira.utills.CustomAsyncTask;
 import com.techcoderz.ruchira.utills.UserPreferences;
 import com.techcoderz.ruchira.utills.ViewUtils;
 
@@ -125,7 +124,7 @@ public class DashBoardFragment extends RuchiraFragment {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("id", UserPreferences.getId(ownerActivity));
+                params.put("userId", UserPreferences.getId(ownerActivity));
                 params.put("tokenKey", UserPreferences.getToken(ownerActivity));
                 return params;
             }

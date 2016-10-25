@@ -48,7 +48,7 @@ public class YearlyTotalSaleFragment extends RuchiraFragment {
 
     private List<Report> reportList;
     private RecyclerView report_rcview;
-    private TextView name_txt, phone_txt, id_txt, date_txt,total_txt;
+    private TextView name_txt, phone_txt, id_txt, date_txt, total_txt;
     private LinearLayoutManager manager;
     private ReportAdapter reportAdapter;
 
@@ -132,7 +132,7 @@ public class YearlyTotalSaleFragment extends RuchiraFragment {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("id", UserPreferences.getId(ownerActivity));
+                params.put("userId", UserPreferences.getId(ownerActivity));
                 Calendar calendar = Calendar.getInstance();
                 int year = calendar.get(Calendar.YEAR);
                 params.put("tokenKey", UserPreferences.getToken(ownerActivity));
@@ -158,8 +158,8 @@ public class YearlyTotalSaleFragment extends RuchiraFragment {
             int responseResult = obj.getInt("success");
             Log.d(TAG, result.toString());
             if (responseResult == 1) {
-                id_txt.setText("RS ID # "+obj.getString("userId"));
-                phone_txt.setText("Cell : "+obj.getString("userPhone"));
+                id_txt.setText("RS ID # " + obj.getString("userId"));
+                phone_txt.setText("Cell : " + obj.getString("userPhone"));
                 name_txt.setText(obj.getString("userName"));
                 date_txt.setText(obj.getString("year"));
                 total_txt.setText(obj.getString("total"));

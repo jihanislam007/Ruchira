@@ -117,7 +117,7 @@ public class AddNewOrderFragment extends RuchiraFragment {
         productCategorySpinnerAdapter.setDropDownViewResource(R.layout.beat_list);
 
         gridLayoutManager = new GridLayoutManager(ownerActivity, 2);
-        productListAdapter = new ProductListAdapter(ownerActivity, productList,shopeId);
+        productListAdapter = new ProductListAdapter(ownerActivity, productList, shopeId);
 
         outlet_rcview.setAdapter(productListAdapter);
         outlet_rcview.setHasFixedSize(true);
@@ -158,9 +158,9 @@ public class AddNewOrderFragment extends RuchiraFragment {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 // find which radio button is selected
-                if(checkedId == R.id.order_rb) {
+                if (checkedId == R.id.order_rb) {
                     fetchDataFromServerForProductList(productCategoryList.get(position2).getId(), "0");
-                } else if(checkedId == R.id.not_order_rb) {
+                } else if (checkedId == R.id.not_order_rb) {
                     fetchDataFromServerForProductList(productCategoryList.get(position2).getId(), "1");
                 }
             }
@@ -203,7 +203,7 @@ public class AddNewOrderFragment extends RuchiraFragment {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("id", UserPreferences.getId(ownerActivity));
+                params.put("userId", UserPreferences.getId(ownerActivity));
                 params.put("tokenKey", UserPreferences.getToken(ownerActivity));
                 params.put("outletId", shopeId);
                 return params;
@@ -278,7 +278,7 @@ public class AddNewOrderFragment extends RuchiraFragment {
             if (responseResult == 1) {
                 outlet_name_txt.setText(obj.getString("outletName"));
                 outletAddress_txt.setText(obj.getString("outletAddress"));
-                UserPreferences.saveOrderId(ownerActivity,obj.getString("orderId"));
+                UserPreferences.saveOrderId(ownerActivity, obj.getString("orderId"));
                 productCategoryList.addAll(TaskUtils.setProductCategory(result));
                 productCategorySpinnerAdapter.notifyDataSetChanged();
                 return;
@@ -328,8 +328,8 @@ public class AddNewOrderFragment extends RuchiraFragment {
         toLaunchFragment = new MemoFragment();
         if (toLaunchFragment != null) {
             Bundle bundle = new Bundle();
-            bundle.putString("getShopeId",shopeId);
-            bundle.putString("getOrderId",UserPreferences.getOrderId(ownerActivity));
+            bundle.putString("getShopeId", shopeId);
+            bundle.putString("getOrderId", UserPreferences.getOrderId(ownerActivity));
             toLaunchFragment.setArguments(bundle);
             ViewUtils.launchFragmentKeepingInBackStack(ownerActivity, toLaunchFragment);
             toLaunchFragment = null;

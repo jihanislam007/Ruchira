@@ -39,6 +39,7 @@ public class AppConfig {
 
     public static String URL_PRODUCT_WITH_PRICE_DETAILS = "http://gear-go.com/ruchira/index.php/home/apiproductdetails";
 
+    public static String URL_ORDER_CANCEL = "http://gear-go.com/ruchira/index.php/home/apideleteorder";
 
 
 }

@@ -130,7 +130,7 @@ public class TodaysTotalSaleFragment extends RuchiraFragment {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("id", UserPreferences.getId(ownerActivity));
+                params.put("userId", UserPreferences.getId(ownerActivity));
                 Calendar calendar = Calendar.getInstance();
                 int year = calendar.get(Calendar.YEAR);
                 int month = calendar.get(Calendar.MONTH);
@@ -176,15 +176,6 @@ public class TodaysTotalSaleFragment extends RuchiraFragment {
             }
         } catch (JSONException e) {
             e.printStackTrace();
-        }
-    }
-
-
-    private void openCustomerOrderDetailsFragment() {
-        toLaunchFragment = new CustomerOrderDetailsFragment();
-        if (toLaunchFragment != null) {
-            ViewUtils.launchFragmentKeepingInBackStack(ownerActivity, toLaunchFragment);
-            toLaunchFragment = null;
         }
     }
 }

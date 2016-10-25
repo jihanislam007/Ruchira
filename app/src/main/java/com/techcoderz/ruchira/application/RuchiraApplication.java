@@ -49,9 +49,4 @@ public class RuchiraApplication extends MultiDexApplication {
         getRequestQueue().add(req);
     }
 
-    public void cancelPendingRequests(Object tag) {
-        if (mRequestQueue != null) {
-            mRequestQueue.cancelAll(tag);
-        }
-    }
 }

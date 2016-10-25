@@ -141,7 +141,7 @@ public class ShopOrderSummaryFragment extends RuchiraFragment {
                     int year = calendar.get(Calendar.YEAR);
                     int month = calendar.get(Calendar.MONTH);
 
-                    params.put("id", UserPreferences.getId(ownerActivity));
+                    params.put("userId", UserPreferences.getId(ownerActivity));
                     params.put("tokenKey", UserPreferences.getToken(ownerActivity));
                     params.put("orderId", UserPreferences.getOrderId(ownerActivity));
                     params.put("year", year + "");

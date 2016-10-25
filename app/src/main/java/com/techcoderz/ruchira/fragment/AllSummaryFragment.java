@@ -24,7 +24,6 @@ import org.json.JSONObject;
  */
 public class AllSummaryFragment extends RuchiraFragment {
     private final static String TAG = "AllSummaryFragment";
-    String url = "http://sondhan.com/articleApi/android/category";
     Fragment toLaunchFragment = null;
 
     private RelativeLayout editProfileLayout,sendFeedbackLayout,aboutLayout;
@@ -81,40 +80,6 @@ public class AllSummaryFragment extends RuchiraFragment {
             }
         });
     }
-
-    private void fetchDataFromServer() {
-
-        JsonObjectRequest jsonRequest = new JsonObjectRequest(
-                Request.Method.GET, url, "", new Response.Listener<JSONObject>() {
-
-            @Override
-            public void onResponse(JSONObject response) {
-                Log.e(TAG, response.toString());
-                execute(response.toString());
-
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-            }
-        });
-
-        Volley.newRequestQueue(ownerActivity).add(jsonRequest);
-
-    }
-
-    private void execute(String result) {
-    }
-
-    private void processResult(String result) {
-    }
-
-    private void processResult() {
-
-    }
-
 
     private void openMonthlyTotalSaleFragment() {
         toLaunchFragment = new MonthlyTotalSaleFragment();

@@ -50,10 +50,10 @@ public class OrderDetailsFragment extends RuchiraFragment {
 
     Button submit_btn, cancel_btn;
     private Bundle bundle;
-    private String shopeId, productId, promotionId;
+    private String shopeId, productId, promotionId, sku;
     int pricePerCarton, pricePerPiece;
     private EditText ctn_et, pcs_et;
-    private TextView value_et;
+    private TextView value_et, sku_txt, price_txt;
 
     public OrderDetailsFragment() {
     }
@@ -85,12 +85,15 @@ public class OrderDetailsFragment extends RuchiraFragment {
         shopeId = bundle.getString("getShopeId");
         productId = bundle.getString("getproductId");
         promotionId = bundle.getString("getpromotionId");
+        sku = bundle.getString("getProductSku");
         pricePerCarton = bundle.getInt("getPricePerCarton");
         pricePerPiece = bundle.getInt("getPricePerPiece");
 
         ctn_et = (EditText) rootView.findViewById(R.id.ctn_et);
         pcs_et = (EditText) rootView.findViewById(R.id.pcs_et);
         value_et = (TextView) rootView.findViewById(R.id.value_et);
+        sku_txt = (TextView) rootView.findViewById(R.id.sku_txt);
+        price_txt = (TextView) rootView.findViewById(R.id.price_txt);
     }
 
     private void action() {
@@ -101,9 +104,8 @@ public class OrderDetailsFragment extends RuchiraFragment {
             }
         });
 
-        int calculateValue = ((Integer.valueOf(ctn_et.getText().toString()) * pricePerCarton) + (Integer.valueOf(pcs_et.getText().toString()) * pricePerPiece));
-        int calculateValue1 =0;
-        value_et.setText("abc");
+        sku_txt.setText(sku);
+        price_txt.setText("Price : " + pricePerCarton + " per ctn," + pricePerPiece + " per pcs");
 
         ctn_et.addTextChangedListener(new TextWatcher() {
             @Override
@@ -113,7 +115,14 @@ public class OrderDetailsFragment extends RuchiraFragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                calculateValue1 = Integer.valueOf(s.toString());
+                if (!ctn_et.getText().toString().equals("")) {
+                    if (pcs_et.getText().toString().equals("")) {
+                        value_et.setText(Integer.parseInt(ctn_et.getText().toString()) * pricePerCarton);
+                    } else {
+                        value_et.setText(((Integer.parseInt(ctn_et.getText().toString()) * pricePerCarton) +
+                                ((Integer.parseInt(pcs_et.getText().toString())) * pricePerPiece))+"");
+                    }
+                }
             }
 
             @Override
@@ -122,10 +131,35 @@ public class OrderDetailsFragment extends RuchiraFragment {
             }
         });
 
+        pcs_et.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!pcs_et.getText().toString().equals("")) {
+                    if (ctn_et.getText().toString().equals("")) {
+                        value_et.setText((Integer.parseInt(pcs_et.getText().toString()) * pricePerPiece));
+                    } else {
+                        value_et.setText((((Integer.parseInt(ctn_et.getText().toString()) * pricePerCarton)) +
+                                ((Integer.parseInt(pcs_et.getText().toString()) * pricePerPiece)))+"");
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+
         cancel_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openAddNewOrderFragment();
+                fetchDataFromServerOrderCancelation();
             }
         });
     }
@@ -164,12 +198,12 @@ public class OrderDetailsFragment extends RuchiraFragment {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("id", UserPreferences.getId(ownerActivity));
+                params.put("userId", UserPreferences.getId(ownerActivity));
                 params.put("tokenKey", UserPreferences.getToken(ownerActivity));
                 params.put("orderId", UserPreferences.getOrderId(ownerActivity));
                 params.put("productId", productId);
-                params.put("quantity", ctn_et.getText().toString());
-//                params.put("pcs", pcs_et.getText().toString());
+                params.put("ctn", ctn_et.getText().toString());
+                params.put("pcs", pcs_et.getText().toString());
                 params.put("cost", value_et.getText().toString());
                 params.put("promotionId", promotionId);
                 return params;
@@ -181,6 +215,77 @@ public class OrderDetailsFragment extends RuchiraFragment {
         RuchiraApplication.getInstance().addToRequestQueue(strReq, tag_string_req);
 
     }
+
+    private void fetchDataFromServerOrderCancelation() {
+
+        ProgressDialog progressDialog = null;
+
+        progressDialog = new ProgressDialog(ownerActivity);
+        progressDialog.setTitle("Loading");
+        progressDialog.setMessage("Please wait...");
+        progressDialog.setCancelable(false);
+        progressDialog.setIndeterminate(true);
+        progressDialog.show();
+
+        String tag_string_req = "req_cancel_order";
+        final ProgressDialog finalProgressDialog = progressDialog;
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                AppConfig.URL_ORDER_CANCEL, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.e(TAG, "cancel_order Response: " + response.toString());
+                finalProgressDialog.dismiss();
+                executeForOrderCancelation(response);
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "cancel_order Error: " + error.getMessage());
+            }
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting parameters to login url
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("id", UserPreferences.getId(ownerActivity));
+                params.put("tokenKey", UserPreferences.getToken(ownerActivity));
+                params.put("orderId", UserPreferences.getOrderId(ownerActivity));
+                return params;
+            }
+
+        };
+
+        // Adding request to request queue
+        RuchiraApplication.getInstance().addToRequestQueue(strReq, tag_string_req);
+
+    }
+
+
+    private void executeForOrderCancelation(String result) {
+        Log.d(TAG, result.toString());
+
+        try {
+
+            JSONObject obj = new JSONObject(result);
+
+            int responseResult = obj.getInt("success");
+            Log.d(TAG, result.toString());
+            if (responseResult == 1) {
+                openAddNewOrderFragment();
+                return;
+
+            } else {
+                ViewUtils.alertUser(ownerActivity, "Server Error");
+                return;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private void executeForOrderItemSubmit(String result) {
         Log.d(TAG, result.toString());

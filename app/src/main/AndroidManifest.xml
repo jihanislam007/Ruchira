@@ -50,12 +50,12 @@
         <!--android:label="@string/title_activity_main" />-->
 
         <activity
-            android:name=".activity.MainActivity2"
+            android:name=".activity.MainActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.MainActivity2" />
+                android:value=".activity.MainActivity" />
         </activity>
 
         <activity

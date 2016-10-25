@@ -43,8 +43,6 @@ import java.util.UUID;
 public class TaskUtils {
 
     final static String TAG = "TaskUtils";
-    private static boolean gpsAlertShown = false;
-
     public static boolean isEmpty(String string) {
         if (string == null) {
             return true;
@@ -95,39 +93,8 @@ public class TaskUtils {
         return imagePath;
     }
 
-    public static void showGpsTurnOnAlert(final Context context) {
-        if (gpsAlertShown) {
-            return;
-        }
-
-        final DialogButtonListener positiveButtonListener = new DialogButtonListener() {
-            @Override
-            public void onDialogButtonClick() {
-                context.startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-            }
-        };
-        final String messageToShow = context.getResources().getString(R.string.dialog_turnon_gps);
-        TDialogHandler.showDialog(context, null, messageToShow, "Ok", positiveButtonListener, null, null);
-        gpsAlertShown = true;
-    }
-
-    public static boolean isValidEmail(String email) {
-        return Patterns.EMAIL_ADDRESS.matcher(email).matches();
-    }
-
     public static void clearUserInfo(Context context) {
         UserPreferences.clearUserInfo(context);
-//        DBRequestHandler.clearDatabase();
-    }
-
-    public static void saveNavigationDrawerSelectedItem(Context context, RuchiraKeys.DRAWER_ITEMS drawerItems) {
-        Log.d(TAG, "save current page " + drawerItems.name());
-        SharedPreferences userInfo = context.getSharedPreferences(
-                RuchiraKeys.USER_INFO, Context.MODE_PRIVATE);
-
-        SharedPreferences.Editor editor = userInfo.edit();
-        editor.putInt(RuchiraKeys.PAGE_NAME, drawerItems.ordinal());
-        editor.commit();
     }
 
     public static void showCurrentDeviceResolutionType(Context context) {

@@ -152,7 +152,7 @@ public class OutletsFragment extends RuchiraFragment {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("id", UserPreferences.getId(ownerActivity));
+                params.put("userId", UserPreferences.getId(ownerActivity));
                 params.put("token", UserPreferences.getToken(ownerActivity));
                 params.put("bitId",id);
                 return params;
@@ -199,7 +199,7 @@ public class OutletsFragment extends RuchiraFragment {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("id", UserPreferences.getId(ownerActivity));
+                params.put("userId", UserPreferences.getId(ownerActivity));
                 params.put("token", UserPreferences.getToken(ownerActivity));
                 return params;
             }
