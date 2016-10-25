@@ -28,6 +28,7 @@
             android:layout_alignParentStart="true"
             android:layout_below="@+id/profile_image"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:text="Channel : "
             android:textAlignment="center"
             android:textColor="@color/white"
@@ -115,7 +116,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorButton"
-            android:padding="10dp"
+            android:padding="7dp"
             android:text="List Of TP (Product Discounts)"
             android:textColor="@color/white" />
 
@@ -142,17 +143,49 @@
 
         </LinearLayout>
 
+        <!--<Button-->
+            <!--android:id="@+id/ok_btn"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--android:layout_marginTop="20dp"-->
+            <!--android:background="@drawable/roundshape_selector"-->
+            <!--android:text="Ok"-->
+            <!--android:textColor="@drawable/button_text_color"/>-->
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="10dp"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
         <Button
-            android:id="@+id/ok_btn"
+            android:id="@+id/cancel_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/roundshape_selector"
+            android:layout_marginRight="5dp"
+            android:layout_weight=".5"
+            android:background="@drawable/rounder_shape_selector_deep_color"
+            android:text="Cancle"
+            android:textAllCaps="false"
+            android:textColor="@drawable/button_text_color" />
+
+        <Button
+            android:id="@+id/submit_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_weight=".5"
+            android:background="@drawable/rounder_shape_selector_deep_color"
             android:text="Ok"
-            android:textColor="@drawable/button_text_color"/>
-
-
+            android:textAllCaps="false"
+            android:textColor="@drawable/button_text_color" />
     </LinearLayout>
 
 

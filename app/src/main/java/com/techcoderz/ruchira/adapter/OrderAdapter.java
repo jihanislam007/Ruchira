@@ -54,7 +54,7 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
                 ((RecyclerViewSubHolders) holder).name_txt.setText(orderList.get(position).getProductName());
                 ((RecyclerViewSubHolders) holder).quantity_txt.setText(orderList.get(position).getQuantity());
-                ((RecyclerViewSubHolders) holder).ammount_txt.setText(orderList.get(position).getCost());
+                ((RecyclerViewSubHolders) holder).ammount_txt.setText(orderList.get(position).getCost()+" BDT");
 
             }
         }

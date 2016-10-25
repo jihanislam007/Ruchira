@@ -191,13 +191,13 @@ public class CustomerOrderDetailsFragment extends RuchiraFragment {
                 billingList.addAll(TaskUtils.setBillingList(result));
                 orderAdapter.notifyDataSetChanged();
 
-                shope_name_txt.setText(obj.getString("outletName"));
-                order_id_txt.setText("#"+obj.getString("orderId"));
+                shope_name_txt.setText("Shope Name "+obj.getString("outletName"));
+                order_id_txt.setText("Order Id : #"+obj.getString("orderId"));
                 name_txt.setText(obj.getString("ownerName"));
-                cell_no_txt.setText(obj.getString("ownerPhone"));
-                customer_id_txt.setText(obj.getString("ownerId"));
-                email_txt.setText(obj.getString("ownerEmail"));
-                status_txt.setText(obj.getString("status"));
+                cell_no_txt.setText("Cell : "+obj.getString("ownerPhone"));
+                customer_id_txt.setText("Customer ID : "+obj.getString("ownerId"));
+                email_txt.setText("Email : "+obj.getString("ownerEmail"));
+                status_txt.setText("Status : "+obj.getString("status"));
 
                 billing_to_txt.setText(billingList.get(0).getTo());
                 billing_address_txt.setText(billingList.get(0).getAddress());

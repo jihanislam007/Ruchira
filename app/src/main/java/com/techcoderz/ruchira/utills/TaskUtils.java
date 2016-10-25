@@ -16,6 +16,7 @@ import com.techcoderz.ruchira.model.Beat;
 import com.techcoderz.ruchira.model.Billing;
 import com.techcoderz.ruchira.model.Company;
 import com.techcoderz.ruchira.model.Order;
+import com.techcoderz.ruchira.model.OrderCancelation;
 import com.techcoderz.ruchira.model.OrderSummary;
 import com.techcoderz.ruchira.model.Outlet;
 import com.techcoderz.ruchira.model.OutletRemainning;
@@ -207,6 +208,26 @@ public class TaskUtils {
         }
 
         return productCategoryList;
+    }
+
+    public static List<OrderCancelation> setOrderCancelation(String json) {
+        ArrayList<OrderCancelation> cancelationList = new ArrayList<>();
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+
+            JSONArray jsonArray = jsonObject.getJSONArray("beat");
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                OrderCancelation orderCancelation = new OrderCancelation();
+                orderCancelation.setCancelationId(jsonArray.getJSONObject(i).getString("id"));
+                orderCancelation.setTitle(jsonArray.getJSONObject(i).getString("title"));
+                cancelationList.add(orderCancelation);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return cancelationList;
     }
 
 

@@ -4,6 +4,8 @@
     <color name="colorPrimaryDark">#ebeaea</color>
     <color name="colorAccent">#FF1744</color>
 
+    <color name="colorPrimary2">#d9d9d9</color>
+
     <color name="colorButton">#D11439</color>
 
     <color name="mainBodyColor">#f6f9ea</color>

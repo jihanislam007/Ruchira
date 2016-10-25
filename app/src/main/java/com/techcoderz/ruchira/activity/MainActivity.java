@@ -75,7 +75,7 @@ public class MainActivity extends RuchiraActivity implements NavigationView.OnNa
     private ProgressDialog progressDialog;
     private static String TAG = "MainActivity";
 
-    private ImageView profile_image;
+    private CircleImageView profile_image;
     private TextView profile_name_txt, company_name_txt;
 
     @Override
@@ -105,7 +105,7 @@ public class MainActivity extends RuchiraActivity implements NavigationView.OnNa
         View rootView = mDrawer.inflateHeaderView(R.layout.nav_header_main);
 
 
-        profile_image = (ImageView) rootView.findViewById(R.id.imageView);
+        profile_image = (CircleImageView) rootView.findViewById(R.id.imageView);
         profile_name_txt = (TextView) rootView.findViewById(R.id.profile_name_txt);
         company_name_txt = (TextView) rootView.findViewById(R.id.company_name_txt);
 

@@ -51,8 +51,8 @@ public class OrderSummaryAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         if (holder instanceof OrderSummaryAdapter.RecyclerViewSubHolders) {
             if (orderSummaryList.size() > 0) {
                 ((OrderSummaryAdapter.RecyclerViewSubHolders) holder).name_txt.setText(orderSummaryList.get(position).getOrderDate());
-                ((OrderSummaryAdapter.RecyclerViewSubHolders) holder).quantity_txt.setText(orderSummaryList.get(position).getInvoiceNo());
-                ((OrderSummaryAdapter.RecyclerViewSubHolders) holder).ammount_txt.setText(orderSummaryList.get(position).getAmount());
+                ((OrderSummaryAdapter.RecyclerViewSubHolders) holder).quantity_txt.setText("#"+orderSummaryList.get(position).getInvoiceNo());
+                ((OrderSummaryAdapter.RecyclerViewSubHolders) holder).ammount_txt.setText(orderSummaryList.get(position).getAmount()+" BDT");
 
 
                 ((OrderSummaryAdapter.RecyclerViewSubHolders) holder).wholeContent.setOnClickListener(new View.OnClickListener() {
