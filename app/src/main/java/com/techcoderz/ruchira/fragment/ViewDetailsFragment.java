@@ -37,8 +37,8 @@ public class ViewDetailsFragment extends RuchiraFragment {
     private final static String TAG = "ViewDetailsFragment";
 
     Fragment toLaunchFragment = null;
-    TextView total_bit_txt, sale_yesterDay_txt, sale_monthAccumulation_txt, sale_month_day_avg_txt, sale_month_week_avg_txt,today_sale_txt;
-    TextView order_yesterday_txt, order_monthAccumulation_txt, order_monthDailyAvg_txt, order_monthWeekly_avg_txt,today_order_txt;
+    TextView total_bit_txt, sale_yesterDay_txt, sale_monthAccumulation_txt, sale_month_day_avg_txt, sale_month_week_avg_txt, today_sale_txt;
+    TextView order_yesterday_txt, order_monthAccumulation_txt, order_monthDailyAvg_txt, order_monthWeekly_avg_txt, today_order_txt, total_outlet_txt;
 
     private List<TodaySale> todaySaleList;
     private List<TodayOrder> todayOrderList;
@@ -78,6 +78,7 @@ public class ViewDetailsFragment extends RuchiraFragment {
         sale_month_day_avg_txt = (TextView) rootView.findViewById(R.id.sale_month_day_avg_txt);
         sale_month_week_avg_txt = (TextView) rootView.findViewById(R.id.sale_month_week_avg_txt);
         today_sale_txt = (TextView) rootView.findViewById(R.id.today_sale_txt);
+        total_outlet_txt = (TextView) rootView.findViewById(R.id.total_outlet_txt);
 
         order_yesterday_txt = (TextView) rootView.findViewById(R.id.order_yesterday_txt);
         order_monthAccumulation_txt = (TextView) rootView.findViewById(R.id.order_monthAccumulation_txt);
@@ -147,7 +148,8 @@ public class ViewDetailsFragment extends RuchiraFragment {
             int responseResult = obj.getInt("success");
             Log.d(TAG, result.toString());
             if (responseResult == 1) {
-                total_bit_txt.setText(obj.getString("totalBid"));
+                total_bit_txt.setText(obj.getString("totalBeat"));
+                total_outlet_txt.setText(obj.getString("totalOutlet"));
                 todayOrderList.addAll(TaskUtils.setTodayOrder(result));
                 todaySaleList.addAll(TaskUtils.setTodayTotalSale(result));
 

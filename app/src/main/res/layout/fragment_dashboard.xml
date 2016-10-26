@@ -97,6 +97,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginRight="30dp"
                 android:layout_centerVertical="true"
+                android:backgroundTint="@color/colorPrimary"
                 android:background="@drawable/ic_send_dark" />
         </RelativeLayout>
 
@@ -132,6 +133,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginRight="30dp"
                 android:layout_centerVertical="true"
+                android:backgroundTint="@color/colorPrimary"
                 android:background="@drawable/ic_send_dark" />
         </RelativeLayout>
 

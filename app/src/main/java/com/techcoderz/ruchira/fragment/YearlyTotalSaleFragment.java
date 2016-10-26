@@ -162,7 +162,7 @@ public class YearlyTotalSaleFragment extends RuchiraFragment {
                 phone_txt.setText("Cell : " + obj.getString("userPhone"));
                 name_txt.setText(obj.getString("userName"));
                 date_txt.setText(obj.getString("year"));
-                total_txt.setText(obj.getString("total"));
+                total_txt.setText(obj.getString("total")+" BDT");
                 reportList.addAll(TaskUtils.setYearlyReport(result));
                 reportAdapter.notifyDataSetChanged();
 

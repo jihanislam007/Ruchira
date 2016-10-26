@@ -145,9 +145,9 @@ public class ProductWithPriceDetailsFragment extends RuchiraFragment {
                 product_id_txt.setText(obj.getString("productId"));
                 selling_price_txt.setText(obj.getString("sellingPrice"));
 
-                weight_txt.setText(obj.getString("weight"));
-                height_txt.setText(obj.getString("height"));
-                dimension_txt.setText(obj.getString("dimension"));
+                weight_txt.setText("Weight : " + obj.getString("weight"));
+                height_txt.setText("Height : " + obj.getString("height"));
+                dimension_txt.setText("Dimension" + obj.getString("dimension"));
 
                 return;
 

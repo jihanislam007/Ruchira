@@ -274,6 +274,7 @@ public class OrderDetailsFragment extends RuchiraFragment {
             int responseResult = obj.getInt("success");
             Log.d(TAG, result.toString());
             if (responseResult == 1) {
+                TaskUtils.clearOrderId(ownerActivity);
                 openAddNewOrderFragment();
                 return;
 

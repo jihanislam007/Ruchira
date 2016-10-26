@@ -85,7 +85,7 @@ public class ShopProfileFragment extends RuchiraFragment {
         bundle = this.getArguments();
         promotionList = new ArrayList<>();
         outletId = bundle.getString("getOid");
-        ok_btn = (Button) rootView.findViewById(R.id.ok_btn);
+        ok_btn = (Button) rootView.findViewById(R.id.submit_btn);
         cancel_btn = (Button) rootView.findViewById(R.id.cancel_btn);
         promotion_rcview = (RecyclerView) rootView.findViewById(R.id.promotion_rcview);
         profile_name_txt = (TextView) rootView.findViewById(R.id.profile_name_txt);
@@ -214,6 +214,7 @@ public class ShopProfileFragment extends RuchiraFragment {
             Bundle bundle = new Bundle();
             bundle.putString("getShopeName",profile_name_txt.getText().toString());
             bundle.putString("getAddress",address_txt.getText().toString());
+            bundle.putString("shopeProfileId",shopeProfileId);
             toLaunchFragment.setArguments(bundle);
             ViewUtils.launchFragmentKeepingInBackStack(ownerActivity, toLaunchFragment);
             toLaunchFragment = null;

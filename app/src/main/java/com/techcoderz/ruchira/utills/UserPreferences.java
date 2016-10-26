@@ -177,6 +177,14 @@ public class UserPreferences {
         setAppVersion(context, context.getResources().getString(R.string.app_version));
     }
 
+    public static void clearOrderID(Context context) {
+        Log.d(TAG, "clearUserInfo ok");
+        SharedPreferences userInfo = getSharedPreferences(context);
+
+        SharedPreferences.Editor editor = userInfo.edit();
+        editor.remove(RuchiraKeys.USER_ORDER_ID).apply();
+    }
+
 
     public static void setAppVersion(Context context, String key) {
         SharedPreferences userInfo = getSharedPreferences(context);

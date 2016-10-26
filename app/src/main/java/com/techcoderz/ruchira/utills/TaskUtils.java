@@ -98,6 +98,10 @@ public class TaskUtils {
         UserPreferences.clearUserInfo(context);
     }
 
+    public static void clearOrderId(Context context) {
+        UserPreferences.clearOrderID(context);
+    }
+
     public static void showCurrentDeviceResolutionType(Context context) {
 
         String deviceScreenResType = "";
@@ -215,12 +219,12 @@ public class TaskUtils {
         try {
             JSONObject jsonObject = new JSONObject(json);
 
-            JSONArray jsonArray = jsonObject.getJSONArray("beat");
+            JSONArray jsonArray = jsonObject.getJSONArray("reason");
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 OrderCancelation orderCancelation = new OrderCancelation();
                 orderCancelation.setCancelationId(jsonArray.getJSONObject(i).getString("id"));
-                orderCancelation.setTitle(jsonArray.getJSONObject(i).getString("title"));
+                orderCancelation.setTitle(jsonArray.getJSONObject(i).getString("reasons"));
                 cancelationList.add(orderCancelation);
             }
         } catch (JSONException e) {

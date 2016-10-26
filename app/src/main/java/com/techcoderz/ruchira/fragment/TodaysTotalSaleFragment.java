@@ -164,7 +164,7 @@ public class TodaysTotalSaleFragment extends RuchiraFragment {
                 phone_txt.setText("Cell : " + obj.getString("userPhone"));
                 name_txt.setText(obj.getString("userName"));
                 date_txt.setText(obj.getString("orderDate"));
-                total_txt.setText(obj.getString("total"));
+                total_txt.setText(obj.getString("total")+" BDT");
                 reportList.addAll(TaskUtils.setTodayReport(result));
                 reportAdapter.notifyDataSetChanged();
 

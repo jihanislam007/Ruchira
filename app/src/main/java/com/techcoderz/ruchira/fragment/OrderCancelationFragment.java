@@ -34,7 +34,9 @@ import com.techcoderz.ruchira.utills.ViewUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,6 +58,8 @@ public class OrderCancelationFragment extends RuchiraFragment {
     private Bundle bundle;
     private String address = "";
     private String shopeName = "";
+    private String getReasonId="";
+    private String shopeProfileId;
 
 
     public OrderCancelationFragment() {
@@ -86,6 +90,7 @@ public class OrderCancelationFragment extends RuchiraFragment {
         bundle = getArguments();
         shopeName = bundle.getString("getShopeName");
         address = bundle.getString("getAddress");
+        shopeProfileId = bundle.getString("shopeProfileId");
 
         cancelationList = new ArrayList<>();
         orderCancelationSpinnerAdapter = new OrderCancelationSpinnerAdapter(ownerActivity, R.layout.beat_list, cancelationList);
@@ -105,6 +110,19 @@ public class OrderCancelationFragment extends RuchiraFragment {
                 fetchDataFromServerForCancelationSubmit(beat_spinner.getSelectedItem().toString());
             }
         });
+
+        beat_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                position2 = position;
+                getReasonId = cancelationList.get(position).getCancelationId();
+                Log.e(TAG, "cancelationList.get(position).getCancelationId() : " + cancelationList.get(position).getCancelationId());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
     }
 
 
@@ -122,7 +140,7 @@ public class OrderCancelationFragment extends RuchiraFragment {
         String tag_string_req = "req_order_cancelation";
         final ProgressDialog finalProgressDialog = progressDialog;
         StringRequest strReq = new StringRequest(Request.Method.POST,
-                AppConfig.URL_ORDER_OUTLET, new Response.Listener<String>() {
+                AppConfig.URL_REASON_SUBMIT, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
@@ -141,10 +159,19 @@ public class OrderCancelationFragment extends RuchiraFragment {
             @Override
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
+
+                Calendar c = Calendar.getInstance();
+                System.out.println("Current time => " + c.getTime());
+
+                SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+                String formattedDate = df.format(c.getTime());
+
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("userId", UserPreferences.getId(ownerActivity));
                 params.put("tokenKey", UserPreferences.getToken(ownerActivity));
-                params.put("selectedData", selectedData);
+                params.put("reasoneId", getReasonId);
+                params.put("outletId",shopeProfileId);
+                params.put("reasonDate ",formattedDate);
                 return params;
             }
 
@@ -169,7 +196,7 @@ public class OrderCancelationFragment extends RuchiraFragment {
         String tag_string_req = "req_order_cancelation_reason";
         final ProgressDialog finalProgressDialog = progressDialog;
         StringRequest strReq = new StringRequest(Request.Method.POST,
-                AppConfig.URL_ORDER_BEAT, new Response.Listener<String>() {
+                AppConfig.URL_REASON_LIST, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {

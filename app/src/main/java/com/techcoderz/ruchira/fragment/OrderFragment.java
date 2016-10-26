@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.AppCompatSpinner;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -50,6 +51,7 @@ public class OrderFragment extends RuchiraFragment {
     private final static String TAG = "OrderFragment";
     Fragment toLaunchFragment = null;
     private TextView yet_to_visit_btn, ordered_btn, not_ordered_btn;
+    private CardView card_view, card_view2, card_view3;
     private List<Beat> beatList;
     private List<Outlet> outletList;
 
@@ -59,6 +61,8 @@ public class OrderFragment extends RuchiraFragment {
     private RecyclerView outlet_rcview;
     private OutletAdapter outletAdapter;
     private GridLayoutManager gridLayoutManager;
+
+    private boolean flag = false;
 
     private int position2 = 0;
 
@@ -88,6 +92,10 @@ public class OrderFragment extends RuchiraFragment {
         not_ordered_btn = (TextView) rootView.findViewById(R.id.not_ordered_btn);
         beat_spinner = (AppCompatSpinner) rootView.findViewById(R.id.beat_spinner);
 
+        card_view = (CardView) rootView.findViewById(R.id.card_view);
+        card_view2 = (CardView) rootView.findViewById(R.id.card_view2);
+        card_view3 = (CardView) rootView.findViewById(R.id.card_view3);
+
         outlet_rcview = (RecyclerView) rootView.findViewById(R.id.outlet_rcview);
 
         beatList = new ArrayList<>();
@@ -105,16 +113,82 @@ public class OrderFragment extends RuchiraFragment {
     }
 
     private void action() {
+        final int sdk = android.os.Build.VERSION.SDK_INT;
+        if (!flag) {
+
+            yet_to_visit_btn.setBackgroundDrawable(getResources().getDrawable(R.color.colorButton));
+            card_view.setCardBackgroundColor(getResources().getColor(R.color.colorButton));
+            yet_to_visit_btn.setTextColor(getResources().getColor(R.color.white));
+
+            flag = true;
+        }
+
         yet_to_visit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.e(TAG, position2 + "");
+
+                if (!flag) {
+
+                    yet_to_visit_btn.setBackgroundDrawable(getResources().getDrawable(R.color.white));
+                    yet_to_visit_btn.setTextColor(getResources().getColor(R.color.colorButton));
+                    card_view.setCardBackgroundColor(getResources().getColor(R.color.white)); 
+                    ordered_btn.setBackgroundDrawable(getResources().getDrawable(R.color.white));
+                    ordered_btn.setTextColor(getResources().getColor(R.color.colorButton));
+                    not_ordered_btn.setBackgroundDrawable(getResources().getDrawable(R.color.white));
+                    not_ordered_btn.setTextColor(getResources().getColor(R.color.colorButton));
+
+                    card_view2.setCardBackgroundColor(getResources().getColor(R.color.white));
+                    card_view3.setCardBackgroundColor(getResources().getColor(R.color.white));
+
+
+                    flag = true;
+
+
+                } else {
+
+
+                    yet_to_visit_btn.setBackgroundDrawable(getResources().getDrawable(R.color.colorButton));
+                    card_view.setCardBackgroundColor(getResources().getColor(R.color.colorButton));
+                    yet_to_visit_btn.setTextColor(getResources().getColor(R.color.white));
+
+                    flag = false;
+
+                }
                 fetchDataFromServerForOutlet(beatList.get(position2).getId(), "0");
+
             }
         });
         ordered_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (!flag) {
+
+
+                    ordered_btn.setBackgroundDrawable(getResources().getDrawable(R.color.white));
+                    ordered_btn.setTextColor(getResources().getColor(R.color.colorButton));
+                    card_view2.setCardBackgroundColor(getResources().getColor(R.color.white));
+                    flag = true;
+
+
+                } else {
+
+                    ordered_btn.setBackgroundDrawable(getResources().getDrawable(R.color.colorButton));
+                    card_view2.setCardBackgroundColor(getResources().getColor(R.color.colorButton));
+                    ordered_btn.setTextColor(getResources().getColor(R.color.white));
+
+                    yet_to_visit_btn.setBackgroundDrawable(getResources().getDrawable(R.color.white));
+                    yet_to_visit_btn.setTextColor(getResources().getColor(R.color.colorButton));
+                    not_ordered_btn.setBackgroundDrawable(getResources().getDrawable(R.color.white));
+                    not_ordered_btn.setTextColor(getResources().getColor(R.color.colorButton));
+                    card_view3.setCardBackgroundColor(getResources().getColor(R.color.white));
+                    card_view.setCardBackgroundColor(getResources().getColor(R.color.white));
+
+
+                    flag = false;
+
+                }
                 Log.e(TAG, position2 + "");
                 fetchDataFromServerForOutlet(beatList.get(position2).getId(), "1");
 
@@ -123,6 +197,32 @@ public class OrderFragment extends RuchiraFragment {
         not_ordered_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (!flag) {
+                    not_ordered_btn.setBackgroundDrawable(getResources().getDrawable(R.color.white));
+                    not_ordered_btn.setTextColor(getResources().getColor(R.color.colorButton));
+                    card_view3.setCardBackgroundColor(getResources().getColor(R.color.white));
+
+                    flag = true;
+
+
+                } else {
+
+                    not_ordered_btn.setBackgroundDrawable(getResources().getDrawable(R.color.colorButton));
+                    card_view3.setCardBackgroundColor(getResources().getColor(R.color.colorButton));
+                    not_ordered_btn.setTextColor(getResources().getColor(R.color.white));
+
+                    yet_to_visit_btn.setBackgroundDrawable(getResources().getDrawable(R.color.white));
+                    yet_to_visit_btn.setTextColor(getResources().getColor(R.color.colorButton));
+                    ordered_btn.setBackgroundDrawable(getResources().getDrawable(R.color.white));
+                    ordered_btn.setTextColor(getResources().getColor(R.color.colorButton));
+                    card_view2.setCardBackgroundColor(getResources().getColor(R.color.white));
+                    card_view.setCardBackgroundColor(getResources().getColor(R.color.white));
+
+
+                    flag = false;
+
+                }
                 Log.e(TAG, position2 + "");
                 fetchDataFromServerForOutlet(beatList.get(position2).getId(), "2");
             }
@@ -146,6 +246,10 @@ public class OrderFragment extends RuchiraFragment {
 
 
     private void fetchDataFromServerForOutlet(final String id, final String option) {
+
+        String abc = UserPreferences.getId(ownerActivity);
+        String w = UserPreferences.getToken(ownerActivity);
+        String h = id;
 
         ProgressDialog progressDialog = null;
 

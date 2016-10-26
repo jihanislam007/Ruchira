@@ -39,7 +39,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="50dp"
             android:background="@color/colorButton"
             android:orientation="horizontal">
 
@@ -168,7 +168,10 @@
             android:layout_height="wrap_content"
             android:background="@color/color_text_selected"
             android:orientation="horizontal"
-            android:padding="5dp">
+            android:paddingBottom="10dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="5dp">
 
 
             <TextView
@@ -204,7 +207,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="50dp"
             android:background="@color/colorButton"
             android:orientation="horizontal">
 
@@ -330,11 +333,13 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/color_text_selected"
             android:orientation="horizontal"
-            android:layout_marginBottom="30dp"
-            android:padding="5dp">
+            android:paddingBottom="10dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="5dp">
 
 
             <TextView
@@ -354,6 +359,16 @@
                 android:text="12.50%"
                 android:textColor="@color/Black" />
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.4dp"
+                android:background="@color/colorPrimary" />
         </LinearLayout>
     </LinearLayout>
 

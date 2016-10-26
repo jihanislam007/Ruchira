@@ -172,8 +172,8 @@ public class ShopOrderSummaryFragment extends RuchiraFragment {
             if (responseResult == 1) {
 
                 name_txt.setText(obj.getString("outletName"));
-                sale_date_txt.setText(obj.getString("startDate"));
-                address_txt.setText(obj.getString("outletAddress"));
+                sale_date_txt.setText("Sale Start From : "+obj.getString("startDate"));
+                address_txt.setText("Address : "+obj.getString("outletAddress"));
                 date_txt.setText(obj.getString("orderDate"));
 
                 orderSummaryList.addAll(TaskUtils.setOrderSummaryList(result));

@@ -42,7 +42,7 @@ import java.util.Map;
  * Created by priom on 9/19/16.
  */
 public class CustomerOrderDetailsFragment extends RuchiraFragment {
-    private final static String TAG = "CustomerOrderDetailsFragment";
+    private final static String TAG = "OrderDetailsFragment";
     String url = "http://sondhan.com/articleApi/android/category";
     Fragment toLaunchFragment = null;
 
@@ -212,7 +212,7 @@ public class CustomerOrderDetailsFragment extends RuchiraFragment {
                 shipping_mail_txt.setText(shippingList.get(0).getEmail());
 
                 date_txt.setText(obj.getString("orderDate"));
-                total_sale_txt.setText(obj.getString("total"));
+                total_sale_txt.setText(obj.getString("total")+" BDT");
 
                 return;
 

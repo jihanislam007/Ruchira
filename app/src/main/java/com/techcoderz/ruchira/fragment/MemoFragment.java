@@ -187,18 +187,18 @@ public class MemoFragment extends RuchiraFragment {
                 orderList.addAll(TaskUtils.setOrderList(result));
                 orderAdapter.notifyDataSetChanged();
 
-                shope_name_txt.setText(obj.getString("outletName"));
-//                order_id_txt.setText("#" + obj.getString("code"));
+                shope_name_txt.setText("Shope Name : "+obj.getString("outletName"));
+                order_id_txt.setText("Order Id : #" + obj.getString("orderId"));
                 name_txt.setText(obj.getString("ownerName"));
-                cell_no_txt.setText(obj.getString("phone"));
-                status_txt.setText(obj.getString("status"));
+                cell_no_txt.setText("Cell : "+obj.getString("phone"));
+                status_txt.setText("Status : "+obj.getString("status"));
                 date_txt.setText(obj.getString("orderDate"));
-                order_time_txt.setText(obj.getString("orderTime"));
-                subtotal_txt.setText(obj.getString("subTotal"));
-                grand_total_txt.setText(obj.getString("total"));
-                total_paid_txt.setText(obj.getString("totalPaid"));
-                total_refunded_txt.setText(obj.getString("totalRefund"));
-                total_due_txt.setText(obj.getString("totalDue"));
+                order_time_txt.setText("Order Time : "+obj.getString("orderTime"));
+                subtotal_txt.setText(obj.getString("subTotal")+" BDT");
+                grand_total_txt.setText(obj.getString("total")+" BDT");
+                total_paid_txt.setText(obj.getString("totalPaid")+" BDT");
+                total_refunded_txt.setText(obj.getString("totalRefund")+" BDT");
+                total_due_txt.setText(obj.getString("totalDue")+" BDT");
 
                 return;
 

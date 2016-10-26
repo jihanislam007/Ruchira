@@ -104,7 +104,7 @@
             android:layout_marginStart="36dp"
             android:layout_toEndOf="@+id/textView6"
             android:layout_toRightOf="@+id/textView6"
-            android:text="End Name"
+            android:text="End Date"
             android:textAlignment="center"
             android:textColor="@color/white" />
 
@@ -117,7 +117,7 @@
             android:layout_marginStart="57dp"
             android:layout_toEndOf="@+id/textView8"
             android:layout_toRightOf="@+id/textView8"
-            android:text="Order"
+            android:text="Offer"
             android:textAlignment="center"
             android:textColor="@color/white" />
     </RelativeLayout>

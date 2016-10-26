@@ -41,5 +41,9 @@ public class AppConfig {
 
     public static String URL_ORDER_CANCEL = "http://gear-go.com/ruchira/index.php/home/apideleteorder";
 
+    public static String URL_REASON_LIST = "http://gear-go.com/ruchira/index.php/home/apireasonlist";
+
+    public static String URL_REASON_SUBMIT = "http://gear-go.com/ruchira/index.php/home/apireasonsubmit";
+
 
 }

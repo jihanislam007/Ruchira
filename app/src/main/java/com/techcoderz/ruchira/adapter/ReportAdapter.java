@@ -55,7 +55,7 @@ public class ReportAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             if (reportList.size() > 0) {
                 ((ReportAdapter.RecyclerViewSubHolders) holder).name_txt.setText(reportList.get(position).getMonth());
                 ((ReportAdapter.RecyclerViewSubHolders) holder).quantity_txt.setText(reportList.get(position).getOrrder());
-                ((ReportAdapter.RecyclerViewSubHolders) holder).ammount_txt.setText(reportList.get(position).getAmmount());
+                ((ReportAdapter.RecyclerViewSubHolders) holder).ammount_txt.setText(reportList.get(position).getAmmount()+" BDT");
 
 
 //                ((OutletAdapter.RecyclerViewSubHolders) holder).wholeContent.setOnClickListener(new View.OnClickListener() {

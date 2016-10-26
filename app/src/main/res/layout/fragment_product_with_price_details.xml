@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:orientation="horizontal"
-        android:paddingLeft="10dp">
+        android:paddingLeft="20dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -51,6 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight=".3"
+            android:layout_marginLeft="20dp"
             android:text="Chocolate 250 gm" />
 
     </LinearLayout>
@@ -59,12 +60,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingLeft="10dp">
+        android:paddingLeft="20dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight=".2"
+            android:layout_weight=".14"
             android:text="SKU" />
 
         <TextView
@@ -72,6 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight=".3"
+            android:layout_marginLeft="20dp"
             android:text="CH02" />
 
     </LinearLayout>
@@ -80,12 +82,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingLeft="10dp">
+        android:paddingLeft="20dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight=".05"
+            android:layout_weight=".1"
             android:text="Product Id" />
 
         <TextView
@@ -93,6 +95,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight=".3"
+            android:layout_marginLeft="20dp"
             android:text="# 524325267" />
 
     </LinearLayout>
@@ -101,12 +104,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingLeft="10dp">
+        android:paddingLeft="20dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight=".05"
+            android:layout_weight=".15"
             android:text="Price" />
 
         <TextView
@@ -114,6 +117,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight=".3"
+            android:layout_marginLeft="20dp"
             android:text="2000 BDT" />
 
     </LinearLayout>
@@ -122,7 +126,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingLeft="10dp">
+        android:paddingLeft="20dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -137,7 +141,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingLeft="10dp">
+        android:paddingLeft="20dp">
 
         <TextView
             android:id="@+id/weight_txt"
@@ -153,7 +157,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingLeft="10dp">
+        android:paddingLeft="20dp">
 
         <TextView
             android:id="@+id/height_txt"
@@ -169,7 +173,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingLeft="10dp">
+        android:paddingLeft="20dp">
 
         <TextView
             android:id="@+id/dimension_txt"

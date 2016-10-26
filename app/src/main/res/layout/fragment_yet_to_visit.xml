@@ -47,39 +47,66 @@
             android:orientation="horizontal"
             android:weightSum="1">
 
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/card_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_weight="0.33"
+                card_view:cardBackgroundColor="@color/white"
+                card_view:cardCornerRadius="8dp"
+                card_view:cardUseCompatPadding="true">
+
             <TextView
                 android:id="@+id/yet_to_visit_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:layout_weight="0.33"
-                android:background="@drawable/focusing_selector"
+
                 android:padding="10dp"
-                android:text="Yet To Visit"
-                android:textColor="@drawable/button_text_color" />
+                android:text="Yet To Visit" />
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/card_view2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_weight="0.33"
+                card_view:cardBackgroundColor="@color/white"
+                card_view:cardCornerRadius="8dp"
+                card_view:cardUseCompatPadding="true">
 
             <TextView
                 android:id="@+id/ordered_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
-                android:layout_weight="0.33"
-                android:background="@drawable/focusing_selector"
+
                 android:padding="10dp"
-                android:text="Ordered"
-                android:textColor="@drawable/button_text_color" />
+                android:text="Ordered" />
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/card_view3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_weight="0.33"
+                card_view:cardBackgroundColor="@color/white"
+                card_view:cardCornerRadius="8dp"
+                card_view:cardUseCompatPadding="true">
 
             <TextView
                 android:id="@+id/not_ordered_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
-                android:layout_weight="0.33"
-                android:background="@drawable/focusing_selector"
                 android:padding="10dp"
-                android:text="Not Ordered"
-                android:textColor="@drawable/button_text_color" />
+                android:text="Not Ordered" />
+
+            </android.support.v7.widget.CardView>
 
         </LinearLayout>
 

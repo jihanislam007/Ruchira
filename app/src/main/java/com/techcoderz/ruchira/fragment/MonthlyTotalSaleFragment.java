@@ -162,7 +162,7 @@ public class MonthlyTotalSaleFragment extends RuchiraFragment {
                 phone_txt.setText("Cell : " + obj.getString("userPhone"));
                 name_txt.setText(obj.getString("userName"));
                 date_txt.setText(obj.getString("month"));
-                total_txt.setText(obj.getString("total"));
+                total_txt.setText(obj.getString("total")+" BDT");
                 reportList.addAll(TaskUtils.setMonthlyReport(result));
                 reportAdapter.notifyDataSetChanged();
 
