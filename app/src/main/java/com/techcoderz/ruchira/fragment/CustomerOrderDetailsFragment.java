@@ -26,6 +26,7 @@ import com.techcoderz.ruchira.model.Order;
 import com.techcoderz.ruchira.model.Report;
 import com.techcoderz.ruchira.model.Shipping;
 import com.techcoderz.ruchira.utills.AppConfig;
+import com.techcoderz.ruchira.utills.NetworkUtils;
 import com.techcoderz.ruchira.utills.TaskUtils;
 import com.techcoderz.ruchira.utills.UserPreferences;
 import com.techcoderz.ruchira.utills.ViewUtils;
@@ -71,7 +72,9 @@ public class CustomerOrderDetailsFragment extends RuchiraFragment {
         View rootView = inflater.inflate(R.layout.fragment_customer_order_details, container, false);
         setupToolbar();
         initialize(rootView);
-        fetchDataFromServer();
+        if(NetworkUtils.hasInternetConnection(ownerActivity)) {
+            fetchDataFromServer();
+        }
         action();
         return rootView;
     }
@@ -150,6 +153,7 @@ public class CustomerOrderDetailsFragment extends RuchiraFragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e(TAG, "customer_order_details Error: " + error.getMessage());
+                finalProgressDialog.dismiss();
             }
         }) {
 

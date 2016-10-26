@@ -5,6 +5,7 @@
     android:id="@+id/container_body"
     android:orientation="vertical">
 
+
     <LinearLayout
         android:id="@+id/linear_layout"
         android:layout_width="wrap_content"
@@ -31,5 +32,4 @@
             android:textColor="@drawable/button_text_color"/>
 
     </LinearLayout>
-
 </LinearLayout>

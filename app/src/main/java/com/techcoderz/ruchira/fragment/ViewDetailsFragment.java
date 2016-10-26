@@ -18,6 +18,7 @@ import com.techcoderz.ruchira.application.RuchiraApplication;
 import com.techcoderz.ruchira.model.TodayOrder;
 import com.techcoderz.ruchira.model.TodaySale;
 import com.techcoderz.ruchira.utills.AppConfig;
+import com.techcoderz.ruchira.utills.NetworkUtils;
 import com.techcoderz.ruchira.utills.TaskUtils;
 import com.techcoderz.ruchira.utills.UserPreferences;
 import com.techcoderz.ruchira.utills.ViewUtils;
@@ -58,7 +59,9 @@ public class ViewDetailsFragment extends RuchiraFragment {
         setupToolbar();
         initialize(rootView);
         action();
-        fetchDataFromServer();
+        if (NetworkUtils.hasInternetConnection(ownerActivity)) {
+            fetchDataFromServer();
+        }
         return rootView;
     }
 
@@ -117,6 +120,7 @@ public class ViewDetailsFragment extends RuchiraFragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e(TAG, "viewmore Error: " + error.getMessage());
+                finalProgressDialog.dismiss();
             }
         }) {
 

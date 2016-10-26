@@ -62,7 +62,12 @@ public class OutletAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     @Override
                     public void onClick(View v) {
                         if (type == 0) {
-                            openOpenShopProfile(outletList.get(position).getOid());
+                            if (outletList.get(position).getFlag().equals("2")) {
+                                ViewUtils.alertUser(context, outletList.get(position).getReason());
+                            }else {
+                                openOpenShopProfile(outletList.get(position).getOid());
+                            }
+
                         } else {
                             openShopOrderSummaryFragment();
                         }

@@ -28,6 +28,7 @@ import com.techcoderz.ruchira.model.Company;
 import com.techcoderz.ruchira.model.ProductList;
 import com.techcoderz.ruchira.model.Promotion;
 import com.techcoderz.ruchira.utills.AppConfig;
+import com.techcoderz.ruchira.utills.NetworkUtils;
 import com.techcoderz.ruchira.utills.TaskUtils;
 import com.techcoderz.ruchira.utills.UserPreferences;
 import com.techcoderz.ruchira.utills.ViewUtils;
@@ -76,7 +77,9 @@ public class ProductPriceFragment extends RuchiraFragment {
         setupToolbar();
         initialize(rootView);
         action();
-        fetchDataFromServer();
+        if(NetworkUtils.hasInternetConnection(ownerActivity)) {
+            fetchDataFromServer();
+        }
         return rootView;
     }
 
@@ -110,7 +113,9 @@ public class ProductPriceFragment extends RuchiraFragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 company_title_txt.setText(companyList.get(position).getCompanyName());
-                fetchDataFromServerForProduct(companyList.get(position).getCompanyId());
+                if(NetworkUtils.hasInternetConnection(ownerActivity)) {
+                    fetchDataFromServerForProduct(companyList.get(position).getCompanyId());
+                }
                 Log.e(TAG, "companyList.get(position).getCompanyId() : " + companyList.get(position).getCompanyId());
             }
 
@@ -148,6 +153,7 @@ public class ProductPriceFragment extends RuchiraFragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e(TAG, "order Error: " + error.getMessage());
+                finalProgressDialog.dismiss();
             }
         }) {
 
@@ -196,6 +202,7 @@ public class ProductPriceFragment extends RuchiraFragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e(TAG, "order Error: " + error.getMessage());
+                finalProgressDialog.dismiss();
             }
         }) {
 

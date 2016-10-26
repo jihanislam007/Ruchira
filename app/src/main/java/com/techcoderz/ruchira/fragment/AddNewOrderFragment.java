@@ -34,6 +34,7 @@ import com.techcoderz.ruchira.model.Outlet;
 import com.techcoderz.ruchira.model.ProductCategory;
 import com.techcoderz.ruchira.model.ProductList;
 import com.techcoderz.ruchira.utills.AppConfig;
+import com.techcoderz.ruchira.utills.NetworkUtils;
 import com.techcoderz.ruchira.utills.TaskUtils;
 import com.techcoderz.ruchira.utills.UserPreferences;
 import com.techcoderz.ruchira.utills.ViewUtils;
@@ -89,7 +90,9 @@ public class AddNewOrderFragment extends RuchiraFragment {
         setupToolbar();
         initialize(rootView);
         action();
-        fetchDataFromServerForProductCategory();
+        if(NetworkUtils.hasInternetConnection(ownerActivity)){
+            fetchDataFromServerForProductCategory();
+        }
         return rootView;
     }
 
@@ -144,7 +147,9 @@ public class AddNewOrderFragment extends RuchiraFragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 position2 = position;
-                fetchDataFromServerForProductList(productCategoryList.get(position).getId(), "1");
+                if(NetworkUtils.hasInternetConnection(ownerActivity)) {
+                    fetchDataFromServerForProductList(productCategoryList.get(position).getId(), "1");
+                }
                 Log.e(TAG, "beatList.get(position).getId() : " + productCategoryList.get(position).getId());
             }
 
@@ -159,9 +164,13 @@ public class AddNewOrderFragment extends RuchiraFragment {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 // find which radio button is selected
                 if (checkedId == R.id.order_rb) {
-                    fetchDataFromServerForProductList(productCategoryList.get(position2).getId(), "0");
+                    if(NetworkUtils.hasInternetConnection(ownerActivity)) {
+                        fetchDataFromServerForProductList(productCategoryList.get(position2).getId(), "0");
+                    }
                 } else if (checkedId == R.id.not_order_rb) {
-                    fetchDataFromServerForProductList(productCategoryList.get(position2).getId(), "1");
+                    if(NetworkUtils.hasInternetConnection(ownerActivity)) {
+                        fetchDataFromServerForProductList(productCategoryList.get(position2).getId(), "1");
+                    }
                 }
             }
 
@@ -196,6 +205,7 @@ public class AddNewOrderFragment extends RuchiraFragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e(TAG, "product_category Error: " + error.getMessage());
+                finalProgressDialog.dismiss();
             }
         }) {
 
@@ -244,6 +254,7 @@ public class AddNewOrderFragment extends RuchiraFragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e(TAG, "product_list Error: " + error.getMessage());
+                finalProgressDialog.dismiss();
             }
         }) {
 

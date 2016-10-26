@@ -22,6 +22,7 @@ import com.techcoderz.ruchira.adapter.ReportAdapter;
 import com.techcoderz.ruchira.application.RuchiraApplication;
 import com.techcoderz.ruchira.model.Report;
 import com.techcoderz.ruchira.utills.AppConfig;
+import com.techcoderz.ruchira.utills.NetworkUtils;
 import com.techcoderz.ruchira.utills.TaskUtils;
 import com.techcoderz.ruchira.utills.UserPreferences;
 import com.techcoderz.ruchira.utills.ViewUtils;
@@ -65,7 +66,9 @@ public class MonthlyTotalSaleFragment extends RuchiraFragment {
         setupToolbar();
         initialize(rootView);
         action();
-        fetchDataFromServer();
+        if (NetworkUtils.hasInternetConnection(ownerActivity)) {
+            fetchDataFromServer();
+        }
         return rootView;
     }
 
@@ -122,6 +125,7 @@ public class MonthlyTotalSaleFragment extends RuchiraFragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e(TAG, "Error: " + error.getMessage());
+                finalProgressDialog.dismiss();
             }
         }) {
 
@@ -162,7 +166,7 @@ public class MonthlyTotalSaleFragment extends RuchiraFragment {
                 phone_txt.setText("Cell : " + obj.getString("userPhone"));
                 name_txt.setText(obj.getString("userName"));
                 date_txt.setText(obj.getString("month"));
-                total_txt.setText(obj.getString("total")+" BDT");
+                total_txt.setText(obj.getString("total") + " BDT");
                 reportList.addAll(TaskUtils.setMonthlyReport(result));
                 reportAdapter.notifyDataSetChanged();
 

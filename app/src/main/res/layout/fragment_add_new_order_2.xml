@@ -150,10 +150,10 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
             android:layout_weight=".5"
-            android:background="@drawable/rounder_shape_selector_deep_color"
+            android:background="@drawable/rounderd_shape"
             android:text="Cancle"
             android:textAllCaps="false"
-            android:textColor="@drawable/button_text_color" />
+            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/submit_btn"
@@ -161,10 +161,10 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_weight=".5"
-            android:background="@drawable/rounder_shape_selector_deep_color"
+            android:background="@drawable/rounderd_shape"
             android:text="Submit"
             android:textAllCaps="false"
-            android:textColor="@drawable/button_text_color" />
+            android:textColor="@color/white" />
     </LinearLayout>
 
 

@@ -302,7 +302,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center|bottom"
         android:layout_marginTop="30dp"
-        android:background="@drawable/roundshape_selector"
+        android:background="@drawable/rounderd_shape"
         android:text="Confirm"
         android:textAllCaps="false"
         android:textColor="@color/white" />

@@ -23,6 +23,7 @@ import com.techcoderz.ruchira.adapter.ReportAdapter;
 import com.techcoderz.ruchira.application.RuchiraApplication;
 import com.techcoderz.ruchira.model.Report;
 import com.techcoderz.ruchira.utills.AppConfig;
+import com.techcoderz.ruchira.utills.NetworkUtils;
 import com.techcoderz.ruchira.utills.TaskUtils;
 import com.techcoderz.ruchira.utills.UserPreferences;
 import com.techcoderz.ruchira.utills.ViewUtils;
@@ -66,7 +67,9 @@ public class TodaysTotalSaleFragment extends RuchiraFragment {
         setupToolbar();
         initialize(rootView);
         action();
-        fetchDataFromServer();
+        if(NetworkUtils.hasInternetConnection(ownerActivity)) {
+            fetchDataFromServer();
+        }
         return rootView;
     }
 
@@ -123,6 +126,7 @@ public class TodaysTotalSaleFragment extends RuchiraFragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e(TAG, "Error: " + error.getMessage());
+                finalProgressDialog.dismiss();
             }
         }) {
 

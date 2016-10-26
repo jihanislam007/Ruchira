@@ -27,6 +27,7 @@ import com.techcoderz.ruchira.model.Beat;
 import com.techcoderz.ruchira.model.OrderCancelation;
 import com.techcoderz.ruchira.model.Outlet;
 import com.techcoderz.ruchira.utills.AppConfig;
+import com.techcoderz.ruchira.utills.NetworkUtils;
 import com.techcoderz.ruchira.utills.TaskUtils;
 import com.techcoderz.ruchira.utills.UserPreferences;
 import com.techcoderz.ruchira.utills.ViewUtils;
@@ -58,7 +59,7 @@ public class OrderCancelationFragment extends RuchiraFragment {
     private Bundle bundle;
     private String address = "";
     private String shopeName = "";
-    private String getReasonId="";
+    private String getReasonId = "";
     private String shopeProfileId;
 
 
@@ -77,7 +78,9 @@ public class OrderCancelationFragment extends RuchiraFragment {
 
         initialize(rootView);
         action();
-        fetchDataFromServer();
+        if (NetworkUtils.hasInternetConnection(ownerActivity)) {
+            fetchDataFromServer();
+        }
         return rootView;
     }
 
@@ -107,7 +110,9 @@ public class OrderCancelationFragment extends RuchiraFragment {
         ok_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fetchDataFromServerForCancelationSubmit(beat_spinner.getSelectedItem().toString());
+                if (NetworkUtils.hasInternetConnection(ownerActivity)) {
+                    fetchDataFromServerForCancelationSubmit(beat_spinner.getSelectedItem().toString());
+                }
             }
         });
 
@@ -115,7 +120,7 @@ public class OrderCancelationFragment extends RuchiraFragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 position2 = position;
-                getReasonId = cancelationList.get(position).getCancelationId();
+                getReasonId = cancelationList.get(position).getTitle();
                 Log.e(TAG, "cancelationList.get(position).getCancelationId() : " + cancelationList.get(position).getCancelationId());
             }
 
@@ -153,6 +158,7 @@ public class OrderCancelationFragment extends RuchiraFragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e(TAG, "order Error: " + error.getMessage());
+                finalProgressDialog.dismiss();
             }
         }) {
 
@@ -161,17 +167,16 @@ public class OrderCancelationFragment extends RuchiraFragment {
                 // Posting parameters to login url
 
                 Calendar c = Calendar.getInstance();
-                System.out.println("Current time => " + c.getTime());
-
-                SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+                SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
                 String formattedDate = df.format(c.getTime());
 
                 Map<String, String> params = new HashMap<String, String>();
+                Log.e(TAG, UserPreferences.getId(ownerActivity) + UserPreferences.getToken(ownerActivity) + getReasonId + shopeProfileId + formattedDate);
                 params.put("userId", UserPreferences.getId(ownerActivity));
                 params.put("tokenKey", UserPreferences.getToken(ownerActivity));
-                params.put("reasoneId", getReasonId);
-                params.put("outletId",shopeProfileId);
-                params.put("reasonDate ",formattedDate);
+                params.put("reason", getReasonId);
+                params.put("reasonDate", formattedDate);
+                params.put("outletId", shopeProfileId);
                 return params;
             }
 
@@ -209,6 +214,7 @@ public class OrderCancelationFragment extends RuchiraFragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e(TAG, "order Error: " + error.getMessage());
+                finalProgressDialog.dismiss();
             }
         }) {
 

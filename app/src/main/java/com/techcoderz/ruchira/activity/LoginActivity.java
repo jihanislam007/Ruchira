@@ -125,7 +125,6 @@ public class LoginActivity extends AppCompatActivity {
         Log.d(TAG, "login param " + email.getText().toString() + " " + password.getText().toString() + " ");
         if (NetworkUtils.hasInternetConnection(this)) {
             fetchDataFromServer(email.getText().toString(), password.getText().toString());
-        } else {
         }
     }
 
@@ -154,6 +153,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e(TAG, "Login Error: " + error.getMessage());
+                finalProgressDialog.dismiss();
             }
         }) {
 

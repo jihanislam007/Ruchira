@@ -566,6 +566,7 @@ public class TaskUtils {
                 outlet.setTitle(jsonArray.getJSONObject(i).getString("title"));
                 outlet.setGroup(jsonArray.getJSONObject(i).getString("group"));
                 outlet.setFlag(jsonArray.getJSONObject(i).getString("flag"));
+                outlet.setReason(jsonArray.getJSONObject(i).getString("reason"));
                 outletList.add(outlet);
             }
         } catch (JSONException e) {

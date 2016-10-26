@@ -1,6 +1,7 @@
 package com.techcoderz.ruchira.fragment;
 
 import android.app.ProgressDialog;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatSpinner;
@@ -26,6 +27,7 @@ import com.techcoderz.ruchira.application.RuchiraApplication;
 import com.techcoderz.ruchira.model.Beat;
 import com.techcoderz.ruchira.model.Outlet;
 import com.techcoderz.ruchira.utills.AppConfig;
+import com.techcoderz.ruchira.utills.NetworkUtils;
 import com.techcoderz.ruchira.utills.TaskUtils;
 import com.techcoderz.ruchira.utills.UserPreferences;
 import com.techcoderz.ruchira.utills.ViewUtils;
@@ -74,7 +76,9 @@ public class OutletsFragment extends RuchiraFragment {
         setupToolbar();
         initialize(rootView);
         action();
-        fetchDataFromServer();
+        if(NetworkUtils.hasInternetConnection(ownerActivity)) {
+            fetchDataFromServer();
+        }
         return rootView;
     }
 
@@ -108,7 +112,9 @@ public class OutletsFragment extends RuchiraFragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 location = beatList.get(position).getTitle();
-                fetchDataFromServerForOutlet(beatList.get(position).getId());
+                if(NetworkUtils.hasInternetConnection(ownerActivity)) {
+                    fetchDataFromServerForOutlet(beatList.get(position).getId());
+                }
                 Log.e(TAG, "beatList.get(position).getId() : " + beatList.get(position).getId());
             }
 
@@ -145,6 +151,7 @@ public class OutletsFragment extends RuchiraFragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e(TAG, "order Error: " + error.getMessage());
+                finalProgressDialog.dismiss();
             }
         }) {
 
@@ -153,7 +160,7 @@ public class OutletsFragment extends RuchiraFragment {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("userId", UserPreferences.getId(ownerActivity));
-                params.put("token", UserPreferences.getToken(ownerActivity));
+                params.put("tokenKey", UserPreferences.getToken(ownerActivity));
                 params.put("bitId",id);
                 return params;
             }
@@ -192,6 +199,7 @@ public class OutletsFragment extends RuchiraFragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e(TAG, "order Error: " + error.getMessage());
+                finalProgressDialog.dismiss();
             }
         }) {
 
@@ -199,8 +207,9 @@ public class OutletsFragment extends RuchiraFragment {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
+                Log.e(TAG,UserPreferences.getId(ownerActivity)+UserPreferences.getToken(ownerActivity));
                 params.put("userId", UserPreferences.getId(ownerActivity));
-                params.put("token", UserPreferences.getToken(ownerActivity));
+                params.put("tokenKey", UserPreferences.getToken(ownerActivity));
                 return params;
             }
 

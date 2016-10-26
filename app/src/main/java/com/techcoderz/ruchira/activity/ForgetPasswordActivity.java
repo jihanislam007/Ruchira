@@ -18,6 +18,7 @@ import com.squareup.picasso.Picasso;
 import com.techcoderz.ruchira.R;
 import com.techcoderz.ruchira.application.RuchiraApplication;
 import com.techcoderz.ruchira.utills.AppConfig;
+import com.techcoderz.ruchira.utills.NetworkUtils;
 import com.techcoderz.ruchira.utills.TaskUtils;
 import com.techcoderz.ruchira.utills.UserPreferences;
 import com.techcoderz.ruchira.utills.ViewUtils;
@@ -48,7 +49,9 @@ public class ForgetPasswordActivity extends AppCompatActivity {
         Send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fetchDataFromServer();
+                if(NetworkUtils.hasInternetConnection(ForgetPasswordActivity.this)) {
+                    fetchDataFromServer();
+                }
             }
         });
 
@@ -81,6 +84,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e(TAG, "ForgetPassword Error: " + error.getMessage());
+                finalProgressDialog.dismiss();
             }
         }) {
 

@@ -24,6 +24,7 @@ import com.android.volley.toolbox.Volley;
 import com.techcoderz.ruchira.R;
 import com.techcoderz.ruchira.application.RuchiraApplication;
 import com.techcoderz.ruchira.utills.AppConfig;
+import com.techcoderz.ruchira.utills.NetworkUtils;
 import com.techcoderz.ruchira.utills.TaskUtils;
 import com.techcoderz.ruchira.utills.UserPreferences;
 import com.techcoderz.ruchira.utills.ViewUtils;
@@ -100,7 +101,9 @@ public class OrderDetailsFragment extends RuchiraFragment {
         submit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fetchDataFromServerOrderItemSubmit();
+                if (NetworkUtils.hasInternetConnection(ownerActivity)) {
+                    fetchDataFromServerOrderItemSubmit();
+                }
             }
         });
 
@@ -120,7 +123,7 @@ public class OrderDetailsFragment extends RuchiraFragment {
                         value_et.setText(Integer.parseInt(ctn_et.getText().toString()) * pricePerCarton);
                     } else {
                         value_et.setText(((Integer.parseInt(ctn_et.getText().toString()) * pricePerCarton) +
-                                ((Integer.parseInt(pcs_et.getText().toString())) * pricePerPiece))+"");
+                                ((Integer.parseInt(pcs_et.getText().toString())) * pricePerPiece)) + "");
                     }
                 }
             }
@@ -144,7 +147,7 @@ public class OrderDetailsFragment extends RuchiraFragment {
                         value_et.setText((Integer.parseInt(pcs_et.getText().toString()) * pricePerPiece));
                     } else {
                         value_et.setText((((Integer.parseInt(ctn_et.getText().toString()) * pricePerCarton)) +
-                                ((Integer.parseInt(pcs_et.getText().toString()) * pricePerPiece)))+"");
+                                ((Integer.parseInt(pcs_et.getText().toString()) * pricePerPiece))) + "");
                     }
                 }
             }
@@ -159,7 +162,9 @@ public class OrderDetailsFragment extends RuchiraFragment {
         cancel_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fetchDataFromServerOrderCancelation();
+                if (NetworkUtils.hasInternetConnection(ownerActivity)) {
+                    fetchDataFromServerOrderCancelation();
+                }
             }
         });
     }
@@ -191,6 +196,7 @@ public class OrderDetailsFragment extends RuchiraFragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e(TAG, "submit_order Error: " + error.getMessage());
+                finalProgressDialog.dismiss();
             }
         }) {
 
@@ -243,6 +249,7 @@ public class OrderDetailsFragment extends RuchiraFragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e(TAG, "cancel_order Error: " + error.getMessage());
+                finalProgressDialog.dismiss();
             }
         }) {
 
@@ -250,7 +257,8 @@ public class OrderDetailsFragment extends RuchiraFragment {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("id", UserPreferences.getId(ownerActivity));
+                Log.e(TAG, UserPreferences.getId(ownerActivity) + UserPreferences.getToken(ownerActivity) + UserPreferences.getOrderId(ownerActivity));
+                params.put("userId", UserPreferences.getId(ownerActivity));
                 params.put("tokenKey", UserPreferences.getToken(ownerActivity));
                 params.put("orderId", UserPreferences.getOrderId(ownerActivity));
                 return params;

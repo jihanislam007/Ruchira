@@ -25,6 +25,7 @@ import com.techcoderz.ruchira.application.RuchiraApplication;
 import com.techcoderz.ruchira.model.Order;
 import com.techcoderz.ruchira.model.Report;
 import com.techcoderz.ruchira.utills.AppConfig;
+import com.techcoderz.ruchira.utills.NetworkUtils;
 import com.techcoderz.ruchira.utills.TaskUtils;
 import com.techcoderz.ruchira.utills.UserPreferences;
 import com.techcoderz.ruchira.utills.ViewUtils;
@@ -72,7 +73,9 @@ public class MemoFragment extends RuchiraFragment {
         View rootView = inflater.inflate(R.layout.fragment_view_memo, container, false);
         setupToolbar();
         initialize(rootView);
-        fetchDataFromServer();
+        if (NetworkUtils.hasInternetConnection(ownerActivity)) {
+            fetchDataFromServer();
+        }
         action();
         return rootView;
     }
@@ -149,6 +152,7 @@ public class MemoFragment extends RuchiraFragment {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     Log.e(TAG, "memo Error: " + error.getMessage());
+                    finalProgressDialog.dismiss();
                 }
             }) {
 
@@ -187,18 +191,18 @@ public class MemoFragment extends RuchiraFragment {
                 orderList.addAll(TaskUtils.setOrderList(result));
                 orderAdapter.notifyDataSetChanged();
 
-                shope_name_txt.setText("Shope Name : "+obj.getString("outletName"));
+                shope_name_txt.setText("Shope Name : " + obj.getString("outletName"));
                 order_id_txt.setText("Order Id : #" + obj.getString("orderId"));
                 name_txt.setText(obj.getString("ownerName"));
-                cell_no_txt.setText("Cell : "+obj.getString("phone"));
-                status_txt.setText("Status : "+obj.getString("status"));
+                cell_no_txt.setText("Cell : " + obj.getString("phone"));
+                status_txt.setText("Status : " + obj.getString("status"));
                 date_txt.setText(obj.getString("orderDate"));
-                order_time_txt.setText("Order Time : "+obj.getString("orderTime"));
-                subtotal_txt.setText(obj.getString("subTotal")+" BDT");
-                grand_total_txt.setText(obj.getString("total")+" BDT");
-                total_paid_txt.setText(obj.getString("totalPaid")+" BDT");
-                total_refunded_txt.setText(obj.getString("totalRefund")+" BDT");
-                total_due_txt.setText(obj.getString("totalDue")+" BDT");
+                order_time_txt.setText("Order Time : " + obj.getString("orderTime"));
+                subtotal_txt.setText(obj.getString("subTotal") + " BDT");
+                grand_total_txt.setText(obj.getString("total") + " BDT");
+                total_paid_txt.setText(obj.getString("totalPaid") + " BDT");
+                total_refunded_txt.setText(obj.getString("totalRefund") + " BDT");
+                total_due_txt.setText(obj.getString("totalDue") + " BDT");
 
                 return;
 

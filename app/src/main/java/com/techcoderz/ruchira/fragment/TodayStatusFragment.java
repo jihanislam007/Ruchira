@@ -20,6 +20,7 @@ import com.techcoderz.ruchira.application.RuchiraApplication;
 import com.techcoderz.ruchira.model.OutletRemainning;
 import com.techcoderz.ruchira.model.Target;
 import com.techcoderz.ruchira.utills.AppConfig;
+import com.techcoderz.ruchira.utills.NetworkUtils;
 import com.techcoderz.ruchira.utills.TaskUtils;
 import com.techcoderz.ruchira.utills.UserPreferences;
 import com.techcoderz.ruchira.utills.ViewUtils;
@@ -59,7 +60,9 @@ public class TodayStatusFragment extends RuchiraFragment {
         View rootView = inflater.inflate(R.layout.fragment_todays_status, container, false);
 
         initialize(rootView);
-        fetchDataFromServer();
+        if(NetworkUtils.hasInternetConnection(ownerActivity)) {
+            fetchDataFromServer();
+        }
         return rootView;
     }
 
@@ -110,6 +113,7 @@ public class TodayStatusFragment extends RuchiraFragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e(TAG, "today_status Error: " + error.getMessage());
+                finalProgressDialog.dismiss();
             }
         }) {
 
