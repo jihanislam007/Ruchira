@@ -20,6 +20,17 @@
             app:border_color="@color/white"
             app:border_width="2dp" />
 
+        <TextView
+            android:id="@+id/name_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/profile_image"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="5dp"
+            android:text="shahriar"
+            android:textColor="@color/white" />
+
 
     </RelativeLayout>
 
@@ -43,13 +54,15 @@
                 android:background="@android:drawable/ic_menu_gallery" />
 
             <TextView
-                android:id="@+id/name_txt"
+                android:id="@+id/status_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
-                android:text="shahriar"
+                android:text="SR"
                 android:textColor="@color/colorAccent" />
+
+
         </LinearLayout>
 
         <LinearLayout

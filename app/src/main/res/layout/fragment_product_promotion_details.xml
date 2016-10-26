@@ -42,7 +42,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight=".05"
+            android:paddingLeft="5dp"
             android:background="@color/color_text_selected"
             android:text="Product Name : " />
 
@@ -51,7 +51,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_weight=".3"
             android:text="Chocolate 250 gm" />
 
     </LinearLayout>
@@ -65,16 +64,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_weight=".13"
+   android:layout_marginLeft="5dp"
             android:text="SKU" />
 
         <TextView
             android:id="@+id/sku_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_weight=".3"
+            android:layout_marginLeft="95dp"
             android:text="CH02" />
 
     </LinearLayout>
@@ -88,15 +85,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight=".12"
+            android:layout_marginLeft="5dp"
             android:text="Product Id" />
 
         <TextView
             android:id="@+id/product_id_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_weight=".3"
+            android:layout_marginLeft="55dp"
             android:text="# 524325267" />
 
     </LinearLayout>
@@ -110,15 +106,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight=".16"
+            android:layout_marginLeft="5dp"
             android:text="Price" />
 
         <TextView
             android:id="@+id/selling_price_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_weight=".3"
+            android:layout_marginLeft="90dp"
             android:text="2000 BDT" />
 
     </LinearLayout>
@@ -133,6 +128,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/color_text_selected"
+            android:paddingLeft="5dp"
             android:text="Promotion : " />
 
     </LinearLayout>

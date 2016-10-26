@@ -51,7 +51,7 @@ public class ProfileFragment extends RuchiraFragment {
     private List<Area> areaList;
     private RecyclerView report_rcview;
     private CircleImageView profile_image;
-    private TextView name_txt, joining_date_txt, designation_txt, account_txt;
+    private TextView name_txt, joining_date_txt, designation_txt, account_txt,status_txt;
     private LinearLayoutManager manager;
     private AreaAdapter areaAdapter;
 
@@ -89,6 +89,7 @@ public class ProfileFragment extends RuchiraFragment {
         name_txt = (TextView) rootView.findViewById(R.id.name_txt);
         profile_image = (CircleImageView) rootView.findViewById(R.id.profile_image);
         account_txt = (TextView) rootView.findViewById(R.id.account_txt);
+        status_txt = (TextView) rootView.findViewById(R.id.status_txt);
 
         manager = new LinearLayoutManager(ownerActivity);
         areaAdapter = new AreaAdapter(ownerActivity, areaList);
@@ -156,10 +157,11 @@ public class ProfileFragment extends RuchiraFragment {
             Log.d(TAG, result.toString());
             if (responseResult == 1) {
 
-                joining_date_txt.setText(obj.getString("joiningDate"));
-                designation_txt.setText(obj.getString("desgination"));
+                joining_date_txt.setText("Joianing Date : "+obj.getString("joiningDate"));
+                designation_txt.setText("Designation : "+obj.getString("desgination"));
                 name_txt.setText(obj.getString("userName"));
-                account_txt.setText("");
+                account_txt.setText("Account");
+//                status_txt.setText("status");
 
                 Picasso.with(ownerActivity)
                         .load(obj.getString("profileImg"))
