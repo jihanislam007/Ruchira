@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:background="@mipmap/ic_launcher" />
+        android:background="@drawable/splash_logo" />
 
     <com.github.silvestrpredko.dotprogressbar.DotProgressBar
         android:id="@+id/dot_progress_bar"

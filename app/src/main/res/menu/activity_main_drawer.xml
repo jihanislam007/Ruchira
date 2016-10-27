@@ -4,34 +4,34 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_dash_board"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_dashboard_black"
             android:title="DashBoard" />
         <item
             android:id="@+id/nav_order"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_note_add_black_24dp"
             android:title="Order" />
         <item
             android:id="@+id/nav_todays_status"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_assignment_black_24dp"
             android:title="Today`s Status" />
         <item
             android:id="@+id/nav_all_summary"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_account_balance_wallet_black"
             android:title="All Summary" />
 
         <item
             android:id="@+id/nav_outlets"
-            android:icon="@drawable/ic_menu_send"
+            android:icon="@drawable/ic_business_black"
             android:title="Outlets" />
 
         <item
             android:id="@+id/nav_promotions"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_assessment_black"
             android:title="Promotions" />
 
         <item
             android:id="@+id/nav_product_price"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_chrome_reader_mode_black"
             android:title="All Products &amp; Prices" />
     </group>
 
@@ -43,11 +43,11 @@
         android:checkableBehavior="single">
             <item
                 android:id="@+id/nav_profile"
-                android:icon="@drawable/ic_menu_share"
+                android:icon="@drawable/ic_account_circle_black_24dp"
                 android:title="Profile" />
             <item
                 android:id="@+id/nav_setting"
-                android:icon="@drawable/ic_menu_manage"
+                android:icon="@drawable/ic_exit_to_app_black"
                 android:title="Logout" />
 
     </group>

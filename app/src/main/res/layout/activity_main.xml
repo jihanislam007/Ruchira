@@ -69,11 +69,11 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@color/colorAccent"
+        android:background="@color/white"
         android:choiceMode="singleChoice"
         android:fitsSystemWindows="true"
-        app:itemIconTint="@color/white"
-        app:itemTextColor="@color/white"
+
+        app:itemTextColor="@color/Black"
         app:menu="@menu/activity_main_drawer" />
     <!--app:headerLayout="@layout/drawer_list_item"-->
 
