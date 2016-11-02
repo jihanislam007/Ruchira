@@ -185,7 +185,6 @@ public class UserPreferences {
         editor.remove(RuchiraKeys.USER_ORDER_ID).apply();
     }
 
-
     public static void setAppVersion(Context context, String key) {
         SharedPreferences userInfo = getSharedPreferences(context);
         SharedPreferences.Editor editor = userInfo.edit();

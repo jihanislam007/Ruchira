@@ -9,22 +9,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.techcoderz.ruchira.R;
 import com.techcoderz.ruchira.adapter.OrderSummaryAdapter;
-import com.techcoderz.ruchira.adapter.ReportAdapter;
 import com.techcoderz.ruchira.application.RuchiraApplication;
 import com.techcoderz.ruchira.model.OrderSummary;
-import com.techcoderz.ruchira.model.Report;
 import com.techcoderz.ruchira.utills.AppConfig;
 import com.techcoderz.ruchira.utills.NetworkUtils;
 import com.techcoderz.ruchira.utills.TaskUtils;
@@ -45,9 +39,7 @@ import java.util.Map;
  */
 public class ShopOrderSummaryFragment extends RuchiraFragment {
     private final static String TAG = "OrderSummaryFragment";
-    String url = "http://sondhan.com/articleApi/android/category";
-    Fragment toLaunchFragment = null;
-
+    private Fragment toLaunchFragment = null;
     private List<OrderSummary> orderSummaryList;
     private RecyclerView report_rcview;
     private LinearLayoutManager manager;
@@ -70,7 +62,7 @@ public class ShopOrderSummaryFragment extends RuchiraFragment {
 
         setupToolbar();
         initialize(rootView);
-        if(NetworkUtils.hasInternetConnection(ownerActivity)) {
+        if(NetworkUtils.hasInternetConnection(mFragmentContext)) {
             fetchDataFromServer();
         }
         action();
@@ -78,8 +70,8 @@ public class ShopOrderSummaryFragment extends RuchiraFragment {
     }
 
     private void setupToolbar() {
-        ownerActivity.getSupportActionBar().show();
-        ownerActivity.getSupportActionBar().setTitle("Shop Order Summary");
+        mFragmentContext.getSupportActionBar().show();
+        mFragmentContext.getSupportActionBar().setTitle("Shop Order Summary");
     }
 
     private void initialize(View rootView) {
@@ -91,26 +83,30 @@ public class ShopOrderSummaryFragment extends RuchiraFragment {
         address_txt = (TextView) rootView.findViewById(R.id.address_txt);
         date_txt = (TextView) rootView.findViewById(R.id.date_txt);
 
-        manager = new LinearLayoutManager(ownerActivity);
-        orderSummaryAdapter = new OrderSummaryAdapter(ownerActivity, orderSummaryList);
+        manager = new LinearLayoutManager(mFragmentContext);
+        orderSummaryAdapter = new OrderSummaryAdapter(mFragmentContext, orderSummaryList);
         report_rcview.setAdapter(orderSummaryAdapter);
         report_rcview.setHasFixedSize(true);
         report_rcview.setLayoutManager(manager);
-
-
     }
 
     private void action() {
+    }
 
+    @Override
+    public void onBackPressed() {
+        int count = getFragmentManager().getBackStackEntryCount();
+        if (count == 0) {
+            mFragmentContext.onBackPressed();
+        } else {
+            getFragmentManager().popBackStack();
+        }
     }
 
     private void fetchDataFromServer() {
-
-        if (UserPreferences.getOrderId(ownerActivity) != null) {
-
+        if (UserPreferences.getOrderId(mFragmentContext) != null) {
             ProgressDialog progressDialog = null;
-
-            progressDialog = new ProgressDialog(ownerActivity);
+            progressDialog = new ProgressDialog(mFragmentContext);
             progressDialog.setTitle("Loading");
             progressDialog.setMessage("Please wait...");
             progressDialog.setCancelable(false);
@@ -144,10 +140,9 @@ public class ShopOrderSummaryFragment extends RuchiraFragment {
                     Calendar calendar = Calendar.getInstance();
                     int year = calendar.get(Calendar.YEAR);
                     int month = calendar.get(Calendar.MONTH);
-
-                    params.put("userId", UserPreferences.getId(ownerActivity));
-                    params.put("tokenKey", UserPreferences.getToken(ownerActivity));
-                    params.put("orderId", UserPreferences.getOrderId(ownerActivity));
+                    params.put("userId", UserPreferences.getId(mFragmentContext));
+                    params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
+                    params.put("orderId", UserPreferences.getOrderId(mFragmentContext));
                     params.put("year", year + "");
                     params.put("month", month + "");
                     return params;
@@ -158,7 +153,7 @@ public class ShopOrderSummaryFragment extends RuchiraFragment {
             // Adding request to request queue
             RuchiraApplication.getInstance().addToRequestQueue(strReq, tag_string_req);
         } else {
-            ViewUtils.alertUser(ownerActivity, "No Memo Available");
+            ViewUtils.alertUser(mFragmentContext, "No Memo Available");
         }
 
     }
@@ -185,7 +180,7 @@ public class ShopOrderSummaryFragment extends RuchiraFragment {
                 return;
 
             } else {
-                ViewUtils.alertUser(ownerActivity, "Server Error");
+                ViewUtils.alertUser(mFragmentContext, "Server Error");
                 return;
             }
         } catch (JSONException e) {

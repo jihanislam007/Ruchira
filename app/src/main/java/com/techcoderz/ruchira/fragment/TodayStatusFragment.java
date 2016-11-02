@@ -2,7 +2,6 @@ package com.techcoderz.ruchira.fragment;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +11,7 @@ import android.widget.TextView;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.techcoderz.ruchira.R;
 import com.techcoderz.ruchira.application.RuchiraApplication;
 import com.techcoderz.ruchira.model.OutletRemainning;
@@ -38,13 +35,15 @@ import java.util.Map;
  */
 public class TodayStatusFragment extends RuchiraFragment {
     private final static String TAG = "TodayStatusFragment";
-    private String url = "http://sondhan.com/articleApi/android/category";
-    private Fragment toLaunchFragment = null;
-    private TextView date_txt, this_month_txt, current_achive_txt, remainnig_target_txt, remainnig_visit_txt, avg_target_visit_txt;
-    private TextView total_outlet_txt, outlet_remained_txt, outlet_visited_txt, achive_percent_sr_txt, achive_today_txt;
+
+    private TextView date_txt, this_month_txt, current_achive_txt,
+            remainnig_target_txt, remainnig_visit_txt, avg_target_visit_txt;
+
+    private TextView total_outlet_txt, outlet_remained_txt, outlet_visited_txt,
+            achive_percent_sr_txt, achive_today_txt;
 
     private List<Target> targetList;
-    private List<OutletRemainning> outletRemainningList;
+    private List<OutletRemainning> outletRemainingList;
 
     public TodayStatusFragment() {
     }
@@ -58,17 +57,20 @@ public class TodayStatusFragment extends RuchiraFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_todays_status, container, false);
-
         initialize(rootView);
-        if(NetworkUtils.hasInternetConnection(ownerActivity)) {
+        action();
+        if(NetworkUtils.hasInternetConnection(mFragmentContext)) {
             fetchDataFromServer();
         }
         return rootView;
     }
 
+    private void action() {
+        mFragmentContext.getSupportActionBar().setTitle("Today\'s Status");
+    }
+
     private void initialize(View rootView) {
         date_txt = (TextView) rootView.findViewById(R.id.date_txt);
-
         this_month_txt = (TextView) rootView.findViewById(R.id.this_month_txt);
         current_achive_txt = (TextView) rootView.findViewById(R.id.current_achive_txt);
         remainnig_target_txt = (TextView) rootView.findViewById(R.id.remainnig_target_txt);
@@ -83,14 +85,22 @@ public class TodayStatusFragment extends RuchiraFragment {
         achive_today_txt = (TextView) rootView.findViewById(R.id.achive_today_txt);
 
         targetList = new ArrayList<>();
-        outletRemainningList = new ArrayList<>();
+        outletRemainingList = new ArrayList<>();
+    }
+
+    @Override
+    public void onBackPressed() {
+        int count = getFragmentManager().getBackStackEntryCount();
+        if (count == 0) {
+            mFragmentContext.onBackPressed();
+        } else {
+            getFragmentManager().popBackStack();
+        }
     }
 
     private void fetchDataFromServer() {
-
         ProgressDialog progressDialog = null;
-
-        progressDialog = new ProgressDialog(ownerActivity);
+        progressDialog = new ProgressDialog(mFragmentContext);
         progressDialog.setTitle("Loading");
         progressDialog.setMessage("Please wait...");
         progressDialog.setCancelable(false);
@@ -121,8 +131,8 @@ public class TodayStatusFragment extends RuchiraFragment {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("userId", UserPreferences.getId(ownerActivity));
-                params.put("tokenKey", UserPreferences.getToken(ownerActivity));
+                params.put("userId", UserPreferences.getId(mFragmentContext));
+                params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
                 return params;
             }
 
@@ -136,35 +146,32 @@ public class TodayStatusFragment extends RuchiraFragment {
     private void execute(String result) {
         Log.d(TAG, result.toString());
         targetList.clear();
-        outletRemainningList.clear();
-
+        outletRemainingList.clear();
         try {
-
             JSONObject obj = new JSONObject(result);
-
             int responseResult = obj.getInt("success");
             Log.d(TAG, result.toString());
             if (responseResult == 1) {
                 date_txt.setText(obj.getString("orderDate"));
                 targetList.addAll(TaskUtils.setTarget(result));
-                outletRemainningList.addAll(TaskUtils.setOutletRemainning(result));
+                outletRemainingList.addAll(TaskUtils.setOutletRemainning(result));
 
-                this_month_txt.setText(targetList.get(0).getThisMonth());
-                current_achive_txt.setText(targetList.get(0).getCurrentAchive());
-                remainnig_target_txt.setText(targetList.get(0).getRemainningTarget());
-                avg_target_visit_txt.setText(targetList.get(0).getAvgTargetVisit());
+                this_month_txt.setText(targetList.get(0).getThisMonth() + " ৳");
+                current_achive_txt.setText(targetList.get(0).getCurrentAchive() + " ৳");
+                remainnig_target_txt.setText(targetList.get(0).getRemainningTarget() + " ৳");
+                avg_target_visit_txt.setText(targetList.get(0).getAvgTargetVisit() + " ৳");
                 remainnig_visit_txt.setText(targetList.get(0).getRemainingVisit());
 
-                total_outlet_txt.setText(outletRemainningList.get(0).getTotalOutlet());
-                outlet_remained_txt.setText(outletRemainningList.get(0).getOutletRemained());
-                outlet_visited_txt.setText(outletRemainningList.get(0).getOutletVisited());
-                achive_today_txt.setText(outletRemainningList.get(0).getOutletAchieve());
-                achive_percent_sr_txt.setText(outletRemainningList.get(0).getAchieveInPercent());
+                total_outlet_txt.setText(outletRemainingList.get(0).getTotalOutlet() + " ৳");
+                outlet_remained_txt.setText(outletRemainingList.get(0).getOutletRemained() + " ৳");
+                outlet_visited_txt.setText(outletRemainingList.get(0).getOutletVisited());
+                achive_today_txt.setText(outletRemainingList.get(0).getOutletAchieve() + " ৳");
+                achive_percent_sr_txt.setText(outletRemainingList.get(0).getAchieveInPercent());
 
                 return;
 
             } else {
-                ViewUtils.alertUser(ownerActivity, "Server Error");
+                ViewUtils.alertUser(mFragmentContext, "Server Error");
                 return;
             }
         } catch (JSONException e) {

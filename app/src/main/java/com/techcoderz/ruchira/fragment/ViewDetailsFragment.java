@@ -36,11 +36,11 @@ import java.util.Map;
  */
 public class ViewDetailsFragment extends RuchiraFragment {
     private final static String TAG = "ViewDetailsFragment";
-
-    Fragment toLaunchFragment = null;
-    TextView total_bit_txt, sale_yesterDay_txt, sale_monthAccumulation_txt, sale_month_day_avg_txt, sale_month_week_avg_txt, today_sale_txt;
-    TextView order_yesterday_txt, order_monthAccumulation_txt, order_monthDailyAvg_txt, order_monthWeekly_avg_txt, today_order_txt, total_outlet_txt;
-
+    private Fragment toLaunchFragment = null;
+    private TextView total_bit_txt, sale_yesterDay_txt, sale_monthAccumulation_txt,
+            sale_month_day_avg_txt, sale_month_week_avg_txt, today_sale_txt;
+    private TextView order_yesterday_txt, order_monthAccumulation_txt, order_monthDailyAvg_txt,
+            order_monthWeekly_avg_txt, today_order_txt, total_outlet_txt;
     private List<TodaySale> todaySaleList;
     private List<TodayOrder> todayOrderList;
 
@@ -59,7 +59,7 @@ public class ViewDetailsFragment extends RuchiraFragment {
         setupToolbar();
         initialize(rootView);
         action();
-        if (NetworkUtils.hasInternetConnection(ownerActivity)) {
+        if (NetworkUtils.hasInternetConnection(mFragmentContext)) {
             fetchDataFromServer();
         }
         return rootView;
@@ -69,8 +69,8 @@ public class ViewDetailsFragment extends RuchiraFragment {
     }
 
     private void setupToolbar() {
-        ownerActivity.getSupportActionBar().show();
-        ownerActivity.getSupportActionBar().setTitle("View Details");
+        mFragmentContext.getSupportActionBar().show();
+        mFragmentContext.getSupportActionBar().setTitle("View Details");
     }
 
     private void initialize(View rootView) {
@@ -93,11 +93,19 @@ public class ViewDetailsFragment extends RuchiraFragment {
         todaySaleList = new ArrayList<>();
     }
 
+    @Override
+    public void onBackPressed() {
+        int count = getFragmentManager().getBackStackEntryCount();
+        if (count == 0) {
+            mFragmentContext.onBackPressed();
+        } else {
+            getFragmentManager().popBackStack();
+        }
+    }
+
     private void fetchDataFromServer() {
-
         ProgressDialog progressDialog = null;
-
-        progressDialog = new ProgressDialog(ownerActivity);
+        progressDialog = new ProgressDialog(mFragmentContext);
         progressDialog.setTitle("Loading");
         progressDialog.setMessage("Please wait...");
         progressDialog.setCancelable(false);
@@ -128,8 +136,8 @@ public class ViewDetailsFragment extends RuchiraFragment {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("userId", UserPreferences.getId(ownerActivity));
-                params.put("tokenKey", UserPreferences.getToken(ownerActivity));
+                params.put("userId", UserPreferences.getId(mFragmentContext));
+                params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
                 return params;
             }
 
@@ -158,22 +166,22 @@ public class ViewDetailsFragment extends RuchiraFragment {
                 todaySaleList.addAll(TaskUtils.setTodayTotalSale(result));
 
 
-                sale_yesterDay_txt.setText(todaySaleList.get(0).getYesterdeay());
-                sale_monthAccumulation_txt.setText(todaySaleList.get(0).getMonthAccumulation());
-                sale_month_day_avg_txt.setText(todaySaleList.get(0).getMonthDailyAvg());
-                sale_month_week_avg_txt.setText(todaySaleList.get(0).getMonthWeeklyAvg());
-                today_sale_txt.setText(todaySaleList.get(0).getTodaySale());
+                sale_yesterDay_txt.setText(todaySaleList.get(0).getYesterdeay() + " ৳");
+                sale_monthAccumulation_txt.setText(todaySaleList.get(0).getMonthAccumulation() + " ৳");
+                sale_month_day_avg_txt.setText(todaySaleList.get(0).getMonthDailyAvg() + " ৳");
+                sale_month_week_avg_txt.setText(todaySaleList.get(0).getMonthWeeklyAvg() + " ৳");
+                today_sale_txt.setText(todaySaleList.get(0).getTodaySale() + " ৳");
 
-                order_yesterday_txt.setText(todayOrderList.get(0).getYesterdeay());
-                order_monthAccumulation_txt.setText(todayOrderList.get(0).getMonthAccumulation());
-                order_monthDailyAvg_txt.setText(todayOrderList.get(0).getMonthDailyAvg());
-                order_monthWeekly_avg_txt.setText(todayOrderList.get(0).getMonthWeeklyAvg());
-                today_order_txt.setText(todayOrderList.get(0).getTodayOrder());
+                order_yesterday_txt.setText(todayOrderList.get(0).getYesterdeay() + " ৳");
+                order_monthAccumulation_txt.setText(todayOrderList.get(0).getMonthAccumulation() + " ৳");
+                order_monthDailyAvg_txt.setText(todayOrderList.get(0).getMonthDailyAvg() + " ৳");
+                order_monthWeekly_avg_txt.setText(todayOrderList.get(0).getMonthWeeklyAvg() + " ৳");
+                today_order_txt.setText(todayOrderList.get(0).getTodayOrder() + " ৳");
 
                 return;
 
             } else {
-                ViewUtils.alertUser(ownerActivity, "Server Error");
+                ViewUtils.alertUser(mFragmentContext, "Server Error");
                 return;
             }
         } catch (JSONException e) {

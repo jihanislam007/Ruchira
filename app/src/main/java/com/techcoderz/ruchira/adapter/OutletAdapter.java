@@ -31,11 +31,9 @@ public class OutletAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private int type;
 
     public OutletAdapter(Context context, List<Outlet> outletList, int type) {
-
         this.outletList = outletList;
         this.context = context;
         this.type = type;
-
         if (toLaunchFragment != null) {
             ViewUtils.launchFragmentKeepingInBackStack(context, toLaunchFragment);
         }
@@ -43,7 +41,6 @@ public class OutletAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public RecyclerViewSubHolders onCreateViewHolder(ViewGroup parent, int viewType) {
-
         View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_yet_to_visit, null);
         RecyclerViewSubHolders rcv = new RecyclerViewSubHolders(layoutView);
         return rcv;
@@ -53,11 +50,8 @@ public class OutletAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof RecyclerViewSubHolders) {
             if (outletList.size() > 0) {
-
                 ((RecyclerViewSubHolders) holder).shop_name_txt.setText(outletList.get(position).getTitle());
                 ((RecyclerViewSubHolders) holder).location_txt.setText(outletList.get(position).getGroup());
-
-
                 ((RecyclerViewSubHolders) holder).wholeContent.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -67,7 +61,6 @@ public class OutletAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                             }else {
                                 openOpenShopProfile(outletList.get(position).getOid());
                             }
-
                         } else {
                             openShopOrderSummaryFragment();
                         }
@@ -102,9 +95,7 @@ public class OutletAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
     }
 
-
     class RecyclerViewSubHolders extends RecyclerView.ViewHolder {
-
         public TextView shop_name_txt, location_txt;
         public LinearLayout wholeContent;
 

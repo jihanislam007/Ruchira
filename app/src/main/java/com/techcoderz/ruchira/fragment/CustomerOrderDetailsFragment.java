@@ -14,16 +14,12 @@ import android.widget.TextView;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.techcoderz.ruchira.R;
 import com.techcoderz.ruchira.adapter.OrderAdapter;
-import com.techcoderz.ruchira.adapter.ReportAdapter;
 import com.techcoderz.ruchira.application.RuchiraApplication;
 import com.techcoderz.ruchira.model.Billing;
 import com.techcoderz.ruchira.model.Order;
-import com.techcoderz.ruchira.model.Report;
 import com.techcoderz.ruchira.model.Shipping;
 import com.techcoderz.ruchira.utills.AppConfig;
 import com.techcoderz.ruchira.utills.NetworkUtils;
@@ -43,7 +39,7 @@ import java.util.Map;
  * Created by priom on 9/19/16.
  */
 public class CustomerOrderDetailsFragment extends RuchiraFragment {
-    private final static String TAG = "OrderDetailsFragment";
+    private final static String TAG = "OrderSubmitFragment";
     String url = "http://sondhan.com/articleApi/android/category";
     Fragment toLaunchFragment = null;
 
@@ -72,7 +68,7 @@ public class CustomerOrderDetailsFragment extends RuchiraFragment {
         View rootView = inflater.inflate(R.layout.fragment_customer_order_details, container, false);
         setupToolbar();
         initialize(rootView);
-        if(NetworkUtils.hasInternetConnection(ownerActivity)) {
+        if(NetworkUtils.hasInternetConnection(mFragmentContext)) {
             fetchDataFromServer();
         }
         action();
@@ -80,8 +76,8 @@ public class CustomerOrderDetailsFragment extends RuchiraFragment {
     }
 
     private void setupToolbar() {
-        ownerActivity.getSupportActionBar().show();
-        ownerActivity.getSupportActionBar().setTitle("Customer Order Details");
+        mFragmentContext.getSupportActionBar().show();
+        mFragmentContext.getSupportActionBar().setTitle("Customer Order Details");
     }
 
     private void initialize(View rootView) {
@@ -112,8 +108,8 @@ public class CustomerOrderDetailsFragment extends RuchiraFragment {
         shippingList = new ArrayList<>();
         billingList = new ArrayList<>();
 
-        manager = new LinearLayoutManager(ownerActivity);
-        orderAdapter = new OrderAdapter(ownerActivity, orderList);
+        manager = new LinearLayoutManager(mFragmentContext);
+        orderAdapter = new OrderAdapter(mFragmentContext, orderList);
 
 
     }
@@ -124,13 +120,23 @@ public class CustomerOrderDetailsFragment extends RuchiraFragment {
         report_rcview.setLayoutManager(manager);
     }
 
+    @Override
+    public void onBackPressed() {
+        int count = getFragmentManager().getBackStackEntryCount();
+        if (count == 0) {
+            mFragmentContext.onBackPressed();
+        } else {
+            getFragmentManager().popBackStack();
+        }
+    }
+
     private void fetchDataFromServer() {
 
-        if (UserPreferences.getOrderId(ownerActivity) != null) {
+        if (UserPreferences.getOrderId(mFragmentContext) != null) {
 
         ProgressDialog progressDialog = null;
 
-        progressDialog = new ProgressDialog(ownerActivity);
+        progressDialog = new ProgressDialog(mFragmentContext);
         progressDialog.setTitle("Loading");
         progressDialog.setMessage("Please wait...");
         progressDialog.setCancelable(false);
@@ -161,9 +167,9 @@ public class CustomerOrderDetailsFragment extends RuchiraFragment {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("userId", UserPreferences.getId(ownerActivity));
-                params.put("tokenKey", UserPreferences.getToken(ownerActivity));
-                params.put("orderId", UserPreferences.getOrderId(ownerActivity));
+                params.put("userId", UserPreferences.getId(mFragmentContext));
+                params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
+                params.put("orderId", UserPreferences.getOrderId(mFragmentContext));
                 return params;
             }
 
@@ -172,7 +178,7 @@ public class CustomerOrderDetailsFragment extends RuchiraFragment {
         // Adding request to request queue
         RuchiraApplication.getInstance().addToRequestQueue(strReq, tag_string_req);
         } else {
-            ViewUtils.alertUser(ownerActivity, "No Memo Available");
+            ViewUtils.alertUser(mFragmentContext, "No Memo Available");
         }
 
     }
@@ -221,7 +227,7 @@ public class CustomerOrderDetailsFragment extends RuchiraFragment {
                 return;
 
             } else {
-                ViewUtils.alertUser(ownerActivity, "Server Error");
+                ViewUtils.alertUser(mFragmentContext, "Server Error");
                 return;
             }
         } catch (JSONException e) {

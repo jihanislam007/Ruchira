@@ -1,27 +1,18 @@
 package com.techcoderz.ruchira.fragment;
 
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AutoCompleteTextView;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.techcoderz.ruchira.R;
 import com.techcoderz.ruchira.application.RuchiraApplication;
 import com.techcoderz.ruchira.utills.AppConfig;
@@ -32,15 +23,7 @@ import com.techcoderz.ruchira.utills.ViewUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -66,14 +49,14 @@ public class DashBoardFragment extends RuchiraFragment {
         setupActionBar();
         initialize(rootView);
         action();
-        if(NetworkUtils.hasInternetConnection(ownerActivity)) {
+        if(NetworkUtils.hasInternetConnection(mFragmentContext)) {
             fetchDataFromServer();
         }
         return rootView;
     }
 
     private void setupActionBar() {
-        ownerActivity.getSupportActionBar().show();
+        mFragmentContext.getSupportActionBar().show();
     }
 
     private void initialize(View rootView) {
@@ -94,12 +77,22 @@ public class DashBoardFragment extends RuchiraFragment {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        int count = getFragmentManager().getBackStackEntryCount();
+        if (count == 0) {
+            mFragmentContext.onBackPressed();
+        } else {
+            getFragmentManager().popBackStack();
+        }
+    }
+
     private void fetchDataFromServer() {
 
         String tag_string_req = "req_dashboard";
         ProgressDialog progressDialog = null;
 
-        progressDialog = new ProgressDialog(ownerActivity);
+        progressDialog = new ProgressDialog(mFragmentContext);
         progressDialog.setTitle("Loading");
         progressDialog.setMessage("Please wait...");
         progressDialog.setCancelable(false);
@@ -128,8 +121,8 @@ public class DashBoardFragment extends RuchiraFragment {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("userId", UserPreferences.getId(ownerActivity));
-                params.put("tokenKey", UserPreferences.getToken(ownerActivity));
+                params.put("userId", UserPreferences.getId(mFragmentContext));
+                params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
                 return params;
             }
 
@@ -158,7 +151,7 @@ public class DashBoardFragment extends RuchiraFragment {
                 return;
 
             } else {
-                ViewUtils.alertUser(ownerActivity, "Server Error");
+                ViewUtils.alertUser(mFragmentContext, "Server Error");
                 return;
             }
         } catch (JSONException e) {
@@ -169,7 +162,7 @@ public class DashBoardFragment extends RuchiraFragment {
     private void openViewDetailsFragment() {
         toLaunchFragment = new ViewDetailsFragment();
         if (toLaunchFragment != null) {
-            ViewUtils.launchFragmentKeepingInBackStack(ownerActivity, toLaunchFragment);
+            ViewUtils.launchFragmentKeepingInBackStack(mFragmentContext, toLaunchFragment);
             toLaunchFragment = null;
         }
     }

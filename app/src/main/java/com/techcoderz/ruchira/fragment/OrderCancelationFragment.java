@@ -4,8 +4,6 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatSpinner;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,13 +17,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.techcoderz.ruchira.R;
-import com.techcoderz.ruchira.adapter.OrderBeatSpinnerAdapter;
 import com.techcoderz.ruchira.adapter.OrderCancelationSpinnerAdapter;
-import com.techcoderz.ruchira.adapter.OutletAdapter;
 import com.techcoderz.ruchira.application.RuchiraApplication;
-import com.techcoderz.ruchira.model.Beat;
 import com.techcoderz.ruchira.model.OrderCancelation;
-import com.techcoderz.ruchira.model.Outlet;
 import com.techcoderz.ruchira.utills.AppConfig;
 import com.techcoderz.ruchira.utills.NetworkUtils;
 import com.techcoderz.ruchira.utills.TaskUtils;
@@ -78,7 +72,7 @@ public class OrderCancelationFragment extends RuchiraFragment {
 
         initialize(rootView);
         action();
-        if (NetworkUtils.hasInternetConnection(ownerActivity)) {
+        if (NetworkUtils.hasInternetConnection(mFragmentContext)) {
             fetchDataFromServer();
         }
         return rootView;
@@ -96,7 +90,7 @@ public class OrderCancelationFragment extends RuchiraFragment {
         shopeProfileId = bundle.getString("shopeProfileId");
 
         cancelationList = new ArrayList<>();
-        orderCancelationSpinnerAdapter = new OrderCancelationSpinnerAdapter(ownerActivity, R.layout.beat_list, cancelationList);
+        orderCancelationSpinnerAdapter = new OrderCancelationSpinnerAdapter(mFragmentContext, R.layout.beat_list, cancelationList);
         orderCancelationSpinnerAdapter.setDropDownViewResource(R.layout.beat_list);
 
     }
@@ -110,7 +104,7 @@ public class OrderCancelationFragment extends RuchiraFragment {
         ok_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (NetworkUtils.hasInternetConnection(ownerActivity)) {
+                if (NetworkUtils.hasInternetConnection(mFragmentContext)) {
                     fetchDataFromServerForCancelationSubmit(beat_spinner.getSelectedItem().toString());
                 }
             }
@@ -130,12 +124,19 @@ public class OrderCancelationFragment extends RuchiraFragment {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        int count = getFragmentManager().getBackStackEntryCount();
+        if (count == 0) {
+            mFragmentContext.onBackPressed();
+        } else {
+            getFragmentManager().popBackStack();
+        }
+    }
 
     private void fetchDataFromServerForCancelationSubmit(final String selectedData) {
-
         ProgressDialog progressDialog = null;
-
-        progressDialog = new ProgressDialog(ownerActivity);
+        progressDialog = new ProgressDialog(mFragmentContext);
         progressDialog.setTitle("Loading");
         progressDialog.setMessage("Please wait...");
         progressDialog.setCancelable(false);
@@ -171,9 +172,9 @@ public class OrderCancelationFragment extends RuchiraFragment {
                 String formattedDate = df.format(c.getTime());
 
                 Map<String, String> params = new HashMap<String, String>();
-                Log.e(TAG, UserPreferences.getId(ownerActivity) + UserPreferences.getToken(ownerActivity) + getReasonId + shopeProfileId + formattedDate);
-                params.put("userId", UserPreferences.getId(ownerActivity));
-                params.put("tokenKey", UserPreferences.getToken(ownerActivity));
+                Log.e(TAG, UserPreferences.getId(mFragmentContext) + UserPreferences.getToken(mFragmentContext) + getReasonId + shopeProfileId + formattedDate);
+                params.put("userId", UserPreferences.getId(mFragmentContext));
+                params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
                 params.put("reason", getReasonId);
                 params.put("reasonDate", formattedDate);
                 params.put("outletId", shopeProfileId);
@@ -191,7 +192,7 @@ public class OrderCancelationFragment extends RuchiraFragment {
 
         ProgressDialog progressDialog = null;
 
-        progressDialog = new ProgressDialog(ownerActivity);
+        progressDialog = new ProgressDialog(mFragmentContext);
         progressDialog.setTitle("Loading");
         progressDialog.setMessage("Please wait...");
         progressDialog.setCancelable(false);
@@ -222,8 +223,8 @@ public class OrderCancelationFragment extends RuchiraFragment {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("userId", UserPreferences.getId(ownerActivity));
-                params.put("tokenKey", UserPreferences.getToken(ownerActivity));
+                params.put("userId", UserPreferences.getId(mFragmentContext));
+                params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
                 return params;
             }
 
@@ -251,7 +252,7 @@ public class OrderCancelationFragment extends RuchiraFragment {
                 return;
 
             } else {
-                ViewUtils.alertUser(ownerActivity, "Server Error");
+                ViewUtils.alertUser(mFragmentContext, "Server Error");
                 return;
             }
         } catch (JSONException e) {
@@ -272,7 +273,7 @@ public class OrderCancelationFragment extends RuchiraFragment {
                 return;
 
             } else {
-                ViewUtils.alertUser(ownerActivity, "Server Error");
+                ViewUtils.alertUser(mFragmentContext, "Server Error");
                 return;
             }
         } catch (JSONException e) {
@@ -283,7 +284,7 @@ public class OrderCancelationFragment extends RuchiraFragment {
     private void openOrderFragment() {
         toLaunchFragment = new OrderFragment();
         if (toLaunchFragment != null) {
-            ViewUtils.launchFragmentKeepingInBackStack(ownerActivity, toLaunchFragment);
+            ViewUtils.launchFragmentKeepingInBackStack(mFragmentContext, toLaunchFragment);
             toLaunchFragment = null;
         }
     }

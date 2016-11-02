@@ -3,26 +3,21 @@ package com.techcoderz.ruchira.fragment;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.techcoderz.ruchira.R;
 import com.techcoderz.ruchira.adapter.ReportAdapter;
 import com.techcoderz.ruchira.application.RuchiraApplication;
-import com.techcoderz.ruchira.model.Promotion;
 import com.techcoderz.ruchira.model.Report;
 import com.techcoderz.ruchira.utills.AppConfig;
 import com.techcoderz.ruchira.utills.NetworkUtils;
@@ -35,7 +30,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -69,15 +63,15 @@ public class YearlyTotalSaleFragment extends RuchiraFragment {
         setupToolbar();
         initialize(rootView);
         action();
-        if (NetworkUtils.hasInternetConnection(ownerActivity)) {
+        if (NetworkUtils.hasInternetConnection(mFragmentContext)) {
             fetchDataFromServer();
         }
         return rootView;
     }
 
     private void setupToolbar() {
-        ownerActivity.getSupportActionBar().show();
-        ownerActivity.getSupportActionBar().setTitle("Yearly Total Sale");
+        mFragmentContext.getSupportActionBar().show();
+        mFragmentContext.getSupportActionBar().setTitle("Yearly Total Sale");
     }
 
     private void initialize(View rootView) {
@@ -90,8 +84,8 @@ public class YearlyTotalSaleFragment extends RuchiraFragment {
         total_txt = (TextView) rootView.findViewById(R.id.total_txt);
 
 
-        manager = new LinearLayoutManager(ownerActivity);
-        reportAdapter = new ReportAdapter(ownerActivity, reportList);
+        manager = new LinearLayoutManager(mFragmentContext);
+        reportAdapter = new ReportAdapter(mFragmentContext, reportList);
 
         report_rcview.setAdapter(reportAdapter);
         report_rcview.setHasFixedSize(true);
@@ -101,11 +95,21 @@ public class YearlyTotalSaleFragment extends RuchiraFragment {
     private void action() {
     }
 
+    @Override
+    public void onBackPressed() {
+        int count = getFragmentManager().getBackStackEntryCount();
+        if (count == 0) {
+            mFragmentContext.onBackPressed();
+        } else {
+            getFragmentManager().popBackStack();
+        }
+    }
+
     private void fetchDataFromServer() {
 
         ProgressDialog progressDialog = null;
 
-        progressDialog = new ProgressDialog(ownerActivity);
+        progressDialog = new ProgressDialog(mFragmentContext);
         progressDialog.setTitle("Loading");
         progressDialog.setMessage("Please wait...");
         progressDialog.setCancelable(false);
@@ -136,10 +140,10 @@ public class YearlyTotalSaleFragment extends RuchiraFragment {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("userId", UserPreferences.getId(ownerActivity));
+                params.put("userId", UserPreferences.getId(mFragmentContext));
                 Calendar calendar = Calendar.getInstance();
                 int year = calendar.get(Calendar.YEAR);
-                params.put("tokenKey", UserPreferences.getToken(ownerActivity));
+                params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
                 params.put("year", year + "");
                 return params;
             }
@@ -162,18 +166,17 @@ public class YearlyTotalSaleFragment extends RuchiraFragment {
             int responseResult = obj.getInt("success");
             Log.d(TAG, result.toString());
             if (responseResult == 1) {
-                id_txt.setText("RS ID # " + obj.getString("userId"));
+                id_txt.setText("SR ID # " + obj.getString("userId"));
                 phone_txt.setText("Cell : " + obj.getString("userPhone"));
                 name_txt.setText(obj.getString("userName"));
                 date_txt.setText(obj.getString("year"));
                 total_txt.setText(obj.getString("total") + " BDT");
                 reportList.addAll(TaskUtils.setYearlyReport(result));
                 reportAdapter.notifyDataSetChanged();
-
                 return;
 
             } else {
-                ViewUtils.alertUser(ownerActivity, "Server Error");
+                ViewUtils.alertUser(mFragmentContext, "Server Error");
                 return;
             }
         } catch (JSONException e) {

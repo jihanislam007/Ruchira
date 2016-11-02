@@ -14,16 +14,12 @@ import android.widget.TextView;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.Picasso;
 import com.techcoderz.ruchira.R;
 import com.techcoderz.ruchira.adapter.AreaAdapter;
-import com.techcoderz.ruchira.adapter.ReportAdapter;
 import com.techcoderz.ruchira.application.RuchiraApplication;
 import com.techcoderz.ruchira.model.Area;
-import com.techcoderz.ruchira.model.Report;
 import com.techcoderz.ruchira.utills.AppConfig;
 import com.techcoderz.ruchira.utills.NetworkUtils;
 import com.techcoderz.ruchira.utills.TaskUtils;
@@ -34,7 +30,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,12 +41,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class ProfileFragment extends RuchiraFragment {
     private final static String TAG = "ProfileFragment";
-    Fragment toLaunchFragment = null;
+    private Fragment toLaunchFragment = null;
 
     private List<Area> areaList;
     private RecyclerView report_rcview;
     private CircleImageView profile_image;
-    private TextView name_txt, joining_date_txt, designation_txt, account_txt,status_txt;
+    private TextView name_txt, joining_date_txt, designation_txt, status_txt;
     private LinearLayoutManager manager;
     private AreaAdapter areaAdapter;
 
@@ -67,18 +62,17 @@ public class ProfileFragment extends RuchiraFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
-
         setupToolbar();
         initialize(rootView);
-        if(NetworkUtils.hasInternetConnection(ownerActivity)) {
+        if(NetworkUtils.hasInternetConnection(mFragmentContext)) {
             fetchDataFromServer();
         }
         return rootView;
     }
 
     private void setupToolbar() {
-        ownerActivity.getSupportActionBar().show();
-        ownerActivity.getSupportActionBar().setTitle("Profile");
+        mFragmentContext.getSupportActionBar().show();
+        mFragmentContext.getSupportActionBar().setTitle("Profile");
     }
 
     private void initialize(View rootView) {
@@ -88,21 +82,28 @@ public class ProfileFragment extends RuchiraFragment {
         designation_txt = (TextView) rootView.findViewById(R.id.designation_txt);
         name_txt = (TextView) rootView.findViewById(R.id.name_txt);
         profile_image = (CircleImageView) rootView.findViewById(R.id.profile_image);
-        account_txt = (TextView) rootView.findViewById(R.id.account_txt);
         status_txt = (TextView) rootView.findViewById(R.id.status_txt);
 
-        manager = new LinearLayoutManager(ownerActivity);
-        areaAdapter = new AreaAdapter(ownerActivity, areaList);
+        manager = new LinearLayoutManager(mFragmentContext);
+        areaAdapter = new AreaAdapter(mFragmentContext, areaList);
         report_rcview.setAdapter(areaAdapter);
         report_rcview.setHasFixedSize(true);
         report_rcview.setLayoutManager(manager);
     }
 
+    @Override
+    public void onBackPressed() {
+        int count = getFragmentManager().getBackStackEntryCount();
+        if (count == 0) {
+            mFragmentContext.onBackPressed();
+        } else {
+            getFragmentManager().popBackStack();
+        }
+    }
+
     private void fetchDataFromServer() {
-
         ProgressDialog progressDialog = null;
-
-        progressDialog = new ProgressDialog(ownerActivity);
+        progressDialog = new ProgressDialog(mFragmentContext);
         progressDialog.setTitle("Loading");
         progressDialog.setMessage("Please wait...");
         progressDialog.setCancelable(false);
@@ -133,11 +134,10 @@ public class ProfileFragment extends RuchiraFragment {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("userId", UserPreferences.getId(ownerActivity));
-                params.put("tokenKey", UserPreferences.getToken(ownerActivity));
+                params.put("userId", UserPreferences.getId(mFragmentContext));
+                params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
                 return params;
             }
-
         };
 
         // Adding request to request queue
@@ -148,32 +148,25 @@ public class ProfileFragment extends RuchiraFragment {
     private void execute(String result) {
         Log.d(TAG, result.toString());
         areaList.clear();
-
         try {
-
             JSONObject obj = new JSONObject(result);
-
             int responseResult = obj.getInt("success");
             Log.d(TAG, result.toString());
             if (responseResult == 1) {
-
                 joining_date_txt.setText("Joianing Date : "+obj.getString("joiningDate"));
                 designation_txt.setText("Designation : "+obj.getString("desgination"));
                 name_txt.setText(obj.getString("userName"));
-                account_txt.setText("Account");
-//                status_txt.setText("status");
-
-                Picasso.with(ownerActivity)
+                status_txt.setText(obj.getString("name"));
+                Picasso.with(mFragmentContext)
                         .load(obj.getString("profileImg"))
                         .into(profile_image);
 
                 areaList.addAll(TaskUtils.setArea(result));
                 areaAdapter.notifyDataSetChanged();
-
                 return;
 
             } else {
-                ViewUtils.alertUser(ownerActivity, "Server Error");
+                ViewUtils.alertUser(mFragmentContext, "Server Error");
                 return;
             }
         } catch (JSONException e) {

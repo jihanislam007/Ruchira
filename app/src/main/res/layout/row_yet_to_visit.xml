@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
     <LinearLayout
         android:id="@+id/linear_layout"
         android:layout_width="wrap_content"
@@ -20,9 +19,11 @@
             android:id="@+id/shop_name_txt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Shope Name"
+            android:text="Shop Name"
+            android:textStyle="bold"
+            android:textSize="17sp"
             android:textAlignment="center"
-            android:textColor="@drawable/button_text_color"
+            android:textColor="@android:color/black"
             tools:targetApi="jelly_bean_mr1" />
 
         <TextView
@@ -30,8 +31,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Location"
+            android:textSize="16sp"
             android:textAlignment="center"
-            android:textColor="@drawable/button_text_color"
+            android:textColor="@android:color/black"
             tools:targetApi="jelly_bean_mr1" />
 
     </LinearLayout>

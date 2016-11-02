@@ -14,11 +14,8 @@ import android.widget.TextView;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.techcoderz.ruchira.R;
-import com.techcoderz.ruchira.adapter.ProductPromotionAdapter;
 import com.techcoderz.ruchira.adapter.ProductPromotionDetailAdapter;
 import com.techcoderz.ruchira.application.RuchiraApplication;
 import com.techcoderz.ruchira.model.Promotion;
@@ -41,10 +38,9 @@ import java.util.Map;
  */
 public class ProductPromotionDetailsFragment extends RuchiraFragment {
     private final static String TAG = "PromotionDetlsFragment";
-    String url = "http://sondhan.com/articleApi/android/category";
-    Fragment toLaunchFragment = null;
+    private Fragment toLaunchFragment = null;
 
-    TextView product_name_txt,title_product_name_txt, sku_txt, product_id_txt, selling_price_txt;
+    private TextView product_name_txt,title_product_name_txt, sku_txt, product_id_txt, selling_price_txt;
     private RecyclerView report_rcview;
     private ProductPromotionDetailAdapter productPromotionAdapter;
     private LinearLayoutManager manager;
@@ -66,15 +62,15 @@ public class ProductPromotionDetailsFragment extends RuchiraFragment {
         setupToolbar();
         initialize(rootView);
         action();
-        if(NetworkUtils.hasInternetConnection(ownerActivity)) {
+        if(NetworkUtils.hasInternetConnection(mFragmentContext)) {
             fetchDataFromServer();
         }
         return rootView;
     }
 
     private void setupToolbar() {
-        ownerActivity.getSupportActionBar().show();
-        ownerActivity.getSupportActionBar().setTitle("Product Promotion Details");
+        mFragmentContext.getSupportActionBar().show();
+        mFragmentContext.getSupportActionBar().setTitle("Product Promotion Details");
     }
 
     private void initialize(View rootView) {
@@ -87,8 +83,8 @@ public class ProductPromotionDetailsFragment extends RuchiraFragment {
         selling_price_txt = (TextView) rootView.findViewById(R.id.selling_price_txt);
 
         report_rcview = (RecyclerView) rootView.findViewById(R.id.report_rcview);
-        manager = new LinearLayoutManager(ownerActivity);
-        productPromotionAdapter = new ProductPromotionDetailAdapter(ownerActivity, promotionList);
+        manager = new LinearLayoutManager(mFragmentContext);
+        productPromotionAdapter = new ProductPromotionDetailAdapter(mFragmentContext, promotionList);
 
         report_rcview.setAdapter(productPromotionAdapter);
         report_rcview.setHasFixedSize(true);
@@ -98,11 +94,19 @@ public class ProductPromotionDetailsFragment extends RuchiraFragment {
     private void action() {
     }
 
+    @Override
+    public void onBackPressed() {
+        int count = getFragmentManager().getBackStackEntryCount();
+        if (count == 0) {
+            mFragmentContext.onBackPressed();
+        } else {
+            getFragmentManager().popBackStack();
+        }
+    }
+
     private void fetchDataFromServer() {
-
         ProgressDialog progressDialog = null;
-
-        progressDialog = new ProgressDialog(ownerActivity);
+        progressDialog = new ProgressDialog(mFragmentContext);
         progressDialog.setTitle("Loading");
         progressDialog.setMessage("Please wait...");
         progressDialog.setCancelable(false);
@@ -133,9 +137,9 @@ public class ProductPromotionDetailsFragment extends RuchiraFragment {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("userId", UserPreferences.getId(ownerActivity));
-                params.put("tokenKey", UserPreferences.getToken(ownerActivity));
-                params.put("companyId", UserPreferences.getCompanyId(ownerActivity));
+                params.put("userId", UserPreferences.getId(mFragmentContext));
+                params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
+                params.put("companyId", UserPreferences.getCompanyId(mFragmentContext));
                 return params;
             }
 
@@ -169,7 +173,7 @@ public class ProductPromotionDetailsFragment extends RuchiraFragment {
                 return;
 
             } else {
-                ViewUtils.alertUser(ownerActivity, "Server Error");
+                ViewUtils.alertUser(mFragmentContext, "Server Error");
                 return;
             }
         } catch (JSONException e) {

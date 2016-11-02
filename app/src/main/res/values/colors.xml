@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <color name="colorLightBlue">#0270b1</color>
+    <color name="colorDarkBlue">#00578a</color>
+    <color name="colorGrey">#616a75</color>
+    <color name="colorStatusBar">#474d54</color>
+
+
     <color name="colorPrimary">#7D7D7D</color>
     <color name="colorPrimaryDark">#ebeaea</color>
     <color name="colorAccent">#FF1744</color>
 
     <color name="colorPrimary2">#d9d9d9</color>
 
-    <color name="colorButton">#D11439</color>
+    <color name="colorButton">#00578a</color>
 
     <color name="mainBodyColor">#f6f9ea</color>
     <color name="tabColor">#B9C7E3</color>
@@ -27,7 +34,6 @@
     <color name="white">#FFFFFF</color>
     <color name="crim">#EDEFAD</color>
     <color name="dark_yellow">#BABE61</color>
-    <color name="dark_blue">#00aEEE</color>
     <color name="holo_blue_dark">#ff0099cc</color>
     <color name="view_divider_color">#949393</color>
     <color name="actionbar_color">#A865CC</color>
@@ -91,4 +97,5 @@
 
     <color name="randomcolor5">#FFD600</color>
     <color name="randomcolormiddle5">#FFE57F</color>
+
 </resources>

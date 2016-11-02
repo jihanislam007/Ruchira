@@ -26,7 +26,6 @@ import java.util.List;
  */
 
 public class PromotionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
     private List<Promotion> promotionList = new ArrayList<>();
     private Context context;
     Fragment toLaunchFragment = null;
@@ -42,7 +41,6 @@ public class PromotionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public RecyclerViewHoldersHomeAdapter onCreateViewHolder(ViewGroup parent, int viewType) {
-
         View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_shop_profile, null);
         RecyclerViewHoldersHomeAdapter rcv = new RecyclerViewHoldersHomeAdapter(layoutView);
         return rcv;

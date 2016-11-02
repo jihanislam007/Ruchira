@@ -14,9 +14,7 @@ import android.widget.TextView;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.techcoderz.ruchira.R;
 import com.techcoderz.ruchira.adapter.ReportAdapter;
 import com.techcoderz.ruchira.application.RuchiraApplication;
@@ -32,7 +30,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -65,16 +62,15 @@ public class MonthlyTotalSaleFragment extends RuchiraFragment {
 
         setupToolbar();
         initialize(rootView);
-        action();
-        if (NetworkUtils.hasInternetConnection(ownerActivity)) {
+        if (NetworkUtils.hasInternetConnection(mFragmentContext)) {
             fetchDataFromServer();
         }
         return rootView;
     }
 
     private void setupToolbar() {
-        ownerActivity.getSupportActionBar().show();
-        ownerActivity.getSupportActionBar().setTitle("Monthly Total Sale");
+        mFragmentContext.getSupportActionBar().show();
+        mFragmentContext.getSupportActionBar().setTitle("Monthly Total Sale");
     }
 
     private void initialize(View rootView) {
@@ -87,22 +83,27 @@ public class MonthlyTotalSaleFragment extends RuchiraFragment {
         total_txt = (TextView) rootView.findViewById(R.id.total_txt);
 
 
-        manager = new LinearLayoutManager(ownerActivity);
-        reportAdapter = new ReportAdapter(ownerActivity, reportList);
+        manager = new LinearLayoutManager(mFragmentContext);
+        reportAdapter = new ReportAdapter(mFragmentContext, reportList);
 
         report_rcview.setAdapter(reportAdapter);
         report_rcview.setHasFixedSize(true);
         report_rcview.setLayoutManager(manager);
     }
 
-    private void action() {
+    @Override
+    public void onBackPressed() {
+        int count = getFragmentManager().getBackStackEntryCount();
+        if (count == 0) {
+            mFragmentContext.onBackPressed();
+        } else {
+            getFragmentManager().popBackStack();
+        }
     }
 
     private void fetchDataFromServer() {
-
         ProgressDialog progressDialog = null;
-
-        progressDialog = new ProgressDialog(ownerActivity);
+        progressDialog = new ProgressDialog(mFragmentContext);
         progressDialog.setTitle("Loading");
         progressDialog.setMessage("Please wait...");
         progressDialog.setCancelable(false);
@@ -133,17 +134,16 @@ public class MonthlyTotalSaleFragment extends RuchiraFragment {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("userId", UserPreferences.getId(ownerActivity));
+                params.put("userId", UserPreferences.getId(mFragmentContext));
                 Calendar calendar = Calendar.getInstance();
                 int year = calendar.get(Calendar.YEAR);
                 int month = calendar.get(Calendar.MONTH);
                 int day = calendar.get(Calendar.DATE);
-                params.put("tokenKey", UserPreferences.getToken(ownerActivity));
+                params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
                 params.put("year", year + "");
                 params.put("month", month + "");
                 return params;
             }
-
         };
 
         // Adding request to request queue
@@ -154,26 +154,21 @@ public class MonthlyTotalSaleFragment extends RuchiraFragment {
     private void execute(String result) {
         Log.d(TAG, result.toString());
         reportList.clear();
-
         try {
-
             JSONObject obj = new JSONObject(result);
-
             int responseResult = obj.getInt("success");
             Log.d(TAG, result.toString());
             if (responseResult == 1) {
-                id_txt.setText("RS ID # " + obj.getString("userId"));
+                id_txt.setText("SR ID # " + obj.getString("userId"));
                 phone_txt.setText("Cell : " + obj.getString("userPhone"));
                 name_txt.setText(obj.getString("userName"));
                 date_txt.setText(obj.getString("month"));
                 total_txt.setText(obj.getString("total") + " BDT");
                 reportList.addAll(TaskUtils.setMonthlyReport(result));
                 reportAdapter.notifyDataSetChanged();
-
                 return;
-
             } else {
-                ViewUtils.alertUser(ownerActivity, "Server Error");
+                ViewUtils.alertUser(mFragmentContext, "Server Error");
                 return;
             }
         } catch (JSONException e) {

@@ -16,17 +16,13 @@ import android.widget.TextView;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.techcoderz.ruchira.R;
 import com.techcoderz.ruchira.adapter.ProductAdapter;
-import com.techcoderz.ruchira.adapter.ProductPromotionAdapter;
 import com.techcoderz.ruchira.adapter.PromotionCompanySpinnerAdapter;
 import com.techcoderz.ruchira.application.RuchiraApplication;
 import com.techcoderz.ruchira.model.Company;
 import com.techcoderz.ruchira.model.ProductList;
-import com.techcoderz.ruchira.model.Promotion;
 import com.techcoderz.ruchira.utills.AppConfig;
 import com.techcoderz.ruchira.utills.NetworkUtils;
 import com.techcoderz.ruchira.utills.TaskUtils;
@@ -46,9 +42,7 @@ import java.util.Map;
  */
 public class ProductPriceFragment extends RuchiraFragment {
     private final static String TAG = "ProductPriceFragment";
-    String url = "http://sondhan.com/articleApi/android/category";
     Fragment toLaunchFragment = null;
-
 
     private List<ProductList> productList;
     private List<Company> companyList;
@@ -73,19 +67,18 @@ public class ProductPriceFragment extends RuchiraFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_product_price, container, false);
-
         setupToolbar();
         initialize(rootView);
         action();
-        if(NetworkUtils.hasInternetConnection(ownerActivity)) {
+        if(NetworkUtils.hasInternetConnection(mFragmentContext)) {
             fetchDataFromServer();
         }
         return rootView;
     }
 
     private void setupToolbar() {
-        ownerActivity.getSupportActionBar().show();
-        ownerActivity.getSupportActionBar().setTitle("All Product With Price");
+        mFragmentContext.getSupportActionBar().show();
+        mFragmentContext.getSupportActionBar().setTitle("All Product With Price");
     }
 
     private void initialize(View rootView) {
@@ -96,11 +89,11 @@ public class ProductPriceFragment extends RuchiraFragment {
         productList = new ArrayList<>();
         companyList = new ArrayList<>();
 
-        promotionCompanySpinnerAdapter = new PromotionCompanySpinnerAdapter(ownerActivity, R.layout.beat_list, companyList);
+        promotionCompanySpinnerAdapter = new PromotionCompanySpinnerAdapter(mFragmentContext, R.layout.beat_list, companyList);
         promotionCompanySpinnerAdapter.setDropDownViewResource(R.layout.beat_list);
 
-        manager = new LinearLayoutManager(ownerActivity);
-        productAdapter = new ProductAdapter(ownerActivity, productList);
+        manager = new LinearLayoutManager(mFragmentContext);
+        productAdapter = new ProductAdapter(mFragmentContext, productList);
 
         report_rcview.setAdapter(productAdapter);
         report_rcview.setHasFixedSize(true);
@@ -113,7 +106,7 @@ public class ProductPriceFragment extends RuchiraFragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 company_title_txt.setText(companyList.get(position).getCompanyName());
-                if(NetworkUtils.hasInternetConnection(ownerActivity)) {
+                if(NetworkUtils.hasInternetConnection(mFragmentContext)) {
                     fetchDataFromServerForProduct(companyList.get(position).getCompanyId());
                 }
                 Log.e(TAG, "companyList.get(position).getCompanyId() : " + companyList.get(position).getCompanyId());
@@ -125,12 +118,22 @@ public class ProductPriceFragment extends RuchiraFragment {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        int count = getFragmentManager().getBackStackEntryCount();
+        if (count == 0) {
+            mFragmentContext.onBackPressed();
+        } else {
+            getFragmentManager().popBackStack();
+        }
+    }
+
     private void fetchDataFromServerForProduct(final String id) {
-        UserPreferences.saveCompanyId(ownerActivity, id);
+        UserPreferences.saveCompanyId(mFragmentContext, id);
 
         ProgressDialog progressDialog = null;
 
-        progressDialog = new ProgressDialog(ownerActivity);
+        progressDialog = new ProgressDialog(mFragmentContext);
         progressDialog.setTitle("Loading");
         progressDialog.setMessage("Please wait...");
         progressDialog.setCancelable(false);
@@ -161,8 +164,8 @@ public class ProductPriceFragment extends RuchiraFragment {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("userId", UserPreferences.getId(ownerActivity));
-                params.put("tokenKey", UserPreferences.getToken(ownerActivity));
+                params.put("userId", UserPreferences.getId(mFragmentContext));
+                params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
                 params.put("companyId", id);
                 return params;
             }
@@ -179,7 +182,7 @@ public class ProductPriceFragment extends RuchiraFragment {
 
         ProgressDialog progressDialog = null;
 
-        progressDialog = new ProgressDialog(ownerActivity);
+        progressDialog = new ProgressDialog(mFragmentContext);
         progressDialog.setTitle("Loading");
         progressDialog.setMessage("Please wait...");
         progressDialog.setCancelable(false);
@@ -210,8 +213,8 @@ public class ProductPriceFragment extends RuchiraFragment {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("userId", UserPreferences.getId(ownerActivity));
-                params.put("tokenKey", UserPreferences.getToken(ownerActivity));
+                params.put("userId", UserPreferences.getId(mFragmentContext));
+                params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
                 return params;
             }
 
@@ -240,7 +243,7 @@ public class ProductPriceFragment extends RuchiraFragment {
                 return;
 
             } else {
-                ViewUtils.alertUser(ownerActivity, "Server Error");
+                ViewUtils.alertUser(mFragmentContext, "Server Error");
                 return;
             }
         } catch (JSONException e) {
@@ -266,7 +269,7 @@ public class ProductPriceFragment extends RuchiraFragment {
                 return;
 
             } else {
-                ViewUtils.alertUser(ownerActivity, "Server Error");
+                ViewUtils.alertUser(mFragmentContext, "Server Error");
                 return;
             }
         } catch (JSONException e) {

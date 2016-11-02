@@ -1,7 +1,6 @@
 package com.techcoderz.ruchira.fragment;
 
 import android.app.ProgressDialog;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatSpinner;
@@ -12,16 +11,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.techcoderz.ruchira.R;
-import com.techcoderz.ruchira.adapter.OrderBeatSpinnerAdapter;
+import com.techcoderz.ruchira.adapter.orderBeatSpinnerAdapter;
 import com.techcoderz.ruchira.adapter.OutletAdapter;
 import com.techcoderz.ruchira.application.RuchiraApplication;
 import com.techcoderz.ruchira.model.Beat;
@@ -45,17 +41,12 @@ import java.util.Map;
  */
 public class OutletsFragment extends RuchiraFragment {
     private final static String TAG = "OutletsFragment";
-    String url = "http://sondhan.com/articleApi/android/category";
     Fragment toLaunchFragment = null;
-
     private List<Beat> beatList;
     private List<Outlet> outletList;
-
     private AppCompatSpinner beat_spinner;
-    private OrderBeatSpinnerAdapter orderBeatSpinnerAdapter;
-
+    private orderBeatSpinnerAdapter orderBeatSpinnerAdapter;
     private String location;
-
     private RecyclerView outlet_rcview;
     private OutletAdapter outletAdapter;
     private GridLayoutManager gridLayoutManager;
@@ -76,29 +67,27 @@ public class OutletsFragment extends RuchiraFragment {
         setupToolbar();
         initialize(rootView);
         action();
-        if(NetworkUtils.hasInternetConnection(ownerActivity)) {
+        if(NetworkUtils.hasInternetConnection(mFragmentContext)) {
             fetchDataFromServer();
         }
         return rootView;
     }
 
     private void setupToolbar() {
-        ownerActivity.getSupportActionBar().show();
-        ownerActivity.getSupportActionBar().setTitle("All Outlets");
+        mFragmentContext.getSupportActionBar().show();
+        mFragmentContext.getSupportActionBar().setTitle("All Outlets");
     }
 
     private void initialize(View rootView) {
         beat_spinner = (AppCompatSpinner) rootView.findViewById(R.id.beat_spinner);
-
         outlet_rcview = (RecyclerView) rootView.findViewById(R.id.outlet_rcview);
-
         beatList = new ArrayList<>();
         outletList = new ArrayList<>();
-        orderBeatSpinnerAdapter = new OrderBeatSpinnerAdapter(ownerActivity, R.layout.beat_list, beatList);
+        orderBeatSpinnerAdapter = new orderBeatSpinnerAdapter(mFragmentContext, R.layout.beat_list, beatList);
         orderBeatSpinnerAdapter.setDropDownViewResource(R.layout.beat_list);
 
-        gridLayoutManager = new GridLayoutManager(ownerActivity, 3);
-        outletAdapter = new OutletAdapter(ownerActivity,outletList,1);
+        gridLayoutManager = new GridLayoutManager(mFragmentContext, 3);
+        outletAdapter = new OutletAdapter(mFragmentContext,outletList,1);
 
         outlet_rcview.setAdapter(outletAdapter);
         outlet_rcview.setHasFixedSize(true);
@@ -107,12 +96,11 @@ public class OutletsFragment extends RuchiraFragment {
 
     private void action() {
         beat_spinner.setAdapter(orderBeatSpinnerAdapter);
-
         beat_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 location = beatList.get(position).getTitle();
-                if(NetworkUtils.hasInternetConnection(ownerActivity)) {
+                if(NetworkUtils.hasInternetConnection(mFragmentContext)) {
                     fetchDataFromServerForOutlet(beatList.get(position).getId());
                 }
                 Log.e(TAG, "beatList.get(position).getId() : " + beatList.get(position).getId());
@@ -120,15 +108,26 @@ public class OutletsFragment extends RuchiraFragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        int count = getFragmentManager().getBackStackEntryCount();
+        if (count == 0) {
+            mFragmentContext.onBackPressed();
+        } else {
+            getFragmentManager().popBackStack();
+        }
     }
 
     private void fetchDataFromServerForOutlet(final String id) {
 
         ProgressDialog progressDialog = null;
 
-        progressDialog = new ProgressDialog(ownerActivity);
+        progressDialog = new ProgressDialog(mFragmentContext);
         progressDialog.setTitle("Loading");
         progressDialog.setMessage("Please wait...");
         progressDialog.setCancelable(false);
@@ -159,8 +158,8 @@ public class OutletsFragment extends RuchiraFragment {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("userId", UserPreferences.getId(ownerActivity));
-                params.put("tokenKey", UserPreferences.getToken(ownerActivity));
+                params.put("userId", UserPreferences.getId(mFragmentContext));
+                params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
                 params.put("bitId",id);
                 return params;
             }
@@ -176,7 +175,7 @@ public class OutletsFragment extends RuchiraFragment {
 
         ProgressDialog progressDialog = null;
 
-        progressDialog = new ProgressDialog(ownerActivity);
+        progressDialog = new ProgressDialog(mFragmentContext);
         progressDialog.setTitle("Loading");
         progressDialog.setMessage("Please wait...");
         progressDialog.setCancelable(false);
@@ -207,9 +206,9 @@ public class OutletsFragment extends RuchiraFragment {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                Log.e(TAG,UserPreferences.getId(ownerActivity)+UserPreferences.getToken(ownerActivity));
-                params.put("userId", UserPreferences.getId(ownerActivity));
-                params.put("tokenKey", UserPreferences.getToken(ownerActivity));
+                Log.e(TAG,UserPreferences.getId(mFragmentContext)+UserPreferences.getToken(mFragmentContext));
+                params.put("userId", UserPreferences.getId(mFragmentContext));
+                params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
                 return params;
             }
 
@@ -223,11 +222,11 @@ public class OutletsFragment extends RuchiraFragment {
     private void executeForbeat(String result) {
         Log.d(TAG, result.toString());
         beatList.clear();
-
+        Beat beat = new Beat();
+        beat.setTitle("Select Beat");
+        beatList.add(beat);
         try {
-
             JSONObject obj = new JSONObject(result);
-
             int responseResult = obj.getInt("success");
             Log.d(TAG, result.toString());
             if (responseResult == 1) {
@@ -237,7 +236,7 @@ public class OutletsFragment extends RuchiraFragment {
                 return;
 
             } else {
-                ViewUtils.alertUser(ownerActivity, "Server Error");
+                ViewUtils.alertUser(mFragmentContext, "Server Error");
                 return;
             }
         } catch (JSONException e) {
@@ -262,7 +261,7 @@ public class OutletsFragment extends RuchiraFragment {
                 return;
 
             } else {
-                ViewUtils.alertUser(ownerActivity, "Server Error");
+                ViewUtils.alertUser(mFragmentContext, "Server Error");
                 return;
             }
         } catch (JSONException e) {

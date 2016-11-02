@@ -9,12 +9,13 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_alignParentTop="true"
-        android:background="@color/colorAccent">
+        android:background="@color/colorDarkBlue">
 
-        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/profile_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             app:border_color="@color/white"
@@ -29,8 +30,8 @@
             android:layout_centerVertical="true"
             android:layout_marginTop="5dp"
             android:text="shahriar"
+            android:textSize="18sp"
             android:textColor="@color/white" />
-
 
     </RelativeLayout>
 
@@ -49,31 +50,31 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:background="@android:drawable/ic_menu_gallery" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_user_profile" />
 
             <TextView
                 android:id="@+id/status_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="15dp"
                 android:text="SR"
-                android:textColor="@color/colorAccent" />
-
+                android:textColor="@color/black" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
 
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:background="@android:drawable/ic_menu_gallery" />
+                android:background="@drawable/ic_calender" />
 
             <TextView
                 android:id="@+id/joining_date_txt"
@@ -88,12 +89,13 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
 
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:background="@android:drawable/ic_menu_gallery" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_designation" />
 
             <TextView
                 android:id="@+id/designation_txt"
@@ -103,27 +105,6 @@
                 android:layout_marginLeft="10dp"
                 android:text="Designasion : Sales Representative"
                 android:textColor="@color/Black" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:background="@android:drawable/ic_menu_gallery" />
-
-            <TextView
-                android:id="@+id/account_txt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:text="Account"
-                android:textColor="@color/Black"
-                android:textStyle="bold" />
         </LinearLayout>
 
     </LinearLayout>
@@ -136,7 +117,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
-        android:background="@color/Black"
+        android:background="@color/colorStatusBar"
         android:orientation="horizontal"
         android:paddingBottom="2dp"
         android:paddingLeft="10dp"

@@ -15,9 +15,7 @@ import android.widget.TextView;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.Picasso;
 import com.techcoderz.ruchira.R;
 import com.techcoderz.ruchira.adapter.PromotionAdapter;
@@ -44,7 +42,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class ShopProfileFragment extends RuchiraFragment {
     private final static String TAG = "ShopProfileFragment";
-    String url = "http://sondhan.com/articleApi/android/category";
     Fragment toLaunchFragment = null;
     private Button ok_btn,cancel_btn;
     private Bundle bundle;
@@ -73,15 +70,15 @@ public class ShopProfileFragment extends RuchiraFragment {
         setupToolbar();
         initialize(rootView);
         action();
-        if(NetworkUtils.hasInternetConnection(ownerActivity)) {
+        if(NetworkUtils.hasInternetConnection(mFragmentContext)) {
             fetchDataFromServer();
         }
         return rootView;
     }
 
     private void setupToolbar() {
-        ownerActivity.getSupportActionBar().show();
-        ownerActivity.getSupportActionBar().setTitle("Shope Profile");
+        mFragmentContext.getSupportActionBar().show();
+        mFragmentContext.getSupportActionBar().setTitle("Shop Profile");
     }
 
     private void initialize(View rootView) {
@@ -96,9 +93,9 @@ public class ShopProfileFragment extends RuchiraFragment {
         channel_txt = (TextView) rootView.findViewById(R.id.channel_txt);
         starting_date_txt = (TextView) rootView.findViewById(R.id.starting_date_txt);
         profile_image = (CircleImageView) rootView.findViewById(R.id.profile_image);
-        promotionAdapter = new PromotionAdapter(ownerActivity, promotionList);
+        promotionAdapter = new PromotionAdapter(mFragmentContext, promotionList);
 
-        LinearLayoutManager manager = new LinearLayoutManager(ownerActivity);
+        LinearLayoutManager manager = new LinearLayoutManager(mFragmentContext);
         promotion_rcview.setAdapter(promotionAdapter);
         promotion_rcview.setHasFixedSize(true);
         promotion_rcview.setLayoutManager(manager);
@@ -119,17 +116,24 @@ public class ShopProfileFragment extends RuchiraFragment {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        int count = getFragmentManager().getBackStackEntryCount();
+        if (count == 0) {
+            mFragmentContext.onBackPressed();
+        } else {
+            getFragmentManager().popBackStack();
+        }
+    }
+
     private void fetchDataFromServer() {
-
         ProgressDialog progressDialog = null;
-
-        progressDialog = new ProgressDialog(ownerActivity);
+        progressDialog = new ProgressDialog(mFragmentContext);
         progressDialog.setTitle("Loading");
         progressDialog.setMessage("Please wait...");
         progressDialog.setCancelable(false);
         progressDialog.setIndeterminate(true);
         progressDialog.show();
-
         String tag_string_req = "req_shope_profile";
         final ProgressDialog finalProgressDialog = progressDialog;
         StringRequest strReq = new StringRequest(Request.Method.POST,
@@ -137,15 +141,12 @@ public class ShopProfileFragment extends RuchiraFragment {
 
             @Override
             public void onResponse(String response) {
-                Log.e(TAG, "order Response: " + response.toString());
                 finalProgressDialog.dismiss();
                 execute(response);
             }
         }, new Response.ErrorListener() {
-
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "order Error: " + error.getMessage());
                 finalProgressDialog.dismiss();
             }
         }) {
@@ -154,9 +155,10 @@ public class ShopProfileFragment extends RuchiraFragment {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("userId", UserPreferences.getId(ownerActivity));
-                params.put("tokenKey", UserPreferences.getToken(ownerActivity));
+                params.put("userId", UserPreferences.getId(mFragmentContext));
+                params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
                 params.put("outletId", outletId);
+                Log.d(TAG, outletId);
                 return params;
             }
 
@@ -170,20 +172,17 @@ public class ShopProfileFragment extends RuchiraFragment {
     private void execute(String result) {
         Log.d(TAG, result.toString());
         promotionList.clear();
-
         try {
-
             JSONObject obj = new JSONObject(result);
-
             int responseResult = obj.getInt("success");
             Log.d(TAG, result.toString());
             if (responseResult == 1) {
                 shopeProfileId = obj.getString("id");
-//                UserPreferences.saveShopeProfileId(ownerActivity,obj.getString("id"));
+//                UserPreferences.saveShopeProfileId(mFragmentContext, obj.getString("id"));
                 profile_name_txt.setText(obj.getString("name"));
                 address_txt.setText(obj.getString("address"));
                 channel_txt.setText(obj.getString("channel"));
-                Picasso.with(ownerActivity)
+                Picasso.with(mFragmentContext)
                         .load(obj.getString("image"))
                         .into(profile_image);
                 starting_date_txt.setText(obj.getString("startDate"));
@@ -193,7 +192,7 @@ public class ShopProfileFragment extends RuchiraFragment {
                 return;
 
             } else {
-                ViewUtils.alertUser(ownerActivity, "Server Error");
+                ViewUtils.alertUser(mFragmentContext, "Server Error");
                 return;
             }
         } catch (JSONException e) {
@@ -202,12 +201,14 @@ public class ShopProfileFragment extends RuchiraFragment {
     }
 
     private void openAddNewOrderFragment() {
-        toLaunchFragment = new AddNewOrderFragment();
+        toLaunchFragment = new AddOrderFragment();
         if (toLaunchFragment != null) {
             Bundle bundle = new Bundle();
             bundle.putString("getShopeId",shopeProfileId);
+            bundle.putString("getShopName", profile_name_txt.getText().toString());
+            bundle.putString("getAddress", address_txt.getText().toString());
             toLaunchFragment.setArguments(bundle);
-            ViewUtils.launchFragmentKeepingInBackStack(ownerActivity, toLaunchFragment);
+            ViewUtils.launchFragmentKeepingInBackStack(mFragmentContext, toLaunchFragment);
             toLaunchFragment = null;
         }
     }
@@ -216,11 +217,11 @@ public class ShopProfileFragment extends RuchiraFragment {
         toLaunchFragment = new OrderCancelationFragment();
         if (toLaunchFragment != null) {
             Bundle bundle = new Bundle();
-            bundle.putString("getShopeName",profile_name_txt.getText().toString());
-            bundle.putString("getAddress",address_txt.getText().toString());
-            bundle.putString("shopeProfileId",shopeProfileId);
+            bundle.putString("getShopeName", profile_name_txt.getText().toString());
+            bundle.putString("getAddress", address_txt.getText().toString());
+            bundle.putString("shopeProfileId", shopeProfileId);
             toLaunchFragment.setArguments(bundle);
-            ViewUtils.launchFragmentKeepingInBackStack(ownerActivity, toLaunchFragment);
+            ViewUtils.launchFragmentKeepingInBackStack(mFragmentContext, toLaunchFragment);
             toLaunchFragment = null;
         }
     }

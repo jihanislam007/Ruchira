@@ -9,7 +9,7 @@
         android:id="@+id/main_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <!--Main content-->
+
         <LinearLayout
             android:id="@+id/fullLayout"
             android:layout_width="match_parent"
@@ -44,25 +44,15 @@
                 </android.support.design.widget.CollapsingToolbarLayout>
             </android.support.design.widget.AppBarLayout>
 
-            <!--<android.support.v4.widget.NestedScrollView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent">-->
-
-
             <FrameLayout
                 android:id="@+id/container_body"
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:background="@color/white" />
-
-            <!--</android.support.v4.widget.NestedScrollView>-->
-
-
         </LinearLayout>
 
     </android.support.design.widget.CoordinatorLayout>
-
 
     <android.support.design.widget.NavigationView
         android:id="@+id/main_drawer"
@@ -72,9 +62,7 @@
         android:background="@color/white"
         android:choiceMode="singleChoice"
         android:fitsSystemWindows="true"
-
         app:itemTextColor="@color/Black"
         app:menu="@menu/activity_main_drawer" />
-    <!--app:headerLayout="@layout/drawer_list_item"-->
 
 </android.support.v4.widget.DrawerLayout>

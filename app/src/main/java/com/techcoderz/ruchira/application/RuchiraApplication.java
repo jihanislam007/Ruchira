@@ -14,11 +14,10 @@ import com.techcoderz.ruchira.utills.FcsCacheManager;
  */
 public class RuchiraApplication extends MultiDexApplication {
 
-    public static final String TAG = RuchiraApplication.class.getSimpleName();
-
+    public static final String TAG = "RuchiraApplication";
     private RequestQueue mRequestQueue;
-
     private static RuchiraApplication mInstance;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -35,7 +34,6 @@ public class RuchiraApplication extends MultiDexApplication {
         if (mRequestQueue == null) {
             mRequestQueue = Volley.newRequestQueue(getApplicationContext());
         }
-
         return mRequestQueue;
     }
 

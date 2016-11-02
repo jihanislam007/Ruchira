@@ -131,22 +131,17 @@ public class TaskUtils {
         ArrayList<TodaySale> TodayTotalSaleList = new ArrayList<>();
         try {
             JSONObject jsonObject = new JSONObject(json);
-
             JSONObject jsonObject2 = jsonObject.getJSONObject("todaySale");
-
-//            for (int i = 0; i < jsonArray.length(); i++) {
             TodaySale todaySale = new TodaySale();
             todaySale.setYesterdeay(jsonObject2.getString("yesterday"));
             todaySale.setMonthAccumulation(jsonObject2.getString("monthAccumulation"));
             todaySale.setMonthDailyAvg(jsonObject2.getString("monthDailyAvg"));
             todaySale.setMonthWeeklyAvg(jsonObject2.getString("monthWeeklyAvg"));
-//            todaySale.setTodaySale(jsonObject2.getString("todaSale"));
+            todaySale.setTodaySale(jsonObject2.getString("today"));
             TodayTotalSaleList.add(todaySale);
-//            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         return TodayTotalSaleList;
     }
 
@@ -155,20 +150,16 @@ public class TaskUtils {
         try {
             JSONObject jsonObject = new JSONObject(json);
             JSONObject jsonObject2 = jsonObject.getJSONObject("todayOrder");
-
-//            for (int i = 0; i < jsonObject2.length(); i++) {
             TodayOrder todayOrder = new TodayOrder();
             todayOrder.setYesterdeay(jsonObject2.getString("yesterday"));
             todayOrder.setMonthAccumulation(jsonObject2.getString("monthAccumulation"));
             todayOrder.setMonthDailyAvg(jsonObject2.getString("monthDailyAvg"));
             todayOrder.setMonthWeeklyAvg(jsonObject2.getString("monthWeeklyAvg"));
-//            todayOrder.setTodayOrder(jsonObject2.getString("todayOrder"));
+            todayOrder.setTodayOrder(jsonObject2.getString("today"));
             TodayTotalOrderList.add(todayOrder);
-//            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         return TodayTotalOrderList;
     }
 
@@ -239,9 +230,7 @@ public class TaskUtils {
         ArrayList<Beat> bannerImageList = new ArrayList<>();
         try {
             JSONObject jsonObject = new JSONObject(json);
-
             JSONArray jsonArray = jsonObject.getJSONArray("beat");
-
             for (int i = 0; i < jsonArray.length(); i++) {
                 Beat bannerImage = new Beat();
                 bannerImage.setId(jsonArray.getJSONObject(i).getString("id"));

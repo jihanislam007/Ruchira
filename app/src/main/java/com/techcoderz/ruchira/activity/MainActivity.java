@@ -18,8 +18,11 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,12 +49,14 @@ import de.hdodenhof.circleimageview.CircleImageView;
 /**
  * Created by Shahriar on 9/14/2016.
  */
-public class MainActivity extends RuchiraActivity implements NavigationView.OnNavigationItemSelectedListener, FragmentCallbacks {
+public class MainActivity extends RuchiraActivity implements
+        NavigationView.OnNavigationItemSelectedListener, FragmentCallbacks {
     private Toolbar toolbar;
     private NavigationView mDrawer;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle drawerToggle;
-    public FragmentManager.OnBackStackChangedListener mOnBackStackChangedListener = new FragmentManager.OnBackStackChangedListener() {
+    public FragmentManager.OnBackStackChangedListener mOnBackStackChangedListener
+            = new FragmentManager.OnBackStackChangedListener() {
         @Override
         public void onBackStackChanged() {
             logDebug("on back stack change listener called");
@@ -83,14 +88,11 @@ public class MainActivity extends RuchiraActivity implements NavigationView.OnNa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setToolbar();
-
         if (android.os.Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
-
         Utills(savedInstanceState);
-
         initialize();
         action();
     }
@@ -104,20 +106,22 @@ public class MainActivity extends RuchiraActivity implements NavigationView.OnNa
 
         View rootView = mDrawer.inflateHeaderView(R.layout.nav_header_main);
 
-
         profile_image = (CircleImageView) rootView.findViewById(R.id.imageView);
         profile_name_txt = (TextView) rootView.findViewById(R.id.profile_name_txt);
         company_name_txt = (TextView) rootView.findViewById(R.id.company_name_txt);
-
-
-//        HomeFragment homeFragment = new HomeFragment();
-//        ViewUtils.launchFragmentWithoutKeepingInBackStack(this, homeFragment);
-
     }
 
     private void action() {
-        if (!NetworkUtils.hasInternetConnection(this)) {
-        }
+        Window window = this.getWindow();
+        // clear FLAG_TRANSLUCENT_STATUS flag:
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+        // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+        // finally change the color
+        window.setStatusBarColor(this.getResources().getColor(R.color.colorStatusBar));
+
         drawerRefresh();
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,17 +133,12 @@ public class MainActivity extends RuchiraActivity implements NavigationView.OnNa
                 }
             }
         });
-        mDrawerLayout.setDrawerListener(drawerToggle);
+        mDrawerLayout.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
         Bundle savedInstanceState = getIntent().getExtras();
-
-
-        Log.d("savedInstanceState", savedInstanceState + "");
-
         if (savedInstanceState == null) {
             mSelectedId = savedInstanceState == null ? R.id.nav_dash_board : savedInstanceState.getInt("SELECTED_ID");
         }
-        Log.e(TAG, mSelectedId + "");
         if (mSelectedId == 0) {
             DashBoardFragment homeFragment = new DashBoardFragment();
             ViewUtils.launchFragmentWithoutKeepingInBackStack(this, homeFragment);
@@ -149,22 +148,16 @@ public class MainActivity extends RuchiraActivity implements NavigationView.OnNa
 
         if (UserPreferences.getToken(this) != null) {
             profile_name_txt.setText(UserPreferences.getDisplayName(this));
-            Picasso.with(this)
-                    .load(UserPreferences.getProfilePicLogin(this))
-                    .into(profile_image);
+            Picasso.with(this).load(UserPreferences.getProfilePicLogin(this)).into(profile_image);
             company_name_txt.setText(UserPreferences.getCompanyName(this));
         } else {
             drawerUserName.setText("Guest");
         }
-
-
     }
 
     private void drawerRefresh() {
-
         collapsingToolbarLayout.setTitle("Collapsing");
         collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
-
         drawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close) {
             @Override
             public void onDrawerOpened(View drawerView) {
@@ -207,7 +200,7 @@ public class MainActivity extends RuchiraActivity implements NavigationView.OnNa
                 Log.e(TAG, mSelectedId + "");
                 TodayStatusFragment todayStatusFragment = new TodayStatusFragment();
                 ViewUtils.launchFragmentWithoutKeepingInBackStack(this, todayStatusFragment);
-                updateToolBar("Todays Status");
+                updateToolBar("Today\'s Status");
                 mDrawerLayout.closeDrawer(GravityCompat.START);
                 break;
 
@@ -242,7 +235,7 @@ public class MainActivity extends RuchiraActivity implements NavigationView.OnNa
                 updateToolBar("Product & Price");
                 mDrawerLayout.closeDrawer(GravityCompat.START);
                 break;
-//
+
             case R.id.nav_profile:
                 Log.e(TAG, mSelectedId + "");
                 ProfileFragment profileFragment = new ProfileFragment();
@@ -268,14 +261,14 @@ public class MainActivity extends RuchiraActivity implements NavigationView.OnNa
 
     private void updateToolBar(String notifications) {
         getSupportActionBar().setTitle(notifications);
-//        toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary));
     }
+
     private void signOff() {
         if (NetworkUtils.hasInternetConnection(this)) {
-
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setTitle("Log out?");
-            alertDialogBuilder.setMessage("All cached data will be removed from this device, and will be restored when you log in again.");
+            alertDialogBuilder.setMessage("All cached data will be removed from this device," +
+                    " and will be restored when you log in again.");
             alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                     TaskUtils.clearUserInfo(MainActivity.this);
@@ -353,8 +346,6 @@ public class MainActivity extends RuchiraActivity implements NavigationView.OnNa
                 Toast.makeText(this, "Press again to exit the app", Toast.LENGTH_LONG).show();
             }
             if (backPressedCount > 2) {
-                //super.onCreate(null);
-
                 FragmentManager fm = this.getSupportFragmentManager();
                 for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
                     fm.popBackStack();
@@ -364,13 +355,8 @@ public class MainActivity extends RuchiraActivity implements NavigationView.OnNa
                 intent.addCategory(Intent.CATEGORY_HOME);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.replaceExtras(new Bundle());
-                //intent.setAction("");
-                //intent.setData(null);
-                intent.putExtra("EXIT", true);// ***Change Here***
-
+                intent.putExtra("EXIT", true);
                 startActivity(intent);
-
-
                 //finish();
                 System.exit(0);
             }
@@ -406,20 +392,8 @@ public class MainActivity extends RuchiraActivity implements NavigationView.OnNa
 
     private void setToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-
         setSupportActionBar(toolbar);
-//        getSupportActionBar().setDisplayShowHomeEnabled(true);
-//        getSupportActionBar().setDisplayShowTitleEnabled(false);
-//
-//
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-//        getSupportActionBar().setDisplayShowHomeEnabled(false);
-//        getSupportActionBar().setIcon(R.drawable.logo);
-//        toolbar.setLogo(R.drawable.logo);
-//        toolbar.setNavigationIcon(R.drawable.logo);
-
     }
-
 
     public void updateDrawerToggle() {
         if (drawerToggle == null) {

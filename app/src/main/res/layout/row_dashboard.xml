@@ -19,13 +19,13 @@
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
         android:text="Output"
-        android:id="@+id/textView2" />
+        android:id="@+id/dashboard_order_summary" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="37423742"
-        android:layout_alignTop="@+id/textView2"
+        android:layout_alignTop="@+id/dashboard_order_summary"
         android:layout_centerHorizontal="true" />
 
     <ImageView

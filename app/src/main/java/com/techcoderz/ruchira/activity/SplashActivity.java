@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.RelativeLayout;
 
+import com.daasuu.ahp.AnimateHorizontalProgressBar;
 import com.github.silvestrpredko.dotprogressbar.DotProgressBar;
 import com.techcoderz.ruchira.R;
 import com.techcoderz.ruchira.utills.UserPreferences;
@@ -14,9 +15,9 @@ import com.techcoderz.ruchira.utills.UserPreferences;
  */
 public class SplashActivity extends AppCompatActivity {
     private final String TAG = "SplashActivity";
-
-    private DotProgressBar dotProgressBar;
+//    private DotProgressBar dotProgressBar;
     private RelativeLayout relativeLayout;
+    private AnimateHorizontalProgressBar progressBar;
 
     private Runnable loginActivity = new Runnable() {
         @Override
@@ -40,37 +41,21 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         initialize();
         action();
-
-
-//        dotProgressBar.setStartColor(startColor);
-//        dotProgressBar.setEndColor(endColor);
-//        dotProgressBar.setDotAmount(amount);
-
-//        Thread timer = new Thread() {
-//            public void run() {
-//                try {
-//                    sleep(2000);
-//
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                } finally {
-//                    Intent intent=new Intent(SplashActivity.this,LoginActivity.class);
-//                    startActivity(intent);
-//                    finish();
-//                }
-//            }
-//        };
-//        timer.start();
     }
 
     private void initialize() {
         relativeLayout = (RelativeLayout) findViewById(R.id.relative_layout);
-        dotProgressBar = (DotProgressBar) findViewById(R.id.dot_progress_bar);
+//        dotProgressBar = (DotProgressBar) findViewById(R.id.dot_progress_bar);
+        progressBar = (AnimateHorizontalProgressBar) findViewById(R.id.animate_progress_bar);
         checkToken = UserPreferences.getToken(SplashActivity.this);
     }
 
     private void action() {
-        dotProgressBar.setAnimationTime(1000);
+        progressBar.setMax(1000);
+        progressBar.setProgress(0);
+        progressBar.setProgressWithAnim(1000);
+        progressBar.setMaxWithAnim(800);
+//        dotProgressBar.setAnimationTime(1000);
 
         if (checkToken != null) {
             if (getIntent().getBooleanExtra("EXIT", false)) {

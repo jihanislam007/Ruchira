@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatSpinner;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -17,19 +16,12 @@ import android.widget.TextView;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.google.android.gms.analytics.ecommerce.Product;
 import com.techcoderz.ruchira.R;
-import com.techcoderz.ruchira.adapter.OrderBeatSpinnerAdapter;
-import com.techcoderz.ruchira.adapter.OutletAdapter;
-import com.techcoderz.ruchira.adapter.ProductPromotionAdapter;
+import com.techcoderz.ruchira.adapter.productPromotionAdapter;
 import com.techcoderz.ruchira.adapter.PromotionCompanySpinnerAdapter;
 import com.techcoderz.ruchira.application.RuchiraApplication;
-import com.techcoderz.ruchira.model.Beat;
 import com.techcoderz.ruchira.model.Company;
-import com.techcoderz.ruchira.model.Outlet;
 import com.techcoderz.ruchira.model.Promotion;
 import com.techcoderz.ruchira.utills.AppConfig;
 import com.techcoderz.ruchira.utills.NetworkUtils;
@@ -50,8 +42,7 @@ import java.util.Map;
  */
 public class ProductPromotionFragment extends RuchiraFragment {
     private final static String TAG = "PromotionFragment";
-    String url = "http://sondhan.com/articleApi/android/category";
-    Fragment toLaunchFragment = null;
+    private Fragment toLaunchFragment = null;
 
     private List<Promotion> promotionList;
     private List<Company> companyList;
@@ -60,7 +51,7 @@ public class ProductPromotionFragment extends RuchiraFragment {
     private PromotionCompanySpinnerAdapter promotionCompanySpinnerAdapter;
 
     private RecyclerView report_rcview;
-    private ProductPromotionAdapter productPromotionAdapter;
+    private productPromotionAdapter productPromotionAdapter;
     private LinearLayoutManager manager;
     private TextView company_title_txt;
 
@@ -76,19 +67,18 @@ public class ProductPromotionFragment extends RuchiraFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_product_promotion, container, false);
-
         setupToolbar();
         initialize(rootView);
         action();
-        if(NetworkUtils.hasInternetConnection(ownerActivity)) {
+        if(NetworkUtils.hasInternetConnection(mFragmentContext)) {
             fetchDataFromServer();
         }
         return rootView;
     }
 
     private void setupToolbar() {
-        ownerActivity.getSupportActionBar().show();
-        ownerActivity.getSupportActionBar().setTitle("Product Promotions");
+        mFragmentContext.getSupportActionBar().show();
+        mFragmentContext.getSupportActionBar().setTitle("Product Promotions");
     }
 
     private void initialize(View rootView) {
@@ -99,11 +89,11 @@ public class ProductPromotionFragment extends RuchiraFragment {
         promotionList = new ArrayList<>();
         companyList = new ArrayList<>();
 
-        promotionCompanySpinnerAdapter = new PromotionCompanySpinnerAdapter(ownerActivity, R.layout.beat_list, companyList);
+        promotionCompanySpinnerAdapter = new PromotionCompanySpinnerAdapter(mFragmentContext, R.layout.beat_list, companyList);
         promotionCompanySpinnerAdapter.setDropDownViewResource(R.layout.beat_list);
 
-        manager = new LinearLayoutManager(ownerActivity);
-        productPromotionAdapter = new ProductPromotionAdapter(ownerActivity, promotionList);
+        manager = new LinearLayoutManager(mFragmentContext);
+        productPromotionAdapter = new productPromotionAdapter(mFragmentContext, promotionList);
 
         report_rcview.setAdapter(productPromotionAdapter);
         report_rcview.setHasFixedSize(true);
@@ -116,7 +106,7 @@ public class ProductPromotionFragment extends RuchiraFragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 company_title_txt.setText(companyList.get(position).getCompanyName());
-                if(NetworkUtils.hasInternetConnection(ownerActivity)) {
+                if(NetworkUtils.hasInternetConnection(mFragmentContext)) {
                     fetchDataFromServerForPromotion(companyList.get(position).getCompanyId());
                 }
                 Log.e(TAG, "companyList.get(position).getCompanyId() : " + companyList.get(position).getCompanyId());
@@ -128,12 +118,22 @@ public class ProductPromotionFragment extends RuchiraFragment {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        int count = getFragmentManager().getBackStackEntryCount();
+        if (count == 0) {
+            mFragmentContext.onBackPressed();
+        } else {
+            getFragmentManager().popBackStack();
+        }
+    }
+
     private void fetchDataFromServerForPromotion(final String id) {
-        UserPreferences.saveCompanyId(ownerActivity,id);
+        UserPreferences.saveCompanyId(mFragmentContext,id);
 
         ProgressDialog progressDialog = null;
 
-        progressDialog = new ProgressDialog(ownerActivity);
+        progressDialog = new ProgressDialog(mFragmentContext);
         progressDialog.setTitle("Loading");
         progressDialog.setMessage("Please wait...");
         progressDialog.setCancelable(false);
@@ -164,8 +164,8 @@ public class ProductPromotionFragment extends RuchiraFragment {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("userId", UserPreferences.getId(ownerActivity));
-                params.put("tokenKey", UserPreferences.getToken(ownerActivity));
+                params.put("userId", UserPreferences.getId(mFragmentContext));
+                params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
                 params.put("companyId", id);
                 return params;
             }
@@ -182,7 +182,7 @@ public class ProductPromotionFragment extends RuchiraFragment {
 
         ProgressDialog progressDialog = null;
 
-        progressDialog = new ProgressDialog(ownerActivity);
+        progressDialog = new ProgressDialog(mFragmentContext);
         progressDialog.setTitle("Loading");
         progressDialog.setMessage("Please wait...");
         progressDialog.setCancelable(false);
@@ -213,8 +213,8 @@ public class ProductPromotionFragment extends RuchiraFragment {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("userId", UserPreferences.getId(ownerActivity));
-                params.put("tokenKey", UserPreferences.getToken(ownerActivity));
+                params.put("userId", UserPreferences.getId(mFragmentContext));
+                params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
                 return params;
             }
 
@@ -243,7 +243,7 @@ public class ProductPromotionFragment extends RuchiraFragment {
                 return;
 
             } else {
-                ViewUtils.alertUser(ownerActivity, "Server Error");
+                ViewUtils.alertUser(mFragmentContext, "Server Error");
                 return;
             }
         } catch (JSONException e) {
@@ -269,7 +269,7 @@ public class ProductPromotionFragment extends RuchiraFragment {
                 return;
 
             } else {
-                ViewUtils.alertUser(ownerActivity, "Server Error");
+                ViewUtils.alertUser(mFragmentContext, "Server Error");
                 return;
             }
         } catch (JSONException e) {

@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="5dp"
         android:background="@color/color_text_selected"
-        android:orientation="vertical"></LinearLayout>
+        android:orientation="vertical" />
 
 
     <android.support.v7.widget.AppCompatSpinner
@@ -19,23 +19,13 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/roundshape_selector"
+        android:background="@drawable/spinner_back"
         android:drawableRight="@android:drawable/arrow_down_float"
         android:padding="10dp"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="28sp"
         android:textStyle="bold" />
-
-    <!--<Spinner-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginLeft="10dp"-->
-    <!--android:layout_marginRight="10dp"-->
-    <!--android:layout_marginTop="10dp"-->
-    <!--android:spinnerMode="dropdown"-->
-    <!--android:popupBackground="@color/colorAccent"-->
-    <!--android:textAlignment="center"/>-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -68,7 +58,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/Black"
+        android:background="@color/colorStatusBar"
         android:orientation="horizontal"
         android:paddingBottom="2dp"
         android:paddingLeft="10dp"
@@ -80,6 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+            android:layout_marginLeft="8dp"
             android:layout_alignParentTop="true"
             android:text="Product Name"
             android:textAlignment="center"
@@ -90,7 +81,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:layout_marginRight="5dp"
+            android:layout_marginRight="15dp"
             android:text="Details"
             android:textAlignment="center"
             android:textColor="@color/white" />
@@ -100,10 +91,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="36dp"
-            android:layout_marginStart="36dp"
-            android:layout_toEndOf="@+id/textView6"
-            android:layout_toRightOf="@+id/textView6"
+            android:layout_centerInParent="true"
             android:text="Price"
             android:textAlignment="center"
             android:textColor="@color/white" />
@@ -119,6 +107,7 @@
             android:layout_toRightOf="@+id/textView8"
             android:layout_weight=".35"
             android:text="Id"
+            android:visibility="gone"
             android:textAlignment="center"
             android:textColor="@color/white" />
     </RelativeLayout>

@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.techcoderz.ruchira">
 
-    <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -34,20 +33,20 @@
         <activity
             android:name=".activity.LoginActivity"
             android:configChanges="keyboardHidden|orientation"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".activity.SplashActivity"
             android:configChanges="keyboardHidden|orientation"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--<activity-->
-        <!--android:name=".activity.MainActivity"-->
-        <!--android:label="@string/title_activity_main" />-->
 
         <activity
             android:name=".activity.MainActivity"
@@ -63,13 +62,14 @@
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait" />
 
-        <!-- Sqlite ORM DB -->
         <meta-data
             android:name="AA_DB_NAME"
             android:value="ruchira.db" />
+
         <meta-data
             android:name="AA_DB_VERSION"
             android:value="1" />
+
     </application>
 
 </manifest>

@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/tools"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:id="@+id/relative_layout"
-    xmlns:custom="http://schemas.android.com/apk/res-auto">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_alignParentTop="true"
-        android:background="@color/colorAccent">
+        android:background="@color/colorDarkBlue">
 
         <TextView
             android:layout_width="wrap_content"
@@ -30,21 +31,45 @@
         android:layout_centerVertical="true"
         android:background="@drawable/splash_logo" />
 
-    <com.github.silvestrpredko.dotprogressbar.DotProgressBar
-        android:id="@+id/dot_progress_bar"
+    <!--<com.github.silvestrpredko.dotprogressbar.DotProgressBar-->
+    <!--android:id="@+id/dot_progress_bar"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="50dp"-->
+    <!--custom:amount="3"-->
+    <!--android:layout_marginTop="30dp"-->
+    <!--custom:duration="@android:integer/config_mediumAnimTime"-->
+    <!--custom:endColor="@color/colorAccent"-->
+    <!--custom:startColor="@color/colorButton"-->
+    <!--android:layout_below="@+id/imageView2"-->
+    <!--android:layout_centerInParent="true"-->
+    <!--android:layout_alignParentLeft="true"-->
+    <!--android:layout_alignParentStart="true" />-->
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        custom:amount="3"
-        android:layout_marginTop="30dp"
-        custom:duration="@android:integer/config_mediumAnimTime"
-        custom:endColor="@color/colorAccent"
-        custom:startColor="@color/colorButton"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:layout_below="@+id/imageView2"
-        android:layout_centerInParent="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_marginTop="60dp">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="Powered By: TeechCoderz Limited."
+            android:textColor="@color/colorStatusBar"
+            android:textSize="10sp"
+            android:layout_marginRight="30dp"/>
 
+        <com.daasuu.ahp.AnimateHorizontalProgressBar
+            android:id="@+id/animate_progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_marginRight="30dp"
+            app:ahp_backgroundColor="#0270b1"
+            app:ahp_progressColor="#00578a" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -52,6 +77,5 @@
         android:layout_alignParentBottom="true"
         android:background="@color/color_text_selected"
         android:orientation="vertical"></LinearLayout>
-
 
 </RelativeLayout>

@@ -2,22 +2,13 @@ package com.techcoderz.ruchira.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.techcoderz.ruchira.R;
 import com.techcoderz.ruchira.utills.ViewUtils;
-
-import org.json.JSONObject;
 
 /**
  * Created by priom on 9/19/16.
@@ -25,7 +16,6 @@ import org.json.JSONObject;
 public class AllSummaryFragment extends RuchiraFragment {
     private final static String TAG = "AllSummaryFragment";
     Fragment toLaunchFragment = null;
-
     private RelativeLayout editProfileLayout,sendFeedbackLayout,aboutLayout;
 
     public AllSummaryFragment() {
@@ -47,9 +37,7 @@ public class AllSummaryFragment extends RuchiraFragment {
     }
 
     private void setupActionBar() {
-        ownerActivity.getSupportActionBar().show();
-//        ownerActivity.getSupportActionBar().setIcon(R.drawable.logo);
-//        ownerActivity.getSupportActionBar().setLogo(R.drawable.logo);
+        mFragmentContext.getSupportActionBar().show();
     }
 
     private void initialize(View rootView) {
@@ -59,6 +47,7 @@ public class AllSummaryFragment extends RuchiraFragment {
     }
 
     private void action(){
+        mFragmentContext.getSupportActionBar().setTitle("All Summary");
         editProfileLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,7 +73,7 @@ public class AllSummaryFragment extends RuchiraFragment {
     private void openMonthlyTotalSaleFragment() {
         toLaunchFragment = new MonthlyTotalSaleFragment();
         if (toLaunchFragment != null) {
-            ViewUtils.launchFragmentKeepingInBackStack(ownerActivity, toLaunchFragment);
+            ViewUtils.launchFragmentKeepingInBackStack(mFragmentContext, toLaunchFragment);
             toLaunchFragment = null;
         }
     }
@@ -92,7 +81,7 @@ public class AllSummaryFragment extends RuchiraFragment {
     private void openTodaysTotalSaleFragment() {
         toLaunchFragment = new TodaysTotalSaleFragment();
         if (toLaunchFragment != null) {
-            ViewUtils.launchFragmentKeepingInBackStack(ownerActivity, toLaunchFragment);
+            ViewUtils.launchFragmentKeepingInBackStack(mFragmentContext, toLaunchFragment);
             toLaunchFragment = null;
         }
     }
@@ -100,8 +89,18 @@ public class AllSummaryFragment extends RuchiraFragment {
     private void openYearlyTotalSaleFragment() {
         toLaunchFragment = new YearlyTotalSaleFragment();
         if (toLaunchFragment != null) {
-            ViewUtils.launchFragmentKeepingInBackStack(ownerActivity, toLaunchFragment);
+            ViewUtils.launchFragmentKeepingInBackStack(mFragmentContext, toLaunchFragment);
             toLaunchFragment = null;
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        int count = getFragmentManager().getBackStackEntryCount();
+        if (count == 0) {
+            mFragmentContext.onBackPressed();
+        } else {
+            getFragmentManager().popBackStack();
         }
     }
 }

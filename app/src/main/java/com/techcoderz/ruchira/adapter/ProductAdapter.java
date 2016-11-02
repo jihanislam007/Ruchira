@@ -3,7 +3,6 @@ package com.techcoderz.ruchira.adapter;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.techcoderz.ruchira.R;
-import com.techcoderz.ruchira.fragment.OrderDetailsFragment;
 import com.techcoderz.ruchira.fragment.ProductWithPriceDetailsFragment;
 import com.techcoderz.ruchira.model.ProductList;
 import com.techcoderz.ruchira.utills.ViewUtils;
@@ -24,7 +22,6 @@ import java.util.List;
  */
 
 public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
     private List<ProductList> productList = new ArrayList<>();
     private Context context;
     Fragment toLaunchFragment = null;
@@ -40,8 +37,7 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @Override
     public ProductAdapter.RecyclerViewSubHolders onCreateViewHolder(ViewGroup parent, int viewType) {
-
-        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_promotion, null);
+        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.all_product_with_price_adapter, null);
         ProductAdapter.RecyclerViewSubHolders rcv = new ProductAdapter.RecyclerViewSubHolders(layoutView);
         return rcv;
     }
@@ -50,7 +46,6 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof ProductAdapter.RecyclerViewSubHolders) {
             if (productList.size() > 0) {
-
                 ((ProductAdapter.RecyclerViewSubHolders) holder).product_name_txt.setText(productList.get(position).getProductName());
                 ((ProductAdapter.RecyclerViewSubHolders) holder).promotion_title_txt.setText(productList.get(position).getProductId());
                 ((ProductAdapter.RecyclerViewSubHolders) holder).end_date_txt.setText(productList.get(position).getPricePerPiece()+"");
@@ -62,7 +57,6 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 });
             }
         }
-
     }
 
     @Override
@@ -81,17 +75,14 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
 
-
     class RecyclerViewSubHolders extends RecyclerView.ViewHolder {
-
         public TextView product_name_txt,promotion_title_txt,end_date_txt,show_txt;
-
         public RecyclerViewSubHolders(View itemView) {
             super(itemView);
-            product_name_txt = (TextView) itemView.findViewById(R.id.product_name_txt);
-            promotion_title_txt = (TextView) itemView.findViewById(R.id.promotion_title_txt);
-            end_date_txt = (TextView) itemView.findViewById(R.id.end_date_txt);
-            show_txt = (TextView) itemView.findViewById(R.id.show_txt);
+            product_name_txt = (TextView) itemView.findViewById(R.id.tv_product_name_adapter);
+            promotion_title_txt = (TextView) itemView.findViewById(R.id.tv_product_id_adapter);
+            end_date_txt = (TextView) itemView.findViewById(R.id.tv_product_price_adapter);
+            show_txt = (TextView) itemView.findViewById(R.id.tv_product_details_adapter);
         }
 
     }

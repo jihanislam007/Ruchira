@@ -68,7 +68,6 @@ public class PromotionCompanySpinnerAdapter extends ArrayAdapter<Company> {
         if(row == null)
         {
             LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
             row = inflater.inflate(android.R.layout.simple_spinner_item, parent,false);
         }
 

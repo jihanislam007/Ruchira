@@ -13,7 +13,7 @@
         <item
             android:id="@+id/nav_todays_status"
             android:icon="@drawable/ic_assignment_black_24dp"
-            android:title="Today`s Status" />
+            android:title="Today\`s Status" />
         <item
             android:id="@+id/nav_all_summary"
             android:icon="@drawable/ic_account_balance_wallet_black"
@@ -35,9 +35,6 @@
             android:title="All Products &amp; Prices" />
     </group>
 
-    <!--<item android:title="">-->
-        <!--<menu>-->
-
     <group
         android:id="@+id/menu_bottom"
         android:checkableBehavior="single">
@@ -51,7 +48,5 @@
                 android:title="Logout" />
 
     </group>
-        <!--</menu>-->
-    <!--</item>-->
 
 </menu>

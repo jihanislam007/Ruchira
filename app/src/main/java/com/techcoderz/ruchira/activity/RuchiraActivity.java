@@ -5,9 +5,6 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.techcoderz.ruchira.utills.ViewUtils;
 
 /**
@@ -40,36 +37,10 @@ public class RuchiraActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-//        isPlayServiceAvailable();
     }
-
-    private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 1000;
-
-    /**
-     * Method to verify google play services on the device
-     */
-//    protected boolean isPlayServiceAvailable() {
-//        int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
-//
-//        if (resultCode != ConnectionResult.SUCCESS) {
-//            if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
-//                GooglePlayServicesUtil.getErrorDialog(resultCode, this, PLAY_SERVICES_RESOLUTION_REQUEST).show();
-//
-//            } else {
-//                Toast.makeText(this.getApplicationContext(), "This device is not supported.", Toast.LENGTH_LONG).show();
-//                TaskUtils.showGpsTurnOnAlert(this);
-//                return false;
-//            }
-//        }
-//        return true;
-//    }
 
     public void logDebug(String message) {
         Log.d(getClass().getName(), message);
-    }
-
-    public void logInfo(String message) {
-        Log.i(getClass().getName(), message);
     }
 
     public void logError(String message) {

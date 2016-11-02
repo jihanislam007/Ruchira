@@ -5,85 +5,73 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:orientation="horizontal"
-        android:weightSum="1">
+        android:gravity="center"
+        android:background="@color/colorDarkBlue">
 
-        <TextView
+        <LinearLayout
+            android:id="@+id/ll_one"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.33"
-            android:background="@color/colorButton"
-            android:padding="10dp"
-            android:text="Total Beat"
-            android:textColor="@color/white" />
+            android:background="@color/colorDarkBlue"
+            android:gravity="center"
+            android:layout_marginRight="30dp"
+            android:orientation="vertical">
 
-        <TextView
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorDarkBlue"
+                android:padding="10dp"
+                android:textStyle="bold"
+                android:text="Total Beat"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/total_bit_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorDarkBlue"
+                android:paddingBottom="15dp"
+                android:text="100"
+                android:textStyle="bold"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.33"
-            android:background="@color/colorButton"
-            android:padding="10dp"
-            android:text="Total Outlet"
-            android:textColor="@color/white" />
+            android:background="@color/colorDarkBlue"
+            android:gravity="center"
+            android:layout_marginLeft="30dp"
+            android:orientation="vertical"
+            android:layout_toRightOf="@+id/ll_one">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.34"
-            android:background="@color/colorButton"
-            android:padding="10dp"
-            android:text="Total"
-            android:textColor="@color/white" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorDarkBlue"
+                android:padding="10dp"
+                android:text="Total Outlet"
+                android:textStyle="bold"
+                android:textColor="@color/white" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/total_outlet_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorDarkBlue"
+                android:paddingBottom="15dp"
+                android:text="100"
+                android:textStyle="bold"
+                android:textColor="@color/white" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/total_bit_txt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorButton"
-            android:paddingBottom="10dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="2dp"
-            android:layout_weight="0.33"
-            android:paddingTop="2dp"
-            android:text="04"
-            android:textColor="@color/white" />
-
-        <TextView
-            android:id="@+id/total_outlet_txt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorButton"
-            android:paddingBottom="10dp"
-            android:paddingLeft="20dp"
-            android:layout_weight="0.33"
-            android:paddingRight="2dp"
-            android:paddingTop="2dp"
-            android:text="04"
-            android:textColor="@color/white" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorButton"
-            android:paddingBottom="10dp"
-            android:paddingLeft="20dp"
-            android:layout_weight="0.33"
-            android:paddingRight="2dp"
-            android:paddingTop="2dp"
-            android:text=""
-            android:textColor="@color/white" />
-    </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -113,14 +101,14 @@
                 android:layout_gravity="end"
                 android:layout_marginRight="20dp"
                 android:gravity="end|right"
-                android:text="10654 BDT" />
+                android:text="10654 " />
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
+            android:layout_height="1dp"
             android:layout_marginTop="3dp"
-            android:background="@color/colorAccent" />
+            android:background="@color/colorLightBlue" />
 
     </LinearLayout>
 
@@ -150,7 +138,7 @@
                 android:layout_gravity="end"
                 android:layout_marginRight="20dp"
                 android:gravity="end|right"
-                android:text="10654 BDT" />
+                android:text="10654 " />
 
         </LinearLayout>
 
@@ -189,7 +177,7 @@
                 android:layout_gravity="end"
                 android:layout_marginRight="20dp"
                 android:gravity="end|right"
-                android:text="10654 BDT" />
+                android:text="10654 " />
 
         </LinearLayout>
 
@@ -231,7 +219,7 @@
                 android:layout_gravity="end"
                 android:layout_marginRight="20dp"
                 android:gravity="end|right"
-                android:text="10654 BDT" />
+                android:text="10654 " />
 
         </LinearLayout>
 
@@ -271,7 +259,7 @@
                 android:layout_gravity="end"
                 android:layout_marginRight="20dp"
                 android:gravity="end|right"
-                android:text="10654 BDT" />
+                android:text="10654 " />
 
         </LinearLayout>
 
@@ -312,16 +300,16 @@
                 android:layout_gravity="end"
                 android:layout_marginRight="20dp"
                 android:gravity="end|right"
-                android:text="10654 BDT" />
+                android:text="10654 " />
 
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
+            android:layout_height="1dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="3dp"
-            android:background="@color/colorAccent" />
+            android:background="@color/colorLightBlue" />
 
     </LinearLayout>
 
@@ -351,7 +339,7 @@
                 android:layout_gravity="end"
                 android:layout_marginRight="20dp"
                 android:gravity="end|right"
-                android:text="10654 BDT" />
+                android:text="10654 " />
 
         </LinearLayout>
 
@@ -390,7 +378,7 @@
                 android:layout_gravity="end"
                 android:layout_marginRight="20dp"
                 android:gravity="end|right"
-                android:text="10654 BDT" />
+                android:text="10654 " />
 
         </LinearLayout>
 
@@ -429,7 +417,7 @@
                 android:layout_gravity="end"
                 android:layout_marginRight="20dp"
                 android:gravity="end|right"
-                android:text="10654 BDT" />
+                android:text="10654 " />
 
         </LinearLayout>
 
@@ -468,7 +456,7 @@
                 android:layout_gravity="end"
                 android:layout_marginRight="20dp"
                 android:gravity="end|right"
-                android:text="10654 BDT" />
+                android:text="10654 " />
 
         </LinearLayout>
 
@@ -478,7 +466,6 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="3dp"
             android:background="@color/Black" />
-
     </LinearLayout>
 
 </LinearLayout>

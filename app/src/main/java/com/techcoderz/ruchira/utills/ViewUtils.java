@@ -64,10 +64,7 @@ public class ViewUtils {
 
     private static void launchFragmentWithoutKeepingInBackStack(Context context, Fragment fragmentToLaunch, String fragmentTag) {
         FragmentManager supportFragmentManager = ((RuchiraActivity) context).getSupportFragmentManager();
-        supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.container_body, fragmentToLaunch, fragmentTag)
-                .commit();
+        supportFragmentManager.beginTransaction().replace(R.id.container_body, fragmentToLaunch, fragmentTag).commit();
     }
 
     public static void hideSoftKeyboard(Activity activity) {

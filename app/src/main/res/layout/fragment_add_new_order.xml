@@ -37,7 +37,7 @@
 
             <RadioGroup
                 android:id="@+id/order_radio_group"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
@@ -45,17 +45,23 @@
                     android:id="@+id/order_rb"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="25sp"
+                    android:textSize="20sp"
                     android:layout_marginRight="10dp"
-                    android:text="Ordered" />
+                    android:text="Ordered"
+                    android:layout_gravity="start"
+                    android:scaleX="0.9"
+                    android:scaleY="0.9"/>
 
                 <RadioButton
                     android:id="@+id/not_order_rb"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    android:textSize="25sp"
-                    android:text="Not Ordered" />
+                    android:textSize="20sp"
+                    android:text="Not Ordered"
+                    android:scaleX="0.9"
+                    android:scaleY="0.9"/>
+
             </RadioGroup>
         </LinearLayout>
 
@@ -66,21 +72,13 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/roundshape_selector"
+            android:background="@drawable/spinner_back"
             android:drawableRight="@android:drawable/arrow_down_float"
             android:padding="10dp"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="28sp"
             android:textStyle="bold" />
-
-        <!--<Spinner-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginLeft="10dp"-->
-        <!--android:layout_marginRight="10dp"-->
-        <!--android:layout_marginTop="10dp"-->
-        <!--android:textAlignment="center"></Spinner>-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -89,7 +87,6 @@
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:orientation="horizontal">
-
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/outlet_rcview"
@@ -100,8 +97,6 @@
                 android:layout_marginTop="10dp" />
 
         </LinearLayout>
-
-
     </LinearLayout>
 
     <LinearLayout
@@ -111,7 +106,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
         android:orientation="horizontal">
-
 
         <Button
             android:id="@+id/memo_btn"

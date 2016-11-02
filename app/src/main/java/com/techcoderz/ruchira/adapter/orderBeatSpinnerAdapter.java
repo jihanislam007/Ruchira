@@ -20,12 +20,11 @@ import java.util.List;
  * Created by Shahriar on 10/5/2016.
  */
 
-public class OrderBeatSpinnerAdapter extends ArrayAdapter<Beat> {
-
+public class orderBeatSpinnerAdapter extends ArrayAdapter<Beat> {
     private Context context;
     private List<Beat> beatList;
 
-    public OrderBeatSpinnerAdapter(Context context, int textViewResourceId, List<Beat> beatList) {
+    public orderBeatSpinnerAdapter(Context context, int textViewResourceId, List<Beat> beatList) {
         super(context,textViewResourceId,beatList);
         this.context = context;
         this.beatList = beatList;
@@ -48,27 +47,22 @@ public class OrderBeatSpinnerAdapter extends ArrayAdapter<Beat> {
 
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.beat_list, null);
             TextView skillList = (TextView) convertView.findViewById(R.id.beatTextView);
             final Beat  beat = getItem(position);
-            Log.e("OrderBeatSpinnerAdapter","getBeatName:"+beat.getTitle());
             skillList.setText(beat.getTitle());
         }
-
         return convertView;
     }
 
     @Override
     public View getDropDownView(int position, View convertView,
                                 ViewGroup parent) {
-
         View row = convertView;
         if(row == null)
         {
             LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
             row = inflater.inflate(android.R.layout.simple_spinner_item, parent,false);
         }
 

@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="5dp"
@@ -24,19 +23,19 @@
             android:id="@+id/name_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@android:drawable/ic_menu_today"
+            android:drawableLeft="@drawable/ic_user_profile"
             android:drawablePadding="10dp"
-            android:drawableTint="@color/colorAccent"
             android:gravity="center"
             android:text="Mr. Shahriar Mahmud"
-            android:textColor="@color/colorAccent" />
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/sale_date_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@android:drawable/ic_menu_my_calendar"
+            android:drawableLeft="@drawable/ic_calender"
             android:drawablePadding="10dp"
+            android:layout_marginTop="8dp"
             android:drawableTint="@color/colorSecondaryText"
             android:gravity="center"
             android:text="Sale Start From : 01-02-2016"
@@ -46,8 +45,9 @@
             android:id="@+id/address_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@android:drawable/ic_menu_set_as"
+            android:drawableLeft="@drawable/ic_address"
             android:drawablePadding="10dp"
+            android:layout_marginTop="8dp"
             android:drawableTint="@color/colorSecondaryText"
             android:gravity="center"
             android:text="Address"
@@ -83,7 +83,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="right|end"
-            android:layout_marginRight="50dp"
+            android:layout_marginRight="15dp"
             android:gravity="right|end"
             android:orientation="horizontal">
 
@@ -91,13 +91,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/ic_arrow_back_black_24dp" />
+                android:background="@drawable/ic_arrow_back" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:background="@drawable/ic_arrow_forward_black_24dp" />
+                android:background="@drawable/ic_arrow_forword" />
 
         </LinearLayout>
     </LinearLayout>
@@ -105,10 +105,10 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/Black"
+        android:background="@color/colorStatusBar"
         android:orientation="horizontal"
         android:paddingBottom="2dp"
-        android:paddingLeft="10dp"
+        android:paddingLeft="20dp"
         android:paddingRight="2dp"
         android:paddingTop="2dp">
 
@@ -136,7 +136,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:layout_marginRight="5dp"
+            android:layout_marginRight="20dp"
             android:text="Ammount"
             android:textAlignment="center"
             android:textColor="@color/white" />
@@ -149,6 +149,5 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="5dp" />
-
 
 </LinearLayout>
