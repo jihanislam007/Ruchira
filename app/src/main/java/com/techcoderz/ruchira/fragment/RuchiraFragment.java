@@ -37,5 +37,7 @@ public abstract class RuchiraFragment extends Fragment {
         return getTag();
     }
 
-    public abstract void onBackPressed();
+    public void onBackPressed(){
+
+    }
 }

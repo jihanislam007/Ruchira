@@ -63,7 +63,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:text="Chocolate 250 gm"
             android:textSize="17sp"/>
 
     </LinearLayout>
@@ -78,7 +77,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:text="SKU"
+            android:text="SKU : "
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -87,7 +86,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="122dp"
-            android:text="CH02"
             android:textSize="17sp" />
 
     </LinearLayout>
@@ -102,7 +100,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:text="Product Id"
+            android:text="Product Id : "
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -111,7 +109,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="73dp"
-            android:text="# 524325267"
             android:textSize="17sp" />
 
     </LinearLayout>
@@ -126,7 +123,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:text="Price"
+            android:text="Price : "
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -135,7 +132,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="115dp"
-            android:text="2000 BDT"
             android:textSize="17sp"/>
 
     </LinearLayout>
@@ -144,7 +140,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/color_text_selected"
-        android:padding="5dp"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingRight="50dp"
         android:text="Promotion : "
         android:textSize="18sp"
         android:textStyle="bold"

@@ -29,18 +29,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by priom on 9/19/16.
- */
 public class YearlyTotalSaleFragment extends RuchiraFragment {
     private final static String TAG = "YearlyTotalSaleFragment";
-    Fragment toLaunchFragment = null;
-
+    private Fragment toLaunchFragment = null;
     private List<Report> reportList;
     private RecyclerView report_rcview;
     private TextView name_txt, phone_txt, id_txt, date_txt, total_txt;
@@ -59,13 +54,9 @@ public class YearlyTotalSaleFragment extends RuchiraFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_yearly_total_sell, container, false);
-
         setupToolbar();
         initialize(rootView);
         action();
-        if (NetworkUtils.hasInternetConnection(mFragmentContext)) {
-            fetchDataFromServer();
-        }
         return rootView;
     }
 
@@ -83,7 +74,6 @@ public class YearlyTotalSaleFragment extends RuchiraFragment {
         date_txt = (TextView) rootView.findViewById(R.id.date_txt);
         total_txt = (TextView) rootView.findViewById(R.id.total_txt);
 
-
         manager = new LinearLayoutManager(mFragmentContext);
         reportAdapter = new ReportAdapter(mFragmentContext, reportList);
 
@@ -93,22 +83,13 @@ public class YearlyTotalSaleFragment extends RuchiraFragment {
     }
 
     private void action() {
-    }
-
-    @Override
-    public void onBackPressed() {
-        int count = getFragmentManager().getBackStackEntryCount();
-        if (count == 0) {
-            mFragmentContext.onBackPressed();
-        } else {
-            getFragmentManager().popBackStack();
+        if (NetworkUtils.hasInternetConnection(mFragmentContext)) {
+            fetchDataFromServer();
         }
     }
 
     private void fetchDataFromServer() {
-
         ProgressDialog progressDialog = null;
-
         progressDialog = new ProgressDialog(mFragmentContext);
         progressDialog.setTitle("Loading");
         progressDialog.setMessage("Please wait...");
@@ -128,53 +109,41 @@ public class YearlyTotalSaleFragment extends RuchiraFragment {
                 execute(response);
             }
         }, new Response.ErrorListener() {
-
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e(TAG, "Error: " + error.getMessage());
                 finalProgressDialog.dismiss();
             }
         }) {
-
             @Override
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("userId", UserPreferences.getId(mFragmentContext));
-                Calendar calendar = Calendar.getInstance();
-                int year = calendar.get(Calendar.YEAR);
+                Map<String, String> params = new HashMap<>();
+                params.put("userId", UserPreferences.getUserId(mFragmentContext));
                 params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
-                params.put("year", year + "");
                 return params;
             }
-
         };
-
         // Adding request to request queue
         RuchiraApplication.getInstance().addToRequestQueue(strReq, tag_string_req);
-
     }
 
     private void execute(String result) {
         Log.d(TAG, result.toString());
         reportList.clear();
-
         try {
-
             JSONObject obj = new JSONObject(result);
-
             int responseResult = obj.getInt("success");
             Log.d(TAG, result.toString());
             if (responseResult == 1) {
                 id_txt.setText("SR ID # " + obj.getString("userId"));
-                phone_txt.setText("Cell : " + obj.getString("userPhone"));
+                phone_txt.setText("Cell: " + obj.getString("userPhone"));
                 name_txt.setText(obj.getString("userName"));
                 date_txt.setText(obj.getString("year"));
                 total_txt.setText(obj.getString("total") + " BDT");
                 reportList.addAll(TaskUtils.setYearlyReport(result));
                 reportAdapter.notifyDataSetChanged();
                 return;
-
             } else {
                 ViewUtils.alertUser(mFragmentContext, "Server Error");
                 return;

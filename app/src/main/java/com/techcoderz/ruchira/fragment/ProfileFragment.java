@@ -42,7 +42,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ProfileFragment extends RuchiraFragment {
     private final static String TAG = "ProfileFragment";
     private Fragment toLaunchFragment = null;
-
     private List<Area> areaList;
     private RecyclerView report_rcview;
     private CircleImageView profile_image;
@@ -91,16 +90,6 @@ public class ProfileFragment extends RuchiraFragment {
         report_rcview.setLayoutManager(manager);
     }
 
-    @Override
-    public void onBackPressed() {
-        int count = getFragmentManager().getBackStackEntryCount();
-        if (count == 0) {
-            mFragmentContext.onBackPressed();
-        } else {
-            getFragmentManager().popBackStack();
-        }
-    }
-
     private void fetchDataFromServer() {
         ProgressDialog progressDialog = null;
         progressDialog = new ProgressDialog(mFragmentContext);
@@ -134,7 +123,7 @@ public class ProfileFragment extends RuchiraFragment {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("userId", UserPreferences.getId(mFragmentContext));
+                params.put("userId", UserPreferences.getUserId(mFragmentContext));
                 params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
                 return params;
             }

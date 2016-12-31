@@ -4,11 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:layout_alignParentTop="true"
+        android:orientation="vertical"
+        android:gravity="center"
         android:background="@color/colorDarkBlue">
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -16,8 +17,6 @@
             android:id="@+id/profile_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
             app:border_color="@color/white"
             app:border_width="2dp" />
 
@@ -25,16 +24,12 @@
             android:id="@+id/channel_txt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/profile_image"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
             android:text="Channel : "
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="14sp" />
-    </RelativeLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/information_layout"
@@ -61,7 +56,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
-                android:text="shahriar"
                 android:textColor="@color/colorDarkBlue" />
         </LinearLayout>
 
@@ -83,7 +77,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
-                android:text="sale start from : 01-02-16"
                 android:textColor="@color/colorDarkBlue" />
         </LinearLayout>
 
@@ -104,7 +97,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
-                android:text="address"
                 android:textColor="@color/colorDarkBlue" />
         </LinearLayout>
     </LinearLayout>
@@ -156,8 +148,8 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
             android:layout_weight=".5"
-            android:background="@drawable/rounderd_shape"
-            android:text="Cancel"
+            android:background="@drawable/spinner_back"
+            android:text="Cancel Order"
             android:textAllCaps="false"
             android:textColor="@color/white" />
 
@@ -167,7 +159,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_weight=".5"
-            android:background="@drawable/rounderd_shape"
+            android:background="@drawable/spinner_back"
             android:text="Ok"
             android:textAllCaps="false"
             android:textColor="@color/white" />

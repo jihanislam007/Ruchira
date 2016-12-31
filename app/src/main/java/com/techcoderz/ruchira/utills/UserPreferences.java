@@ -31,14 +31,14 @@ public class UserPreferences {
         editor.apply();
     }
 
-    public static void saveOrderId(Context context, String orderId) {
-        Log.d(TAG, "orderId : " + orderId);
-        SharedPreferences userInfo = getSharedPreferences(context);
-
-        SharedPreferences.Editor editor = userInfo.edit();
-        editor.putString(RuchiraKeys.USER_ORDER_ID, orderId);
-        editor.apply();
-    }
+//    public static void saveOrderId(Context context, String orderId) {
+//        Log.d(TAG, "orderId : " + orderId);
+//        SharedPreferences userInfo = getSharedPreferences(context);
+//
+//        SharedPreferences.Editor editor = userInfo.edit();
+//        editor.putString(RuchiraKeys.USER_ORDER_ID, orderId);
+//        editor.apply();
+//    }
 
     public static void saveCompanyId(Context context, String companyID) {
         Log.d(TAG, "companyID : " + companyID);
@@ -50,10 +50,10 @@ public class UserPreferences {
     }
 
 
-    public static String getOrderId(Context context) {
-        SharedPreferences userInfo = getSharedPreferences(context);
-        return userInfo.getString(RuchiraKeys.USER_ORDER_ID, null);
-    }
+//    public static String getOrderId(Context context) {
+//        SharedPreferences userInfo = getSharedPreferences(context);
+//        return userInfo.getString(RuchiraKeys.USER_ORDER_ID, null);
+//    }
 
     public static String getEmail(Context context) {
         SharedPreferences userInfo = getSharedPreferences(context);
@@ -147,7 +147,7 @@ public class UserPreferences {
         return userInfo.getString(RuchiraKeys.ATOKEN, null);
     }
 
-    public static String getId(Context context) {
+    public static String getUserId(Context context) {
         SharedPreferences userInfo = getSharedPreferences(context);
         return userInfo.getString(RuchiraKeys.ID, null);
     }

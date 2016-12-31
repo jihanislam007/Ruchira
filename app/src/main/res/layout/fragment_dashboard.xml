@@ -17,7 +17,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="10dp"
-            android:text="Today`s status"
+            android:text="Today\`s Sell"
             android:textColor="@color/white" />
 
         <TextView
@@ -78,8 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/dashboard_order_summary"
                 android:layout_toLeftOf="@+id/iv_1"
-                android:layout_marginRight="20dp"
-                android:text="37423742" />
+                android:layout_marginRight="20dp"/>
 
             <ImageView
                 android:id="@+id/iv_1"
@@ -107,14 +106,13 @@
                 android:layout_marginBottom="15dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="15dp"
-                android:text="Todays Target" />
+                android:text="Today's Target" />
 
             <TextView
                 android:id="@+id/todays_target_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="37423742"
                 android:layout_marginRight="20dp"
                 android:layout_toLeftOf="@+id/iv_2"/>
 
@@ -144,7 +142,7 @@
                 android:layout_marginBottom="15dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="15dp"
-                android:text="Outlet Remainning" />
+                android:text="Outlet Remaining" />
 
             <TextView
                 android:id="@+id/outlet_remainning_txt"
@@ -152,7 +150,6 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="15dp"
-                android:text="37423742"
                 android:layout_marginRight="20dp"
                 android:layout_toLeftOf="@+id/iv_3" />
 
@@ -191,7 +188,7 @@
                 android:layout_centerInParent="true"
                 android:layout_marginTop="15dp"
                 android:gravity="center"
-                android:text="37423742"
+                android:textStyle="bold"
                 android:layout_marginRight="20dp"
                 android:layout_toLeftOf="@+id/iv_4" />
 

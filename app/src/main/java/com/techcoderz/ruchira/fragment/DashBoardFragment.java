@@ -31,8 +31,9 @@ import java.util.Map;
  */
 public class DashBoardFragment extends RuchiraFragment {
     private final static String TAG = "DashBoardFragment";
-    Fragment toLaunchFragment = null;
-    TextView view_more_txt, blance_txt, ordersummary_txt, todays_target_txt, outlet_remainning_txt, remainning_txt;
+    private Fragment toLaunchFragment = null;
+    private TextView view_more_txt, tvTodaysSale, ordersummary_txt,
+            todays_target_txt, outlet_remainning_txt, remainning_txt;
 
     public DashBoardFragment() {
     }
@@ -57,11 +58,12 @@ public class DashBoardFragment extends RuchiraFragment {
 
     private void setupActionBar() {
         mFragmentContext.getSupportActionBar().show();
+        mFragmentContext.getSupportActionBar().setTitle("DashBoard");
     }
 
     private void initialize(View rootView) {
         view_more_txt = (TextView) rootView.findViewById(R.id.view_more_txt);
-        blance_txt = (TextView) rootView.findViewById(R.id.blance_txt);
+        tvTodaysSale = (TextView) rootView.findViewById(R.id.blance_txt);
         ordersummary_txt = (TextView) rootView.findViewById(R.id.ordersummary_txt);
         todays_target_txt = (TextView) rootView.findViewById(R.id.todays_target_txt);
         outlet_remainning_txt = (TextView) rootView.findViewById(R.id.outlet_remainning_txt);
@@ -77,21 +79,9 @@ public class DashBoardFragment extends RuchiraFragment {
         });
     }
 
-    @Override
-    public void onBackPressed() {
-        int count = getFragmentManager().getBackStackEntryCount();
-        if (count == 0) {
-            mFragmentContext.onBackPressed();
-        } else {
-            getFragmentManager().popBackStack();
-        }
-    }
-
     private void fetchDataFromServer() {
-
         String tag_string_req = "req_dashboard";
         ProgressDialog progressDialog = null;
-
         progressDialog = new ProgressDialog(mFragmentContext);
         progressDialog.setTitle("Loading");
         progressDialog.setMessage("Please wait...");
@@ -121,33 +111,32 @@ public class DashBoardFragment extends RuchiraFragment {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("userId", UserPreferences.getId(mFragmentContext));
+                Log.d(TAG, UserPreferences.getUserId(mFragmentContext));
+                params.put("userId", UserPreferences.getUserId(mFragmentContext));
                 params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
                 return params;
             }
 
         };
-
         // Adding request to request queue
         RuchiraApplication.getInstance().addToRequestQueue(strReq, tag_string_req);
-
     }
 
     private void execute(String result) {
         Log.d(TAG, result.toString());
-
         try {
-
             JSONObject obj = new JSONObject(result);
-
             int responseResult = obj.getInt("success");
-            Log.d(TAG, result.toString());
             if (responseResult == 1) {
-                blance_txt.setText(obj.getString("balance"));
+                tvTodaysSale.setText(obj.getString("todaySale") + " ৳");
                 ordersummary_txt.setText(obj.getString("orderSummary"));
-                todays_target_txt.setText(obj.getString("todayTarget"));
-                remainning_txt.setText(obj.getString("remaining"));
+                String remaining = obj.getString("remaining");
+                if (remaining.charAt(0) == '-')
+                    remainning_txt.setTextColor(getResources().getColor(R.color.matRed));
+                else remainning_txt.setTextColor(getResources().getColor(R.color.matGreen));
+                remainning_txt.setText(remaining);
                 outlet_remainning_txt.setText(obj.getString("outletRemaining"));
+                todays_target_txt.setText(obj.getString("todayTarget"));
                 return;
 
             } else {

@@ -1,0 +1,172 @@
+TASK com.techcoderz.ruchira id=2634
+  ACTIVITY com.techcoderz.ruchira/.activity.MainActivity 76a0c55 pid=28856
+    Local FragmentActivity d37d642 State:
+      mCreated=truemResumed=true mStopped=false mReallyStopped=false
+      mLoadersStarted=true
+    Active Fragments in b9aa3bd:
+      #0: ShopProfileFragment{fe97db2 #0 id=0x7f0e00c2 com.techcoderz.ruchira.fragment.ShopProfileFragment}
+        mFragmentId=#7f0e00c2 mContainerId=#7f0e00c2 mTag=com.techcoderz.ruchira.fragment.ShopProfileFragment
+        mState=1 mIndex=0 mWho=android:fragment:0 mBackStackNesting=2
+        mAdded=false mRemoving=true mFromLayout=false mInLayout=false
+        mHidden=false mDetached=false mMenuVisible=true mHasMenu=false
+        mRetainInstance=false mRetaining=false mUserVisibleHint=true
+        mFragmentManager=FragmentManager{b9aa3bd in HostCallbacks{462f103}}
+        mHost=android.support.v4.app.FragmentActivity$HostCallbacks@462f103
+        mArguments=Bundle[{orderId=8, getOutletId=5}]
+        mSavedViewState={2131624130=android.view.AbsSavedState$1@ee1b880, 2131624241=android.view.AbsSavedState$1@ee1b880, 2131624248=android.view.AbsSavedState$1@ee1b880, 2131624249=android.view.AbsSavedState$1@ee1b880, 2131624264=android.view.AbsSavedState$1@ee1b880, 2131624265=android.view.AbsSavedState$1@ee1b880, 2131624266=android.view.AbsSavedState$1@ee1b880, 2131624278=android.view.AbsSavedState$1@ee1b880, 2131624279=android.view.AbsSavedState$1@ee1b880, 2131624280=android.view.AbsSavedState$1@ee1b880, 2131624281=android.support.v7.widget.RecyclerView$SavedState@f52beb9}
+        Child FragmentManager{86dc2fe in ShopProfileFragment{fe97db2}}:
+          FragmentManager misc state:
+            mHost=android.support.v4.app.FragmentActivity$HostCallbacks@462f103
+            mContainer=android.support.v4.app.Fragment$1@6999a5f
+            mParent=ShopProfileFragment{fe97db2 #0 id=0x7f0e00c2 com.techcoderz.ruchira.fragment.ShopProfileFragment}
+            mCurState=1 mStateSaved=true mDestroyed=false
+      #1: OrderFragment{e9dcac #1 id=0x7f0e00c2 com.techcoderz.ruchira.fragment.OrderFragment}
+        mFragmentId=#7f0e00c2 mContainerId=#7f0e00c2 mTag=com.techcoderz.ruchira.fragment.OrderFragment
+        mState=1 mIndex=1 mWho=android:fragment:1 mBackStackNesting=1
+        mAdded=false mRemoving=true mFromLayout=false mInLayout=false
+        mHidden=false mDetached=false mMenuVisible=true mHasMenu=false
+        mRetainInstance=false mRetaining=false mUserVisibleHint=true
+        mFragmentManager=FragmentManager{b9aa3bd in HostCallbacks{462f103}}
+        mHost=android.support.v4.app.FragmentActivity$HostCallbacks@462f103
+        mSavedViewState={2131624130=android.view.AbsSavedState$1@ee1b880, 2131624187=AbsSpinner.SavedState{dd78d75 selectedId=0 position=0}, 2131624188=android.support.v7.widget.RecyclerView$SavedState@f5f110a, 2131624240=android.view.AbsSavedState$1@ee1b880, 2131624314=android.view.AbsSavedState$1@ee1b880, 2131624315=android.view.AbsSavedState$1@ee1b880, 2131624316=android.view.AbsSavedState$1@ee1b880, 2131624317=android.view.AbsSavedState$1@ee1b880, 2131624318=android.view.AbsSavedState$1@ee1b880, 2131624319=android.view.AbsSavedState$1@ee1b880}
+        Child FragmentManager{a677d7b in OrderFragment{e9dcac}}:
+          FragmentManager misc state:
+            mHost=android.support.v4.app.FragmentActivity$HostCallbacks@462f103
+            mContainer=android.support.v4.app.Fragment$1@e6e1798
+            mParent=OrderFragment{e9dcac #1 id=0x7f0e00c2 com.techcoderz.ruchira.fragment.OrderFragment}
+            mCurState=1 mStateSaved=true mDestroyed=false
+      #2: AddOrderFragment{7a08bf1 #2 id=0x7f0e00c2 com.techcoderz.ruchira.fragment.AddOrderFragment}
+        mFragmentId=#7f0e00c2 mContainerId=#7f0e00c2 mTag=com.techcoderz.ruchira.fragment.AddOrderFragment
+        mState=5 mIndex=2 mWho=android:fragment:2 mBackStackNesting=1
+        mAdded=true mRemoving=false mFromLayout=false mInLayout=false
+        mHidden=false mDetached=false mMenuVisible=true mHasMenu=false
+        mRetainInstance=false mRetaining=false mUserVisibleHint=true
+        mFragmentManager=FragmentManager{b9aa3bd in HostCallbacks{462f103}}
+        mHost=android.support.v4.app.FragmentActivity$HostCallbacks@462f103
+        mArguments=Bundle[{getShopeId=5, getOrderId=8, getAddress=Dhaka, getShopName=Outlet Borisal 2}]
+        mContainer=android.widget.FrameLayout{76533d6 V.E...... ........ 0,168-1080,1704 #7f0e00c2 app:id/container_body}
+        mView=android.widget.RelativeLayout{9667657 V.E...... ........ 0,0-1080,1536 #7f0e00c2 app:id/container_body}
+        mInnerView=android.widget.RelativeLayout{9667657 V.E...... ........ 0,0-1080,1536 #7f0e00c2 app:id/container_body}
+        Child FragmentManager{6f91544 in AddOrderFragment{7a08bf1}}:
+          FragmentManager misc state:
+            mHost=android.support.v4.app.FragmentActivity$HostCallbacks@462f103
+            mContainer=android.support.v4.app.Fragment$1@320f62d
+            mParent=AddOrderFragment{7a08bf1 #2 id=0x7f0e00c2 com.techcoderz.ruchira.fragment.AddOrderFragment}
+            mCurState=5 mStateSaved=false mDestroyed=false
+    Added Fragments:
+      #0: AddOrderFragment{7a08bf1 #2 id=0x7f0e00c2 com.techcoderz.ruchira.fragment.AddOrderFragment}
+    Back Stack:
+      #0: BackStackEntry{3d8b762 #0}
+        mName=null mIndex=0 mCommitted=true
+        Operations:
+          Op #0: REPLACE ShopProfileFragment{fe97db2 #0 id=0x7f0e00c2 com.techcoderz.ruchira.fragment.ShopProfileFragment}
+            Removed: OrderFragment{e9dcac #1 id=0x7f0e00c2 com.techcoderz.ruchira.fragment.OrderFragment}
+      #1: BackStackEntry{2f220f3 #1}
+        mName=null mIndex=1 mCommitted=true
+        Operations:
+          Op #0: REPLACE AddOrderFragment{7a08bf1 #2 id=0x7f0e00c2 com.techcoderz.ruchira.fragment.AddOrderFragment}
+            Removed: ShopProfileFragment{fe97db2 #0 id=0x7f0e00c2 com.techcoderz.ruchira.fragment.ShopProfileFragment}
+    Back Stack Indices:
+      #0: BackStackEntry{3d8b762 #0}
+      #1: BackStackEntry{2f220f3 #1}
+    FragmentManager misc state:
+      mHost=android.support.v4.app.FragmentActivity$HostCallbacks@462f103
+      mContainer=android.support.v4.app.FragmentActivity$HostCallbacks@462f103
+      mCurState=5 mStateSaved=false mDestroyed=false
+    View Hierarchy:
+      com.android.internal.policy.PhoneWindow$DecorView{61441b0 V.E..... ... 0,0-1080,1920}
+        android.widget.LinearLayout{c3c829 V.E..... ... 0,0-1080,1776}
+          android.view.ViewStub{30ee7ae G.E..... ... 0,0-0,0 #10203a9 android:id/action_mode_bar_stub}
+          android.widget.FrameLayout{683d94f V.E..... ... 0,0-1080,1776}
+            android.support.v7.widget.FitWindowsLinearLayout{473c8dc V.E..... ... 0,0-1080,1776 #7f0e00a0 app:id/action_bar_root}
+              android.support.v7.widget.ViewStubCompat{2a7bde5 G.E..... ... 0,0-0,0 #7f0e00a1 app:id/action_mode_bar_stub}
+              android.support.v7.widget.ContentFrameLayout{165d0ba V.E..... ... 0,0-1080,1776 #1020002 android:id/content}
+                android.support.v4.widget.DrawerLayout{7cebb6b VFED.... F.. 0,0-1080,1776 #7f0e00bc app:id/drawer_layout}
+                  android.support.design.widget.CoordinatorLayout{fe296c8 V.E..... ... 0,72-1080,1776 #7f0e00bd app:id/main_content}
+                    android.widget.LinearLayout{41b5361 V.E..... ... 0,0-1080,1704 #7f0e00be app:id/fullLayout}
+                      android.support.design.widget.AppBarLayout{1103e86 V.E..... ... 0,0-1080,168 #7f0e00bf app:id/appbar}
+                        android.support.design.widget.CollapsingToolbarLayout{89ba347 V.ED.... ... 0,0-1080,168 #7f0e00c0 app:id/collapsing_toolbar}
+                          android.widget.LinearLayout{5ee5774 V.E..... ... 0,0-1080,168 #7f0e00c1 app:id/container_toolbar}
+                            android.support.v7.widget.Toolbar{cd8c49d V.E..... ... 0,0-1080,168 #7f0e01b2 app:id/toolbar_activity_main}
+                              android.widget.TextView{2a1bd12 V.ED.... ... 180,43-451,124}
+                              android.widget.ImageButton{4652ce3 VFED..C. ... 0,0-168,168}
+                              android.support.v7.widget.ActionMenuView{d5376e0 V.E..... ... 1080,0-1080,168}
+                      android.widget.FrameLayout{76533d6 V.E..... ... 0,168-1080,1704 #7f0e00c2 app:id/container_body}
+                        android.widget.RelativeLayout{9667657 V.E..... ... 0,0-1080,1536 #7f0e00c2 app:id/container_body}
+                          android.widget.LinearLayout{c020d99 V.E..... ... 0,0-1080,450}
+                            android.support.v7.widget.AppCompatTextView{a5a985e V.ED.... ... 0,30-1080,87 #7f0e00f5 app:id/outlet_name_txt}
+                            android.support.v7.widget.AppCompatTextView{9b3b43f V.ED.... ... 0,117-1080,174 #7f0e00f6 app:id/outletAddress_txt}
+                            android.widget.LinearLayout{a29210c V.E..... ... 162,204-918,300}
+                              android.widget.RadioGroup{6dcea55 V.E..... ... 0,0-756,96 #7f0e00f8 app:id/order_radio_group}
+                                android.support.v7.widget.AppCompatRadioButton{e33dc6a VFED..C. ... 0,0-307,96 #7f0e00f9 app:id/order_rb}
+                                android.support.v7.widget.AppCompatRadioButton{d39555b VFED..C. ... 337,0-756,96 #7f0e00fa app:id/not_order_rb}
+                            android.support.v7.widget.AppCompatSpinner{8cd41f8 V.ED..C. ... 15,330-1065,390 #7f0e00fb app:id/beat_spinner}
+                            android.widget.LinearLayout{74ed6d1 V.E..... ... 0,420-1080,450}
+                              android.support.v7.widget.RecyclerView{8ab5536 VFED.... ... 30,30-1050,30 #7f0e00fc app:id/outlet_rcview}
+                          android.widget.LinearLayout{2adec37 V.E..... ... 408,1332-672,1476}
+                            android.support.v7.widget.AppCompatButton{b9085a4 VFED..C. ... 0,0-264,144 #7f0e00fd app:id/memo_btn}
+                  android.support.design.widget.NavigationView{6190f0d I.E..... ... -840,0-0,1776 #7f0e00c3 app:id/main_drawer}
+                    android.support.design.internal.NavigationMenuView{c4f8ec2 VFED.V.. ... 0,0-840,1776 #7f0e00f1 app:id/design_navigation_view}
+                      android.widget.LinearLayout{76b14d3 V.E..... ... 0,0-840,504 #7f0e00f0 app:id/navigation_header_container}
+                        android.widget.RelativeLayout{7225810 V.E..... ... 0,0-840,480}
+                          de.hdodenhof.circleimageview.CircleImageView{dfd39f9 V.ED.... ... 48,148-228,328 #7f0e0190 app:id/imageView}
+                          android.support.v7.widget.AppCompatTextView{cd48f09 V.ED.... ... 288,178-792,266 #7f0e0157 app:id/profile_name_txt}
+                          android.support.v7.widget.AppCompatTextView{40bd50e V.ED.... ... 288,266-604,331 #7f0e0191 app:id/company_name_txt}
+                      android.support.design.internal.NavigationMenuItemView{ac82b2f VFED..C. ... 0,504-840,648}
+                        android.support.v7.widget.AppCompatCheckedTextView{9bce53c V.ED.... ... 48,0-792,144 #7f0e00f2 app:id/design_menu_item_text}
+                        android.widget.FrameLayout{bae12c5 V.E..... ... 792,0-792,144 #7f0e00f4 app:id/design_menu_item_action_area}
+                      android.support.design.internal.NavigationMenuItemView{c34341a VFED..C. ... 0,648-840,792}
+                        android.support.v7.widget.AppCompatCheckedTextView{364b4b V.ED.... ... 48,0-792,144 #7f0e00f2 app:id/design_menu_item_text}
+                        android.widget.FrameLayout{9111928 V.E..... ... 792,0-792,144 #7f0e00f4 app:id/design_menu_item_action_area}
+                      android.support.design.internal.NavigationMenuItemView{ee21641 VFED..C. ... 0,792-840,936}
+                        android.support.v7.widget.AppCompatCheckedTextView{5177e6 V.ED.... ... 48,0-792,144 #7f0e00f2 app:id/design_menu_item_text}
+                        android.widget.FrameLayout{71c5127 V.E..... ... 792,0-792,144 #7f0e00f4 app:id/design_menu_item_action_area}
+                      android.support.design.internal.NavigationMenuItemView{2f29fd4 VFED..C. ... 0,936-840,1080}
+                        android.support.v7.widget.AppCompatCheckedTextView{ff8d57d V.ED.... ... 48,0-792,144 #7f0e00f2 app:id/design_menu_item_text}
+                        android.widget.FrameLayout{9ad2c72 V.E..... ... 792,0-792,144 #7f0e00f4 app:id/design_menu_item_action_area}
+                      android.support.design.internal.NavigationMenuItemView{472d8c3 VFED..C. ... 0,1080-840,1224}
+                        android.support.v7.widget.AppCompatCheckedTextView{cc3e540 V.ED.... ... 48,0-792,144 #7f0e00f2 app:id/design_menu_item_text}
+                        android.widget.FrameLayout{ec24c79 V.E..... ... 792,0-792,144 #7f0e00f4 app:id/design_menu_item_action_area}
+                      android.support.design.internal.NavigationMenuItemView{a9d9dbe VFED..C. ... 0,1224-840,1368}
+                        android.support.v7.widget.AppCompatCheckedTextView{a203e1f V.ED.... ... 48,0-792,144 #7f0e00f2 app:id/design_menu_item_text}
+                        android.widget.FrameLayout{da2156c V.E..... ... 792,0-792,144 #7f0e00f4 app:id/design_menu_item_action_area}
+                      android.support.design.internal.NavigationMenuItemView{e123735 VFED..C. ... 0,1368-840,1512}
+                        android.support.v7.widget.AppCompatCheckedTextView{291d7ca V.ED.... ... 48,0-792,144 #7f0e00f2 app:id/design_menu_item_text}
+                        android.widget.FrameLayout{8149d3b V.E..... ... 792,0-792,144 #7f0e00f4 app:id/design_menu_item_action_area}
+                      android.widget.FrameLayout{f511c58 V.E..... ... 0,1512-840,1563}
+                        android.view.View{3c11b1 V.ED.... ... 0,24-840,27}
+                      android.support.design.internal.NavigationMenuItemView{6dda696 VFED..C. ... 0,1563-840,1707}
+                        android.support.v7.widget.AppCompatCheckedTextView{325d217 V.ED.... ... 48,0-792,144 #7f0e00f2 app:id/design_menu_item_text}
+                        android.widget.FrameLayout{1e7a604 V.E..... ... 792,0-792,144 #7f0e00f4 app:id/design_menu_item_action_area}
+                      android.support.design.internal.NavigationMenuItemView{f4f17ed VFED..C. ... 0,1707-840,1851}
+                        android.support.v7.widget.AppCompatCheckedTextView{c459622 V.ED.... ... 48,0-792,144 #7f0e00f2 app:id/design_menu_item_text}
+                        android.widget.FrameLayout{dab78b3 V.E..... ... 792,0-792,144 #7f0e00f4 app:id/design_menu_item_action_area}
+        android.view.View{e3b1e70 V.ED.... ... 0,1776-1080,1920 #1020030 android:id/navigationBarBackground}
+        android.view.View{d1245e9 V.ED.... ... 0,0-1080,72 #102002f android:id/statusBarBackground}
+
+  ACTIVITY com.techcoderz.ruchira/.activity.SplashActivity a30975a pid=28856
+    Local FragmentActivity b212492 State:
+      mCreated=truemResumed=false mStopped=true mReallyStopped=true
+      mLoadersStarted=true
+    FragmentManager misc state:
+      mHost=android.support.v4.app.FragmentActivity$HostCallbacks@d4af26e
+      mContainer=android.support.v4.app.FragmentActivity$HostCallbacks@d4af26e
+      mCurState=2 mStateSaved=true mDestroyed=false
+    View Hierarchy:
+      com.android.internal.policy.PhoneWindow$DecorView{ddaed0f I.E..... ... 0,0-1080,1920}
+        android.widget.LinearLayout{30bb19c V.E..... ... 0,0-1080,1776}
+          android.view.ViewStub{6c057a5 G.E..... ... 0,0-0,0 #10203a9 android:id/action_mode_bar_stub}
+          android.widget.FrameLayout{937c77a V.E..... ... 0,72-1080,1776}
+            android.support.v7.widget.FitWindowsLinearLayout{de34b2b V.E..... ... 0,0-1080,1704 #7f0e00a0 app:id/action_bar_root}
+              android.support.v7.widget.ViewStubCompat{8f04b88 G.E..... ... 0,0-0,0 #7f0e00a1 app:id/action_mode_bar_stub}
+              android.support.v7.widget.ContentFrameLayout{883c921 V.E..... ... 0,0-1080,1704 #1020002 android:id/content}
+                android.widget.RelativeLayout{7eae146 V.E..... ... 0,0-1080,1704 #7f0e00c4 app:id/relative_layout}
+                  android.widget.RelativeLayout{1c96f07 V.E..... ... 0,0-1080,300}
+                    android.support.v7.widget.AppCompatTextView{9029834 V.ED.... ... 182,94-898,206}
+                  android.support.v7.widget.AppCompatImageView{cb2d65d V.ED.... ... 348,660-732,1044 #7f0e00c5 app:id/imageView2}
+                  android.widget.LinearLayout{e63cbd2 V.E..... ... 0,1224-1080,1274}
+                    android.support.v7.widget.AppCompatTextView{f03f4a3 V.ED.... ... 534,0-990,41}
+                    android.widget.ProgressBar{24b03a0 V.ED.... ... 0,41-990,50 #7f0e00c6 app:id/progressBar1}
+                  android.widget.LinearLayout{2cb7b59 V.E..... ... 0,1614-1080,1704}
+        android.view.View{ed31e V.ED.... ... 0,1776-1080,1920 #1020030 android:id/navigationBarBackground}
+        android.view.View{1d737ff V.ED.... ... 0,0-1080,72 #102002f android:id/statusBarBackground}

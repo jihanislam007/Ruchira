@@ -29,7 +29,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,9 +37,8 @@ import java.util.Map;
  * Created by priom on 9/19/16.
  */
 public class MonthlyTotalSaleFragment extends RuchiraFragment {
-    private final static String TAG = "MonthlyTotalSaleFragment";
-    Fragment toLaunchFragment = null;
-
+    private final static String TAG = "MonthlyTotalSale";
+    private Fragment toLaunchFragment = null;
     private List<Report> reportList;
     private RecyclerView report_rcview;
     private TextView name_txt, phone_txt, id_txt, date_txt, total_txt;
@@ -82,23 +80,12 @@ public class MonthlyTotalSaleFragment extends RuchiraFragment {
         date_txt = (TextView) rootView.findViewById(R.id.date_txt);
         total_txt = (TextView) rootView.findViewById(R.id.total_txt);
 
-
         manager = new LinearLayoutManager(mFragmentContext);
         reportAdapter = new ReportAdapter(mFragmentContext, reportList);
 
         report_rcview.setAdapter(reportAdapter);
         report_rcview.setHasFixedSize(true);
         report_rcview.setLayoutManager(manager);
-    }
-
-    @Override
-    public void onBackPressed() {
-        int count = getFragmentManager().getBackStackEntryCount();
-        if (count == 0) {
-            mFragmentContext.onBackPressed();
-        } else {
-            getFragmentManager().popBackStack();
-        }
     }
 
     private void fetchDataFromServer() {
@@ -117,7 +104,6 @@ public class MonthlyTotalSaleFragment extends RuchiraFragment {
 
             @Override
             public void onResponse(String response) {
-                Log.e(TAG, "Response: " + response.toString());
                 finalProgressDialog.dismiss();
                 execute(response);
             }
@@ -125,7 +111,6 @@ public class MonthlyTotalSaleFragment extends RuchiraFragment {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "Error: " + error.getMessage());
                 finalProgressDialog.dismiss();
             }
         }) {
@@ -134,14 +119,8 @@ public class MonthlyTotalSaleFragment extends RuchiraFragment {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("userId", UserPreferences.getId(mFragmentContext));
-                Calendar calendar = Calendar.getInstance();
-                int year = calendar.get(Calendar.YEAR);
-                int month = calendar.get(Calendar.MONTH);
-                int day = calendar.get(Calendar.DATE);
+                params.put("userId", UserPreferences.getUserId(mFragmentContext));
                 params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
-                params.put("year", year + "");
-                params.put("month", month + "");
                 return params;
             }
         };

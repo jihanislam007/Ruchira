@@ -34,10 +34,8 @@ import com.techcoderz.ruchira.utills.ViewUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,11 +48,11 @@ public class AddOrderFragment extends RuchiraFragment {
     private Fragment toLaunchFragment = null;
     private Button orderBtn, memoBtn;
     private Bundle bundle;
-    private String shopeId = "", shopName = "", shopAddress = "";
+    private String shopeId = "", shopName = "", shopAddress = "", orderId = "";
     private RadioGroup order_radio_group;
     private TextView tvShopName, tvshopAddress;
     private List<ProductCategory> productCategoryList;
-    private List<ProductList> productList;
+    private List<ProductList> orderedProductList, notOrderedProductList;
     private int position2 = 0;
     private TextView outlet_name_txt, outletAddress_txt;
     private AppCompatSpinner categorySpinner;
@@ -80,9 +78,6 @@ public class AddOrderFragment extends RuchiraFragment {
         setupToolbar();
         initialize(rootView);
         action();
-        if (NetworkUtils.hasInternetConnection(mFragmentContext)) {
-            fetchDataFromServerForProductCategory();
-        }
         return rootView;
     }
 
@@ -101,19 +96,21 @@ public class AddOrderFragment extends RuchiraFragment {
         shopName = bundle.getString("getShopName");
         shopAddress = bundle.getString("getAddress");
 
+        if (orderId.matches(""))
+        orderId = bundle.getString("orderId");
+
+        Log.d(TAG, " add order fragment order id: " + orderId);
         categorySpinner = (AppCompatSpinner) rootView.findViewById(R.id.beat_spinner);
 
         outlet_rcview = (RecyclerView) rootView.findViewById(R.id.outlet_rcview);
 
         productCategoryList = new ArrayList<>();
-        productList = new ArrayList<>();
+        orderedProductList = new ArrayList<>();
+        notOrderedProductList = new ArrayList<>();
         productCategorySpinnerAdapter = new ProductCategorySpinnerAdapter(mFragmentContext, R.layout.beat_list, productCategoryList);
         productCategorySpinnerAdapter.setDropDownViewResource(R.layout.beat_list);
 
         gridLayoutManager = new GridLayoutManager(mFragmentContext, 2);
-        productListAdapter = new ProductListAdapter(mFragmentContext, productList, shopeId);
-
-        outlet_rcview.setAdapter(productListAdapter);
         outlet_rcview.setHasFixedSize(true);
         outlet_rcview.setLayoutManager(gridLayoutManager);
 
@@ -121,6 +118,10 @@ public class AddOrderFragment extends RuchiraFragment {
     }
 
     private void action() {
+        if (NetworkUtils.hasInternetConnection(mFragmentContext)) {
+            fetchDataFromServerForProductCategory();
+        }
+
         outlet_name_txt.setText(shopName);
         outletAddress_txt.setText(shopAddress);
         memoBtn.setOnClickListener(new View.OnClickListener() {
@@ -134,12 +135,12 @@ public class AddOrderFragment extends RuchiraFragment {
         categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                position2 = position;
                 if (NetworkUtils.hasInternetConnection(mFragmentContext) &&
                         !productCategoryList.get(position).getName().matches("Select Category")) {
+                    position2 = position;
                     fetchDataFromServerForProductList(productCategoryList.get(position).getId(), String.valueOf(selected));
                 }
-                Log.e(TAG, "beatList.get(position).getId() : " + productCategoryList.get(position).getId());
+                Log.e(TAG, "beatList.get(position).getUserId() : " + productCategoryList.get(position).getId());
             }
 
             @Override
@@ -148,7 +149,6 @@ public class AddOrderFragment extends RuchiraFragment {
         });
 
         order_radio_group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (checkedId == R.id.order_rb) {
@@ -169,20 +169,11 @@ public class AddOrderFragment extends RuchiraFragment {
                             e.printStackTrace();
                         }
                     }
+                } else {
                 }
             }
 
         });
-    }
-
-    @Override
-    public void onBackPressed() {
-        int count = getFragmentManager().getBackStackEntryCount();
-        if (count == 0) {
-            mFragmentContext.onBackPressed();
-        } else {
-            getFragmentManager().popBackStack();
-        }
     }
 
     private void fetchDataFromServerForProductCategory() {
@@ -217,24 +208,16 @@ public class AddOrderFragment extends RuchiraFragment {
             @Override
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
-
-                Calendar calendar = Calendar.getInstance();
-                int year = calendar.get(Calendar.YEAR);
-                int month = calendar.get(Calendar.MONTH);
-                int day = calendar.get(Calendar.DATE);
-
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("userId", UserPreferences.getId(mFragmentContext));
+                Map<String, String> params = new HashMap<>();
+                params.put("userId", UserPreferences.getUserId(mFragmentContext));
                 params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
                 params.put("outletId", shopeId);
-                params.put("orderDate", day + "/" + month + "/" + year);
+                params.put("orderId", orderId);
                 return params;
             }
-
         };
         // Adding request to request queue
         RuchiraApplication.getInstance().addToRequestQueue(strReq, tag_string_req);
-
     }
 
     private void fetchDataFromServerForProductList(final String id, final String option) {
@@ -266,11 +249,12 @@ public class AddOrderFragment extends RuchiraFragment {
         }) {
             @Override
             protected Map<String, String> getParams() {
-                // Posting parameters to login url
+                Log.d(TAG, shopeId);
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("userId", UserPreferences.getId(mFragmentContext));
+                params.put("userId", UserPreferences.getUserId(mFragmentContext));
                 params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
-                params.put("outletId", id);
+                params.put("outletId", shopeId);
+                params.put("categoryId", id);
                 return params;
             }
         };
@@ -285,14 +269,13 @@ public class AddOrderFragment extends RuchiraFragment {
         try {
             JSONObject obj = new JSONObject(result);
             int responseResult = obj.getInt("success");
-            Log.d(TAG, result.toString());
             ProductCategory productCategory = new ProductCategory();
             productCategory.setName("Select Category");
             productCategoryList.add(productCategory);
             if (responseResult == 1) {
                 outlet_name_txt.setText(obj.getString("outletName"));
                 outletAddress_txt.setText(obj.getString("outletAddress"));
-                UserPreferences.saveOrderId(mFragmentContext, obj.getString("orderId"));
+                orderId = obj.getString("orderId");
                 productCategoryList.addAll(TaskUtils.setProductCategory(result));
                 productCategorySpinnerAdapter.notifyDataSetChanged();
                 return;
@@ -308,7 +291,8 @@ public class AddOrderFragment extends RuchiraFragment {
 
     private void processResultForProductList(String result, String option) {
         Log.d(TAG, result.toString());
-        productList.clear();
+        orderedProductList.clear();
+        notOrderedProductList.clear();
         try {
             JSONObject obj = new JSONObject(result);
             int responseResult = obj.getInt("success");
@@ -316,15 +300,18 @@ public class AddOrderFragment extends RuchiraFragment {
             if (responseResult == 1) {
                 List<ProductList> tempproductList = new ArrayList<>();
                 tempproductList.addAll(TaskUtils.setProductList(result));
-
-                Log.d(TAG, " Size Task Utils: " + TaskUtils.setProductList(result).size());
-                Log.d(TAG, " Size Product List: " + tempproductList.size());
-
                 for (int i = 0; i < tempproductList.size(); i++) {
-                    if (tempproductList.get(i).getFlag().equals(option)) {
-                        productList.add(tempproductList.get(i));
+                    if (tempproductList.get(i).getFlag().equals("0")) {
+                        orderedProductList.add(tempproductList.get(i));
+                    } else {
+                        notOrderedProductList.add(tempproductList.get(i));
                     }
                 }
+                if (option.matches("0"))
+                    productListAdapter = new ProductListAdapter(mFragmentContext, orderedProductList, shopeId, orderId);
+                else
+                    productListAdapter = new ProductListAdapter(mFragmentContext, notOrderedProductList, shopeId, orderId);
+                outlet_rcview.setAdapter(productListAdapter);
                 productListAdapter.notifyDataSetChanged();
                 return;
             } else {
@@ -341,7 +328,8 @@ public class AddOrderFragment extends RuchiraFragment {
         if (toLaunchFragment != null) {
             Bundle bundle = new Bundle();
             bundle.putString("getShopeId", shopeId);
-            bundle.putString("getOrderId", UserPreferences.getOrderId(mFragmentContext));
+            bundle.putString("orderId", orderId);
+            Log.d(TAG, orderId);
             toLaunchFragment.setArguments(bundle);
             ViewUtils.launchFragmentKeepingInBackStack(mFragmentContext, toLaunchFragment);
             toLaunchFragment = null;

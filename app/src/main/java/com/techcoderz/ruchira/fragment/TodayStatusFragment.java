@@ -59,14 +59,14 @@ public class TodayStatusFragment extends RuchiraFragment {
         View rootView = inflater.inflate(R.layout.fragment_todays_status, container, false);
         initialize(rootView);
         action();
-        if(NetworkUtils.hasInternetConnection(mFragmentContext)) {
-            fetchDataFromServer();
-        }
         return rootView;
     }
 
     private void action() {
         mFragmentContext.getSupportActionBar().setTitle("Today\'s Status");
+        if (NetworkUtils.hasInternetConnection(mFragmentContext)) {
+            fetchDataFromServer();
+        }
     }
 
     private void initialize(View rootView) {
@@ -86,16 +86,6 @@ public class TodayStatusFragment extends RuchiraFragment {
 
         targetList = new ArrayList<>();
         outletRemainingList = new ArrayList<>();
-    }
-
-    @Override
-    public void onBackPressed() {
-        int count = getFragmentManager().getBackStackEntryCount();
-        if (count == 0) {
-            mFragmentContext.onBackPressed();
-        } else {
-            getFragmentManager().popBackStack();
-        }
     }
 
     private void fetchDataFromServer() {
@@ -131,7 +121,7 @@ public class TodayStatusFragment extends RuchiraFragment {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("userId", UserPreferences.getId(mFragmentContext));
+                params.put("userId", UserPreferences.getUserId(mFragmentContext));
                 params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
                 return params;
             }
@@ -144,7 +134,6 @@ public class TodayStatusFragment extends RuchiraFragment {
     }
 
     private void execute(String result) {
-        Log.d(TAG, result.toString());
         targetList.clear();
         outletRemainingList.clear();
         try {
@@ -156,18 +145,30 @@ public class TodayStatusFragment extends RuchiraFragment {
                 targetList.addAll(TaskUtils.setTarget(result));
                 outletRemainingList.addAll(TaskUtils.setOutletRemainning(result));
 
-                this_month_txt.setText(targetList.get(0).getThisMonth() + " ৳");
-                current_achive_txt.setText(targetList.get(0).getCurrentAchive() + " ৳");
-                remainnig_target_txt.setText(targetList.get(0).getRemainningTarget() + " ৳");
-                avg_target_visit_txt.setText(targetList.get(0).getAvgTargetVisit() + " ৳");
-                remainnig_visit_txt.setText(targetList.get(0).getRemainingVisit());
+                try {
+                    this_month_txt.setText(targetList.get(0).getThisMonth() + " ৳");
+                    current_achive_txt.setText(targetList.get(0).getCurrentAchive() + " ৳");
 
-                total_outlet_txt.setText(outletRemainingList.get(0).getTotalOutlet() + " ৳");
-                outlet_remained_txt.setText(outletRemainingList.get(0).getOutletRemained() + " ৳");
-                outlet_visited_txt.setText(outletRemainingList.get(0).getOutletVisited());
-                achive_today_txt.setText(outletRemainingList.get(0).getOutletAchieve() + " ৳");
-                achive_percent_sr_txt.setText(outletRemainingList.get(0).getAchieveInPercent());
+                    String remaining = targetList.get(0).getRemainningTarget();
+                    if (remaining.charAt(0) == '-') {
+                        remaining.substring(1);
+                        remainnig_target_txt.setTextColor(getResources().getColor(R.color.matGreen));
+                    } else{
+                        remainnig_target_txt.setTextColor(getResources().getColor(R.color.matRed));
+                    }
+                    remainnig_target_txt.setText(remaining + " ৳");
 
+                    avg_target_visit_txt.setText(targetList.get(0).getAvgTargetVisit() + " ৳");
+                    remainnig_visit_txt.setText(targetList.get(0).getRemainingVisit());
+
+                    total_outlet_txt.setText(outletRemainingList.get(0).getTotalOutlet());
+                    outlet_remained_txt.setText(outletRemainingList.get(0).getOutletRemained());
+                    outlet_visited_txt.setText(outletRemainingList.get(0).getOutletVisited());
+                    achive_today_txt.setText(outletRemainingList.get(0).getOutletAchieve() + " ৳");
+                    achive_percent_sr_txt.setText(outletRemainingList.get(0).getAchieveInPercent());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 return;
 
             } else {

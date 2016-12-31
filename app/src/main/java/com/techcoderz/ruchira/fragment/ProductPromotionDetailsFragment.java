@@ -39,7 +39,6 @@ import java.util.Map;
 public class ProductPromotionDetailsFragment extends RuchiraFragment {
     private final static String TAG = "PromotionDetlsFragment";
     private Fragment toLaunchFragment = null;
-
     private TextView product_name_txt,title_product_name_txt, sku_txt, product_id_txt, selling_price_txt;
     private RecyclerView report_rcview;
     private ProductPromotionDetailAdapter productPromotionAdapter;
@@ -62,9 +61,6 @@ public class ProductPromotionDetailsFragment extends RuchiraFragment {
         setupToolbar();
         initialize(rootView);
         action();
-        if(NetworkUtils.hasInternetConnection(mFragmentContext)) {
-            fetchDataFromServer();
-        }
         return rootView;
     }
 
@@ -75,7 +71,6 @@ public class ProductPromotionDetailsFragment extends RuchiraFragment {
 
     private void initialize(View rootView) {
         promotionList = new ArrayList<>();
-
         title_product_name_txt = (TextView) rootView.findViewById(R.id.title_product_name_txt);
         product_name_txt = (TextView) rootView.findViewById(R.id.product_name_txt);
         sku_txt = (TextView) rootView.findViewById(R.id.sku_txt);
@@ -92,15 +87,8 @@ public class ProductPromotionDetailsFragment extends RuchiraFragment {
     }
 
     private void action() {
-    }
-
-    @Override
-    public void onBackPressed() {
-        int count = getFragmentManager().getBackStackEntryCount();
-        if (count == 0) {
-            mFragmentContext.onBackPressed();
-        } else {
-            getFragmentManager().popBackStack();
+        if(NetworkUtils.hasInternetConnection(mFragmentContext)) {
+            fetchDataFromServer();
         }
     }
 
@@ -136,10 +124,11 @@ public class ProductPromotionDetailsFragment extends RuchiraFragment {
             @Override
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
+                Log.d(TAG, " company id: " + UserPreferences.getCompanyId(mFragmentContext));
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("userId", UserPreferences.getId(mFragmentContext));
+                params.put("userId", UserPreferences.getUserId(mFragmentContext));
                 params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
-                params.put("companyId", UserPreferences.getCompanyId(mFragmentContext));
+                params.put("promotionId", UserPreferences.getCompanyId(mFragmentContext));
                 return params;
             }
 
@@ -150,15 +139,10 @@ public class ProductPromotionDetailsFragment extends RuchiraFragment {
 
     }
 
-
     private void executeForPromotionDetails(String result) {
-        Log.d(TAG, result.toString());
         promotionList.clear();
-
         try {
-
             JSONObject obj = new JSONObject(result);
-
             int responseResult = obj.getInt("success");
             Log.d(TAG, result.toString());
             if (responseResult == 1) {
@@ -167,7 +151,6 @@ public class ProductPromotionDetailsFragment extends RuchiraFragment {
                 sku_txt.setText(obj.getString("productSku"));
                 product_id_txt.setText(obj.getString("productId"));
                 selling_price_txt.setText(obj.getString("sellingPrice"));
-
                 promotionList.addAll(TaskUtils.setProductPromotion(result, 1));
                 productPromotionAdapter.notifyDataSetChanged();
                 return;

@@ -35,7 +35,8 @@ public class ProductWithPriceDetailsFragment extends RuchiraFragment {
 
     private Bundle bundle;
     private String productId = "";
-    private TextView title_product_name_txt, product_name_txt, sku_txt, product_id_txt, selling_price_txt, weight_txt, height_txt, dimension_txt;
+    private TextView title_product_name_txt, product_name_txt,
+            sku_txt, product_id_txt, selling_price_txt, weight_txt, height_txt, dimension_txt;
 
     public ProductWithPriceDetailsFragment() {
     }
@@ -49,13 +50,9 @@ public class ProductWithPriceDetailsFragment extends RuchiraFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_product_with_price_details, container, false);
-
         setupToolbar();
         initialize(rootView);
         action();
-        if(NetworkUtils.hasInternetConnection(mFragmentContext)) {
-            fetchDataFromServer();
-        }
         return rootView;
     }
 
@@ -79,22 +76,13 @@ public class ProductWithPriceDetailsFragment extends RuchiraFragment {
     }
 
     private void action() {
-    }
-
-    @Override
-    public void onBackPressed() {
-        int count = getFragmentManager().getBackStackEntryCount();
-        if (count == 0) {
-            mFragmentContext.onBackPressed();
-        } else {
-            getFragmentManager().popBackStack();
+        if(NetworkUtils.hasInternetConnection(mFragmentContext)) {
+            fetchDataFromServer();
         }
     }
 
     private void fetchDataFromServer() {
-
         ProgressDialog progressDialog = null;
-
         progressDialog = new ProgressDialog(mFragmentContext);
         progressDialog.setTitle("Loading");
         progressDialog.setMessage("Please wait...");
@@ -126,26 +114,23 @@ public class ProductWithPriceDetailsFragment extends RuchiraFragment {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("userId", UserPreferences.getId(mFragmentContext));
+                params.put("userId", UserPreferences.getUserId(mFragmentContext));
                 params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
                 params.put("productId", productId);
+                Log.d(TAG, " product Id: " + productId);
                 return params;
             }
-
         };
 
         // Adding request to request queue
         RuchiraApplication.getInstance().addToRequestQueue(strReq, tag_string_req);
-
     }
 
 
     private void executeForPromotionDetails(String result) {
         Log.d(TAG, result.toString());
         try {
-
             JSONObject obj = new JSONObject(result);
-
             int responseResult = obj.getInt("success");
             Log.d(TAG, result.toString());
             if (responseResult == 1) {
@@ -158,9 +143,7 @@ public class ProductWithPriceDetailsFragment extends RuchiraFragment {
                 weight_txt.setText("Weight : " + obj.getString("weight"));
                 height_txt.setText("Height : " + obj.getString("height"));
                 dimension_txt.setText("Dimension : " + obj.getString("dimension"));
-
                 return;
-
             } else {
                 ViewUtils.alertUser(mFragmentContext, "Server Error");
                 return;

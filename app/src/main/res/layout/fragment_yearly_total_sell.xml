@@ -22,7 +22,6 @@
             android:id="@+id/name_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mr. Shahriar Mahmud"
             android:textColor="@color/Black" />
 
         <TextView
@@ -30,7 +29,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="end"
-            android:text="Cell : +88015445775475"
             android:textColor="@color/Black" />
     </LinearLayout>
 
@@ -44,7 +42,6 @@
             android:id="@+id/id_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SR ID # 00347347384"
             android:textColor="@color/Black" />
 
     </LinearLayout>
@@ -72,7 +69,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:padding="5dp"
-            android:text="Freruary 03, 2016"
             android:textColor="@color/white" />
 
     </LinearLayout>
@@ -149,7 +145,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="3123 BDT"
             android:textColor="@color/white" />
 
     </LinearLayout>

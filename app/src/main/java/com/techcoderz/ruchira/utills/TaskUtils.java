@@ -308,19 +308,16 @@ public class TaskUtils {
         return orderList;
     }
 
-
     public static List<Order> setOrderList(String json) {
         ArrayList<Order> orderList = new ArrayList<>();
         try {
             JSONObject jsonObject = new JSONObject(json);
-
             JSONArray jsonArray = jsonObject.getJSONArray("orderList");
-
             for (int i = 0; i < jsonArray.length(); i++) {
                 Order order = new Order();
                 order.setProductName(jsonArray.getJSONObject(i).getString("productName"));
-                order.setCost(jsonArray.getJSONObject(i).getString("cost"));
                 order.setQuantity(jsonArray.getJSONObject(i).getString("productQuantity"));
+                order.setCost(jsonArray.getJSONObject(i).getString("cost"));
                 orderList.add(order);
             }
         } catch (JSONException e) {
@@ -334,7 +331,6 @@ public class TaskUtils {
         ArrayList<Shipping> shippingList = new ArrayList<>();
         try {
             JSONObject jsonObject = new JSONObject(json);
-
             JSONObject jsonObject2 = jsonObject.getJSONObject("shipping");
             Shipping shipping = new Shipping();
             shipping.setAddress(jsonObject2.getString("address"));
@@ -344,22 +340,17 @@ public class TaskUtils {
             shipping.setPostcode(jsonObject2.getString("postcode"));
             shipping.setTo(jsonObject2.getString("to"));
             shippingList.add(shipping);
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         return shippingList;
     }
-
 
     public static List<Promotion> setProductPromotion(String json, int a) {
         ArrayList<Promotion> promotionList = new ArrayList<>();
         try {
             JSONObject jsonObject = new JSONObject(json);
-
             JSONArray jsonArray = jsonObject.getJSONArray("promtion");
-
             if (a == 0) {
                 for (int i = 0; i < jsonArray.length(); i++) {
                     Promotion promotion = new Promotion();
@@ -380,8 +371,6 @@ public class TaskUtils {
                     promotionList.add(promotion);
                 }
             }
-
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -393,9 +382,7 @@ public class TaskUtils {
         ArrayList<Billing> billingList = new ArrayList<>();
         try {
             JSONObject jsonObject = new JSONObject(json);
-
             JSONObject jsonObject2 = jsonObject.getJSONObject("billing");
-
             Billing billing = new Billing();
             billing.setAddress(jsonObject2.getString("address"));
             billing.setCity(jsonObject2.getString("city"));
@@ -404,11 +391,9 @@ public class TaskUtils {
             billing.setPostcode(jsonObject2.getString("postcode"));
             billing.setTo(jsonObject2.getString("to"));
             billingList.add(billing);
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         return billingList;
     }
 
@@ -428,7 +413,6 @@ public class TaskUtils {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         return promotionList;
     }
 
@@ -457,7 +441,6 @@ public class TaskUtils {
         ArrayList<Report> reportList = new ArrayList<>();
         try {
             JSONObject jsonObject = new JSONObject(json);
-
             JSONArray jsonArray = jsonObject.getJSONArray("report");
 
             for (int i = 0; i < jsonArray.length(); i++) {
@@ -520,9 +503,7 @@ public class TaskUtils {
         ArrayList<ProductList> productList = new ArrayList<>();
         try {
             JSONObject jsonObject = new JSONObject(json);
-
             JSONArray jsonArray = jsonObject.getJSONArray("product");
-
             for (int i = 0; i < jsonArray.length(); i++) {
                 ProductList product = new ProductList();
                 product.setProductId(jsonArray.getJSONObject(i).getString("productId"));
@@ -546,16 +527,15 @@ public class TaskUtils {
         ArrayList<Outlet> outletList = new ArrayList<>();
         try {
             JSONObject jsonObject = new JSONObject(json);
-
             JSONArray jsonArray = jsonObject.getJSONArray("outlet");
-
             for (int i = 0; i < jsonArray.length(); i++) {
                 Outlet outlet = new Outlet();
-                outlet.setOid(jsonArray.getJSONObject(i).getString("id"));
+                outlet.setOutletId(jsonArray.getJSONObject(i).getString("id"));
                 outlet.setTitle(jsonArray.getJSONObject(i).getString("title"));
                 outlet.setGroup(jsonArray.getJSONObject(i).getString("group"));
                 outlet.setFlag(jsonArray.getJSONObject(i).getString("flag"));
                 outlet.setReason(jsonArray.getJSONObject(i).getString("reason"));
+                outlet.setOid(jsonArray.getJSONObject(i).getString("existOrderId"));
                 outletList.add(outlet);
             }
         } catch (JSONException e) {
@@ -570,17 +550,13 @@ public class TaskUtils {
         try {
             JSONObject jsonObject = new JSONObject(json);
             JSONObject jsonObject2 = jsonObject.getJSONObject("outletRemaining");
-
-//            for (int i = 0; i < jsonObject2.length(); i++) {
             OutletRemainning todayOrder = new OutletRemainning();
             todayOrder.setTotalOutlet(jsonObject2.getString("totalOutlet"));
             todayOrder.setOutletVisited(jsonObject2.getString("outletVisited"));
             todayOrder.setOutletRemained(jsonObject2.getString("outletRemained"));
-
             todayOrder.setAchieveInPercent(jsonObject2.getString("achieveInPercent"));
             todayOrder.setOutletAchieve(jsonObject2.getString("outletAchieve"));
             TodayTotalOrderList.add(todayOrder);
-//            }
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -27,7 +27,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:padding="5dp"
-            android:text="Chocolate 250 gm"
             android:textColor="@color/white" />
 
     </LinearLayout>
@@ -44,14 +43,16 @@
             android:layout_height="wrap_content"
             android:paddingLeft="5dp"
             android:background="@color/color_text_selected"
-            android:text="Product Name : " />
+            android:text="Product Name : "
+            android:textSize="18sp"/>
 
         <TextView
             android:id="@+id/product_name_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:text="Chocolate 250 gm" />
+            android:textSize="15sp"
+            android:textStyle="bold"/>
 
     </LinearLayout>
 
@@ -59,19 +60,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingLeft="20dp">
+        android:paddingLeft="20dp"
+        android:layout_marginTop="10dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SKU" />
+            android:text="SKU"
+            android:textSize="15sp"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/sku_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="95dp"
-            android:text="CH02" />
+            android:textSize="15sp"
+            android:textStyle="bold"/>
 
     </LinearLayout>
 
@@ -79,19 +84,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingLeft="20dp">
+        android:paddingLeft="20dp"
+        android:layout_marginTop="5dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Product Id" />
+            android:text="Product Id"
+            android:textSize="15sp"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/product_id_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="55dp"
-            android:text="# 524325267" />
+            android:textSize="15sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
@@ -99,19 +108,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingLeft="20dp">
+        android:paddingLeft="20dp"
+        android:layout_marginTop="5dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Price" />
+            android:text="Price"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/selling_price_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="90dp"
-            android:text="2000 BDT" />
+            android:textSize="15sp"
+            android:textStyle="bold"/>
 
     </LinearLayout>
 
@@ -127,8 +139,9 @@
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:background="@color/color_text_selected"
-            android:text="Other : " />
-
+            android:text="Other : "
+            android:textSize="18sp"
+            android:layout_marginTop="20dp"/>
 
     </LinearLayout>
 
@@ -142,7 +155,10 @@
             android:id="@+id/weight_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Weight" />
+            android:text="Weight"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"/>
 
 
     </LinearLayout>
@@ -151,13 +167,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingLeft="20dp">
+        android:paddingLeft="20dp"
+        android:layout_marginTop="5dp">
 
         <TextView
             android:id="@+id/height_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Quantity" />
+            android:text="Quantity"
+            android:textStyle="bold"
+            android:textSize="15sp" />
 
 
     </LinearLayout>
@@ -166,13 +185,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingLeft="20dp">
+        android:paddingLeft="20dp"
+        android:layout_marginTop="5dp">
 
         <TextView
             android:id="@+id/dimension_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Other" />
+            android:text="Other"
+            android:textStyle="bold"
+            android:textSize="15sp" />
 
     </LinearLayout>
 

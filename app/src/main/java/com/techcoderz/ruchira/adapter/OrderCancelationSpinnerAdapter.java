@@ -20,7 +20,6 @@ import java.util.List;
  * Created by priom on 10/25/16.
  */
 public class OrderCancelationSpinnerAdapter extends ArrayAdapter<OrderCancelation> {
-
     private final static String TAG = "OrderCancelationAdapter";
     private Context context;
     private List<OrderCancelation> cancelationList;
@@ -45,10 +44,8 @@ public class OrderCancelationSpinnerAdapter extends ArrayAdapter<OrderCancelatio
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.beat_list, null);
             TextView skillList = (TextView) convertView.findViewById(R.id.beatTextView);
@@ -63,21 +60,15 @@ public class OrderCancelationSpinnerAdapter extends ArrayAdapter<OrderCancelatio
     @Override
     public View getDropDownView(int position, View convertView,
                                 ViewGroup parent) {
-
         View row = convertView;
-        if(row == null)
-        {
+        if(row == null) {
             LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
             row = inflater.inflate(android.R.layout.simple_spinner_item, parent,false);
         }
-
         TextView label = (TextView)row.findViewById(android.R.id.text1);
         label.setText(getItem(position).getTitle());
         label.setPadding(10, 15, 0, 15);
-
         label.setTextColor(Color.BLACK);
-
         ((TextView) row).setGravity(Gravity.CENTER);
         return row;
     }

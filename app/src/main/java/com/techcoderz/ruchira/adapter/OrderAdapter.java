@@ -24,16 +24,13 @@ import java.util.List;
  */
 
 public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
     private List<Order> orderList = new ArrayList<>();
     private Context context;
     Fragment toLaunchFragment = null;
 
     public OrderAdapter(Context context, List<Order> orderList) {
-
         this.orderList = orderList;
         this.context = context;
-
         if (toLaunchFragment != null) {
             ViewUtils.launchFragmentKeepingInBackStack(context, toLaunchFragment);
         }
@@ -51,11 +48,9 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof OrderAdapter.RecyclerViewSubHolders) {
             if (orderList.size() > 0) {
-
                 ((RecyclerViewSubHolders) holder).name_txt.setText(orderList.get(position).getProductName());
                 ((RecyclerViewSubHolders) holder).quantity_txt.setText(orderList.get(position).getQuantity());
                 ((RecyclerViewSubHolders) holder).ammount_txt.setText(orderList.get(position).getCost()+" BDT");
-
             }
         }
 
@@ -66,29 +61,7 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         return this.orderList.size();
     }
 
-    private void openOpenShopProfile(String oId) {
-        toLaunchFragment = new ShopProfileFragment();
-        if (toLaunchFragment != null) {
-            Bundle bundle = new Bundle();
-            bundle.putString("getOid", oId);
-            toLaunchFragment.setArguments(bundle);
-            ViewUtils.launchFragmentKeepingInBackStack(context, toLaunchFragment);
-            toLaunchFragment = null;
-        }
-    }
-
-    private void openShopOrderSummaryFragment() {
-        toLaunchFragment = new ShopOrderSummaryFragment();
-        if (toLaunchFragment != null) {
-            ViewUtils.launchFragmentKeepingInBackStack(context, toLaunchFragment);
-            toLaunchFragment = null;
-        }
-    }
-
-
     class RecyclerViewSubHolders extends RecyclerView.ViewHolder {
-
-
         public TextView name_txt, quantity_txt, ammount_txt;
         public LinearLayout wholeContent;
 

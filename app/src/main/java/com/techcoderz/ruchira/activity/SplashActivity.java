@@ -1,12 +1,16 @@
 package com.techcoderz.ruchira.activity;
 
 import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
-import com.daasuu.ahp.AnimateHorizontalProgressBar;
-import com.github.silvestrpredko.dotprogressbar.DotProgressBar;
 import com.techcoderz.ruchira.R;
 import com.techcoderz.ruchira.utills.UserPreferences;
 
@@ -15,9 +19,9 @@ import com.techcoderz.ruchira.utills.UserPreferences;
  */
 public class SplashActivity extends AppCompatActivity {
     private final String TAG = "SplashActivity";
-//    private DotProgressBar dotProgressBar;
     private RelativeLayout relativeLayout;
-    private AnimateHorizontalProgressBar progressBar;
+    private ProgressBar pb;
+
 
     private Runnable loginActivity = new Runnable() {
         @Override
@@ -34,6 +38,9 @@ public class SplashActivity extends AppCompatActivity {
     };
 
     String checkToken = "";
+    int intValue = 0;
+
+    Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,18 +52,20 @@ public class SplashActivity extends AppCompatActivity {
 
     private void initialize() {
         relativeLayout = (RelativeLayout) findViewById(R.id.relative_layout);
-//        dotProgressBar = (DotProgressBar) findViewById(R.id.dot_progress_bar);
-        progressBar = (AnimateHorizontalProgressBar) findViewById(R.id.animate_progress_bar);
         checkToken = UserPreferences.getToken(SplashActivity.this);
     }
 
     private void action() {
-        progressBar.setMax(1000);
-        progressBar.setProgress(0);
-        progressBar.setProgressWithAnim(1000);
-        progressBar.setMaxWithAnim(800);
-//        dotProgressBar.setAnimationTime(1000);
-
+        Window window = this.getWindow();
+        // clear FLAG_TRANSLUCENT_STATUS flag:
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        // finally change the color
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.setStatusBarColor(this.getResources().getColor(R.color.colorStatusBar));
+        }
+        taskProgressBar();
         if (checkToken != null) {
             if (getIntent().getBooleanExtra("EXIT", false)) {
                 relativeLayout.postDelayed(mainActivity, 4000);
@@ -66,6 +75,30 @@ public class SplashActivity extends AppCompatActivity {
         } else {
             relativeLayout.postDelayed(loginActivity, 4000);
         }
+    }
+
+    private void taskProgressBar() {
+        pb = (ProgressBar) findViewById(R.id.progressBar1);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+                while (intValue < 1000) {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            pb.setProgress(intValue);
+                        }
+                    });
+                    try {
+                        Thread.sleep(40);
+                        intValue++;
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
     }
 
     @Override

@@ -28,12 +28,13 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private List<ProductList> productList = new ArrayList<>();
     private Context context;
     private Fragment toLaunchFragment = null;
-    private String shopeId;
+    private String shopeId, orderId;
 
-    public ProductListAdapter(Context context, List<ProductList> productList,String shopeId) {
+    public ProductListAdapter(Context context, List<ProductList> productList,String shopeId, String orderId) {
         this.productList = productList;
         this.context = context;
         this.shopeId = shopeId;
+        this.orderId = orderId;
         if (toLaunchFragment != null) {
             ViewUtils.launchFragmentKeepingInBackStack(context, toLaunchFragment);
         }
@@ -50,14 +51,11 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof ProductListAdapter.RecyclerViewSubHolders) {
             if (productList.size() > 0) {
-
                 ((RecyclerViewSubHolders) holder).item_btn.setText(productList.get(position).getProductName());
-
-
                 ((ProductListAdapter.RecyclerViewSubHolders) holder).wholeContent.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        openOrderDetailsFragment(position);
+                        openOrderSubmitFragment(position);
                     }
                 });
             }
@@ -70,7 +68,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         return this.productList.size();
     }
 
-    private void openOrderDetailsFragment(int position) {
+    private void openOrderSubmitFragment(int position) {
         toLaunchFragment = new OrderSubmitFragment();
         if (toLaunchFragment != null) {
             Bundle bundle = new Bundle();
@@ -80,6 +78,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             bundle.putInt("getPricePerCarton", productList.get(position).getPricePerCarton());
             bundle.putInt("getPricePerPiece", productList.get(position).getPricePerPiece());
             bundle.putString("getProductSku", productList.get(position).getProductSku());
+            bundle.putString("getOrderId", orderId);
 
             Log.d(TAG, "getproductId  " + productList.get(position).getProductId());
             Log.d(TAG, "getpromotionId  " + productList.get(position).getPromotionId());

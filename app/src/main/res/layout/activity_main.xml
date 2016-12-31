@@ -40,6 +40,7 @@
                         android:orientation="vertical">
 
                         <include layout="@layout/toolbar" />
+
                     </LinearLayout>
                 </android.support.design.widget.CollapsingToolbarLayout>
             </android.support.design.widget.AppBarLayout>

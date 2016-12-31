@@ -29,7 +29,6 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:layout_marginTop="5dp"
-            android:text="shahriar"
             android:textSize="18sp"
             android:textColor="@color/white" />
 
@@ -82,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
-                android:text="Joining Date : 01-02-16"
+                android:text="Joining Date : "
                 android:textColor="@color/Black" />
         </LinearLayout>
 
@@ -103,7 +102,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
-                android:text="Designasion : Sales Representative"
+                android:text="Designation : "
                 android:textColor="@color/Black" />
         </LinearLayout>
 
@@ -125,11 +124,12 @@
         android:paddingTop="2dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:text="Area"
+            android:text="My Area"
+            android:textSize="18sp"
             android:textAlignment="center"
             android:textColor="@color/white" />
     </RelativeLayout>

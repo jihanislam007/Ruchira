@@ -2,7 +2,7 @@ package com.techcoderz.ruchira.fragment;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.AppCompatSpinner;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -41,21 +42,17 @@ import java.util.Map;
  */
 public class OrderCancelationFragment extends RuchiraFragment {
     private final static String TAG = "CancelationFragment";
-    Fragment toLaunchFragment = null;
     private TextView shope_name_txt, address_txt;
     private Button ok_btn;
     private List<OrderCancelation> cancelationList;
-
     private AppCompatSpinner beat_spinner;
     private OrderCancelationSpinnerAdapter orderCancelationSpinnerAdapter;
-
     private int position2 = 0;
     private Bundle bundle;
     private String address = "";
     private String shopeName = "";
-    private String getReasonId = "";
+    private String getReason = "";
     private String shopeProfileId;
-
 
     public OrderCancelationFragment() {
     }
@@ -69,7 +66,6 @@ public class OrderCancelationFragment extends RuchiraFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_order_cancalation, container, false);
-
         initialize(rootView);
         action();
         if (NetworkUtils.hasInternetConnection(mFragmentContext)) {
@@ -92,49 +88,40 @@ public class OrderCancelationFragment extends RuchiraFragment {
         cancelationList = new ArrayList<>();
         orderCancelationSpinnerAdapter = new OrderCancelationSpinnerAdapter(mFragmentContext, R.layout.beat_list, cancelationList);
         orderCancelationSpinnerAdapter.setDropDownViewResource(R.layout.beat_list);
-
     }
 
     private void action() {
-
         beat_spinner.setAdapter(orderCancelationSpinnerAdapter);
         shope_name_txt.setText(shopeName);
         address_txt.setText(address);
-
-        ok_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (NetworkUtils.hasInternetConnection(mFragmentContext)) {
-                    fetchDataFromServerForCancelationSubmit(beat_spinner.getSelectedItem().toString());
-                }
-            }
-        });
-
         beat_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 position2 = position;
-                getReasonId = cancelationList.get(position).getTitle();
-                Log.e(TAG, "cancelationList.get(position).getCancelationId() : " + cancelationList.get(position).getCancelationId());
+                if (!cancelationList.get(position2).getTitle().equals("Select a Reason")) {
+                    getReason = cancelationList.get(position).getTitle();
+                }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+
+        ok_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (NetworkUtils.hasInternetConnection(mFragmentContext)) {
+                   if (getReason.equals("") || getReason == ""){
+                       Toast.makeText(mFragmentContext, "Please Select a Reason", Toast.LENGTH_LONG).show();
+                   } else fetchDataFromServerForCancelationSubmit(getReason);
+                }
+            }
+        });
+
     }
 
-    @Override
-    public void onBackPressed() {
-        int count = getFragmentManager().getBackStackEntryCount();
-        if (count == 0) {
-            mFragmentContext.onBackPressed();
-        } else {
-            getFragmentManager().popBackStack();
-        }
-    }
-
-    private void fetchDataFromServerForCancelationSubmit(final String selectedData) {
+    private void fetchDataFromServerForCancelationSubmit(final String reason) {
         ProgressDialog progressDialog = null;
         progressDialog = new ProgressDialog(mFragmentContext);
         progressDialog.setTitle("Loading");
@@ -152,7 +139,7 @@ public class OrderCancelationFragment extends RuchiraFragment {
             public void onResponse(String response) {
                 Log.e(TAG, "Response: " + response.toString());
                 finalProgressDialog.dismiss();
-                processResultForCancetation(response);
+                processResultForCancellation(response);
             }
         }, new Response.ErrorListener() {
 
@@ -166,16 +153,16 @@ public class OrderCancelationFragment extends RuchiraFragment {
             @Override
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
-
                 Calendar c = Calendar.getInstance();
                 SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
                 String formattedDate = df.format(c.getTime());
 
                 Map<String, String> params = new HashMap<String, String>();
-                Log.e(TAG, UserPreferences.getId(mFragmentContext) + UserPreferences.getToken(mFragmentContext) + getReasonId + shopeProfileId + formattedDate);
-                params.put("userId", UserPreferences.getId(mFragmentContext));
+                Log.e(TAG, UserPreferences.getUserId(mFragmentContext) + UserPreferences.getToken(mFragmentContext) +
+                        getReason + shopeProfileId + formattedDate);
+                params.put("userId", UserPreferences.getUserId(mFragmentContext));
                 params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
-                params.put("reason", getReasonId);
+                params.put("reason", reason);
                 params.put("reasonDate", formattedDate);
                 params.put("outletId", shopeProfileId);
                 return params;
@@ -189,9 +176,7 @@ public class OrderCancelationFragment extends RuchiraFragment {
     }
 
     private void fetchDataFromServer() {
-
         ProgressDialog progressDialog = null;
-
         progressDialog = new ProgressDialog(mFragmentContext);
         progressDialog.setTitle("Loading");
         progressDialog.setMessage("Please wait...");
@@ -221,36 +206,31 @@ public class OrderCancelationFragment extends RuchiraFragment {
 
             @Override
             protected Map<String, String> getParams() {
-                // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("userId", UserPreferences.getId(mFragmentContext));
+                params.put("userId", UserPreferences.getUserId(mFragmentContext));
                 params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
                 return params;
             }
-
         };
 
         // Adding request to request queue
         RuchiraApplication.getInstance().addToRequestQueue(strReq, tag_string_req);
-
     }
 
     private void executeForReason(String result) {
         Log.d(TAG, result.toString());
         cancelationList.clear();
-
+        OrderCancelation orderCancelation = new OrderCancelation();
+        orderCancelation.setTitle("Select a Reason");
+        cancelationList.add(orderCancelation);
         try {
-
             JSONObject obj = new JSONObject(result);
-
             int responseResult = obj.getInt("success");
             Log.d(TAG, result.toString());
             if (responseResult == 1) {
                 cancelationList.addAll(TaskUtils.setOrderCancelation(result));
                 orderCancelationSpinnerAdapter.notifyDataSetChanged();
-
                 return;
-
             } else {
                 ViewUtils.alertUser(mFragmentContext, "Server Error");
                 return;
@@ -260,18 +240,14 @@ public class OrderCancelationFragment extends RuchiraFragment {
         }
     }
 
-    private void processResultForCancetation(String result) {
+    private void processResultForCancellation(String result) {
         Log.d(TAG, result.toString());
         try {
-
             JSONObject obj = new JSONObject(result);
-
             int responseResult = obj.getInt("success");
-            Log.d(TAG, result.toString());
             if (responseResult == 1) {
                 openOrderFragment();
                 return;
-
             } else {
                 ViewUtils.alertUser(mFragmentContext, "Server Error");
                 return;
@@ -282,10 +258,9 @@ public class OrderCancelationFragment extends RuchiraFragment {
     }
 
     private void openOrderFragment() {
-        toLaunchFragment = new OrderFragment();
-        if (toLaunchFragment != null) {
-            ViewUtils.launchFragmentKeepingInBackStack(mFragmentContext, toLaunchFragment);
-            toLaunchFragment = null;
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
+            fm.popBackStack();
         }
     }
 }

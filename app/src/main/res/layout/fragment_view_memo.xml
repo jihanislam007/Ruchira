@@ -16,7 +16,6 @@
             android:id="@+id/shope_name_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Shope Name"
             android:textColor="@color/Black" />
 
         <TextView
@@ -24,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="end"
-            android:text="Order Id : #002354656"
+            android:text="Order Id : "
             android:textColor="@color/Black" />
     </LinearLayout>
 
@@ -41,7 +40,6 @@
             android:id="@+id/name_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mr. Shahriar Mahmud"
             android:textColor="@color/Black" />
 
         <TextView
@@ -49,7 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="end"
-            android:text="Cell : +8801543234456"
+            android:text="Cell : "
             android:textColor="@color/Black" />
     </LinearLayout>
 
@@ -63,7 +61,7 @@
             android:id="@+id/status_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Status : Panding"
+            android:text="Status : "
             android:textColor="@color/Black" />
 
     </LinearLayout>
@@ -90,7 +88,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:padding="5dp"
-            android:text="Freruary 03, 2016"
+            android:text=""
             android:textColor="@color/white" />
 
         <TextView
@@ -100,7 +98,7 @@
             android:layout_gravity="right|end"
             android:gravity="right|end"
             android:padding="5dp"
-            android:text="Order Time : 08.45 am"
+            android:text="Order Time : "
             android:textColor="@color/white" />
 
     </LinearLayout>
@@ -161,140 +159,135 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:background="@color/colorButton"
-        android:orientation="horizontal"
-        android:padding="5dp">
+        android:gravity="start"
+        android:layout_gravity="right"
+        android:orientation="vertical">
 
-        <TextView
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorButton"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Subtotal : "
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/subtotal_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Subtotal : "
-            android:textColor="@color/white" />
+            android:orientation="horizontal"
+            android:padding="5dp">
 
-        <TextView
-            android:id="@+id/subtotal_txt"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Grand total : " />
+
+            <TextView
+                android:id="@+id/grand_total_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/Black" />
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="270 BDT"
-            android:textColor="@color/white" />
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Total paid : " />
+
+            <TextView
+                android:id="@+id/total_paid_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/Black" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Total Refunded : " />
+
+            <TextView
+                android:id="@+id/total_refunded_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/Black" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Total Due : " />
+
+            <TextView
+                android:id="@+id/total_due_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/Black" />
 
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:orientation="horizontal"
-        android:padding="5dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Grand total : " />
-
-        <TextView
-            android:id="@+id/grand_total_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="270 BDT" />
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="135dp"
-        android:layout_height="1dp"
-        android:layout_gravity="end"
-        android:background="@color/Black" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:orientation="horizontal"
-        android:padding="5dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Total paid : " />
-
-        <TextView
-            android:id="@+id/total_paid_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="270 BDT" />
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="135dp"
-        android:layout_height="1dp"
-        android:layout_gravity="end"
-        android:background="@color/Black" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:orientation="horizontal"
-        android:padding="5dp">
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Total Refunded : " />
-
-        <TextView
-            android:id="@+id/total_refunded_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="270 BDT" />
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="135dp"
-        android:layout_height="1dp"
-        android:layout_gravity="end"
-        android:background="@color/Black" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:orientation="horizontal"
-        android:padding="5dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Total Due : " />
-
-        <TextView
-            android:id="@+id/total_due_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="270 BDT" />
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="135dp"
-        android:layout_height="1dp"
-        android:layout_gravity="end"
-        android:background="@color/Black" />
 
     <Button
         android:id="@+id/confirm_btn"
@@ -302,10 +295,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center|bottom"
         android:layout_marginTop="30dp"
-        android:background="@drawable/rounderd_shape"
+        android:background="@drawable/spinner_back"
         android:text="Confirm"
         android:textAllCaps="false"
         android:textColor="@color/white" />
-
 
 </LinearLayout>

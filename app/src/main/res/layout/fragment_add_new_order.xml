@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:text="Shope Name"
+            android:text=""
             android:textColor="@color/Black" />
 
         <TextView
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:text="Address"
+            android:text=""
             android:textColor="@color/Black" />
 
         <LinearLayout
@@ -111,7 +111,7 @@
             android:id="@+id/memo_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/rounderd_shape"
+            android:background="@drawable/spinner_back"
             android:text="Memo"
             android:textAllCaps="false"
             android:textColor="@color/white"

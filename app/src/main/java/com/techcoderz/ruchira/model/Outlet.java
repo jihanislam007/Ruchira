@@ -10,6 +10,15 @@ public class Outlet {
     String group;
     String flag;
     String reason;
+    String outletId;
+
+    public String getOutletId() {
+        return outletId;
+    }
+
+    public void setOutletId(String outletId) {
+        this.outletId = outletId;
+    }
 
     public String getOid() {
         return oid;

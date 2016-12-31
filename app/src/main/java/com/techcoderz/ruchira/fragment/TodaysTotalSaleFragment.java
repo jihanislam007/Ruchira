@@ -29,7 +29,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -60,9 +59,6 @@ public class TodaysTotalSaleFragment extends RuchiraFragment {
         setupToolbar();
         initialize(rootView);
         action();
-        if(NetworkUtils.hasInternetConnection(mFragmentContext)) {
-            fetchDataFromServer();
-        }
         return rootView;
     }
 
@@ -89,15 +85,8 @@ public class TodaysTotalSaleFragment extends RuchiraFragment {
     }
 
     private void action() {
-    }
-
-    @Override
-    public void onBackPressed() {
-        int count = getFragmentManager().getBackStackEntryCount();
-        if (count == 0) {
-            mFragmentContext.onBackPressed();
-        } else {
-            getFragmentManager().popBackStack();
+        if (NetworkUtils.hasInternetConnection(mFragmentContext)) {
+            fetchDataFromServer();
         }
     }
 
@@ -125,7 +114,6 @@ public class TodaysTotalSaleFragment extends RuchiraFragment {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-//                Log.e(TAG, "Error: " + error.getMessage());
                 finalProgressDialog.dismiss();
             }
         }) {
@@ -134,16 +122,8 @@ public class TodaysTotalSaleFragment extends RuchiraFragment {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                Calendar calendar = Calendar.getInstance();
-                int year = calendar.get(Calendar.YEAR);
-                int month = calendar.get(Calendar.MONTH);
-                int day = calendar.get(Calendar.DATE);
-                params.put("userId", UserPreferences.getId(mFragmentContext));
+                params.put("userId", UserPreferences.getUserId(mFragmentContext));
                 params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
-                params.put("orderDate", day+"/"+month+"/"+year);
-                Log.e(TAG,  day+"/"+month+"/"+year);
-//                params.put("month", month + "");
-//                params.put("day", day + "");
                 return params;
             }
         };
@@ -165,7 +145,7 @@ public class TodaysTotalSaleFragment extends RuchiraFragment {
                 phone_txt.setText("Cell : " + obj.getString("userPhone"));
                 name_txt.setText(obj.getString("userName"));
                 date_txt.setText(obj.getString("orderDate"));
-                total_txt.setText(obj.getString("total")+" BDT");
+                total_txt.setText(obj.getString("total") + " BDT");
                 reportList.addAll(TaskUtils.setTodayReport(result));
                 reportAdapter.notifyDataSetChanged();
                 return;

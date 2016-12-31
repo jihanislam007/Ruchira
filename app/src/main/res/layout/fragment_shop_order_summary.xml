@@ -26,7 +26,6 @@
             android:drawableLeft="@drawable/ic_user_profile"
             android:drawablePadding="10dp"
             android:gravity="center"
-            android:text="Mr. Shahriar Mahmud"
             android:textColor="@color/black" />
 
         <TextView
@@ -38,7 +37,7 @@
             android:layout_marginTop="8dp"
             android:drawableTint="@color/colorSecondaryText"
             android:gravity="center"
-            android:text="Sale Start From : 01-02-2016"
+            android:text="Sale Start From : "
             android:textColor="@color/Black" />
 
         <TextView
@@ -76,7 +75,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:padding="5dp"
-            android:text="Freruary 03, 2016"
             android:textColor="@color/white" />
 
         <LinearLayout
@@ -88,12 +86,14 @@
             android:orientation="horizontal">
 
             <ImageView
+                android:id="@+id/iv_prev_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/ic_arrow_back" />
 
             <ImageView
+                android:id="@+id/iv_next_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -149,5 +149,15 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="5dp" />
+
+    <TextView
+        android:id="@+id/no_order"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No Order Found"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:visibility="gone"/>
 
 </LinearLayout>

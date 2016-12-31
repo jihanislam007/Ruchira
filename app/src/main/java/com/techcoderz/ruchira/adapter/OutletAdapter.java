@@ -4,11 +4,11 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.techcoderz.ruchira.R;
@@ -24,9 +24,9 @@ import java.util.List;
  * Created by priom on 10/5/16.
  */
 public class OutletAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
     private List<Outlet> outletList = new ArrayList<>();
     private Context context;
+    private String TAG = "OutletAdapter";
     Fragment toLaunchFragment = null;
     private int type;
 
@@ -58,11 +58,11 @@ public class OutletAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                         if (type == 0) {
                             if (outletList.get(position).getFlag().equals("2")) {
                                 ViewUtils.alertUser(context, outletList.get(position).getReason());
-                            }else {
-                                openOpenShopProfile(outletList.get(position).getOid());
+                            } else {
+                                openShopProfile(outletList.get(position).getOutletId(), outletList.get(position).getOid());
                             }
                         } else {
-                            openShopOrderSummaryFragment();
+                            openShopOrderSummaryFragment(outletList.get(position).getOutletId(), outletList.get(position).getOid());
                         }
                     }
                 });
@@ -76,23 +76,27 @@ public class OutletAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         return this.outletList.size();
     }
 
-    private void openOpenShopProfile(String oId) {
+    private void openShopProfile(String outletId, String orderId) {
         toLaunchFragment = new ShopProfileFragment();
         if (toLaunchFragment != null) {
             Bundle bundle = new Bundle();
-            bundle.putString("getOid", oId);
+            bundle.putString("getOutletId", outletId);
+            bundle.putString("orderId", orderId);
+            Log.d(TAG, orderId);
             toLaunchFragment.setArguments(bundle);
             ViewUtils.launchFragmentKeepingInBackStack(context, toLaunchFragment);
             toLaunchFragment = null;
         }
     }
 
-    private void openShopOrderSummaryFragment() {
+    private void openShopOrderSummaryFragment(String shopId, String orderId) {
         toLaunchFragment = new ShopOrderSummaryFragment();
-        if (toLaunchFragment != null) {
-            ViewUtils.launchFragmentKeepingInBackStack(context, toLaunchFragment);
-            toLaunchFragment = null;
-        }
+        Bundle bundle = new Bundle();
+        bundle.putString("shopId", shopId);
+        bundle.putString("orderId", orderId);
+        toLaunchFragment.setArguments(bundle);
+        ViewUtils.launchFragmentKeepingInBackStack(context, toLaunchFragment);
+        toLaunchFragment = null;
     }
 
     class RecyclerViewSubHolders extends RecyclerView.ViewHolder {

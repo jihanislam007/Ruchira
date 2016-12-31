@@ -24,17 +24,13 @@ import java.util.List;
  */
 
 public class AreaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
     private List<Area> areaList = new ArrayList<>();
     private Context context;
     Fragment toLaunchFragment = null;
     private int type;
-
     public AreaAdapter(Context context, List<Area> areaList) {
         this.areaList = areaList;
         this.context = context;
-        this.type = type;
-
         if (toLaunchFragment != null) {
             ViewUtils.launchFragmentKeepingInBackStack(context, toLaunchFragment);
         }
@@ -42,7 +38,6 @@ public class AreaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public AreaAdapter.RecyclerViewSubHolders onCreateViewHolder(ViewGroup parent, int viewType) {
-
         View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_profile_area, null);
         AreaAdapter.RecyclerViewSubHolders rcv = new AreaAdapter.RecyclerViewSubHolders(layoutView);
         return rcv;
@@ -74,11 +69,8 @@ public class AreaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
-
     class RecyclerViewSubHolders extends RecyclerView.ViewHolder {
-
         public TextView beat_name_txt;
-
         public RecyclerViewSubHolders(View itemView) {
             super(itemView);
             beat_name_txt = (TextView) itemView.findViewById(R.id.beat_name_txt);

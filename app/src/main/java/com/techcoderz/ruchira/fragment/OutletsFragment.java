@@ -3,6 +3,7 @@ package com.techcoderz.ruchira.fragment;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -45,6 +46,7 @@ public class OutletsFragment extends RuchiraFragment {
     private List<Beat> beatList;
     private List<Outlet> outletList;
     private AppCompatSpinner beat_spinner;
+    private SwipeRefreshLayout swipeRefreshLayout;
     private orderBeatSpinnerAdapter orderBeatSpinnerAdapter;
     private String location;
     private RecyclerView outlet_rcview;
@@ -83,11 +85,12 @@ public class OutletsFragment extends RuchiraFragment {
         outlet_rcview = (RecyclerView) rootView.findViewById(R.id.outlet_rcview);
         beatList = new ArrayList<>();
         outletList = new ArrayList<>();
+        swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_outlet_list);
         orderBeatSpinnerAdapter = new orderBeatSpinnerAdapter(mFragmentContext, R.layout.beat_list, beatList);
         orderBeatSpinnerAdapter.setDropDownViewResource(R.layout.beat_list);
 
         gridLayoutManager = new GridLayoutManager(mFragmentContext, 3);
-        outletAdapter = new OutletAdapter(mFragmentContext,outletList,1);
+        outletAdapter = new OutletAdapter(mFragmentContext, outletList, 1);
 
         outlet_rcview.setAdapter(outletAdapter);
         outlet_rcview.setHasFixedSize(true);
@@ -103,7 +106,7 @@ public class OutletsFragment extends RuchiraFragment {
                 if(NetworkUtils.hasInternetConnection(mFragmentContext)) {
                     fetchDataFromServerForOutlet(beatList.get(position).getId());
                 }
-                Log.e(TAG, "beatList.get(position).getId() : " + beatList.get(position).getId());
+                Log.e(TAG, "beatList.get(position).getUserId() : " + beatList.get(position).getId());
             }
 
             @Override
@@ -113,20 +116,8 @@ public class OutletsFragment extends RuchiraFragment {
         });
     }
 
-    @Override
-    public void onBackPressed() {
-        int count = getFragmentManager().getBackStackEntryCount();
-        if (count == 0) {
-            mFragmentContext.onBackPressed();
-        } else {
-            getFragmentManager().popBackStack();
-        }
-    }
-
     private void fetchDataFromServerForOutlet(final String id) {
-
         ProgressDialog progressDialog = null;
-
         progressDialog = new ProgressDialog(mFragmentContext);
         progressDialog.setTitle("Loading");
         progressDialog.setMessage("Please wait...");
@@ -143,6 +134,9 @@ public class OutletsFragment extends RuchiraFragment {
             public void onResponse(String response) {
                 Log.e(TAG, "order Response: " + response.toString());
                 finalProgressDialog.dismiss();
+                if (swipeRefreshLayout != null) {
+                    swipeRefreshLayout.setRefreshing(false);
+                }
                 processResultForOutlet(response);
             }
         }, new Response.ErrorListener() {
@@ -158,9 +152,9 @@ public class OutletsFragment extends RuchiraFragment {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("userId", UserPreferences.getId(mFragmentContext));
+                params.put("userId", UserPreferences.getUserId(mFragmentContext));
                 params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
-                params.put("bitId",id);
+                params.put("beatId", id);
                 return params;
             }
 
@@ -206,8 +200,8 @@ public class OutletsFragment extends RuchiraFragment {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                Log.e(TAG,UserPreferences.getId(mFragmentContext)+UserPreferences.getToken(mFragmentContext));
-                params.put("userId", UserPreferences.getId(mFragmentContext));
+                Log.e(TAG,UserPreferences.getUserId(mFragmentContext)+UserPreferences.getToken(mFragmentContext));
+                params.put("userId", UserPreferences.getUserId(mFragmentContext));
                 params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
                 return params;
             }

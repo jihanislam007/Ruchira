@@ -19,7 +19,6 @@ import com.techcoderz.ruchira.utills.ViewUtils;
  * Created by Shahriar on 9/14/2016.
  */
 public class SettingFragment extends RuchiraFragment {
-
     private static String TAG = "SettingsFragment";
     RelativeLayout logoutLayout, aboutLayout, mainFragmentContainer, editProfileLayout;
     Fragment toLaunchFragment = null;
@@ -36,9 +35,7 @@ public class SettingFragment extends RuchiraFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-//        this.activityCallbacks.onFragmentSelected(ViewUtils.FcaFragments.SETTING_FRAGMENT);
         setupActionBar();
-
         View rootView = inflater.inflate(R.layout.fragment_settings, container, false);
         initialize(rootView);
         action();

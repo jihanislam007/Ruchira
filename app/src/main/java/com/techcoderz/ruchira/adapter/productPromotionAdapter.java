@@ -70,7 +70,6 @@ public class productPromotionAdapter extends RecyclerView.Adapter<RecyclerView.V
         return this.promotionList.size();
     }
 
-
     class RecyclerViewHoldersHomeAdapter extends RecyclerView.ViewHolder {
 
         public TextView product_name_txt,promotion_title_txt,end_date_txt;
@@ -80,7 +79,6 @@ public class productPromotionAdapter extends RecyclerView.Adapter<RecyclerView.V
             product_name_txt = (TextView) itemView.findViewById(R.id.product_name_txt);
             promotion_title_txt = (TextView) itemView.findViewById(R.id.promotion_title_txt);
             end_date_txt = (TextView) itemView.findViewById(R.id.end_date_txt);
-//            show_txt = (TextView) itemView.findViewById(R.id.show_txt);
             btnShow = (Button) itemView.findViewById(R.id.show_txt);
         }
 

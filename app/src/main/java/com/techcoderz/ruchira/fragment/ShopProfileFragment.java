@@ -42,18 +42,16 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class ShopProfileFragment extends RuchiraFragment {
     private final static String TAG = "ShopProfileFragment";
-    Fragment toLaunchFragment = null;
+    private Fragment toLaunchFragment = null;
     private Button ok_btn,cancel_btn;
     private Bundle bundle;
     private String outletId = "";
-
     private List<Promotion> promotionList;
-
     private CircleImageView profile_image;
     private TextView address_txt, profile_name_txt, channel_txt, starting_date_txt;
     private RecyclerView promotion_rcview;
     private PromotionAdapter promotionAdapter;
-    private String shopeProfileId="";
+    private String shopeProfileId="", orderId="";
 
     public ShopProfileFragment() {
     }
@@ -84,7 +82,11 @@ public class ShopProfileFragment extends RuchiraFragment {
     private void initialize(View rootView) {
         bundle = this.getArguments();
         promotionList = new ArrayList<>();
-        outletId = bundle.getString("getOid");
+        outletId = bundle.getString("getOutletId");
+
+        orderId = bundle.getString("orderId");
+        Log.d(TAG, " shop profile order id: " + orderId);
+
         ok_btn = (Button) rootView.findViewById(R.id.submit_btn);
         cancel_btn = (Button) rootView.findViewById(R.id.cancel_btn);
         promotion_rcview = (RecyclerView) rootView.findViewById(R.id.promotion_rcview);
@@ -116,16 +118,6 @@ public class ShopProfileFragment extends RuchiraFragment {
         });
     }
 
-    @Override
-    public void onBackPressed() {
-        int count = getFragmentManager().getBackStackEntryCount();
-        if (count == 0) {
-            mFragmentContext.onBackPressed();
-        } else {
-            getFragmentManager().popBackStack();
-        }
-    }
-
     private void fetchDataFromServer() {
         ProgressDialog progressDialog = null;
         progressDialog = new ProgressDialog(mFragmentContext);
@@ -155,10 +147,12 @@ public class ShopProfileFragment extends RuchiraFragment {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("userId", UserPreferences.getId(mFragmentContext));
+                params.put("userId", UserPreferences.getUserId(mFragmentContext));
                 params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
                 params.put("outletId", outletId);
-                Log.d(TAG, outletId);
+                Log.d(TAG, " outletId: " + outletId);
+                Log.d(TAG, " userId: " + UserPreferences.getUserId(mFragmentContext));
+                Log.d(TAG, " tokenKey: " + UserPreferences.getToken(mFragmentContext));
                 return params;
             }
 
@@ -178,19 +172,16 @@ public class ShopProfileFragment extends RuchiraFragment {
             Log.d(TAG, result.toString());
             if (responseResult == 1) {
                 shopeProfileId = obj.getString("id");
-//                UserPreferences.saveShopeProfileId(mFragmentContext, obj.getString("id"));
                 profile_name_txt.setText(obj.getString("name"));
                 address_txt.setText(obj.getString("address"));
                 channel_txt.setText(obj.getString("channel"));
                 Picasso.with(mFragmentContext)
-                        .load(obj.getString("image"))
+                        .load(obj.getString("image")).resize(200, 200)
                         .into(profile_image);
                 starting_date_txt.setText(obj.getString("startDate"));
                 promotionList.addAll(TaskUtils.setPromotion(result));
                 promotionAdapter.notifyDataSetChanged();
-
                 return;
-
             } else {
                 ViewUtils.alertUser(mFragmentContext, "Server Error");
                 return;
@@ -204,7 +195,9 @@ public class ShopProfileFragment extends RuchiraFragment {
         toLaunchFragment = new AddOrderFragment();
         if (toLaunchFragment != null) {
             Bundle bundle = new Bundle();
-            bundle.putString("getShopeId",shopeProfileId);
+            bundle.putString("getShopeId", shopeProfileId);
+            bundle.putString("orderId", orderId);
+            Log.d(TAG, orderId);
             bundle.putString("getShopName", profile_name_txt.getText().toString());
             bundle.putString("getAddress", address_txt.getText().toString());
             toLaunchFragment.setArguments(bundle);

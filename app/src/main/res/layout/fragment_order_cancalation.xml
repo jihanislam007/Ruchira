@@ -15,7 +15,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        android:text="Shope Name" />
+        android:text="Shope Name"
+        android:textSize="18sp"/>
 
     <TextView
         android:id="@+id/address_txt"
@@ -23,7 +24,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:gravity="center"
-        android:text="Address" />
+        android:text="Address"
+        android:textSize="16sp" />
 
 
     <android.support.v7.widget.AppCompatSpinner
@@ -33,7 +35,7 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/rounder_shape_selector_deep_color"
+        android:background="@drawable/spinner_back"
         android:drawableRight="@android:drawable/arrow_down_float"
         android:padding="10dp"
         android:textAlignment="center"
@@ -51,7 +53,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginBottom="30dp"
         android:textAllCaps="false"
-        android:background="@drawable/rounderd_shape"
+        android:background="@drawable/spinner_back"
         android:text="Confirm"
         android:textColor="@color/white" />
 

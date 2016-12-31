@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:text="SKU : CH0"
+            android:text="SKU : "
             android:textColor="@color/Black" />
 
         <TextView
@@ -25,7 +25,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:text="Price : 2.50 per ctn, 2 per pcs"
             android:textColor="@color/Black" />
 
 
@@ -137,7 +136,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
             android:layout_weight=".5"
-            android:background="@drawable/rounderd_shape"
+            android:background="@drawable/spinner_back"
             android:text="Cancel"
             android:textAllCaps="false"
             android:textColor="@color/white" />
@@ -148,7 +147,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_weight=".5"
-            android:background="@drawable/rounderd_shape"
+            android:background="@drawable/spinner_back"
             android:text="Submit"
             android:textAllCaps="false"
             android:textColor="@color/white" />

@@ -39,7 +39,7 @@ public class OrderSubmitFragment extends RuchiraFragment {
     private Fragment toLaunchFragment = null;
     private Button submit_btn, cancel_btn;
     private Bundle bundle;
-    private String shopeId, productId, promotionId, sku;
+    private String shopeId, productId, promotionId, sku, orderId;
     private int pricePerCarton, pricePerPiece;
     private EditText ctn_et, pcs_et;
     private TextView value_et, sku_txt, price_txt;
@@ -77,6 +77,7 @@ public class OrderSubmitFragment extends RuchiraFragment {
         sku = bundle.getString("getProductSku");
         pricePerCarton = bundle.getInt("getPricePerCarton");
         pricePerPiece = bundle.getInt("getPricePerPiece");
+        orderId = bundle.getString("getOrderId");
 
         ctn_et = (EditText) rootView.findViewById(R.id.ctn_et);
         pcs_et = (EditText) rootView.findViewById(R.id.pcs_et);
@@ -157,16 +158,6 @@ public class OrderSubmitFragment extends RuchiraFragment {
         });
     }
 
-    @Override
-    public void onBackPressed() {
-        int count = getFragmentManager().getBackStackEntryCount();
-        if (count == 0) {
-            mFragmentContext.onBackPressed();
-        } else {
-            getFragmentManager().popBackStack();
-        }
-    }
-
     private void fetchDataFromServerOrderItemSubmit() {
         ProgressDialog progressDialog = null;
         progressDialog = new ProgressDialog(mFragmentContext);
@@ -199,10 +190,17 @@ public class OrderSubmitFragment extends RuchiraFragment {
             @Override
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
+                Log.d(TAG, "user id: " + UserPreferences.getUserId(mFragmentContext));
+                Log.d(TAG, "token key: " + UserPreferences.getToken(mFragmentContext));
+                Log.d(TAG, "product id: " + productId);
+                Log.d(TAG, "ctn: " + ctn_et.getText().toString());
+                Log.d(TAG, "pcs: " + pcs_et.getText().toString());
+                Log.d(TAG, "cost: " + value_et.getText().toString());
+                Log.d(TAG, "promotion id: " + promotionId);
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("userId", UserPreferences.getId(mFragmentContext));
+                params.put("userId", UserPreferences.getUserId(mFragmentContext));
                 params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
-                params.put("orderId", UserPreferences.getOrderId(mFragmentContext));
+                params.put("orderId", orderId);
                 params.put("productId", productId);
                 params.put("ctn", ctn_et.getText().toString());
                 params.put("pcs", pcs_et.getText().toString());
@@ -210,18 +208,14 @@ public class OrderSubmitFragment extends RuchiraFragment {
                 params.put("promotionId", promotionId);
                 return params;
             }
-
         };
-
         // Adding request to request queue
         RuchiraApplication.getInstance().addToRequestQueue(strReq, tag_string_req);
 
     }
 
     private void fetchDataFromServerOrderCancelation() {
-
         ProgressDialog progressDialog = null;
-
         progressDialog = new ProgressDialog(mFragmentContext);
         progressDialog.setTitle("Loading");
         progressDialog.setMessage("Please wait...");
@@ -253,13 +247,11 @@ public class OrderSubmitFragment extends RuchiraFragment {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                Log.e(TAG, UserPreferences.getId(mFragmentContext) + UserPreferences.getToken(mFragmentContext) + UserPreferences.getOrderId(mFragmentContext));
-                params.put("userId", UserPreferences.getId(mFragmentContext));
+                params.put("userId", UserPreferences.getUserId(mFragmentContext));
                 params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
-                params.put("orderId", UserPreferences.getOrderId(mFragmentContext));
+                params.put("orderId", orderId);
                 return params;
             }
-
         };
 
         // Adding request to request queue
@@ -267,10 +259,8 @@ public class OrderSubmitFragment extends RuchiraFragment {
 
     }
 
-
     private void executeForOrderCancelation(String result) {
         Log.d(TAG, result.toString());
-
         try {
             JSONObject obj = new JSONObject(result);
             int responseResult = obj.getInt("success");
@@ -287,7 +277,6 @@ public class OrderSubmitFragment extends RuchiraFragment {
             e.printStackTrace();
         }
     }
-
 
     private void executeForOrderItemSubmit(String result) {
         Log.d(TAG, result.toString());
@@ -314,8 +303,7 @@ public class OrderSubmitFragment extends RuchiraFragment {
             Bundle bundle = new Bundle();
             bundle.putString("getShopeId", shopeId);
             toLaunchFragment.setArguments(bundle);
-//            mFragmentContext.getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-            ViewUtils.launchFragmentWithoutKeepingInBackStack(mFragmentContext, toLaunchFragment);
+            mFragmentContext.getSupportFragmentManager().popBackStack();
             toLaunchFragment = null;
         }
     }
@@ -326,7 +314,7 @@ public class OrderSubmitFragment extends RuchiraFragment {
             Bundle bundle = new Bundle();
             bundle.putString("getShopeId", shopeId);
             toLaunchFragment.setArguments(bundle);
-            ViewUtils.launchFragmentWithoutKeepingInBackStack(mFragmentContext, toLaunchFragment);
+            mFragmentContext.getSupportFragmentManager().popBackStack();
             toLaunchFragment = null;
         }
     }

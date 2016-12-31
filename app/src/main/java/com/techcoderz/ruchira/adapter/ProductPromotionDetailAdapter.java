@@ -46,7 +46,7 @@ public class ProductPromotionDetailAdapter extends RecyclerView.Adapter<Recycler
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof ProductPromotionDetailAdapter.RecyclerViewHoldersHomeAdapter) {
             ((ProductPromotionDetailAdapter.RecyclerViewHoldersHomeAdapter) holder).promotion_title_txt.setText(promotionList.get(position).getTitle());
-            ((ProductPromotionDetailAdapter.RecyclerViewHoldersHomeAdapter) holder).promotion_start_date_txt.setText(promotionList.get(position).getTitle());
+            ((ProductPromotionDetailAdapter.RecyclerViewHoldersHomeAdapter) holder).promotion_start_date_txt.setText(promotionList.get(position).getPromotionStartDate());
             ((ProductPromotionDetailAdapter.RecyclerViewHoldersHomeAdapter) holder).promotion_end_date_txt.setText(promotionList.get(position).getPromotionEndDate());
         }
     }

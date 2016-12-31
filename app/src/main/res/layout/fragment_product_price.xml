@@ -50,7 +50,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:padding="5dp"
-            android:text="Uniliver Bangladesh"
+            android:text=""
             android:textColor="@color/white" />
 
     </LinearLayout>

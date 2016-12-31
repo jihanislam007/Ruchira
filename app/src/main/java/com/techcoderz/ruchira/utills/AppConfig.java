@@ -19,16 +19,16 @@ public class AppConfig {
     public static String URL_PRODUCT_CATEGORY = "http://gear-go.com/ruchira/index.php/home/apiorderproduct";
     public static String URL_PRODUCT_LIST = "http://gear-go.com/ruchira/index.php/home/apiproduct";
 
-    public static String URL_ORDER_SUBMIT = "http://gear-go.com/ruchira/index.php/home/apiordersubmit";
     public static String URL_ORDER_ITEM_SUBMIT = "http://gear-go.com/ruchira/index.php/home/apiorderitemsubmit";
     public static String URL_MEMO = "http://gear-go.com/ruchira/index.php/home/apimemo";
+    public static String URL_MEMO_CONFORMATION = "http://gear-go.com/ruchira/index.php/home/apimemoconfirm";
 
     public static String URL_ORDER_SUMMARY = "http://gear-go.com/ruchira/index.php/home/apiordersummary";
 
     public static String URL_ORDER_SUMMARY_DETAILS = "http://gear-go.com/ruchira/index.php/home/apiorderdetails";
 
     public static String URL_PROFILE = "http://gear-go.com/ruchira/index.php/home/apiprofile";
-    public static String URL_FORGETPASSWORD = " http://gear-go.com/ruchira/index.php/home/apiforgotpassword";
+    public static String URL_FORGETPASSWORD = "http://gear-go.com/ruchira/index.php/home/apiforgotpassword";
 
     public static String URL_COMPANY = "http://gear-go.com/ruchira/index.php/home/apicompany";
 
@@ -45,5 +45,6 @@ public class AppConfig {
 
     public static String URL_REASON_SUBMIT = "http://gear-go.com/ruchira/index.php/home/apireasonsubmit";
 
+    public static String URL_LOGOUT = "http://gear-go.com/ruchira/index.php/home/apilogout";
 
 }

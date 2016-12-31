@@ -1,10 +1,12 @@
 package com.techcoderz.ruchira.activity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.PersistableBundle;
 import android.os.StrictMode;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -14,6 +16,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
@@ -23,12 +26,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.squareup.picasso.Picasso;
 import com.techcoderz.ruchira.R;
+import com.techcoderz.ruchira.application.RuchiraApplication;
 import com.techcoderz.ruchira.fragment.AllSummaryFragment;
 import com.techcoderz.ruchira.fragment.DashBoardFragment;
 import com.techcoderz.ruchira.fragment.OrderFragment;
@@ -37,12 +44,19 @@ import com.techcoderz.ruchira.fragment.ProductPriceFragment;
 import com.techcoderz.ruchira.fragment.ProductPromotionFragment;
 import com.techcoderz.ruchira.fragment.ProfileFragment;
 import com.techcoderz.ruchira.fragment.TodayStatusFragment;
+import com.techcoderz.ruchira.utills.AppConfig;
 import com.techcoderz.ruchira.utills.FragmentCallbacks;
 import com.techcoderz.ruchira.utills.LoggedInUser;
 import com.techcoderz.ruchira.utills.NetworkUtils;
 import com.techcoderz.ruchira.utills.TaskUtils;
 import com.techcoderz.ruchira.utills.UserPreferences;
 import com.techcoderz.ruchira.utills.ViewUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -52,24 +66,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class MainActivity extends RuchiraActivity implements
         NavigationView.OnNavigationItemSelectedListener, FragmentCallbacks {
     private Toolbar toolbar;
+    private ActionBar mActionbar;
     private NavigationView mDrawer;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle drawerToggle;
-    public FragmentManager.OnBackStackChangedListener mOnBackStackChangedListener
-            = new FragmentManager.OnBackStackChangedListener() {
-        @Override
-        public void onBackStackChanged() {
-            logDebug("on back stack change listener called");
-            updateDrawerToggle();
-        }
-    };
     private int mSelectedId;
-    private int backPressedCount;
     private CollapsingToolbarLayout collapsingToolbarLayout;
-    private TextView drawerUserName;
-    private TextView userEmail;
-    private CircleImageView drawerProfilePic;
-    private ImageView drawerCoverPhoto;
     private Fragment fragmentToLaunch;
     private String fragmentName;
     private CharSequence mTitle;
@@ -77,11 +79,11 @@ public class MainActivity extends RuchiraActivity implements
     private boolean isKilledBySystem = false;
     private int drawerItemToOpen;
     private CoordinatorLayout coordinatorLayout;
-    private ProgressDialog progressDialog;
     private static String TAG = "MainActivity";
 
     private CircleImageView profile_image;
     private TextView profile_name_txt, company_name_txt;
+    private boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,26 +117,21 @@ public class MainActivity extends RuchiraActivity implements
         Window window = this.getWindow();
         // clear FLAG_TRANSLUCENT_STATUS flag:
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-
         // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-
         // finally change the color
-        window.setStatusBarColor(this.getResources().getColor(R.color.colorStatusBar));
-
-        drawerRefresh();
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
-                    getSupportFragmentManager().popBackStack();
-                } else {
-                    mDrawerLayout.openDrawer(GravityCompat.START);
-                }
-            }
-        });
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.setStatusBarColor(this.getResources().getColor(R.color.colorStatusBar));
+        }
+        // Drawer Task
+        drawerToggle = new ActionBarDrawerToggle(
+                this, mDrawerLayout, toolbar, R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close);
         mDrawerLayout.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
+        mDrawer.setNavigationItemSelectedListener(MainActivity.this);
+        drawerBackPressHandling();
+
         Bundle savedInstanceState = getIntent().getExtras();
         if (savedInstanceState == null) {
             mSelectedId = savedInstanceState == null ? R.id.nav_dash_board : savedInstanceState.getInt("SELECTED_ID");
@@ -151,29 +148,50 @@ public class MainActivity extends RuchiraActivity implements
             Picasso.with(this).load(UserPreferences.getProfilePicLogin(this)).into(profile_image);
             company_name_txt.setText(UserPreferences.getCompanyName(this));
         } else {
-            drawerUserName.setText("Guest");
+            profile_name_txt.setText("Guest");
         }
     }
 
-    private void drawerRefresh() {
-        collapsingToolbarLayout.setTitle("Collapsing");
-        collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
-        drawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close) {
+    private void drawerBackPressHandling() {
+        getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
             @Override
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-                mTitle = getSupportActionBar().getTitle();
-                getSupportActionBar().setTitle(mDrawerTitle);
-                invalidateOptionsMenu();
-                if (UserPreferences.getIsProfilePictureOrAvatarChanged(getApplicationContext())) {
+            public void onBackStackChanged() {
+                if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                    mActionbar.setDisplayHomeAsUpEnabled(true);
+                    mActionbar.setHomeButtonEnabled(true);
+                    mActionbar.setDisplayShowHomeEnabled(true);
+                    mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                    toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            int count = getSupportFragmentManager().getBackStackEntryCount();
+                            if (count > 0) {
+                                getSupportFragmentManager().popBackStack();
+                            } else {
+                                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+                                mActionbar.setDisplayHomeAsUpEnabled(false);
+                                drawerToggle.setDrawerIndicatorEnabled(true);
+                                drawerToggle.syncState();
+                                mDrawerLayout.openDrawer(Gravity.LEFT);
+                            }
+                        }
+                    });
+                } else {
+                    mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+                    mActionbar.setDisplayHomeAsUpEnabled(false);
+                    drawerToggle.setDrawerIndicatorEnabled(true);
+                    drawerToggle.syncState();
+                    toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                                mDrawerLayout.closeDrawer(Gravity.LEFT);
+                            } else mDrawerLayout.openDrawer(GravityCompat.START);
+                        }
+                    });
                 }
             }
-
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                super.onDrawerClosed(drawerView);
-            }
-        };
+        });
     }
 
     private void itemSelection(int mSelectedId) {
@@ -181,7 +199,6 @@ public class MainActivity extends RuchiraActivity implements
         drawerItemToOpen = mSelectedId;
         switch (mSelectedId) {
             case R.id.nav_dash_board:
-                Log.e(TAG, mSelectedId + "");
                 DashBoardFragment dashBoardFragment = new DashBoardFragment();
                 ViewUtils.launchFragmentWithoutKeepingInBackStack(this, dashBoardFragment);
                 updateToolBar("DashBoard");
@@ -189,7 +206,6 @@ public class MainActivity extends RuchiraActivity implements
                 break;
 
             case R.id.nav_order:
-                Log.e(TAG, mSelectedId + "");
                 OrderFragment orderFragment = new OrderFragment();
                 ViewUtils.launchFragmentWithoutKeepingInBackStack(this, orderFragment);
                 updateToolBar("Order");
@@ -197,7 +213,6 @@ public class MainActivity extends RuchiraActivity implements
                 break;
 
             case R.id.nav_todays_status:
-                Log.e(TAG, mSelectedId + "");
                 TodayStatusFragment todayStatusFragment = new TodayStatusFragment();
                 ViewUtils.launchFragmentWithoutKeepingInBackStack(this, todayStatusFragment);
                 updateToolBar("Today\'s Status");
@@ -205,7 +220,6 @@ public class MainActivity extends RuchiraActivity implements
                 break;
 
             case R.id.nav_all_summary:
-                Log.e(TAG, mSelectedId + "");
                 AllSummaryFragment allSummaryFragment = new AllSummaryFragment();
                 ViewUtils.launchFragmentWithoutKeepingInBackStack(this, allSummaryFragment);
                 updateToolBar("All Summary");
@@ -213,7 +227,6 @@ public class MainActivity extends RuchiraActivity implements
                 break;
 
             case R.id.nav_outlets:
-                Log.e(TAG, mSelectedId + "");
                 OutletsFragment outletsFragment = new OutletsFragment();
                 ViewUtils.launchFragmentWithoutKeepingInBackStack(this, outletsFragment);
                 updateToolBar("Outlets");
@@ -221,7 +234,6 @@ public class MainActivity extends RuchiraActivity implements
                 break;
 
             case R.id.nav_promotions:
-                Log.e(TAG, mSelectedId + "");
                 ProductPromotionFragment productPromotionFragment = new ProductPromotionFragment();
                 ViewUtils.launchFragmentWithoutKeepingInBackStack(this, productPromotionFragment);
                 updateToolBar("Task");
@@ -229,7 +241,6 @@ public class MainActivity extends RuchiraActivity implements
                 break;
 
             case R.id.nav_product_price:
-                Log.e(TAG, mSelectedId + "");
                 ProductPriceFragment productPriceFragment = new ProductPriceFragment();
                 ViewUtils.launchFragmentWithoutKeepingInBackStack(this, productPriceFragment);
                 updateToolBar("Product & Price");
@@ -237,7 +248,6 @@ public class MainActivity extends RuchiraActivity implements
                 break;
 
             case R.id.nav_profile:
-                Log.e(TAG, mSelectedId + "");
                 ProfileFragment profileFragment = new ProfileFragment();
                 ViewUtils.launchFragmentWithoutKeepingInBackStack(this, profileFragment);
                 updateToolBar("Profile");
@@ -245,11 +255,8 @@ public class MainActivity extends RuchiraActivity implements
                 break;
 
             case R.id.nav_setting:
-                Log.e(TAG, mSelectedId + "");
-                setTitle("Logout");
-                updateToolBar("Logout");
                 mTitle = "Logout";
-                signOff();
+                signOff(UserPreferences.getToken(MainActivity.this));
                 mDrawerLayout.closeDrawer(GravityCompat.START);
                 break;
         }
@@ -260,10 +267,10 @@ public class MainActivity extends RuchiraActivity implements
     }
 
     private void updateToolBar(String notifications) {
-        getSupportActionBar().setTitle(notifications);
+        mActionbar.setTitle(notifications);
     }
 
-    private void signOff() {
+    private void signOff(final String userToken) {
         if (NetworkUtils.hasInternetConnection(this)) {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setTitle("Log out?");
@@ -272,7 +279,7 @@ public class MainActivity extends RuchiraActivity implements
             alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                     TaskUtils.clearUserInfo(MainActivity.this);
-                    ViewUtils.startLoginActivity(MainActivity.this);
+                    fetchDataFromServer(MainActivity.this, userToken);
                 }
             });
             alertDialogBuilder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
@@ -306,66 +313,35 @@ public class MainActivity extends RuchiraActivity implements
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        getSupportFragmentManager().removeOnBackStackChangedListener(mOnBackStackChangedListener);
-    }
-
-    @Override
     public void setTitle(CharSequence title) {
         getSupportActionBar().setTitle(title);
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        getSupportFragmentManager().addOnBackStackChangedListener(mOnBackStackChangedListener);
-    }
-
-    @Override
     public void onBackPressed() {
-        if (UserPreferences.getToken(this) != null) {
-            try {
-                int backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
-                if (backStackEntryCount < 1) {
-                    backPressedCount++;
-                    handleAppFinish();
-                    return;
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        super.onBackPressed();
-
-    }
-
-    private void handleAppFinish() {
-        if (UserPreferences.getToken(this) != null) {
-            if (backPressedCount == 2) {
-                Toast.makeText(this, "Press again to exit the app", Toast.LENGTH_LONG).show();
-            }
-            if (backPressedCount > 2) {
-                FragmentManager fm = this.getSupportFragmentManager();
-                for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
-                    fm.popBackStack();
-                }
-
-                Intent intent = new Intent(Intent.ACTION_MAIN);
-                intent.addCategory(Intent.CATEGORY_HOME);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.replaceExtras(new Bundle());
-                intent.putExtra("EXIT", true);
-                startActivity(intent);
-                //finish();
+        int count = getSupportFragmentManager().getBackStackEntryCount();
+        if (count > 0) {
+            getSupportFragmentManager().popBackStack();
+        } else {
+            if (doubleBackToExitPressedOnce) {
                 System.exit(0);
             }
+            this.doubleBackToExitPressedOnce = true;
+            if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                mDrawerLayout.closeDrawer(GravityCompat.START);
+            } else mDrawerLayout.openDrawer(GravityCompat.START);
+            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce = false;
+                }
+            }, 2000);
         }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         if (item != null && item.getItemId() == android.R.id.home) {
             if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
                 mDrawerLayout.closeDrawer(GravityCompat.START);
@@ -378,11 +354,9 @@ public class MainActivity extends RuchiraActivity implements
         return super.onOptionsItemSelected(item);
     }
 
-
     private void Utills(Bundle savedInstanceState) {
         TaskUtils.showCurrentDeviceResolutionType(this);
         LoggedInUser.getInstance().init(this);
-
         mTitle = mDrawerTitle = getTitle();
         if (savedInstanceState != null) {
             isKilledBySystem = savedInstanceState.getBoolean("isKilledBySystem");
@@ -391,23 +365,9 @@ public class MainActivity extends RuchiraActivity implements
     }
 
     private void setToolbar() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar_activity_main);
         setSupportActionBar(toolbar);
-    }
-
-    public void updateDrawerToggle() {
-        if (drawerToggle == null) {
-            return;
-        }
-        boolean isRoot = getSupportFragmentManager().getBackStackEntryCount() == 0;
-        logDebug("is root " + true + " back stack items " + getSupportFragmentManager().getBackStackEntryCount());
-        drawerToggle.setDrawerIndicatorEnabled(isRoot);
-        getSupportActionBar().setDisplayShowHomeEnabled(!isRoot);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(!isRoot);
-        getSupportActionBar().setHomeButtonEnabled(!isRoot);
-        if (isRoot) {
-            drawerToggle.syncState();
-        }
+        mActionbar = getSupportActionBar();
     }
 
     @Override
@@ -425,9 +385,68 @@ public class MainActivity extends RuchiraActivity implements
 
     @Override
     public void onProfileUpdated() {
-//        final String coverPicturePath = ApraiseKeys.SERVER_IMAGE_URL + UserPreferences.getCoverPicLogin(this);
-//        ViewUtils.loadImageWithcashing(this, coverPicturePath, drawerCoverPhoto);
-//        final String profilePicPath = ApraiseKeys.SERVER_IMAGE_URL + UserPreferences.getProfilePicLogin(this);
-//        ViewUtils.loadImageWithcashing(this, profilePicPath, drawerProfilePic);
     }
+
+    private void fetchDataFromServer(final Context context, final String userToken) {
+        String tag_string_req = "req_logout";
+        ProgressDialog progressDialog = null;
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Loading");
+        progressDialog.setMessage("Please wait...");
+        progressDialog.setCancelable(false);
+        progressDialog.setIndeterminate(true);
+        progressDialog.show();
+        final ProgressDialog finalProgressDialog = progressDialog;
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                AppConfig.URL_LOGOUT, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.e(TAG, "Logout Response: " + response.toString());
+                finalProgressDialog.dismiss();
+                handleResult(response);
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Logout Error: " + error.getMessage());
+                finalProgressDialog.dismiss();
+            }
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("userId", UserPreferences.getUserId(context));
+                params.put("tokenKey", userToken);
+                return params;
+            }
+
+        };
+
+        // Adding request to request queue
+        RuchiraApplication.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
+    public void handleResult(String result) {
+        Log.d(TAG, result.toString());
+        try {
+            JSONObject obj = new JSONObject(result);
+            int responseResult = obj.getInt("success");
+            Log.d(TAG, result.toString());
+            if (responseResult == 1) {
+                Toast.makeText(this, "Logout Successful", Toast.LENGTH_LONG).show();
+                ViewUtils.startLoginActivity(MainActivity.this);
+                finish();
+                return;
+            } else {
+                ViewUtils.alertUser(MainActivity.this, "Email address or password entered is incorrect. Please try again.");
+                return;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

@@ -39,20 +39,20 @@ import java.util.Map;
  * Created by priom on 9/19/16.
  */
 public class CustomerOrderDetailsFragment extends RuchiraFragment {
-    private final static String TAG = "OrderSubmitFragment";
-    String url = "http://sondhan.com/articleApi/android/category";
-    Fragment toLaunchFragment = null;
-
+    private final static String TAG = "CustomerOrderDetails";
+    private Fragment toLaunchFragment = null;
     private List<Order> orderList;
     private List<Billing> billingList;
     private List<Shipping> shippingList;
     private RecyclerView report_rcview;
     private TextView shope_name_txt, order_id_txt, name_txt, cell_no_txt, customer_id_txt, email_txt, status_txt;
-    private TextView billing_to_txt, billing_address_txt, billing_city_post_code_txt, billing_mail_txt, billing_cell_txt, shipping_to_txt, shipping_address_txt, shipping_city_post_code_txt, shipping_cell_txt, shipping_mail_txt;
+    private TextView billing_to_txt, billing_address_txt, billing_city_post_code_txt, billing_mail_txt, billing_cell_txt,
+            shipping_to_txt, shipping_address_txt, shipping_city_post_code_txt, shipping_cell_txt, shipping_mail_txt;
     private TextView date_txt, total_sale_txt;
 
     private LinearLayoutManager manager;
     private OrderAdapter orderAdapter;
+    private String orderId;
 
     public CustomerOrderDetailsFragment() {
     }
@@ -68,9 +68,6 @@ public class CustomerOrderDetailsFragment extends RuchiraFragment {
         View rootView = inflater.inflate(R.layout.fragment_customer_order_details, container, false);
         setupToolbar();
         initialize(rootView);
-        if(NetworkUtils.hasInternetConnection(mFragmentContext)) {
-            fetchDataFromServer();
-        }
         action();
         return rootView;
     }
@@ -82,8 +79,6 @@ public class CustomerOrderDetailsFragment extends RuchiraFragment {
 
     private void initialize(View rootView) {
         report_rcview = (RecyclerView) rootView.findViewById(R.id.report_rcview);
-
-
         shope_name_txt = (TextView) rootView.findViewById(R.id.shope_name_txt);
         order_id_txt = (TextView) rootView.findViewById(R.id.order_id_txt);
         name_txt = (TextView) rootView.findViewById(R.id.name_txt);
@@ -110,73 +105,64 @@ public class CustomerOrderDetailsFragment extends RuchiraFragment {
 
         manager = new LinearLayoutManager(mFragmentContext);
         orderAdapter = new OrderAdapter(mFragmentContext, orderList);
-
-
     }
 
     private void action() {
+        Bundle bundle = this.getArguments();
+        orderId = bundle.getString("orderId");
         report_rcview.setAdapter(orderAdapter);
         report_rcview.setHasFixedSize(true);
         report_rcview.setLayoutManager(manager);
-    }
-
-    @Override
-    public void onBackPressed() {
-        int count = getFragmentManager().getBackStackEntryCount();
-        if (count == 0) {
-            mFragmentContext.onBackPressed();
-        } else {
-            getFragmentManager().popBackStack();
+        if (NetworkUtils.hasInternetConnection(mFragmentContext)) {
+            fetchDataFromServer();
         }
     }
 
     private void fetchDataFromServer() {
+        if (orderId != null) {
+            ProgressDialog progressDialog = null;
+            progressDialog = new ProgressDialog(mFragmentContext);
+            progressDialog.setTitle("Loading");
+            progressDialog.setMessage("Please wait...");
+            progressDialog.setCancelable(false);
+            progressDialog.setIndeterminate(true);
+            progressDialog.show();
 
-        if (UserPreferences.getOrderId(mFragmentContext) != null) {
+            String tag_string_req = "customer_order_details_req";
+            final ProgressDialog finalProgressDialog = progressDialog;
+            StringRequest strReq = new StringRequest(Request.Method.POST,
+                    AppConfig.URL_ORDER_SUMMARY_DETAILS, new Response.Listener<String>() {
 
-        ProgressDialog progressDialog = null;
+                @Override
+                public void onResponse(String response) {
+                    Log.e(TAG, "customer_order_details Response: " + response.toString());
+                    finalProgressDialog.dismiss();
+                    executeForMemo(response);
+                }
+            }, new Response.ErrorListener() {
 
-        progressDialog = new ProgressDialog(mFragmentContext);
-        progressDialog.setTitle("Loading");
-        progressDialog.setMessage("Please wait...");
-        progressDialog.setCancelable(false);
-        progressDialog.setIndeterminate(true);
-        progressDialog.show();
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e(TAG, "customer_order_details Error: " + error.getMessage());
+                    finalProgressDialog.dismiss();
+                }
+            }) {
 
-        String tag_string_req = "customer_order_details_req";
-        final ProgressDialog finalProgressDialog = progressDialog;
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                AppConfig.URL_ORDER_SUMMARY_DETAILS, new Response.Listener<String>() {
+                @Override
+                protected Map<String, String> getParams() {
+                    // Posting parameters to login url
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("userId", UserPreferences.getUserId(mFragmentContext));
+                    params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
+                    params.put("orderId", orderId);
+                    Log.d(TAG, " order ID: " + orderId);
+                    return params;
+                }
 
-            @Override
-            public void onResponse(String response) {
-                Log.e(TAG, "customer_order_details Response: " + response.toString());
-                finalProgressDialog.dismiss();
-                executeForMemo(response);
-            }
-        }, new Response.ErrorListener() {
+            };
 
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "customer_order_details Error: " + error.getMessage());
-                finalProgressDialog.dismiss();
-            }
-        }) {
-
-            @Override
-            protected Map<String, String> getParams() {
-                // Posting parameters to login url
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("userId", UserPreferences.getId(mFragmentContext));
-                params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
-                params.put("orderId", UserPreferences.getOrderId(mFragmentContext));
-                return params;
-            }
-
-        };
-
-        // Adding request to request queue
-        RuchiraApplication.getInstance().addToRequestQueue(strReq, tag_string_req);
+            // Adding request to request queue
+            RuchiraApplication.getInstance().addToRequestQueue(strReq, tag_string_req);
         } else {
             ViewUtils.alertUser(mFragmentContext, "No Memo Available");
         }
@@ -188,11 +174,8 @@ public class CustomerOrderDetailsFragment extends RuchiraFragment {
         orderList.clear();
         shippingList.clear();
         billingList.clear();
-
         try {
-
             JSONObject obj = new JSONObject(result);
-
             int responseResult = obj.getInt("success");
             Log.d(TAG, result.toString());
             if (responseResult == 1) {
@@ -200,29 +183,28 @@ public class CustomerOrderDetailsFragment extends RuchiraFragment {
                 shippingList.addAll(TaskUtils.setShippingList(result));
                 billingList.addAll(TaskUtils.setBillingList(result));
                 orderAdapter.notifyDataSetChanged();
-
-                shope_name_txt.setText("Shope Name "+obj.getString("outletName"));
-                order_id_txt.setText("Order Id : #"+obj.getString("orderId"));
+                shope_name_txt.setText("Shope Name " + obj.getString("outletName"));
+                order_id_txt.setText("Order Id : #" + obj.getString("orderId"));
                 name_txt.setText(obj.getString("ownerName"));
-                cell_no_txt.setText("Cell : "+obj.getString("ownerPhone"));
-                customer_id_txt.setText("Customer ID : "+obj.getString("ownerId"));
-                email_txt.setText("Email : "+obj.getString("ownerEmail"));
-                status_txt.setText("Status : "+obj.getString("status"));
+                cell_no_txt.setText("Cell : " + obj.getString("ownerPhone"));
+                customer_id_txt.setText("Customer ID : " + obj.getString("ownerId"));
+                email_txt.setText("Email : " + obj.getString("ownerEmail"));
+                status_txt.setText("Status : " + obj.getString("status"));
 
                 billing_to_txt.setText(billingList.get(0).getTo());
                 billing_address_txt.setText(billingList.get(0).getAddress());
-                billing_city_post_code_txt.setText(billingList.get(0).getCity()+" - "+billingList.get(0).getPostcode());
+                billing_city_post_code_txt.setText(billingList.get(0).getCity() + " - " + billingList.get(0).getPostcode());
                 billing_mail_txt.setText(billingList.get(0).getEmail());
                 billing_cell_txt.setText(billingList.get(0).getPhone());
 
                 shipping_to_txt.setText(shippingList.get(0).getTo());
                 shipping_address_txt.setText(shippingList.get(0).getAddress());
-                shipping_city_post_code_txt.setText(shippingList.get(0).getCity()+" - "+shippingList.get(0).getPostcode());
+                shipping_city_post_code_txt.setText(shippingList.get(0).getCity() + " - " + shippingList.get(0).getPostcode());
                 shipping_cell_txt.setText(shippingList.get(0).getPhone());
                 shipping_mail_txt.setText(shippingList.get(0).getEmail());
 
                 date_txt.setText(obj.getString("orderDate"));
-                total_sale_txt.setText(obj.getString("total")+" BDT");
+                total_sale_txt.setText(obj.getString("total") + " BDT");
 
                 return;
 

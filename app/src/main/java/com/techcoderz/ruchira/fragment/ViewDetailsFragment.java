@@ -59,13 +59,13 @@ public class ViewDetailsFragment extends RuchiraFragment {
         setupToolbar();
         initialize(rootView);
         action();
-        if (NetworkUtils.hasInternetConnection(mFragmentContext)) {
-            fetchDataFromServer();
-        }
         return rootView;
     }
 
     private void action() {
+        if (NetworkUtils.hasInternetConnection(mFragmentContext)) {
+            fetchDataFromServer();
+        }
     }
 
     private void setupToolbar() {
@@ -91,16 +91,6 @@ public class ViewDetailsFragment extends RuchiraFragment {
 
         todayOrderList = new ArrayList<>();
         todaySaleList = new ArrayList<>();
-    }
-
-    @Override
-    public void onBackPressed() {
-        int count = getFragmentManager().getBackStackEntryCount();
-        if (count == 0) {
-            mFragmentContext.onBackPressed();
-        } else {
-            getFragmentManager().popBackStack();
-        }
     }
 
     private void fetchDataFromServer() {
@@ -136,7 +126,7 @@ public class ViewDetailsFragment extends RuchiraFragment {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("userId", UserPreferences.getId(mFragmentContext));
+                params.put("userId", UserPreferences.getUserId(mFragmentContext));
                 params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
                 return params;
             }
@@ -145,18 +135,14 @@ public class ViewDetailsFragment extends RuchiraFragment {
 
         // Adding request to request queue
         RuchiraApplication.getInstance().addToRequestQueue(strReq, tag_string_req);
-
     }
 
     private void execute(String result) {
         Log.d(TAG, result.toString());
         todaySaleList.clear();
         todayOrderList.clear();
-
         try {
-
             JSONObject obj = new JSONObject(result);
-
             int responseResult = obj.getInt("success");
             Log.d(TAG, result.toString());
             if (responseResult == 1) {
@@ -165,18 +151,17 @@ public class ViewDetailsFragment extends RuchiraFragment {
                 todayOrderList.addAll(TaskUtils.setTodayOrder(result));
                 todaySaleList.addAll(TaskUtils.setTodayTotalSale(result));
 
-
                 sale_yesterDay_txt.setText(todaySaleList.get(0).getYesterdeay() + " ৳");
                 sale_monthAccumulation_txt.setText(todaySaleList.get(0).getMonthAccumulation() + " ৳");
                 sale_month_day_avg_txt.setText(todaySaleList.get(0).getMonthDailyAvg() + " ৳");
                 sale_month_week_avg_txt.setText(todaySaleList.get(0).getMonthWeeklyAvg() + " ৳");
                 today_sale_txt.setText(todaySaleList.get(0).getTodaySale() + " ৳");
 
-                order_yesterday_txt.setText(todayOrderList.get(0).getYesterdeay() + " ৳");
-                order_monthAccumulation_txt.setText(todayOrderList.get(0).getMonthAccumulation() + " ৳");
-                order_monthDailyAvg_txt.setText(todayOrderList.get(0).getMonthDailyAvg() + " ৳");
-                order_monthWeekly_avg_txt.setText(todayOrderList.get(0).getMonthWeeklyAvg() + " ৳");
-                today_order_txt.setText(todayOrderList.get(0).getTodayOrder() + " ৳");
+                order_yesterday_txt.setText(todayOrderList.get(0).getYesterdeay() + "  Pic/s");
+                order_monthAccumulation_txt.setText(todayOrderList.get(0).getMonthAccumulation() + "  Pic/s");
+                order_monthDailyAvg_txt.setText(todayOrderList.get(0).getMonthDailyAvg() + "  Pic/s");
+                order_monthWeekly_avg_txt.setText(todayOrderList.get(0).getMonthWeeklyAvg() + "  Pic/s");
+                today_order_txt.setText(todayOrderList.get(0).getTodayOrder() + "  Pic/s");
 
                 return;
 

@@ -44,7 +44,7 @@ import java.util.Map;
 public class OrderFragment extends RuchiraFragment {
     private final static String TAG = "OrderFragment";
     private Fragment toLaunchFragment = null;
-    private TextView tv_yet_to_visit, tv_ordered, tv_not_ordered;
+    private TextView tv_yet_to_visit, tv_ordered, tv_not_ordered, tvTotalSale;
     private CardView cvYetToVisit, cvOrdered, cvNotOrdered;
     private List<Beat> beatList;
     private List<Outlet> outletList;
@@ -53,7 +53,6 @@ public class OrderFragment extends RuchiraFragment {
     private RecyclerView outlet_rcview;
     private OutletAdapter outletAdapter;
     private GridLayoutManager gridLayoutManager;
-    private boolean flag = false;
     private int position2 = 0;
     private int selected = 0;
 
@@ -67,7 +66,7 @@ public class OrderFragment extends RuchiraFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_yet_to_visit, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_order, container, false);
         initialize(rootView);
         action();
         if (NetworkUtils.hasInternetConnection(mFragmentContext)) {
@@ -77,6 +76,7 @@ public class OrderFragment extends RuchiraFragment {
     }
 
     private void initialize(View rootView) {
+        tvTotalSale = (TextView) rootView.findViewById(R.id.tv_total_sale);
         tv_yet_to_visit = (TextView) rootView.findViewById(R.id.yet_to_visit_btn);
         tv_ordered = (TextView) rootView.findViewById(R.id.ordered_btn);
         tv_not_ordered = (TextView) rootView.findViewById(R.id.not_ordered_btn);
@@ -102,7 +102,6 @@ public class OrderFragment extends RuchiraFragment {
             tv_yet_to_visit.setBackgroundDrawable(getResources().getDrawable(R.color.colorDarkBlue));
             cvYetToVisit.setCardBackgroundColor(getResources().getColor(R.color.colorDarkBlue));
             tv_yet_to_visit.setTextColor(getResources().getColor(R.color.white));
-            flag = true;
         }
 
         cvYetToVisit.setOnClickListener(new View.OnClickListener() {
@@ -130,7 +129,6 @@ public class OrderFragment extends RuchiraFragment {
         cvOrdered.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e(TAG, flag + "");
                 if ((selected == 0 || selected == 2)) {
                     tv_ordered.setBackgroundDrawable(getResources().getDrawable(R.color.colorDarkBlue));
                     cvOrdered.setCardBackgroundColor(getResources().getColor(R.color.colorDarkBlue));
@@ -143,8 +141,6 @@ public class OrderFragment extends RuchiraFragment {
                     cvYetToVisit.setCardBackgroundColor(getResources().getColor(R.color.white));
                     selected = 1;
                 }
-
-                Log.e(TAG, position2 + "");
                 if(NetworkUtils.hasInternetConnection(mFragmentContext)) {
                     fetchDataFromServerForOutlet(beatList.get(position2).getId(), "1");
                 }
@@ -155,7 +151,6 @@ public class OrderFragment extends RuchiraFragment {
         cvNotOrdered.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e(TAG, flag + "");
                 if (selected == 0 || selected == 1) {
                     tv_not_ordered.setBackgroundDrawable(getResources().getDrawable(R.color.colorDarkBlue));
                     cvNotOrdered.setCardBackgroundColor(getResources().getColor(R.color.colorDarkBlue));
@@ -169,7 +164,6 @@ public class OrderFragment extends RuchiraFragment {
                     cvYetToVisit.setCardBackgroundColor(getResources().getColor(R.color.white));
                     selected = 2;
                 }
-                Log.e(TAG, position2 + "");
                 if(NetworkUtils.hasInternetConnection(mFragmentContext)) {
                     fetchDataFromServerForOutlet(beatList.get(position2).getId(), "2");
                 }
@@ -195,17 +189,7 @@ public class OrderFragment extends RuchiraFragment {
         });
     }
 
-    @Override
-    public void onBackPressed() {
-        int count = getFragmentManager().getBackStackEntryCount();
-        if (count == 0) {
-            mFragmentContext.onBackPressed();
-        } else {
-            getFragmentManager().popBackStack();
-        }
-    }
-
-    private void fetchDataFromServerForOutlet(final String id, final String option) {
+    private void fetchDataFromServerForOutlet(final String bearId, final String option) {
         ProgressDialog progressDialog = null;
         progressDialog = new ProgressDialog(mFragmentContext);
         progressDialog.setTitle("Loading");
@@ -233,17 +217,15 @@ public class OrderFragment extends RuchiraFragment {
                 finalProgressDialog.dismiss();
             }
         }) {
-
             @Override
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("userId", UserPreferences.getId(mFragmentContext));
+                params.put("userId", UserPreferences.getUserId(mFragmentContext));
                 params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
-                params.put("beatId", id);
+                params.put("beatId", bearId);
                 return params;
             }
-
         };
 
         // Adding request to request queue
@@ -278,15 +260,13 @@ public class OrderFragment extends RuchiraFragment {
                 finalProgressDialog.dismiss();
             }
         }) {
-
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("userId", UserPreferences.getId(mFragmentContext));
+                params.put("userId", UserPreferences.getUserId(mFragmentContext));
                 params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
                 return params;
             }
-
         };
 
         // Adding request to request queue
@@ -305,6 +285,7 @@ public class OrderFragment extends RuchiraFragment {
             Log.d(TAG, result.toString());
             if (responseResult == 1) {
                 beatList.addAll(TaskUtils.setBeat(result));
+                tvTotalSale.setText("Order: " + obj.getString("todaySale") + " ৳");
                 orderBeatSpinnerAdapter.notifyDataSetChanged();
                 return;
             } else {

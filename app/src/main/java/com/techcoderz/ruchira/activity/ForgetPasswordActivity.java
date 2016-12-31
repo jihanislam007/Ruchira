@@ -28,39 +28,54 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by Shahriar on 9/18/2016.
  */
 public class ForgetPasswordActivity extends AppCompatActivity {
     private final String TAG = "ForgetPasswordActivity";
-
-    Button Send;
-    AutoCompleteTextView email;
+    private Button Send;
+    private AutoCompleteTextView email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_password);
-
         Send = (Button) findViewById(R.id.send_btn);
         email = (AutoCompleteTextView) findViewById(R.id.email);
-
         Send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(NetworkUtils.hasInternetConnection(ForgetPasswordActivity.this)) {
-                    fetchDataFromServer();
+                    if (emailValidator(email.getText().toString())) {
+                        fetchDataFromServer(email.getText().toString());
+                    } else Toast.makeText(ForgetPasswordActivity.this, "Invalid Email Address", Toast.LENGTH_LONG).show();
                 }
             }
         });
 
     }
 
-    private void fetchDataFromServer() {
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(this, LoginActivity.class));
+        finish();
+    }
 
+    public boolean emailValidator(String email) {
+        Pattern pattern;
+        Matcher matcher;
+        final String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+        pattern = Pattern.compile(EMAIL_PATTERN);
+        matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+
+    private void fetchDataFromServer(final String email) {
         ProgressDialog progressDialog = null;
-
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Loading");
         progressDialog.setMessage("Please wait...");
@@ -92,8 +107,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("email", email.getText().toString());
-
+                params.put("email", email);
                 return params;
             }
 
@@ -107,9 +121,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
     private void execute(String result) {
         Log.d(TAG, result.toString());
         try {
-
             JSONObject obj = new JSONObject(result);
-
             int responseResult = obj.getInt("success");
             Log.d(TAG, result.toString());
             if (responseResult == 1) {

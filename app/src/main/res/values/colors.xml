@@ -30,6 +30,8 @@
 
     <color name="coverPhotoBackGround">#929293</color>
     <color name="userNameLayoutColor">#5F5F5F</color>
+    <color name="matGreen">#4DA04f</color>
+    <color name="matRed">#db4661</color>
 
     <color name="white">#FFFFFF</color>
     <color name="crim">#EDEFAD</color>

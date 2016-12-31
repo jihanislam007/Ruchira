@@ -106,7 +106,8 @@ public class ProductPromotionFragment extends RuchiraFragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 company_title_txt.setText(companyList.get(position).getCompanyName());
-                if(NetworkUtils.hasInternetConnection(mFragmentContext)) {
+                if(NetworkUtils.hasInternetConnection(mFragmentContext) &&
+                        !companyList.get(position).getCompanyName().matches("Select a Company")) {
                     fetchDataFromServerForPromotion(companyList.get(position).getCompanyId());
                 }
                 Log.e(TAG, "companyList.get(position).getCompanyId() : " + companyList.get(position).getCompanyId());
@@ -118,21 +119,10 @@ public class ProductPromotionFragment extends RuchiraFragment {
         });
     }
 
-    @Override
-    public void onBackPressed() {
-        int count = getFragmentManager().getBackStackEntryCount();
-        if (count == 0) {
-            mFragmentContext.onBackPressed();
-        } else {
-            getFragmentManager().popBackStack();
-        }
-    }
-
     private void fetchDataFromServerForPromotion(final String id) {
         UserPreferences.saveCompanyId(mFragmentContext,id);
 
         ProgressDialog progressDialog = null;
-
         progressDialog = new ProgressDialog(mFragmentContext);
         progressDialog.setTitle("Loading");
         progressDialog.setMessage("Please wait...");
@@ -164,7 +154,7 @@ public class ProductPromotionFragment extends RuchiraFragment {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("userId", UserPreferences.getId(mFragmentContext));
+                params.put("userId", UserPreferences.getUserId(mFragmentContext));
                 params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
                 params.put("companyId", id);
                 return params;
@@ -174,14 +164,10 @@ public class ProductPromotionFragment extends RuchiraFragment {
 
         // Adding request to request queue
         RuchiraApplication.getInstance().addToRequestQueue(strReq, tag_string_req);
-
     }
 
-
     private void fetchDataFromServer() {
-
         ProgressDialog progressDialog = null;
-
         progressDialog = new ProgressDialog(mFragmentContext);
         progressDialog.setTitle("Loading");
         progressDialog.setMessage("Please wait...");
@@ -213,7 +199,7 @@ public class ProductPromotionFragment extends RuchiraFragment {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("userId", UserPreferences.getId(mFragmentContext));
+                params.put("userId", UserPreferences.getUserId(mFragmentContext));
                 params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
                 return params;
             }
@@ -229,19 +215,17 @@ public class ProductPromotionFragment extends RuchiraFragment {
     private void executeForCompany(String result) {
         Log.d(TAG, result.toString());
         companyList.clear();
-
         try {
-
             JSONObject obj = new JSONObject(result);
-
             int responseResult = obj.getInt("success");
             Log.d(TAG, result.toString());
             if (responseResult == 1) {
+                Company company = new Company();
+                company.setCompanyName("Select a Company");
+                companyList.add(company);
                 companyList.addAll(TaskUtils.setCompany(result));
                 promotionCompanySpinnerAdapter.notifyDataSetChanged();
-
                 return;
-
             } else {
                 ViewUtils.alertUser(mFragmentContext, "Server Error");
                 return;
@@ -254,20 +238,14 @@ public class ProductPromotionFragment extends RuchiraFragment {
     private void processResultForPromotion(String result) {
         Log.d(TAG, result.toString());
         promotionList.clear();
-
         try {
-
             JSONObject obj = new JSONObject(result);
-
             int responseResult = obj.getInt("success");
             Log.d(TAG, result.toString());
             if (responseResult == 1) {
-
-                promotionList.addAll(TaskUtils.setProductPromotion(result,0));
+                promotionList.addAll(TaskUtils.setProductPromotion(result, 0));
                 productPromotionAdapter.notifyDataSetChanged();
-
                 return;
-
             } else {
                 ViewUtils.alertUser(mFragmentContext, "Server Error");
                 return;
