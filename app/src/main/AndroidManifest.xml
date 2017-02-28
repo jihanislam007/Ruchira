@@ -15,7 +15,7 @@
         android:value="com.myapp.model.Item, com.myapp.model.Category" />
 
     <application
-        android:name=".application.RuchiraApplication"
+        android:name=".Application.RuchiraApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -31,12 +31,12 @@
             android:xlargeScreens="true" />
 
         <activity
-            android:name=".activity.LoginActivity"
+            android:name=".Activities.LoginActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name=".activity.SplashActivity"
+            android:name=".Activities.SplashActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
@@ -49,16 +49,16 @@
         </activity>
 
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".Activities.MainActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.MainActivity" />
+                android:value=".Activities.MainActivity" />
         </activity>
 
         <activity
-            android:name=".activity.ForgetPasswordActivity"
+            android:name=".Activities.ForgetPasswordActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait" />
 

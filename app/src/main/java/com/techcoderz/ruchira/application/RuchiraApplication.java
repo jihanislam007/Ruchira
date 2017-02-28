@@ -1,4 +1,4 @@
-package com.techcoderz.ruchira.application;
+package com.techcoderz.ruchira.Application;
 
 import android.support.multidex.MultiDexApplication;
 import android.text.TextUtils;
@@ -7,13 +7,12 @@ import com.activeandroid.ActiveAndroid;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
-import com.techcoderz.ruchira.utills.FcsCacheManager;
+import com.techcoderz.ruchira.Utils.FcsCacheManager;
 
 /**
  * Created by Shahriar on 6/15/2016.
  */
 public class RuchiraApplication extends MultiDexApplication {
-
     public static final String TAG = "RuchiraApplication";
     private RequestQueue mRequestQueue;
     private static RuchiraApplication mInstance;

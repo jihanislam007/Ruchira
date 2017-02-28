@@ -4,8 +4,8 @@ TASK com.techcoderz.ruchira id=2634
       mCreated=truemResumed=true mStopped=false mReallyStopped=false
       mLoadersStarted=true
     Active Fragments in b9aa3bd:
-      #0: ShopProfileFragment{fe97db2 #0 id=0x7f0e00c2 com.techcoderz.ruchira.fragment.ShopProfileFragment}
-        mFragmentId=#7f0e00c2 mContainerId=#7f0e00c2 mTag=com.techcoderz.ruchira.fragment.ShopProfileFragment
+      #0: ShopProfileFragment{fe97db2 #0 id=0x7f0e00c2 com.techcoderz.ruchira.fragment.OrderFragments.ShopProfileFragment}
+        mFragmentId=#7f0e00c2 mContainerId=#7f0e00c2 mTag=com.techcoderz.ruchira.fragment.OrderFragments.ShopProfileFragment
         mState=1 mIndex=0 mWho=android:fragment:0 mBackStackNesting=2
         mAdded=false mRemoving=true mFromLayout=false mInLayout=false
         mHidden=false mDetached=false mMenuVisible=true mHasMenu=false
@@ -18,10 +18,10 @@ TASK com.techcoderz.ruchira id=2634
           FragmentManager misc state:
             mHost=android.support.v4.app.FragmentActivity$HostCallbacks@462f103
             mContainer=android.support.v4.app.Fragment$1@6999a5f
-            mParent=ShopProfileFragment{fe97db2 #0 id=0x7f0e00c2 com.techcoderz.ruchira.fragment.ShopProfileFragment}
+            mParent=ShopProfileFragment{fe97db2 #0 id=0x7f0e00c2 com.techcoderz.ruchira.fragment.OrderFragments.ShopProfileFragment}
             mCurState=1 mStateSaved=true mDestroyed=false
-      #1: OrderFragment{e9dcac #1 id=0x7f0e00c2 com.techcoderz.ruchira.fragment.OrderFragment}
-        mFragmentId=#7f0e00c2 mContainerId=#7f0e00c2 mTag=com.techcoderz.ruchira.fragment.OrderFragment
+      #1: OrderFragment{e9dcac #1 id=0x7f0e00c2 com.techcoderz.ruchira.fragment.OrderFragments.OrderFragment}
+        mFragmentId=#7f0e00c2 mContainerId=#7f0e00c2 mTag=com.techcoderz.ruchira.fragment.OrderFragments.OrderFragment
         mState=1 mIndex=1 mWho=android:fragment:1 mBackStackNesting=1
         mAdded=false mRemoving=true mFromLayout=false mInLayout=false
         mHidden=false mDetached=false mMenuVisible=true mHasMenu=false
@@ -33,10 +33,10 @@ TASK com.techcoderz.ruchira id=2634
           FragmentManager misc state:
             mHost=android.support.v4.app.FragmentActivity$HostCallbacks@462f103
             mContainer=android.support.v4.app.Fragment$1@e6e1798
-            mParent=OrderFragment{e9dcac #1 id=0x7f0e00c2 com.techcoderz.ruchira.fragment.OrderFragment}
+            mParent=OrderFragment{e9dcac #1 id=0x7f0e00c2 com.techcoderz.ruchira.fragment.OrderFragments.OrderFragment}
             mCurState=1 mStateSaved=true mDestroyed=false
-      #2: AddOrderFragment{7a08bf1 #2 id=0x7f0e00c2 com.techcoderz.ruchira.fragment.AddOrderFragment}
-        mFragmentId=#7f0e00c2 mContainerId=#7f0e00c2 mTag=com.techcoderz.ruchira.fragment.AddOrderFragment
+      #2: AddOrderFragment{7a08bf1 #2 id=0x7f0e00c2 com.techcoderz.ruchira.fragment.OrderFragments.AddOrderFragment}
+        mFragmentId=#7f0e00c2 mContainerId=#7f0e00c2 mTag=com.techcoderz.ruchira.fragment.OrderFragments.AddOrderFragment
         mState=5 mIndex=2 mWho=android:fragment:2 mBackStackNesting=1
         mAdded=true mRemoving=false mFromLayout=false mInLayout=false
         mHidden=false mDetached=false mMenuVisible=true mHasMenu=false
@@ -51,21 +51,21 @@ TASK com.techcoderz.ruchira id=2634
           FragmentManager misc state:
             mHost=android.support.v4.app.FragmentActivity$HostCallbacks@462f103
             mContainer=android.support.v4.app.Fragment$1@320f62d
-            mParent=AddOrderFragment{7a08bf1 #2 id=0x7f0e00c2 com.techcoderz.ruchira.fragment.AddOrderFragment}
+            mParent=AddOrderFragment{7a08bf1 #2 id=0x7f0e00c2 com.techcoderz.ruchira.fragment.OrderFragments.AddOrderFragment}
             mCurState=5 mStateSaved=false mDestroyed=false
     Added Fragments:
-      #0: AddOrderFragment{7a08bf1 #2 id=0x7f0e00c2 com.techcoderz.ruchira.fragment.AddOrderFragment}
+      #0: AddOrderFragment{7a08bf1 #2 id=0x7f0e00c2 com.techcoderz.ruchira.fragment.OrderFragments.AddOrderFragment}
     Back Stack:
       #0: BackStackEntry{3d8b762 #0}
         mName=null mIndex=0 mCommitted=true
         Operations:
-          Op #0: REPLACE ShopProfileFragment{fe97db2 #0 id=0x7f0e00c2 com.techcoderz.ruchira.fragment.ShopProfileFragment}
-            Removed: OrderFragment{e9dcac #1 id=0x7f0e00c2 com.techcoderz.ruchira.fragment.OrderFragment}
+          Op #0: REPLACE ShopProfileFragment{fe97db2 #0 id=0x7f0e00c2 com.techcoderz.ruchira.fragment.OrderFragments.ShopProfileFragment}
+            Removed: OrderFragment{e9dcac #1 id=0x7f0e00c2 com.techcoderz.ruchira.fragment.OrderFragments.OrderFragment}
       #1: BackStackEntry{2f220f3 #1}
         mName=null mIndex=1 mCommitted=true
         Operations:
-          Op #0: REPLACE AddOrderFragment{7a08bf1 #2 id=0x7f0e00c2 com.techcoderz.ruchira.fragment.AddOrderFragment}
-            Removed: ShopProfileFragment{fe97db2 #0 id=0x7f0e00c2 com.techcoderz.ruchira.fragment.ShopProfileFragment}
+          Op #0: REPLACE AddOrderFragment{7a08bf1 #2 id=0x7f0e00c2 com.techcoderz.ruchira.fragment.OrderFragments.AddOrderFragment}
+            Removed: ShopProfileFragment{fe97db2 #0 id=0x7f0e00c2 com.techcoderz.ruchira.fragment.OrderFragments.ShopProfileFragment}
     Back Stack Indices:
       #0: BackStackEntry{3d8b762 #0}
       #1: BackStackEntry{2f220f3 #1}

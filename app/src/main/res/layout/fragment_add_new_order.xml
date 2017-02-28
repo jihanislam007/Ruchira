@@ -61,8 +61,8 @@
                     android:text="Not Ordered"
                     android:scaleX="0.9"
                     android:scaleY="0.9"/>
-
             </RadioGroup>
+
         </LinearLayout>
 
         <android.support.v7.widget.AppCompatSpinner
