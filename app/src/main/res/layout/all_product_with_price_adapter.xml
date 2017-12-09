@@ -18,7 +18,7 @@
             android:layout_centerInParent="true"
             android:text="Product Name"
             android:textAlignment="center"
-            android:textColor="@color/black" />
+            android:textColor="@android:color/black" />
 
         <TextView
             android:id="@+id/tv_product_id_adapter"
@@ -32,7 +32,7 @@
             android:text="Id"
             android:visibility="gone"
             android:textAlignment="center"
-            android:textColor="@color/black" />
+            android:textColor="@android:color/black" />
 
         <TextView
             android:id="@+id/tv_product_price_adapter"
@@ -41,7 +41,7 @@
             android:layout_centerInParent="true"
             android:text="Price"
             android:textAlignment="center"
-            android:textColor="@color/black" />
+            android:textColor="@android:color/black" />
 
         <Button
             android:id="@+id/tv_product_details_adapter"
@@ -51,7 +51,7 @@
             android:text="Details"
             android:textSize="10sp"
             android:gravity="center"
-            android:textColor="@color/black"
+            android:textColor="@android:color/black"
             android:layout_alignParentRight="true"/>
 
     </RelativeLayout>

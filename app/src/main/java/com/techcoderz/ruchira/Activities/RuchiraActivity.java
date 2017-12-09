@@ -12,7 +12,6 @@ import com.techcoderz.ruchira.Utils.ViewUtils;
  */
 public class RuchiraActivity extends AppCompatActivity {
 
-    /*hide soft keyboard if click outside of edit text*/
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
         View oldFocusedView = getCurrentFocus();

@@ -389,8 +389,7 @@ public class MainActivity extends RuchiraActivity implements
 
     private void fetchDataFromServer(final Context context, final String userToken) {
         String tag_string_req = "req_logout";
-        ProgressDialog progressDialog = null;
-        progressDialog = new ProgressDialog(this);
+        ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Loading");
         progressDialog.setMessage("Please wait...");
         progressDialog.setCancelable(false);

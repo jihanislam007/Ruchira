@@ -34,7 +34,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,7 +47,7 @@ public class CustomerOrderDetailsFragment extends RuchiraFragment {
     private List<Billing> billingList;
     private List<Shipping> shippingList;
     private RecyclerView report_rcview;
-    private TextView shope_name_txt, order_id_txt, name_txt, cell_no_txt, customer_id_txt, email_txt, status_txt;
+    private TextView shop_name_txt, order_id_txt, name_txt, cell_no_txt, customer_id_txt, email_txt, status_txt;
     private TextView billing_to_txt, billing_address_txt, billing_city_post_code_txt, billing_mail_txt, billing_cell_txt,
             shipping_to_txt, shipping_address_txt, shipping_city_post_code_txt, shipping_cell_txt, shipping_mail_txt;
     private TextView date_txt, total_sale_txt;
@@ -57,8 +56,7 @@ public class CustomerOrderDetailsFragment extends RuchiraFragment {
     private String orderDate, orderId;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_customer_order_details, container, false);
         setupToolbar();
         initialize(rootView);
@@ -73,7 +71,7 @@ public class CustomerOrderDetailsFragment extends RuchiraFragment {
 
     private void initialize(View rootView) {
         report_rcview = (RecyclerView) rootView.findViewById(R.id.report_rcview);
-        shope_name_txt = (TextView) rootView.findViewById(R.id.shope_name_txt);
+        shop_name_txt = (TextView) rootView.findViewById(R.id.shope_name_txt);
         order_id_txt = (TextView) rootView.findViewById(R.id.order_id_txt);
         name_txt = (TextView) rootView.findViewById(R.id.name_txt);
         cell_no_txt = (TextView) rootView.findViewById(R.id.cell_no_txt);
@@ -108,7 +106,6 @@ public class CustomerOrderDetailsFragment extends RuchiraFragment {
         report_rcview.setAdapter(orderAdapter);
         report_rcview.setHasFixedSize(true);
         report_rcview.setLayoutManager(manager);
-
         if (NetworkUtils.hasInternetConnection(mFragmentContext)) {
             fetchDataFromServer(changeDateFormate(orderDate));
         }
@@ -144,7 +141,6 @@ public class CustomerOrderDetailsFragment extends RuchiraFragment {
             final ProgressDialog finalProgressDialog = progressDialog;
             StringRequest strReq = new StringRequest(Request.Method.POST,
                     AppConfig.URL_ORDER_SUMMARY_DETAILS, new Response.Listener<String>() {
-
                 @Override
                 public void onResponse(String response) {
                     Log.e(TAG, "customer_order_details Response: " + response.toString());
@@ -152,14 +148,12 @@ public class CustomerOrderDetailsFragment extends RuchiraFragment {
                     executeForMemo(response);
                 }
             }, new Response.ErrorListener() {
-
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     Log.e(TAG, "customer_order_details Error: " + error.getMessage());
                     finalProgressDialog.dismiss();
                 }
             }) {
-
                 @Override
                 protected Map<String, String> getParams() {
                     // Posting parameters to login url
@@ -197,7 +191,7 @@ public class CustomerOrderDetailsFragment extends RuchiraFragment {
                 shippingList.addAll(TaskUtils.setShippingList(result));
                 billingList.addAll(TaskUtils.setBillingList(result));
                 orderAdapter.notifyDataSetChanged();
-                shope_name_txt.setText("Shop Name: " + obj.getString("outletName"));
+                shop_name_txt.setText("Shop Name: " + obj.getString("outletName"));
                 order_id_txt.setText("Order Id: #" + orderId);
                 name_txt.setText("Owner Name: " + obj.getString("ownerName"));
                 cell_no_txt.setText("Cell: " + obj.getString("ownerPhone"));

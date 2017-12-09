@@ -39,20 +39,11 @@ import java.util.Map;
  */
 public class TodaysTotalSaleFragment extends RuchiraFragment {
     private final static String TAG = "TodaysTotalSaleFragment";
-    Fragment toLaunchFragment = null;
     private List<Report> reportList;
     private RecyclerView report_rcview;
     private TextView name_txt, phone_txt, id_txt, date_txt, total_txt;
     private LinearLayoutManager manager;
     private ReportAdapter reportAdapter;
-
-    public TodaysTotalSaleFragment() {
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

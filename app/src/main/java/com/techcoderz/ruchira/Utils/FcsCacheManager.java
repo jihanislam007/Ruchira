@@ -8,7 +8,7 @@ import java.io.File;
 public class FcsCacheManager {
     private File cacheDir;
     private File cacheDirTemp; // for shout image.
-    final String GT_SONDHAN_CACHE_DIR = "SondhanCachedImages";
+    final String GT_SONDHAN_CACHE_DIR = "CachedImages";
     final String TEMP_CACHED_IMAGE = GT_SONDHAN_CACHE_DIR + File.separator + "TempCachedImages";
 
     private static FcsCacheManager fcsCacheManager;

@@ -26,7 +26,7 @@
             android:drawableLeft="@drawable/ic_user_profile"
             android:drawablePadding="10dp"
             android:gravity="center"
-            android:textColor="@color/black" />
+            android:textColor="@android:color/black" />
 
         <TextView
             android:id="@+id/sale_date_txt"

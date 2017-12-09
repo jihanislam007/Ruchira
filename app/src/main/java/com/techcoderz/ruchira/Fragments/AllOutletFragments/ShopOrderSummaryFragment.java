@@ -42,7 +42,6 @@ import java.util.Map;
  */
 public class ShopOrderSummaryFragment extends RuchiraFragment {
     private final static String TAG = "ShopOrderSummary";
-    private Fragment toLaunchFragment = null;
     private List<OrderSummary> orderSummaryList;
     private RecyclerView report_rcview;
     private LinearLayoutManager manager;

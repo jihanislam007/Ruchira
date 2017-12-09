@@ -66,13 +66,6 @@ public class AddOrderFragment extends RuchiraFragment {
     private SharedPreferences sharedPrefSelectedCategory;
     private SharedPreferences.Editor editor;
 
-    public AddOrderFragment() {}
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -292,12 +285,8 @@ public class AddOrderFragment extends RuchiraFragment {
                 Log.d(TAG, "selected ctg id: " + previousSelectedItem);
                 if (previousSelectedItem != -1)
                     categorySpinner.setSelection(previousSelectedItem);
-
-                return;
-
             } else {
                 ViewUtils.alertUser(mFragmentContext, "Server Error");
-                return;
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -330,10 +319,8 @@ public class AddOrderFragment extends RuchiraFragment {
                             shopeId, orderId, selectedCategoryPosition, editor);
                 outlet_rcview.setAdapter(productListAdapter);
                 productListAdapter.notifyDataSetChanged();
-                return;
             } else {
                 ViewUtils.alertUser(mFragmentContext, "Server Error");
-                return;
             }
         } catch (JSONException e) {
             e.printStackTrace();

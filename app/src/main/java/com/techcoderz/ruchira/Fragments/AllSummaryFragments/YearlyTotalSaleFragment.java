@@ -36,20 +36,11 @@ import java.util.Map;
 
 public class YearlyTotalSaleFragment extends RuchiraFragment {
     private final static String TAG = "YearlyTotalSaleFragment";
-    private Fragment toLaunchFragment = null;
     private List<Report> reportList;
     private RecyclerView report_rcview;
     private TextView name_txt, phone_txt, id_txt, date_txt, total_txt;
     private LinearLayoutManager manager;
     private ReportAdapter reportAdapter;
-
-    public YearlyTotalSaleFragment() {
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -144,10 +135,8 @@ public class YearlyTotalSaleFragment extends RuchiraFragment {
                 total_txt.setText(obj.getString("total") + " BDT");
                 reportList.addAll(TaskUtils.setYearlyReport(result));
                 reportAdapter.notifyDataSetChanged();
-                return;
             } else {
                 ViewUtils.alertUser(mFragmentContext, "Server Error");
-                return;
             }
         } catch (JSONException e) {
             e.printStackTrace();

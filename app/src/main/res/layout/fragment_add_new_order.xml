@@ -117,6 +117,4 @@
             android:textColor="@color/white"
             android:textStyle="bold" />
     </LinearLayout>
-
-
 </RelativeLayout>

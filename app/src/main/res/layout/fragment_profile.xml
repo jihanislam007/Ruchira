@@ -1,148 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/container_body"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_alignParentTop="true"
-        android:background="@color/colorDarkBlue">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/profile_image"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            app:border_color="@color/white"
-            app:border_width="2dp" />
-
-        <TextView
-            android:id="@+id/name_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/profile_image"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_marginTop="5dp"
-            android:textSize="18sp"
-            android:textColor="@color/white" />
-
-    </RelativeLayout>
+    android:layout_height="match_parent"
+    android:weightSum="10.2"
+    android:orientation="vertical"
+    android:background="@color/ash_bac"
+    android:paddingBottom="8dp"
+    android:paddingRight="8dp"
+    android:paddingLeft="8dp">
 
     <LinearLayout
-        android:id="@+id/information_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/relativeLayout"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:background="@color/blue_bac"
+        android:weightSum="5"
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:gravity="center|bottom">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/ic_user_profile" />
-
-            <TextView
-                android:id="@+id/status_txt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="15dp"
-                android:text="SR"
-                android:textColor="@color/black" />
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:src="@drawable/human_profile_pic"
+                android:background="@drawable/ring_shape"
+                android:padding="16dp"/>
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="8dp">
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:background="@drawable/ic_calender" />
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/joining_date_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:text="Joining Date : "
-                android:textColor="@color/Black" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="8dp">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/ic_designation" />
+                android:text="Ujjol Gupta"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/designation_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:text="Designation : "
-                android:textColor="@color/Black" />
+                android:text="Sales Representative"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="serif"
+                android:text="Joining Date : 17 Feb 2017"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
         </LinearLayout>
 
     </LinearLayout>
 
-    <RelativeLayout
-        android:id="@+id/area_layout"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/information_layout"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/colorStatusBar"
-        android:orientation="horizontal"
-        android:paddingBottom="2dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="2dp"
-        android:paddingTop="2dp">
+        android:layout_height="0dp"
+        android:layout_weight=".2"></LinearLayout>
 
-        <TextView
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:background="@color/blue_bac"
+        android:weightSum="5"
+        android:orientation="vertical">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:text="My Area"
-            android:textSize="18sp"
-            android:textAlignment="center"
-            android:textColor="@color/white" />
-    </RelativeLayout>
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/yellow_new"
+            android:weightSum="9.5">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/report_rcview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/area_layout"
-        android:layout_alignLeft="@+id/area_layout"
-        android:layout_alignRight="@+id/area_layout"
-        android:layout_alignStart="@+id/area_layout"
-        android:layout_below="@+id/area_layout"
-        android:layout_marginTop="5dp" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.5"
+                android:gravity="center">
 
-</RelativeLayout>
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/location_pointer"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="8"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="My Area"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:padding="16dp">
+
+            <ListView
+                android:id="@+id/profileListView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@color/white"
+                android:dividerHeight="1dp"></ListView>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

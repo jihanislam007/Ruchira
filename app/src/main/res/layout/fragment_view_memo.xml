@@ -1,332 +1,330 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/container_body"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/color_text_selected"
-        android:orientation="horizontal"
-        android:padding="10dp">
-
-        <TextView
-            android:id="@+id/shope_name_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/Black" />
-
-        <TextView
-            android:id="@+id/order_id_txt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="end"
-            android:text="Order Id : "
-            android:textColor="@color/Black" />
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/name_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/Black" />
-
-        <TextView
-            android:id="@+id/cell_no_txt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="end"
-            android:text="Cell : "
-            android:textColor="@color/Black" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/status_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Status : "
-            android:textColor="@color/Black" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@color/colorButton"
-        android:orientation="horizontal"
-        android:padding="5dp">
-
-        <ImageView
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
-            android:background="@android:drawable/ic_input_get"
-            android:backgroundTint="@color/white" />
-
-        <TextView
-            android:id="@+id/date_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:padding="5dp"
-            android:text=""
-            android:textColor="@color/white" />
-
-        <TextView
-            android:id="@+id/order_time_txt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right|end"
-            android:gravity="right|end"
-            android:padding="5dp"
-            android:text="Order Time : "
-            android:textColor="@color/white" />
-
-    </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorStatusBar"
-        android:orientation="horizontal"
-        android:paddingBottom="2dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="2dp"
-        android:paddingTop="2dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:text="Order Item"
-            android:textAlignment="center"
-            android:textColor="@color/white" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_weight=".35"
-            android:text="Quantity"
-            android:textAlignment="center"
-            android:textColor="@color/white" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginRight="5dp"
-            android:text="Ammount"
-            android:textAlignment="center"
-            android:textColor="@color/white" />
-    </RelativeLayout>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/report_rcview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="5dp" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/Black" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:gravity="start"
-        android:orientation="vertical">
+    android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/container_body"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorButton"
-            android:orientation="horizontal"
-            android:padding="5dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <TextView
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_text_selected"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/shope_name_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/Black" />
+
+                <TextView
+                    android:id="@+id/order_id_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:text="Order Id: "
+                    android:textColor="@color/Black" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/name_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/Black" />
+
+                <TextView
+                    android:id="@+id/cell_no_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:text="Cell: "
+                    android:textColor="@color/Black" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/status_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Status: "
+                    android:textColor="@color/Black" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorButton"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:background="@android:drawable/ic_input_get"
+                    android:backgroundTint="@color/white" />
+
+                <TextView
+                    android:id="@+id/date_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="5dp"
+                    android:text=""
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/order_time_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|end"
+                    android:gravity="right|end"
+                    android:padding="5dp"
+                    android:text="Order Time: "
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorStatusBar"
+                android:orientation="horizontal"
+                android:paddingBottom="2dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="2dp"
+                android:paddingTop="2dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:text="Order Item"
+                    android:textAlignment="center"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_weight=".35"
+                    android:text="Quantity"
+                    android:textAlignment="center"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginRight="5dp"
+                    android:text="Amount"
+                    android:textAlignment="center"
+                    android:textColor="@color/white" />
+            </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/report_rcview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/Black" />
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Total : "
-                android:textColor="@color/white" />
+                android:layout_gravity="right"
+                android:gravity="start"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/subtotal_txt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textColor="@color/white" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorButton"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Total : "
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:id="@+id/subtotal_txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textColor="@color/white" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Grand total: " />
+
+                    <TextView
+                        android:id="@+id/grand_total_txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/Black"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Total paid: " />
+
+                    <TextView
+                        android:id="@+id/total_paid_txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/Black"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Total Refunded: " />
+
+                    <TextView
+                        android:id="@+id/total_refunded_txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/Black"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Total Due: " />
+
+                    <TextView
+                        android:id="@+id/total_due_txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_marginTop="40dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/memo_cancel_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="30dp"
+                    android:background="@drawable/spinner_back"
+                    android:paddingLeft="50dp"
+                    android:paddingRight="50dp"
+                    android:text="Cancel"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white" />
+
+                <Button
+                    android:id="@+id/memo_confirm_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/spinner_back"
+                    android:gravity="center"
+                    android:paddingLeft="50dp"
+                    android:paddingRight="50dp"
+                    android:text="Confirm"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white" />
+            </LinearLayout>
         </LinearLayout>
-
-        <LinearLayout
-            android:visibility="gone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="5dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Grand total : " />
-
-            <TextView
-                android:id="@+id/grand_total_txt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center" />
-
-        </LinearLayout>
-
-        <View
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/Black" />
-
-        <LinearLayout
-            android:visibility="gone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="5dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Total paid : " />
-
-            <TextView
-                android:id="@+id/total_paid_txt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center" />
-
-        </LinearLayout>
-
-        <View
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/Black" />
-
-        <LinearLayout
-            android:visibility="gone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="5dp">
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Total Refunded : " />
-
-            <TextView
-                android:id="@+id/total_refunded_txt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center" />
-
-        </LinearLayout>
-
-        <View
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/Black" />
-
-        <LinearLayout
-            android:visibility="gone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="5dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Total Due : " />
-
-            <TextView
-                android:id="@+id/total_due_txt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center" />
-
-        </LinearLayout>
-
-        <View
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/Black" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:gravity="center|bottom"
-        android:layout_marginBottom="30dp">
-
-        <Button
-            android:id="@+id/memo_cancel_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/spinner_back"
-            android:text="Cancel"
-            android:layout_marginRight="30dp"
-            android:paddingLeft="50dp"
-            android:paddingRight="50dp"
-            android:textAllCaps="false"
-            android:textColor="@color/white" />
-
-        <Button
-            android:id="@+id/memo_confirm_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/spinner_back"
-            android:text="Confirm"
-            android:paddingLeft="50dp"
-            android:paddingRight="50dp"
-            android:gravity="center"
-            android:textAllCaps="false"
-            android:textColor="@color/white" />
-    </LinearLayout>
-
-</LinearLayout>
+</ScrollView>

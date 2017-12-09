@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -16,6 +17,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.squareup.picasso.Picasso;
+import com.techcoderz.ruchira.Profile_listview_adapter;
 import com.techcoderz.ruchira.R;
 import com.techcoderz.ruchira.Adapters.AreaAdapter;
 import com.techcoderz.ruchira.Application.RuchiraApplication;
@@ -49,6 +51,13 @@ public class ProfileFragment extends RuchiraFragment {
     private LinearLayoutManager manager;
     private AreaAdapter areaAdapter;
 
+    ///////////////////////////////////////////////
+    ListView listView;
+    String[] Name ={"abc",
+            "def",
+            "sha",
+            "xcnkf"};
+
     public ProfileFragment() {
     }
 
@@ -75,7 +84,7 @@ public class ProfileFragment extends RuchiraFragment {
     }
 
     private void initialize(View rootView) {
-        areaList = new ArrayList<>();
+        /*areaList = new ArrayList<>();
         joining_date_txt = (TextView) rootView.findViewById(R.id.joining_date_txt);
         report_rcview = (RecyclerView) rootView.findViewById(R.id.report_rcview);
         designation_txt = (TextView) rootView.findViewById(R.id.designation_txt);
@@ -87,7 +96,14 @@ public class ProfileFragment extends RuchiraFragment {
         areaAdapter = new AreaAdapter(mFragmentContext, areaList);
         report_rcview.setAdapter(areaAdapter);
         report_rcview.setHasFixedSize(true);
-        report_rcview.setLayoutManager(manager);
+        report_rcview.setLayoutManager(manager);*/
+
+        ///////////////////////////////////////////////////
+        areaList = new ArrayList<>();
+        listView = (ListView) rootView.findViewById(R.id.profileListView);
+
+        Profile_listview_adapter adapter = new Profile_listview_adapter(getContext() , Name);
+        listView.setAdapter(adapter);
     }
 
     private void fetchDataFromServer() {
