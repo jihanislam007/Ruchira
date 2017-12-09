@@ -21,6 +21,16 @@
             android:paddingRight="16dp"
             android:paddingBottom="16dp">
 
+            <android.support.v7.widget.CardView
+                android:id="@+id/card_view_order_first"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:elevation="3dp"
+                app:cardBackgroundColor="@color/blue_bac"
+                app:cardElevation="5dp"
+                app:cardUseCompatPadding="true">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -88,185 +98,205 @@
 
             </LinearLayout>
 
+            </android.support.v7.widget.CardView>
+
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="2"
-            android:weightSum="16"
-            android:orientation="horizontal"
-            android:paddingBottom="16dp"
-            android:paddingTop="16dp"
-            android:layout_margin="1dp"
-            android:background="@drawable/rectangle_shape">
+            android:layout_weight="2">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/card_view_order_second"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:elevation="3dp"
+                app:cardBackgroundColor="@color/blue_bac"
+                app:cardElevation="5dp"
+                app:cardUseCompatPadding="true">
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="4"
-                android:weightSum="2"
-                android:orientation="vertical"
-                android:paddingLeft="8dp">
+                android:weightSum="16"
+                android:orientation="horizontal"
+                android:paddingBottom="16dp"
+                android:paddingTop="16dp"
+                android:background="@drawable/rectangle_shape">
+
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1">
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:weightSum="2"
+                    android:orientation="vertical"
+                    android:paddingLeft="8dp">
 
-                    <TextView
-                        android:id="@+id/ordersummary_txt"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="Order\nSummary"
-                        android:lines="2"
-                        android:textColor="@color/white"/>
+                        android:layout_height="0dp"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/ordersummary_txt"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="Order\nSummary"
+                            android:lines="2"
+                            android:textColor="@color/white"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="4.26"
+                            android:lines="2"
+                            android:textColor="@color/yellow_new"/>
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1">
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/yellow_new"/>
 
-                    <TextView
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:orientation="vertical"
+                    android:paddingLeft="8dp">
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="4.26"
-                        android:lines="2"
-                        android:textColor="@color/yellow_new"/>
+                        android:layout_height="0dp"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/todays_target_txt"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="Today's\nTarget"
+                            android:textColor="@color/white"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="N/A"
+                            android:lines="2"
+                            android:textColor="@color/yellow_new"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/yellow_new"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:orientation="vertical"
+                    android:paddingLeft="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/outlet_remainning_txt"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="Remaining\nOutlet"
+                            android:lines="2"
+                            android:textColor="@color/white"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="23"
+                            android:lines="2"
+                            android:textColor="@color/yellow_new"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/yellow_new"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:orientation="vertical"
+                    android:paddingLeft="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/remainning_txt"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="Remaining"
+                            android:lines="2"
+                            android:textColor="@color/white"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="2792500"
+                            android:lines="2"
+                            android:textColor="@color/yellow_new"/>
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
             </LinearLayout>
 
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/yellow_new"/>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="4"
-                android:orientation="vertical"
-                android:paddingLeft="8dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1">
-
-                    <TextView
-                        android:id="@+id/todays_target_txt"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="Today's\nTarget"
-                        android:textColor="@color/white"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="N/A"
-                        android:lines="2"
-                        android:textColor="@color/yellow_new"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/yellow_new"/>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="4"
-                android:orientation="vertical"
-                android:paddingLeft="8dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1">
-
-                    <TextView
-                        android:id="@+id/outlet_remainning_txt"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="Remaining\nOutlet"
-                        android:lines="2"
-                        android:textColor="@color/white"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="23"
-                        android:lines="2"
-                        android:textColor="@color/yellow_new"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/yellow_new"/>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="4"
-                android:orientation="vertical"
-                android:paddingLeft="8dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1">
-
-                    <TextView
-                        android:id="@+id/remainning_txt"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="Remaining"
-                        android:lines="2"
-                        android:textColor="@color/white"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="2792500"
-                        android:lines="2"
-                        android:textColor="@color/yellow_new"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
+            </android.support.v7.widget.CardView>
 
         </LinearLayout>
 
