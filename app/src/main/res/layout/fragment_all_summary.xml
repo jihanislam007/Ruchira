@@ -7,11 +7,12 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context=".Activities.RuchiraActivity">
+
     <com.ogaclejapan.smarttablayout.SmartTabLayout
         android:id="@+id/viewpagertab"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:background="@color/colorPrimary"
+        android:background="@color/blue_bac"
         app:stl_clickable="true"
         app:stl_defaultTabBackground="?attr/selectableItemBackground"
         app:stl_defaultTabTextAllCaps="true"

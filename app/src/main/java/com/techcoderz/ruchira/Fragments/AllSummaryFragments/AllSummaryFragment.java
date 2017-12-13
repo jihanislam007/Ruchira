@@ -39,9 +39,9 @@ public class AllSummaryFragment extends RuchiraFragment {
         FragmentStatePagerItemAdapter adapter=new FragmentStatePagerItemAdapter(
                 ((AppCompatActivity)context).getSupportFragmentManager(),
                 FragmentPagerItems.with(context)
-                        .add("Today", TodaysTotalSaleFragment.class)
-                        .add("Monthly", MonthlyTotalSaleFragment.class)
-                        .add("Yearly", YearlyTotalSaleFragment.class)
+                        .add("Today Sale", TodaysTotalSaleFragment.class)
+                        .add("Monthly sale", MonthlyTotalSaleFragment.class)
+                        .add("Yearly sale", YearlyTotalSaleFragment.class)
                         .create()
         );
 

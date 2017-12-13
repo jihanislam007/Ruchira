@@ -49,7 +49,7 @@ public class MonthlyTotalSaleFragment extends RuchiraFragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_monthly_total_sell, container, false);
         setupToolbar();
-        initialize(rootView);
+//        initialize(rootView);
         if (NetworkUtils.hasInternetConnection(mFragmentContext)) {
             fetchDataFromServer();
         }
@@ -68,14 +68,14 @@ public class MonthlyTotalSaleFragment extends RuchiraFragment {
         phone_txt = (TextView) rootView.findViewById(R.id.phone_txt);
         name_txt = (TextView) rootView.findViewById(R.id.name_txt);
         date_txt = (TextView) rootView.findViewById(R.id.date_txt);
-        total_txt = (TextView) rootView.findViewById(R.id.total_txt);
+        total_txt = (TextView) rootView.findViewById(R.id.TotalSellTextView);
 
         manager = new LinearLayoutManager(mFragmentContext);
         reportAdapter = new ReportAdapter(mFragmentContext, reportList);
 
-        report_rcview.setAdapter(reportAdapter);
-        report_rcview.setHasFixedSize(true);
-        report_rcview.setLayoutManager(manager);
+//        report_rcview.setAdapter(reportAdapter);
+ //       report_rcview.setHasFixedSize(true);
+ //       report_rcview.setLayoutManager(manager);
     }
 
     private void fetchDataFromServer() {

@@ -62,7 +62,7 @@
     <color name="transparentBackground">#66303030</color>
 
 
-    <color name="yellow">#FFD00A</color>
+    <color name="yellow">#F68F1A</color>
     <color name="green">#80C25E</color>
 
     <color name="send_item_layout_border_color">#D6D8D7</color>
@@ -104,6 +104,7 @@
     <!--//////////////new////////////////////-->
     <color name="blue_bac">#0270B1</color>
     <color name="ash_bac">#D9D9D9</color>
-    <color name="yellow_new">#f68f1a</color>
+    <color name="yellow_new">#F68F1A</color>
+    <color name="deep_ash">#73818A</color>
 
 </resources>

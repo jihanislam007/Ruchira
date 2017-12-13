@@ -30,8 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:weightSum="5"
-            android:orientation="vertical"
-            android:background="@drawable/rectangle_shape_white">
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -78,7 +77,7 @@
                         android:text="00"
                         android:textColor="@color/yellow_new"
                         android:textSize="16sp"
-                        android:layout_toRightOf="@+id/target"
+                        android:layout_toRightOf="@+id/this_month_txt"
                         android:layout_marginRight="16dp"/>
 
                 </RelativeLayout>
@@ -323,8 +322,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:weightSum="5"
-                android:orientation="vertical"
-                android:background="@drawable/rectangle_shape_white">
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -371,7 +369,7 @@
                             android:text="00"
                             android:textColor="@color/yellow_new"
                             android:textSize="16sp"
-                            android:layout_toRightOf="@+id/outlet"
+                            android:layout_toRightOf="@+id/total_outlet_txt"
                             android:layout_marginRight="16dp"/>
 
                     </RelativeLayout>

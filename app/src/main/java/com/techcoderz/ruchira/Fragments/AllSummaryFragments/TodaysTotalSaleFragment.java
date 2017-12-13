@@ -49,7 +49,7 @@ public class TodaysTotalSaleFragment extends RuchiraFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_todays_sell_status, container, false);
         setupToolbar();
-        initialize(rootView);
+//        initialize(rootView);
         action();
         return rootView;
     }
@@ -66,14 +66,14 @@ public class TodaysTotalSaleFragment extends RuchiraFragment {
         phone_txt = (TextView) rootView.findViewById(R.id.phone_txt);
         name_txt = (TextView) rootView.findViewById(R.id.name_txt);
         date_txt = (TextView) rootView.findViewById(R.id.date_txt);
-        total_txt = (TextView) rootView.findViewById(R.id.total_txt);
+        total_txt = (TextView) rootView.findViewById(R.id.TotalSellTextView);
 
         manager = new LinearLayoutManager(mFragmentContext);
         reportAdapter = new ReportAdapter(mFragmentContext, reportList);
 
-        report_rcview.setAdapter(reportAdapter);
-        report_rcview.setHasFixedSize(true);
-        report_rcview.setLayoutManager(manager);
+//        report_rcview.setAdapter(reportAdapter);
+ //       report_rcview.setHasFixedSize(true);
+ //       report_rcview.setLayoutManager(manager);
     }
 
     private void action() {
