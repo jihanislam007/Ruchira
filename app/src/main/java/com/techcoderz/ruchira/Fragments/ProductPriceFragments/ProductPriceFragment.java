@@ -11,12 +11,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.techcoderz.ruchira.All_product_price_Adaptor;
+import com.techcoderz.ruchira.ModelClasses.Area;
+import com.techcoderz.ruchira.Profile_listview_adapter;
 import com.techcoderz.ruchira.R;
 import com.techcoderz.ruchira.Adapters.ProductAdapter;
 import com.techcoderz.ruchira.Adapters.PromotionCompanySpinnerAdapter;
@@ -47,6 +51,7 @@ public class ProductPriceFragment extends RuchiraFragment {
 
     private List<ProductList> productList;
     private List<Company> companyList;
+    private List<Area> DemoList;
 
     private AppCompatSpinner beat_spinner;
     private PromotionCompanySpinnerAdapter promotionCompanySpinnerAdapter;
@@ -55,6 +60,20 @@ public class ProductPriceFragment extends RuchiraFragment {
     private ProductAdapter productAdapter;
     private LinearLayoutManager manager;
     private TextView company_title_txt;
+
+    ///////////////////////////////////////////////
+    ListView listView;
+    String[] Name ={"abc",
+            "def",
+            "sha",
+            "xcnkf"};
+
+    String[] Price ={"123",
+            "556",
+            "45",
+            "6879"};
+    ///////////////////////////////////////////////
+
 
     public ProductPriceFragment() {
     }
@@ -69,8 +88,8 @@ public class ProductPriceFragment extends RuchiraFragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_product_price, container, false);
         setupToolbar();
-        initialize(rootView);
-        action();
+   //     initialize(rootView);
+//        action();
         if(NetworkUtils.hasInternetConnection(mFragmentContext)) {
             fetchDataFromServer();
         }
@@ -83,30 +102,54 @@ public class ProductPriceFragment extends RuchiraFragment {
     }
 
     private void initialize(View rootView) {
-        beat_spinner = (AppCompatSpinner) rootView.findViewById(R.id.beat_spinner);
-        report_rcview = (RecyclerView) rootView.findViewById(R.id.report_rcview);
-        company_title_txt = (TextView) rootView.findViewById(R.id.company_title_txt);
 
+        beat_spinner = (AppCompatSpinner) rootView.findViewById(R.id.beat_spinner);
+    //    report_rcview = (RecyclerView) rootView.findViewById(R.id.report_rcview);
+    //    company_title_txt = (TextView) rootView.findViewById(R.id.company_title_txt);
+
+        ///////////////////////////////////////////////////
+        DemoList = new ArrayList<>();
+        listView = (ListView) rootView.findViewById(R.id.report_rcview);
+
+        All_product_price_Adaptor adapter = new All_product_price_Adaptor(getContext() , Name , Price);
+        listView.setAdapter(adapter);
+
+        //////////////////////////////////////////////////
+/*
         productList = new ArrayList<>();
         companyList = new ArrayList<>();
+
+
+        productList.add(new ProductList("a", "Milk" , 100 ,"","ab" , 1 ,"abc" ));
+        productList.add(new ProductList("b", "oil" , 200 ,"","ab" , 1 ,"abc" ));
+        productList.add(new ProductList("c", "Medicine" , 500 ,"","ab" , 1 ,"abc" ));
+        productList.add(new ProductList("d", "Mutton" , 400 ,"","ab" , 1 ,"abc" ));
+
+
+        companyList.add(new Company("1" , "ACI"));
+        companyList.add(new Company("2" , "AOS"));
+        companyList.add(new Company("3" , "ABC"));
+        companyList.add(new Company("4" , "AII"));
 
         promotionCompanySpinnerAdapter = new PromotionCompanySpinnerAdapter(mFragmentContext, R.layout.beat_list, companyList);
         promotionCompanySpinnerAdapter.setDropDownViewResource(R.layout.beat_list);
 
-        manager = new LinearLayoutManager(mFragmentContext);
+        manager = new LinearLayoutManager(mFragmentContext,LinearLayoutManager.VERTICAL,false);
         productAdapter = new ProductAdapter(mFragmentContext, productList);
 
-        report_rcview.setAdapter(productAdapter);
-        report_rcview.setHasFixedSize(true);
+
+        //report_rcview.setHasFixedSize(true);
         report_rcview.setLayoutManager(manager);
+        report_rcview.setAdapter(productAdapter);*/
+
     }
 
     private void action() {
-        beat_spinner.setAdapter(promotionCompanySpinnerAdapter);
+    //    beat_spinner.setAdapter(promotionCompanySpinnerAdapter);
         beat_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                company_title_txt.setText(companyList.get(position).getCompanyName());
+        //        company_title_txt.setText(companyList.get(position).getCompanyName());
                 if(NetworkUtils.hasInternetConnection(mFragmentContext) &&
                         !companyList.get(position).getCompanyName().matches("Select a Company")) {
                     fetchDataFromServerForProduct(companyList.get(position).getCompanyId());
@@ -256,4 +299,5 @@ public class ProductPriceFragment extends RuchiraFragment {
             e.printStackTrace();
         }
     }
+
 }

@@ -69,8 +69,8 @@ public class ProductPromotionFragment extends RuchiraFragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_product_promotion, container, false);
         setupToolbar();
-        initialize(rootView);
-        action();
+//        initialize(rootView);
+//        action();
         if(NetworkUtils.hasInternetConnection(mFragmentContext)) {
             fetchDataFromServer();
         }
@@ -84,8 +84,8 @@ public class ProductPromotionFragment extends RuchiraFragment {
 
     private void initialize(View rootView) {
         beat_spinner = (AppCompatSpinner) rootView.findViewById(R.id.beat_spinner);
-        report_rcview = (RecyclerView) rootView.findViewById(R.id.report_rcview);
-        company_title_txt = (TextView) rootView.findViewById(R.id.company_title_txt);
+//        report_rcview = (RecyclerView) rootView.findViewById(R.id.report_rcview);
+     //   company_title_txt = (TextView) rootView.findViewById(R.id.company_title_txt);
 
         promotionList = new ArrayList<>();
         companyList = new ArrayList<>();

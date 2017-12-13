@@ -37,17 +37,17 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @Override
     public ProductAdapter.RecyclerViewSubHolders onCreateViewHolder(ViewGroup parent, int viewType) {
-        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.all_product_with_price_adapter, null);
+        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.costom_product_price, null);
         ProductAdapter.RecyclerViewSubHolders rcv = new ProductAdapter.RecyclerViewSubHolders(layoutView);
         return rcv;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-        if (holder instanceof ProductAdapter.RecyclerViewSubHolders) {
+        /*if (holder instanceof ProductAdapter.RecyclerViewSubHolders) {
             if (productList.size() > 0) {
                 ((ProductAdapter.RecyclerViewSubHolders) holder).product_name_txt.setText(productList.get(position).getProductName());
-                ((ProductAdapter.RecyclerViewSubHolders) holder).promotion_title_txt.setText(productList.get(position).getProductId());
+                //((ProductAdapter.RecyclerViewSubHolders) holder).promotion_title_txt.setText(productList.get(position).getProductId());
                 ((ProductAdapter.RecyclerViewSubHolders) holder).end_date_txt.setText(productList.get(position).getPricePerPiece()+"");
                 ((ProductAdapter.RecyclerViewSubHolders) holder).show_txt.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -56,7 +56,7 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     }
                 });
             }
-        }
+        }*/
     }
 
     @Override
@@ -80,7 +80,7 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         public RecyclerViewSubHolders(View itemView) {
             super(itemView);
             product_name_txt = (TextView) itemView.findViewById(R.id.tv_product_name_adapter);
-            promotion_title_txt = (TextView) itemView.findViewById(R.id.tv_product_id_adapter);
+         //   promotion_title_txt = (TextView) itemView.findViewById(R.id.tv_product_id_adapter);
             end_date_txt = (TextView) itemView.findViewById(R.id.tv_product_price_adapter);
             show_txt = (TextView) itemView.findViewById(R.id.tv_product_details_adapter);
         }

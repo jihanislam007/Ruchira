@@ -57,8 +57,8 @@ public class OutletsFragment extends RuchiraFragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_outlets, container, false);
         setupToolbar();
-        initialize(rootView);
-        action();
+//        initialize(rootView);
+ //       action();
         if(NetworkUtils.hasInternetConnection(mFragmentContext)) {
             fetchDataFromServer();
         }
@@ -75,16 +75,16 @@ public class OutletsFragment extends RuchiraFragment {
         outlet_rcview = (RecyclerView) rootView.findViewById(R.id.outlet_rcview);
         beatList = new ArrayList<>();
         outletList = new ArrayList<>();
-        swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_outlet_list);
+       /* swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_outlet_list);
         orderBeatSpinnerAdapter = new orderBeatSpinnerAdapter(mFragmentContext, R.layout.beat_list, beatList);
-        orderBeatSpinnerAdapter.setDropDownViewResource(R.layout.beat_list);
+        orderBeatSpinnerAdapter.setDropDownViewResource(R.layout.beat_list);*/
 
         gridLayoutManager = new GridLayoutManager(mFragmentContext, 3);
         outletAdapter = new OutletAdapter(mFragmentContext, outletList, 1);
 
-        outlet_rcview.setAdapter(outletAdapter);
+      /*  outlet_rcview.setAdapter(outletAdapter);
         outlet_rcview.setHasFixedSize(true);
-        outlet_rcview.setLayoutManager(gridLayoutManager);
+        outlet_rcview.setLayoutManager(gridLayoutManager);*/
     }
 
     private void action() {

@@ -68,4 +68,17 @@ public class ProductList {
     public void setProductSku(String productSku) {
         this.productSku = productSku;
     }
+
+    public ProductList(String productId, String productName, int pricePerPiece, String flag, String promotionId, int pricePerCarton, String productSku) {
+        this.productId = productId;
+        this.productName = productName;
+        this.pricePerPiece = pricePerPiece;
+        this.flag = flag;
+        this.promotionId = promotionId;
+        this.pricePerCarton = pricePerCarton;
+        this.productSku = productSku;
+    }
+
+    public ProductList() {
+    }
 }

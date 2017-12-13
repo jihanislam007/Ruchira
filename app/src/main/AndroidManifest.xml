@@ -22,42 +22,39 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!--<supports-screens
+        <!--
+            <supports-screens
             android:anyDensity="true"
             android:largeScreens="true"
             android:normalScreens="true"
             android:resizeable="true"
             android:smallScreens="true"
-            android:xlargeScreens="true" />-->
+            android:xlargeScreens="true" />
+        -->
 
         <activity
             android:name=".Activities.LoginActivity"
             android:configChanges="keyboardHidden|orientation"
-            android:screenOrientation="portrait"/>
-
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.SplashActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme">
-
-        </activity>
-
+            android:theme="@style/AppTheme"></activity>
         <activity
             android:name=".Activities.MainActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activities.MainActivity" />
         </activity>
-
         <activity
             android:name=".Activities.ForgetPasswordActivity"
             android:configChanges="keyboardHidden|orientation"
@@ -66,7 +63,6 @@
         <meta-data
             android:name="AA_DB_NAME"
             android:value="ruchira.db" />
-
         <meta-data
             android:name="AA_DB_VERSION"
             android:value="1" />
