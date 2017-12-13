@@ -56,7 +56,7 @@ public class TodaysTotalSaleFragment extends RuchiraFragment {
 
     private void setupToolbar() {
         mFragmentContext.getSupportActionBar().show();
-        mFragmentContext.getSupportActionBar().setTitle("Today\'s Total Sale");
+        mFragmentContext.getSupportActionBar().setTitle("All Summary");
     }
 
     private void initialize(View rootView) {

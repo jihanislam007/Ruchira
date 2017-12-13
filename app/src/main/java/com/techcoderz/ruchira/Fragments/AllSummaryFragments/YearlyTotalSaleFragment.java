@@ -54,7 +54,7 @@ public class YearlyTotalSaleFragment extends RuchiraFragment {
 
     private void setupToolbar() {
         mFragmentContext.getSupportActionBar().show();
-        mFragmentContext.getSupportActionBar().setTitle("Yearly Total Sale");
+        mFragmentContext.getSupportActionBar().setTitle("All Summary");
     }
 
     private void initialize(View rootView) {

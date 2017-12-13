@@ -7,56 +7,6 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context=".Activities.RuchiraActivity">
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        app:popupTheme="@style/AppTheme.NoActionBar"
-        >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:weightSum="5">
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textSize="17sp"
-                    android:text="Aarong Dairy"
-                    android:gravity="center_vertical"
-                    android:textColor="@color/white"/>
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </android.support.v7.widget.Toolbar>
-    <!--<android.support.design.widget.TabLayout
-        android:id="@+id/tabs"
-        android:layout_marginTop="?attr/actionBarSize"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        app:tabTextColor="@color/white"
-        app:tabSelectedTextColor="@color/white"
-
-        app:tabIndicatorColor="@color/tab_indicator_color"
-        app:tabTextAppearance="@style/MineCustomTabText"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="?attr/actionBarSize">
-        <android.support.v4.view.ViewPager
-            android:id="@+id/container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="?attr/actionBarSize"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-    </LinearLayout>-->
     <com.ogaclejapan.smarttablayout.SmartTabLayout
         android:id="@+id/viewpagertab"
         android:layout_width="match_parent"
@@ -68,7 +18,7 @@
         app:stl_defaultTabTextColor="#FFFFFF"
         app:stl_defaultTabTextMinWidth="0dp"
         app:stl_defaultTabTextSize="16sp"
-        app:stl_distributeEvenly="false"
+        app:stl_distributeEvenly="true"
         app:stl_dividerColor="@color/colorPrimaryDark"
         app:stl_dividerThickness="0dp"
         app:stl_drawDecorationAfterTab="false"

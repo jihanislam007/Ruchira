@@ -58,7 +58,7 @@ public class MonthlyTotalSaleFragment extends RuchiraFragment {
 
     private void setupToolbar() {
         mFragmentContext.getSupportActionBar().show();
-        mFragmentContext.getSupportActionBar().setTitle("Monthly Total Sale");
+        mFragmentContext.getSupportActionBar().setTitle("All Summary");
     }
 
     private void initialize(View rootView) {
