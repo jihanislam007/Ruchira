@@ -1,12 +1,20 @@
 package com.techcoderz.ruchira.Fragments.AllSummaryFragments;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.text.Selection;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import com.ogaclejapan.smarttablayout.SmartTabLayout;
+import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
+import com.ogaclejapan.smarttablayout.utils.v4.FragmentStatePagerItemAdapter;
 import com.techcoderz.ruchira.R;
 import com.techcoderz.ruchira.Fragments.OtherFragments.RuchiraFragment;
 import com.techcoderz.ruchira.Utils.ViewUtils;
@@ -17,17 +25,41 @@ import com.techcoderz.ruchira.Utils.ViewUtils;
 public class AllSummaryFragment extends RuchiraFragment {
     Fragment toLaunchFragment = null;
     private RelativeLayout editProfileLayout,sendFeedbackLayout,aboutLayout;
+    private ViewPager mViewPager;
+    Activity activity;
+    Context context;
+    private SmartTabLayout viewPagerTab;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_all_summary, container, false);
-        setupActionBar();
+        /*setupActionBar();
         initialize(rootView);
-        action();
+        action();*/
+        FragmentStatePagerItemAdapter adapter=new FragmentStatePagerItemAdapter(
+                ((AppCompatActivity)context).getSupportFragmentManager(),
+                FragmentPagerItems.with(context)
+                        .add("Today", TodaysTotalSaleFragment.class)
+                        .add("Monthly", MonthlyTotalSaleFragment.class)
+                        .add("Yearly", YearlyTotalSaleFragment.class)
+                        .create()
+        );
+
+        mViewPager = (ViewPager) rootView.findViewById(R.id.viewpager);
+        mViewPager.setAdapter(adapter);
+
+        viewPagerTab = (SmartTabLayout) rootView.findViewById(R.id.viewpagertab);
+        viewPagerTab.setViewPager(mViewPager);
         return rootView;
     }
 
-    private void setupActionBar() {
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context=context;
+
+    }
+    /*private void setupActionBar() {
         mFragmentContext.getSupportActionBar().show();
     }
 
@@ -84,6 +116,6 @@ public class AllSummaryFragment extends RuchiraFragment {
             ViewUtils.launchFragmentKeepingInBackStack(mFragmentContext, toLaunchFragment);
             toLaunchFragment = null;
         }
-    }
+    }*/
 
 }
