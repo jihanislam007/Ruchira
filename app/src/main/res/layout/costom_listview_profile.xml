@@ -2,12 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue_bac">
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:weightSum="10">
+        android:weightSum="10"
+        android:background="@drawable/rectangle_shape_light_ash">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -18,7 +19,6 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/homeicon"
                 android:padding="16dp"/>
 
         </LinearLayout>

@@ -3,20 +3,17 @@
     android:id="@+id/container_body"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="10.2"
+    android:weightSum="10"
     android:orientation="vertical"
-    android:background="@color/ash_bac"
-    android:paddingBottom="8dp"
-    android:paddingRight="8dp"
-    android:paddingLeft="8dp">
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="5"
-        android:background="@color/blue_bac"
+        android:layout_weight="4.5"
         android:weightSum="5"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@drawable/profilecurve">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -51,17 +48,17 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sales Representative"
+                android:text="Admin"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
 
-            <TextView
+            <!--<TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="serif"
                 android:text="Joining Date : 17 Feb 2017"
                 android:textColor="@color/white"
-                android:textSize="16sp" />
+                android:textSize="16sp" />-->
 
         </LinearLayout>
 
@@ -70,48 +67,89 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight=".2"></LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="5"
-        android:background="@color/blue_bac"
+        android:layout_weight="5.5"
+        android:background="@color/white"
         android:weightSum="5"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@color/yellow_new"
-            android:weightSum="9.5">
+            android:layout_weight="1.44"
+            android:background="@color/white"
+            android:weightSum="3">
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1.5"
-                android:gravity="center">
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
 
-                <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:src="@drawable/location_pointer"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="31-12-2017"
+                    android:gravity="center"
+                    android:textColor="@color/yellow_new"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="joining"
+                    android:gravity="center"
+                    android:textSize="16sp"/>
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="8"
-                android:gravity="center_vertical">
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="My Area"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
+                    android:text="25865 BDT"
+                    android:gravity="center"
+                    android:textColor="@color/yellow_new"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Terget"
+                    android:gravity="center"
+                    android:textSize="16sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="54885 BDT"
+                    android:gravity="center"
+                    android:textColor="@color/yellow_new"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Remaining"
+                    android:gravity="center"
+                    android:textSize="16sp"/>
 
             </LinearLayout>
 
@@ -120,8 +158,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_weight=".06"
+            android:background="@color/ash_bac"></LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="4"
-            android:padding="16dp">
+            android:layout_marginBottom="16dp">
 
             <ListView
                 android:id="@+id/profileListView"
