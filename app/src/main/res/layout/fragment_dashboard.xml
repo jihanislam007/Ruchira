@@ -156,6 +156,7 @@
                         android:layout_weight="1">
 
                         <TextView
+                            android:id="@+id/order_summery"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="4.26"

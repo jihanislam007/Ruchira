@@ -1,6 +1,8 @@
 package com.techcoderz.ruchira.Fragments.DashBoardFragments;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -9,9 +11,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.ResponseHandlerInterface;
+import com.techcoderz.ruchira.Activities.LoginActivity;
+import com.techcoderz.ruchira.Db.OfflineInfo;
 import com.techcoderz.ruchira.R;
 import com.techcoderz.ruchira.Application.RuchiraApplication;
 import com.techcoderz.ruchira.Fragments.OtherFragments.RuchiraFragment;
+import com.techcoderz.ruchira.ServerInfo.ServerInfo;
 import com.techcoderz.ruchira.Utils.AppConfig;
 import com.techcoderz.ruchira.Utils.NetworkUtils;
 import com.techcoderz.ruchira.Utils.UserPreferences;
@@ -23,6 +32,9 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.HttpResponse;
+
 /**
  * Created by Shahriar on 9/14/2016.
  */
@@ -30,7 +42,12 @@ public class DashBoardFragment extends RuchiraFragment {
     private final static String TAG = "DashBoardFragment";
     private Fragment toLaunchFragment = null;
     private TextView view_more_txt, tvTodaysSale, ordersummary_txt,
-            todays_target_txt, outlet_remainning_txt, remainning_txt;
+            todays_target_txt, outlet_remainning_txt, remainning_txt,order_summery;
+
+    OfflineInfo offlineInfo;
+
+   // Context context;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,12 +58,16 @@ public class DashBoardFragment extends RuchiraFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        offlineInfo=new OfflineInfo(getContext());
         setupActionBar();
         initialize(rootView);
         action();
         if(NetworkUtils.hasInternetConnection(mFragmentContext)) {
             fetchDataFromServer();
         }
+
+
+
         return rootView;
     }
 
@@ -57,6 +78,7 @@ public class DashBoardFragment extends RuchiraFragment {
 
     private void initialize(View rootView) {
         view_more_txt = (TextView) rootView.findViewById(R.id.view_more_txt);
+        order_summery = (TextView) rootView.findViewById(R.id.order_summery);
         tvTodaysSale = (TextView) rootView.findViewById(R.id.blance_txt);
         ordersummary_txt = (TextView) rootView.findViewById(R.id.ordersummary_txt);
         todays_target_txt = (TextView) rootView.findViewById(R.id.todays_target_txt);
@@ -83,6 +105,63 @@ public class DashBoardFragment extends RuchiraFragment {
         progressDialog.setIndeterminate(true);
         progressDialog.show();
         final ProgressDialog finalProgressDialog = progressDialog;
+
+        /*************Must write*************************************/
+        AsyncHttpClient client=new AsyncHttpClient();
+        client.addHeader("Authorization","Bearer "+offlineInfo.getUserInfo().token);
+        /***********************************************************/
+
+        /*client.get("URL",new JsonHttpResponseHandler(){
+
+        });*/
+
+        RequestParams params=new RequestParams();
+
+        client.post(ServerInfo.BASE_ADDRESS+"dashboard",params,new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                /*
+                    "todaySell": "2088.8",
+                    "todayOrder": "2",
+                    "todayTarget": 4127,
+                    "overSell": "00",
+                    "outletRemaining": "00"
+                */
+
+                try {
+                    String todaySell=response.getString("todaySell");
+                    tvTodaysSale.setText(todaySell);
+                    String todayOrder=response.getString("todayOrder");
+                    order_summery.setText(todayOrder);
+                    int todayTarget=response.getInt("todayTarget");
+                    String overSell=response.getString("overSell");
+                    String outletRemaining=response.getString("outletRemaining");
+
+
+                } catch (JSONException e) {
+
+                }
+
+
+            }
+
+
+            /*****************Must write*****************************/
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                Intent intent=new Intent(getContext(), LoginActivity.class);
+                getContext().startActivity(intent);
+                offlineInfo.setUserInfo("");
+            }
+
+            @Override
+            public void onPostProcessResponse(ResponseHandlerInterface instance, HttpResponse response) {
+                finalProgressDialog.dismiss(); //Just change dialog name
+            }
+            /***************************************/
+        });
+
+
 
     }
 
@@ -119,4 +198,9 @@ public class DashBoardFragment extends RuchiraFragment {
             toLaunchFragment = null;
         }
     }
+
+    /*@Override
+    public void onAttach(Context context) {
+        this.context=context;
+    }*/
 }

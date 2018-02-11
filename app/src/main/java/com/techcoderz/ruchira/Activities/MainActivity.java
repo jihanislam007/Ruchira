@@ -28,7 +28,13 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.ResponseHandlerInterface;
 import com.squareup.picasso.Picasso;
+import com.techcoderz.ruchira.Db.OfflineInfo;
 import com.techcoderz.ruchira.Fragments.AllSummaryFragments.AllSummaryFragment;
 import com.techcoderz.ruchira.R;
 import com.techcoderz.ruchira.Application.RuchiraApplication;
@@ -39,6 +45,7 @@ import com.techcoderz.ruchira.Fragments.ProductPriceFragments.ProductPriceFragme
 import com.techcoderz.ruchira.Fragments.PromotionFragments.ProductPromotionFragment;
 import com.techcoderz.ruchira.Fragments.OtherFragments.ProfileFragment;
 import com.techcoderz.ruchira.Fragments.TodaysStatusFragment.TodayStatusFragment;
+import com.techcoderz.ruchira.ServerInfo.ServerInfo;
 import com.techcoderz.ruchira.Utils.AppConfig;
 import com.techcoderz.ruchira.Utils.FragmentCallbacks;
 import com.techcoderz.ruchira.Utils.LoggedInUser;
@@ -47,12 +54,15 @@ import com.techcoderz.ruchira.Utils.TaskUtils;
 import com.techcoderz.ruchira.Utils.UserPreferences;
 import com.techcoderz.ruchira.Utils.ViewUtils;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.HttpResponse;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -80,18 +90,25 @@ public class MainActivity extends RuchiraActivity implements
     private TextView profile_name_txt, company_name_txt;
     private boolean doubleBackToExitPressedOnce = false;
 
+    OfflineInfo offlineInfo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        offlineInfo=new OfflineInfo(this);
+
         setToolbar();
-        if (android.os.Build.VERSION.SDK_INT > 9) {
+        /*if (android.os.Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
-        }
-        Utills(savedInstanceState);
+        }*/
+        //Utills(savedInstanceState);
         initialize();
         action();
+
+        //fetchDataFromServer();
     }
 
     private void initialize() {
@@ -274,7 +291,6 @@ public class MainActivity extends RuchiraActivity implements
             alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                     TaskUtils.clearUserInfo(MainActivity.this);
-                    fetchDataFromServer(MainActivity.this, userToken);
                 }
             });
             alertDialogBuilder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
@@ -382,15 +398,18 @@ public class MainActivity extends RuchiraActivity implements
     public void onProfileUpdated() {
     }
 
-    private void fetchDataFromServer(final Context context, final String userToken) {
+    private void fetchDataFromServer() {
         String tag_string_req = "req_logout";
-        ProgressDialog progressDialog = new ProgressDialog(this);
+        final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Loading");
         progressDialog.setMessage("Please wait...");
         progressDialog.setCancelable(false);
         progressDialog.setIndeterminate(true);
         progressDialog.show();
         final ProgressDialog finalProgressDialog = progressDialog;
+
+
+
 
     }
 

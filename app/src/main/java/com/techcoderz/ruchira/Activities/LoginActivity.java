@@ -14,19 +14,30 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.ResponseHandlerInterface;
+import com.techcoderz.ruchira.Db.OfflineInfo;
 import com.techcoderz.ruchira.R;
 import com.techcoderz.ruchira.Application.RuchiraApplication;
+import com.techcoderz.ruchira.ServerInfo.ServerInfo;
 import com.techcoderz.ruchira.Utils.AppConfig;
 import com.techcoderz.ruchira.Utils.NetworkUtils;
 import com.techcoderz.ruchira.Utils.TaskUtils;
 import com.techcoderz.ruchira.Utils.UserPreferences;
 import com.techcoderz.ruchira.Utils.ViewUtils;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.HttpResponse;
 
 /**
  * A login screen that offers login via email/password.
@@ -37,11 +48,24 @@ public class LoginActivity extends AppCompatActivity {
     TextView forgetpass;
     private final String TAG = "LoginActivity";
     private Toolbar toolbar;
+    OfflineInfo offlineInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        offlineInfo=new OfflineInfo(this);
+
+
+
+        //Auto login if previously login
+        if(offlineInfo.getUserInfo()!=null && offlineInfo.getUserInfo().token.length()>0){
+            Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+            startActivity(intent);
+        }
+
+
+
         setToolbar();
         initialize();
         action();
@@ -90,7 +114,6 @@ public class LoginActivity extends AppCompatActivity {
             ViewUtils.alertUser(LoginActivity.this, getResources().getString(R.string.please_key_in_all_information));
             return;
         }
-        Log.d(TAG, "login param " + email.getText().toString() + " " + password.getText().toString() + " ");
         if (NetworkUtils.hasInternetConnection(this)) {
             fetchDataFromServer(email.getText().toString(), password.getText().toString());
         }
@@ -106,6 +129,39 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog.setIndeterminate(true);
         progressDialog.show();
         final ProgressDialog finalProgressDialog = progressDialog;
+
+        AsyncHttpClient client=new AsyncHttpClient();
+
+        RequestParams params=new RequestParams();
+        params.add("email",email);
+        params.add("password",password);
+
+        final ProgressDialog finalProgressDialog1 = progressDialog;
+        client.post(ServerInfo.BASE_ADDRESS+"login",params,new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                //System.out.println("Successfully "+response.toString());
+                offlineInfo.setUserInfo(response.toString());
+
+                Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+                startActivity(intent);
+
+
+            }
+
+
+
+            @Override
+            public void onPostProcessResponse(ResponseHandlerInterface instance, HttpResponse response) {
+                finalProgressDialog1.dismiss();
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                Toast.makeText(LoginActivity.this, "User name or password invalid....", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
 
     }
 
