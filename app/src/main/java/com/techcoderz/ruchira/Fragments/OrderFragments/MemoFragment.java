@@ -12,11 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.techcoderz.ruchira.R;
 import com.techcoderz.ruchira.Adapters.OrderAdapter;
 import com.techcoderz.ruchira.Application.RuchiraApplication;
@@ -53,9 +48,7 @@ public class MemoFragment extends RuchiraFragment {
     private ProgressDialog progressDialog;
     private SharedPreferences.Editor editor;
 
-    public MemoFragment(SharedPreferences.Editor edit) {
-        this.editor = edit;
-    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -148,37 +141,7 @@ public class MemoFragment extends RuchiraFragment {
             progressDialog.show();
             String tag_string_req = "req_memo";
             final ProgressDialog finalProgressDialog = progressDialog;
-            StringRequest strReq = new StringRequest(Request.Method.POST,
-                    AppConfig.URL_MEMO, new Response.Listener<String>() {
 
-                @Override
-                public void onResponse(String response) {
-                    Log.e(TAG, "memo Response: " + response.toString());
-                    finalProgressDialog.dismiss();
-                    executeForMemo(response);
-                }
-            }, new Response.ErrorListener() {
-
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.e(TAG, "memo Error: " + error.getMessage());
-                    finalProgressDialog.dismiss();
-                }
-            }) {
-
-                @Override
-                protected Map<String, String> getParams() {
-                    Map<String, String> params = new HashMap<>();
-                    params.put("userId", UserPreferences.getUserId(mFragmentContext));
-                    params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
-                    params.put("orderId", orderId);
-                    return params;
-                }
-
-            };
-
-            // Adding request to request queue
-            RuchiraApplication.getInstance().addToRequestQueue(strReq, tag_string_req);
         } else {
             ViewUtils.alertUser(mFragmentContext, "No Memo Available");
         }
@@ -220,39 +183,7 @@ public class MemoFragment extends RuchiraFragment {
             progressDialog.show();
             String tag_string_req = "req_memo";
             final ProgressDialog finalProgressDialog = progressDialog;
-            StringRequest strReq = new StringRequest(Request.Method.POST,
-                    AppConfig.URL_MEMO_CONFORMATION, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    Log.e(TAG, "memo Response: " + response.toString());
-                    finalProgressDialog.dismiss();
-                    executeForMemoConformation(response);
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.e(TAG, "memo Error: " + error.getMessage());
-                    finalProgressDialog.dismiss();
-                }
-            }) {
 
-                @Override
-                protected Map<String, String> getParams() {
-                    Map<String, String> params = new HashMap<>();
-
-                    Log.e(TAG, " userId: " + UserPreferences.getUserId(mFragmentContext));
-                    Log.e(TAG, " tokenKey: " + UserPreferences.getToken(mFragmentContext));
-                    Log.e(TAG, " order Id: " + orderId);
-
-                    params.put("userId", UserPreferences.getUserId(mFragmentContext));
-                    params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
-                    params.put("orderId", orderId);
-                    return params;
-                }
-            };
-
-            // Adding request to request queue
-            RuchiraApplication.getInstance().addToRequestQueue(strReq, tag_string_req);
         } else {
             ViewUtils.alertUser(mFragmentContext, "No Memo Available");
         }

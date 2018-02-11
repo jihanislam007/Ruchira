@@ -9,11 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.techcoderz.ruchira.R;
 import com.techcoderz.ruchira.Adapters.ReportAdapter;
 import com.techcoderz.ruchira.Application.RuchiraApplication;
@@ -89,33 +84,7 @@ public class MonthlyTotalSaleFragment extends RuchiraFragment {
 
         String tag_string_req = "req_monthly_total_sale";
         final ProgressDialog finalProgressDialog = progressDialog;
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                AppConfig.URL_MONTHLY_TOTAL_SALE, new Response.Listener<String>() {
 
-            @Override
-            public void onResponse(String response) {
-                finalProgressDialog.dismiss();
-                execute(response);
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                finalProgressDialog.dismiss();
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() {
-                // Posting parameters to login url
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("userId", UserPreferences.getUserId(mFragmentContext));
-                params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
-                return params;
-            }
-        };
-
-        // Adding request to request queue
-        RuchiraApplication.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
     private void execute(String result) {

@@ -17,30 +17,21 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.techcoderz.ruchira.R;
 import com.techcoderz.ruchira.Adapters.ProductCategorySpinnerAdapter;
 import com.techcoderz.ruchira.Adapters.ProductListAdapter;
-import com.techcoderz.ruchira.Application.RuchiraApplication;
 import com.techcoderz.ruchira.Fragments.OtherFragments.RuchiraFragment;
 import com.techcoderz.ruchira.ModelClasses.ProductCategory;
 import com.techcoderz.ruchira.ModelClasses.ProductList;
-import com.techcoderz.ruchira.Utils.AppConfig;
+import com.techcoderz.ruchira.R;
 import com.techcoderz.ruchira.Utils.NetworkUtils;
 import com.techcoderz.ruchira.Utils.TaskUtils;
-import com.techcoderz.ruchira.Utils.UserPreferences;
 import com.techcoderz.ruchira.Utils.ViewUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Shahriar on 9/18/2016.
@@ -188,37 +179,7 @@ public class AddOrderFragment extends RuchiraFragment {
 
         String tag_string_req = "req_product_category";
         final ProgressDialog finalProgressDialog = progressDialog;
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                AppConfig.URL_ORDER_PRODUCT, new Response.Listener<String>() {
 
-            @Override
-            public void onResponse(String response) {
-                Log.e(TAG, "product_category Response: " + response.toString());
-                finalProgressDialog.dismiss();
-                executeForProductCategory(response);
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "product_category Error: " + error.getMessage());
-                finalProgressDialog.dismiss();
-            }
-        }) {
-
-            @Override
-            protected Map<String, String> getParams() {
-                // Posting parameters to login url
-                Map<String, String> params = new HashMap<>();
-                params.put("userId", UserPreferences.getUserId(mFragmentContext));
-                params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
-                params.put("outletId", shopeId);
-                params.put("orderId", orderId);
-                return params;
-            }
-        };
-        // Adding request to request queue
-        RuchiraApplication.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
     private void fetchDataFromServerForProductList(final String selectedCategoryId, final String option) {
@@ -232,36 +193,7 @@ public class AddOrderFragment extends RuchiraFragment {
 
         String tag_string_req = "req_product_list";
         final ProgressDialog finalProgressDialog = progressDialog;
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                AppConfig.URL_PRODUCT_LIST, new Response.Listener<String>() {
 
-            @Override
-            public void onResponse(String response) {
-                Log.e(TAG, "product_list Response: " + response.toString());
-                finalProgressDialog.dismiss();
-                processResultForProductList(response,  option);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "product_list Error: " + error.getMessage());
-                finalProgressDialog.dismiss();
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() {
-                Log.d(TAG, shopeId);
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("userId", UserPreferences.getUserId(mFragmentContext));
-                params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
-                params.put("outletId", shopeId);
-                params.put("categoryId", selectedCategoryId);
-                return params;
-            }
-        };
-
-        // Adding request to request queue
-        RuchiraApplication.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
     private void executeForProductCategory(String result) {
@@ -328,7 +260,7 @@ public class AddOrderFragment extends RuchiraFragment {
     }
 
     private void openMemoFragment() {
-        toLaunchFragment = new MemoFragment(editor);
+        toLaunchFragment = new MemoFragment();
         if (toLaunchFragment != null) {
             Bundle bundle = new Bundle();
             bundle.putString("getShopeName", shopName);

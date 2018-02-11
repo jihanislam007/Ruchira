@@ -12,11 +12,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.techcoderz.ruchira.R;
 import com.techcoderz.ruchira.Application.RuchiraApplication;
 import com.techcoderz.ruchira.Fragments.OtherFragments.RuchiraFragment;
@@ -184,52 +179,7 @@ public class OrderSubmitFragment extends RuchiraFragment {
 
         String tag_string_req = "req_submit_order";
         final ProgressDialog finalProgressDialog = progressDialog;
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                AppConfig.URL_ORDER_ITEM_SUBMIT, new Response.Listener<String>() {
 
-            @Override
-            public void onResponse(String response) {
-                Log.e(TAG, "submit_order Response: " + response.toString());
-                finalProgressDialog.dismiss();
-                executeForOrderItemSubmit(response);
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "submit_order Error: " + error.getMessage());
-                finalProgressDialog.dismiss();
-            }
-        }) {
-
-            @Override
-            protected Map<String, String> getParams() {
-                // Posting parameters to login url
-                Log.d(TAG, "user id: " + UserPreferences.getUserId(mFragmentContext));
-                Log.d(TAG, "token key: " + UserPreferences.getToken(mFragmentContext));
-                Log.d(TAG, "product id: " + productId);
-                Log.d(TAG, "ctn: " + ctn_et.getText().toString());
-                Log.d(TAG, "pcs: " + pcs_et.getText().toString());
-                Log.d(TAG, "cost: " + value_et.getText().toString());
-                Log.d(TAG, "promotion id: " + promotionId);
-                Log.d(TAG, "order date: " + getTodaysDate());
-
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("userId", UserPreferences.getUserId(mFragmentContext));
-                params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
-                params.put("orderId", orderId);
-                params.put("productId", productId);
-                params.put("ctn", ctn_et.getText().toString());
-                params.put("pcs", pcs_et.getText().toString());
-                params.put("cost", value_et.getText().toString());
-                params.put("promotionId", promotionId);
-                params.put("orderDate", getTodaysDate());
-                return params;
-            }
-        };
-
-        // Adding request to request queue
-        RuchiraApplication.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
     private void fetchDataFromServerOrderCancelation() {
@@ -243,36 +193,7 @@ public class OrderSubmitFragment extends RuchiraFragment {
 
         String tag_string_req = "req_cancel_order";
         final ProgressDialog finalProgressDialog = progressDialog;
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                AppConfig.URL_ORDER_CANCEL, new Response.Listener<String>() {
 
-            @Override
-            public void onResponse(String response) {
-                Log.e(TAG, "cancel_order Response: " + response.toString());
-                finalProgressDialog.dismiss();
-                executeForOrderCancelation(response);
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "cancel_order Error: " + error.getMessage());
-                finalProgressDialog.dismiss();
-            }
-        }) {
-
-            @Override
-            protected Map<String, String> getParams() {
-                // Posting parameters to login url
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("userId", UserPreferences.getUserId(mFragmentContext));
-                params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
-                params.put("orderId", orderId);
-                return params;
-            }
-        };
-        // Adding request to request queue
-        RuchiraApplication.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
     private void executeForOrderCancelation(String result) {

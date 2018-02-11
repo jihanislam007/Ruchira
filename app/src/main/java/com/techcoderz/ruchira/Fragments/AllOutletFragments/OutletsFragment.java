@@ -11,11 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.techcoderz.ruchira.R;
 import com.techcoderz.ruchira.Adapters.orderBeatSpinnerAdapter;
 import com.techcoderz.ruchira.Adapters.OutletAdapter;
@@ -115,40 +110,7 @@ public class OutletsFragment extends RuchiraFragment {
 
         String tag_string_req = "req_order";
         final ProgressDialog finalProgressDialog = progressDialog;
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                AppConfig.URL_ORDER_OUTLET, new Response.Listener<String>() {
 
-            @Override
-            public void onResponse(String response) {
-                Log.e(TAG, "order Response: " + response.toString());
-                finalProgressDialog.dismiss();
-                if (swipeRefreshLayout != null) {
-                    swipeRefreshLayout.setRefreshing(false);
-                }
-                processResultForOutlet(response);
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "order Error: " + error.getMessage());
-                finalProgressDialog.dismiss();
-            }
-        }) {
-
-            @Override
-            protected Map<String, String> getParams() {
-                // Posting parameters to login url
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("userId", UserPreferences.getUserId(mFragmentContext));
-                params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
-                params.put("beatId", id);
-                return params;
-            }
-        };
-
-        // Adding request to request queue
-        RuchiraApplication.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
     private void fetchDataFromServer() {
@@ -162,38 +124,7 @@ public class OutletsFragment extends RuchiraFragment {
 
         String tag_string_req = "req_order";
         final ProgressDialog finalProgressDialog = progressDialog;
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                AppConfig.URL_ORDER_BEAT, new Response.Listener<String>() {
 
-            @Override
-            public void onResponse(String response) {
-                Log.e(TAG, "order Response: " + response.toString());
-                finalProgressDialog.dismiss();
-                executeForbeat(response);
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "order Error: " + error.getMessage());
-                finalProgressDialog.dismiss();
-            }
-        }) {
-
-            @Override
-            protected Map<String, String> getParams() {
-                // Posting parameters to login url
-                Map<String, String> params = new HashMap<String, String>();
-                Log.e(TAG,UserPreferences.getUserId(mFragmentContext)+UserPreferences.getToken(mFragmentContext));
-                params.put("userId", UserPreferences.getUserId(mFragmentContext));
-                params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
-                return params;
-            }
-
-        };
-
-        // Adding request to request queue
-        RuchiraApplication.getInstance().addToRequestQueue(strReq, tag_string_req);
 
     }
 

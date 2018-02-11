@@ -12,11 +12,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.techcoderz.ruchira.R;
 import com.techcoderz.ruchira.Adapters.OrderCancelationSpinnerAdapter;
 import com.techcoderz.ruchira.Application.RuchiraApplication;
@@ -132,44 +127,7 @@ public class OrderCancellationFragment extends RuchiraFragment {
 
         String tag_string_req = "req_order_cancelation";
         final ProgressDialog finalProgressDialog = progressDialog;
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                AppConfig.URL_REASON_SUBMIT, new Response.Listener<String>() {
 
-            @Override
-            public void onResponse(String response) {
-                finalProgressDialog.dismiss();
-                processResultForCancellation(response);
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "order Error: " + error.getMessage());
-                finalProgressDialog.dismiss();
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() {
-                // Posting parameters to login url
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("userId", UserPreferences.getUserId(mFragmentContext));
-                params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
-                params.put("reason", reason);
-                params.put("orderId", orderId);
-                params.put("outletId", outletId);
-
-                Log.d(TAG, "user id: " + UserPreferences.getUserId(mFragmentContext));
-                Log.d(TAG, "Token key: " + UserPreferences.getToken(mFragmentContext));
-                Log.d(TAG, "Reason: " + reason);
-                Log.d(TAG, "outlet Id: " + outletId);
-                Log.d(TAG, "order Id: " + orderId);
-
-                return params;
-            }
-        };
-
-        // Adding request to request queue
-        RuchiraApplication.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
     private void fetchDataFromServer() {
@@ -183,35 +141,7 @@ public class OrderCancellationFragment extends RuchiraFragment {
 
         String tag_string_req = "req_order_cancelation_reason";
         final ProgressDialog finalProgressDialog = progressDialog;
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                AppConfig.URL_REASON_LIST, new Response.Listener<String>() {
 
-            @Override
-            public void onResponse(String response) {
-                Log.e(TAG, "order Response: " + response.toString());
-                finalProgressDialog.dismiss();
-                executeReasonList(response);
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "order Error: " + error.getMessage());
-                finalProgressDialog.dismiss();
-            }
-        }) {
-
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("userId", UserPreferences.getUserId(mFragmentContext));
-                params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
-                return params;
-            }
-        };
-
-        // Adding request to request queue
-        RuchiraApplication.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
     private void executeReasonList(String result) {

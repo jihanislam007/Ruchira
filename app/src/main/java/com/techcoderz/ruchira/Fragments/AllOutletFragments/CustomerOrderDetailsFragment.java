@@ -9,11 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.techcoderz.ruchira.R;
 import com.techcoderz.ruchira.Adapters.OrderAdapter;
 import com.techcoderz.ruchira.Application.RuchiraApplication;
@@ -139,38 +134,7 @@ public class CustomerOrderDetailsFragment extends RuchiraFragment {
 
             String tag_string_req = "customer_order_details_req";
             final ProgressDialog finalProgressDialog = progressDialog;
-            StringRequest strReq = new StringRequest(Request.Method.POST,
-                    AppConfig.URL_ORDER_SUMMARY_DETAILS, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    Log.e(TAG, "customer_order_details Response: " + response.toString());
-                    finalProgressDialog.dismiss();
-                    executeForMemo(response);
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.e(TAG, "customer_order_details Error: " + error.getMessage());
-                    finalProgressDialog.dismiss();
-                }
-            }) {
-                @Override
-                protected Map<String, String> getParams() {
-                    // Posting parameters to login url
-                    Map<String, String> params = new HashMap<>();
-                    params.put("userId", UserPreferences.getUserId(mFragmentContext));
-                    params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
-                    params.put("orderDate", date);
-                    params.put("orderId", orderId);
-                    Log.d(TAG, " order Date: " + date);
-                    Log.d(TAG, " order Id: " + orderId);
-                    return params;
-                }
 
-            };
-
-            // Adding request to request queue
-            RuchiraApplication.getInstance().addToRequestQueue(strReq, tag_string_req);
         } else {
             ViewUtils.alertUser(mFragmentContext, "No Memo Available");
         }

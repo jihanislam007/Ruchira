@@ -12,11 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.techcoderz.ruchira.R;
 import com.techcoderz.ruchira.Application.RuchiraApplication;
 import com.techcoderz.ruchira.Fragments.OrderFragments.OrderSubmitFragment;
@@ -133,39 +128,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         progressDialog.setIndeterminate(true);
         progressDialog.show();
 
-        String tag_string_req = "req_product_list";
-        final ProgressDialog finalProgressDialog = progressDialog;
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                AppConfig.URL_VIEW_ORDER_ITEM, new Response.Listener<String>() {
 
-            @Override
-            public void onResponse(String response) {
-                Log.e(TAG, "product_list Response: " + response.toString());
-                finalProgressDialog.dismiss();
-                processResult(response);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "product_list Error: " + error.getMessage());
-                finalProgressDialog.dismiss();
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() {
-                Log.d(TAG, shopeId);
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("userId", UserPreferences.getUserId(context));
-                params.put("tokenKey", UserPreferences.getToken(context));
-                params.put("outletId", bundle.getString("getShopeId"));
-                params.put("productId", bundle.getString("getproductId"));
-                params.put("orderId", orderId);
-                return params;
-            }
-        };
-
-        // Adding request to request queue
-        RuchiraApplication.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
     private void processResult(String response) {

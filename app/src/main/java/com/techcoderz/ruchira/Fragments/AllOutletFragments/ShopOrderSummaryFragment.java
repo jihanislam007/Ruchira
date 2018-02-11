@@ -11,11 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.techcoderz.ruchira.R;
 import com.techcoderz.ruchira.Adapters.OrderSummaryAdapter;
 import com.techcoderz.ruchira.Application.RuchiraApplication;
@@ -154,40 +149,7 @@ public class ShopOrderSummaryFragment extends RuchiraFragment {
 
             String tag_string_req = "req_memo";
             final ProgressDialog finalProgressDialog = progressDialog;
-            StringRequest strReq = new StringRequest(Request.Method.POST,
-                    AppConfig.URL_ORDER_SUMMARY, new Response.Listener<String>() {
 
-                @Override
-                public void onResponse(String response) {
-                    Log.e(TAG, "memo Response: " + response.toString());
-                    finalProgressDialog.dismiss();
-                    executeForMemo(response);
-                }
-            }, new Response.ErrorListener() {
-
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.e(TAG, "memo Error: " + error.getMessage());
-                    finalProgressDialog.dismiss();
-                }
-            }) {
-
-                @Override
-                protected Map<String, String> getParams() {
-                    Log.d(TAG, " month going server: " + String.valueOf(month));
-                    Log.d(TAG, " year going server: " + String.valueOf(year));
-                    Log.d(TAG, " Outlet Id: " + outletId);
-                    Map<String, String> params = new HashMap<String, String>();
-                    params.put("userId", UserPreferences.getUserId(mFragmentContext));
-                    params.put("tokenKey", UserPreferences.getToken(mFragmentContext));
-                    params.put("outletId", outletId);
-                    params.put("month", String.valueOf(month));
-                    params.put("year", String.valueOf(year));
-                    return params;
-                }
-            };
-            // Adding request to request queue
-            RuchiraApplication.getInstance().addToRequestQueue(strReq, tag_string_req);
         } else {
             ViewUtils.alertUser(mFragmentContext, "No Memo Available");
         }
