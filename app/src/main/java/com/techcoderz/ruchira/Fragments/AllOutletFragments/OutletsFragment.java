@@ -1,6 +1,7 @@
 package com.techcoderz.ruchira.Fragments.AllOutletFragments;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatSpinner;
@@ -11,6 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.ResponseHandlerInterface;
+import com.techcoderz.ruchira.Activities.LoginActivity;
+import com.techcoderz.ruchira.Db.OfflineInfo;
 import com.techcoderz.ruchira.R;
 import com.techcoderz.ruchira.Adapters.orderBeatSpinnerAdapter;
 import com.techcoderz.ruchira.Adapters.OutletAdapter;
@@ -18,6 +26,7 @@ import com.techcoderz.ruchira.Application.RuchiraApplication;
 import com.techcoderz.ruchira.Fragments.OtherFragments.RuchiraFragment;
 import com.techcoderz.ruchira.ModelClasses.Beat;
 import com.techcoderz.ruchira.ModelClasses.Outlet;
+import com.techcoderz.ruchira.ServerInfo.ServerInfo;
 import com.techcoderz.ruchira.Utils.AppConfig;
 import com.techcoderz.ruchira.Utils.NetworkUtils;
 import com.techcoderz.ruchira.Utils.TaskUtils;
@@ -31,6 +40,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.HttpResponse;
 
 /**
  * Created by Shahriar on 9/14/2016.
@@ -47,10 +59,13 @@ public class OutletsFragment extends RuchiraFragment {
     private OutletAdapter outletAdapter;
     private GridLayoutManager gridLayoutManager;
 
+    OfflineInfo offlineInfo;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_outlets, container, false);
+        offlineInfo = new OfflineInfo(getContext());
         setupToolbar();
 //        initialize(rootView);
  //       action();
@@ -111,6 +126,37 @@ public class OutletsFragment extends RuchiraFragment {
         String tag_string_req = "req_order";
         final ProgressDialog finalProgressDialog = progressDialog;
 
+
+        /****************HttpClient responds****************/
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.addHeader("Authorization", "Bearer "+offlineInfo.getUserInfo().token);
+
+        RequestParams params = new RequestParams();
+
+        client.post(ServerInfo.BASE_ADDRESS+"dashboard",params,new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+
+            }
+
+
+            /*****************Must write*****************************/
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                Intent intent=new Intent(getContext(), LoginActivity.class);
+                getContext().startActivity(intent);
+                offlineInfo.setUserInfo("");
+            }
+
+            @Override
+            public void onPostProcessResponse(ResponseHandlerInterface instance, HttpResponse
+                    response) {
+                finalProgressDialog.dismiss(); //Just change dialog name
+            }
+            /***************************************/
+        });
+
     }
 
     private void fetchDataFromServer() {
@@ -125,6 +171,35 @@ public class OutletsFragment extends RuchiraFragment {
         String tag_string_req = "req_order";
         final ProgressDialog finalProgressDialog = progressDialog;
 
+        /****************HttpClient responds****************/
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.addHeader("Authorization", "Bearer "+offlineInfo.getUserInfo().token);
+
+        RequestParams params = new RequestParams();
+
+        client.post(ServerInfo.BASE_ADDRESS+"dashboard",params,new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+
+            }
+
+
+                /*****************Must write*****************************/
+        @Override
+        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+            Intent intent=new Intent(getContext(), LoginActivity.class);
+            getContext().startActivity(intent);
+            offlineInfo.setUserInfo("");
+        }
+
+        @Override
+        public void onPostProcessResponse(ResponseHandlerInterface instance, HttpResponse
+        response) {
+            finalProgressDialog.dismiss(); //Just change dialog name
+        }
+        /***************************************/
+    });
 
     }
 

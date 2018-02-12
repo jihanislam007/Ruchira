@@ -409,8 +409,6 @@ public class MainActivity extends RuchiraActivity implements
         final ProgressDialog finalProgressDialog = progressDialog;
 
 
-
-
     }
 
     public void handleResult(String result) {

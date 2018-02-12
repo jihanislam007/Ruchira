@@ -50,7 +50,7 @@
                     android:id="@+id/total_bit_txt"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="00"
+                    android:text="000"
                     android:gravity="center"
                     android:textColor="@color/yellow_new"
                     android:textSize="18sp"/>
@@ -76,9 +76,10 @@
                     android:textSize="18sp"/>
 
                 <TextView
+                    android:id="@+id/totalOutletTv"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="00"
+                    android:text="000"
                     android:gravity="center"
                     android:textColor="@color/yellow_new"
                     android:textSize="18sp"/>
@@ -213,7 +214,7 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1.3">
 
                                 <TextView
                                     android:id="@+id/sale_monthAccumulation"
@@ -228,16 +229,15 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight=".7">
 
                                 <TextView
                                     android:id="@+id/sale_monthAccumulation_txt"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:text="N/A"
-                                    android:lines="2"
                                     android:textColor="@color/yellow_new"
-                                    android:gravity="center"/>
+                                    android:gravity="center_horizontal"/>
 
                             </LinearLayout>
 
@@ -467,7 +467,7 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1.3">
 
                                 <TextView
                                     android:id="@+id/outlet_visited_txt"
@@ -482,16 +482,15 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight=".7">
 
                                 <TextView
                                     android:id="@+id/order_monthAccumulation_txt"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:text="N/A"
-                                    android:lines="2"
                                     android:textColor="@color/yellow_new"
-                                    android:gravity="center"/>
+                                    android:gravity="center_horizontal"/>
 
                             </LinearLayout>
 

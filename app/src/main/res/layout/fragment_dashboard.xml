@@ -85,10 +85,10 @@
                     android:layout_weight="3.5">
 
                     <TextView
-                        android:id="@+id/blance_txt"
+                        android:id="@+id/todaysSale"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="2792500 TK"
+                        android:text="000 TK"
                         android:textSize="47sp"
                         android:textColor="@color/white"
                         android:gravity="center_horizontal"
@@ -156,7 +156,7 @@
                         android:layout_weight="1">
 
                         <TextView
-                            android:id="@+id/order_summery"
+                            android:id="@+id/orderSummary"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="4.26"
@@ -199,6 +199,7 @@
                         android:layout_weight="1">
 
                         <TextView
+                            android:id="@+id/todayTarget"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="N/A"
@@ -242,6 +243,7 @@
                         android:layout_weight="1">
 
                         <TextView
+                            android:id="@+id/remainningOutlet"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="23"
@@ -285,6 +287,7 @@
                         android:layout_weight="1">
 
                         <TextView
+                            android:id="@+id/remainning"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="2792500"

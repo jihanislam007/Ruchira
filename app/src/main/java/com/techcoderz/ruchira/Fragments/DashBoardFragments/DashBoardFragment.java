@@ -41,8 +41,13 @@ import cz.msebera.android.httpclient.HttpResponse;
 public class DashBoardFragment extends RuchiraFragment {
     private final static String TAG = "DashBoardFragment";
     private Fragment toLaunchFragment = null;
-    private TextView view_more_txt, tvTodaysSale, ordersummary_txt,
-            todays_target_txt, outlet_remainning_txt, remainning_txt,order_summery;
+    private TextView view_more_txt,
+            todaysSale,
+
+            orderSummary,
+            todayTargetTv,
+            remainningOutletTv,
+            remainningTv;
 
     OfflineInfo offlineInfo;
 
@@ -66,8 +71,6 @@ public class DashBoardFragment extends RuchiraFragment {
             fetchDataFromServer();
         }
 
-
-
         return rootView;
     }
 
@@ -78,12 +81,12 @@ public class DashBoardFragment extends RuchiraFragment {
 
     private void initialize(View rootView) {
         view_more_txt = (TextView) rootView.findViewById(R.id.view_more_txt);
-        order_summery = (TextView) rootView.findViewById(R.id.order_summery);
-        tvTodaysSale = (TextView) rootView.findViewById(R.id.blance_txt);
-        ordersummary_txt = (TextView) rootView.findViewById(R.id.ordersummary_txt);
-        todays_target_txt = (TextView) rootView.findViewById(R.id.todays_target_txt);
-        outlet_remainning_txt = (TextView) rootView.findViewById(R.id.outlet_remainning_txt);
-        remainning_txt = (TextView) rootView.findViewById(R.id.remainning_txt);
+
+        todaysSale = (TextView) rootView.findViewById(R.id.todaysSale);
+        orderSummary = (TextView) rootView.findViewById(R.id.orderSummary);
+        todayTargetTv = (TextView) rootView.findViewById(R.id.todayTarget);
+        remainningOutletTv = (TextView) rootView.findViewById(R.id.remainningOutlet);
+        remainningTv = (TextView) rootView.findViewById(R.id.remainning);
     }
 
     private void action() {
@@ -130,21 +133,25 @@ public class DashBoardFragment extends RuchiraFragment {
 
                 try {
                     String todaySell=response.getString("todaySell");
-                    tvTodaysSale.setText(todaySell);
-                    String todayOrder=response.getString("todayOrder");
-                    order_summery.setText(todayOrder);
-                    int todayTarget=response.getInt("todayTarget");
-                    String overSell=response.getString("overSell");
-                    String outletRemaining=response.getString("outletRemaining");
+                    todaysSale.setText(todaySell+ " ৳");
 
+                    String todayOrder=response.getString("todayOrder");
+                    orderSummary.setText(todayOrder);
+
+                    int todayTarget=response.getInt("todayTarget");
+                    todayTargetTv.setText(Integer.toString(todayTarget));
+
+                    String outletRemaining=response.getString("outletRemaining");
+                    remainningOutletTv.setText(outletRemaining);
+
+                    String overSell=response.getString("overSell");
+                    remainningTv.setText(overSell);
 
                 } catch (JSONException e) {
 
                 }
 
-
             }
-
 
             /*****************Must write*****************************/
             @Override
@@ -161,8 +168,6 @@ public class DashBoardFragment extends RuchiraFragment {
             /***************************************/
         });
 
-
-
     }
 
     private void execute(String result) {
@@ -171,15 +176,15 @@ public class DashBoardFragment extends RuchiraFragment {
             JSONObject obj = new JSONObject(result);
             int responseResult = obj.getInt("success");
             if (responseResult == 1) {
-                tvTodaysSale.setText(obj.getString("todaySale") + " ৳");
-                ordersummary_txt.setText(obj.getString("orderSummary"));
+                todaysSale.setText(obj.getString("todaySale") + " ৳");
+                orderSummary.setText(obj.getString("orderSummary"));
                 String remaining = obj.getString("remaining");
                 if (remaining.charAt(0) == '-')
-                    remainning_txt.setTextColor(getResources().getColor(R.color.matRed));
-                else remainning_txt.setTextColor(getResources().getColor(R.color.matGreen));
-                remainning_txt.setText(remaining);
-                outlet_remainning_txt.setText(obj.getString("outletRemaining"));
-                todays_target_txt.setText(obj.getString("todayTarget"));
+                    remainningTv.setTextColor(getResources().getColor(R.color.matRed));
+                else remainningTv.setTextColor(getResources().getColor(R.color.matGreen));
+                remainningTv.setText(remaining);
+                remainningOutletTv.setText(obj.getString("outletRemaining"));
+                todayTargetTv.setText(obj.getString("todayTarget"));
                 return;
 
             } else {

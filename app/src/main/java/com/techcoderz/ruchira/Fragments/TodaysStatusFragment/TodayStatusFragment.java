@@ -1,17 +1,26 @@
 package com.techcoderz.ruchira.Fragments.TodaysStatusFragment;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.ResponseHandlerInterface;
+import com.techcoderz.ruchira.Activities.LoginActivity;
+import com.techcoderz.ruchira.Db.OfflineInfo;
 import com.techcoderz.ruchira.R;
 import com.techcoderz.ruchira.Application.RuchiraApplication;
 import com.techcoderz.ruchira.Fragments.OtherFragments.RuchiraFragment;
 import com.techcoderz.ruchira.ModelClasses.OutletRemainning;
 import com.techcoderz.ruchira.ModelClasses.Target;
+import com.techcoderz.ruchira.ServerInfo.ServerInfo;
 import com.techcoderz.ruchira.Utils.AppConfig;
 import com.techcoderz.ruchira.Utils.NetworkUtils;
 import com.techcoderz.ruchira.Utils.TaskUtils;
@@ -26,20 +35,32 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.HttpResponse;
+
 /**
  * Created by Shahriar on 9/14/2016.
  */
 public class TodayStatusFragment extends RuchiraFragment {
     private final static String TAG = "TodayStatusFragment";
 
-    private TextView date_txt, this_month_txt, current_achive_txt,
-            remainnig_target_txt, remainnig_visit_txt, avg_target_visit_txt;
+    private TextView date_txt,
+            this_month_txt,
+            current_achive_txt,
+            remainnig_target_txt,
+            remainnig_visit_txt,
+            avg_target_visit_txt;
 
-    private TextView total_outlet_txt, outlet_remained_txt, outlet_visited_txt,
-            achive_percent_sr_txt, achive_today_txt;
+    private TextView total_outlet_txt,
+            outlet_remained_txt,
+            outlet_visited_txt,
+            achive_percent_sr_txt,
+            achive_today_txt;
 
     private List<Target> targetList;
     private List<OutletRemainning> outletRemainingList;
+
+    OfflineInfo offlineInfo;
 
     public TodayStatusFragment() {
     }
@@ -53,6 +74,7 @@ public class TodayStatusFragment extends RuchiraFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_todays_status, container, false);
+        offlineInfo=new OfflineInfo(getContext());
         initialize(rootView);
         action();
         return rootView;
@@ -95,6 +117,60 @@ public class TodayStatusFragment extends RuchiraFragment {
 
         String tag_string_req = "req_today_status";
         final ProgressDialog finalProgressDialog = progressDialog;
+
+        /*************Must write*************************************/
+        AsyncHttpClient client=new AsyncHttpClient();
+        client.addHeader("Authorization","Bearer "+offlineInfo.getUserInfo().token);
+        /***********************************************************/
+
+        /*client.get("URL",new JsonHttpResponseHandler(){
+
+        });*/
+
+        RequestParams params=new RequestParams();
+
+        client.post(ServerInfo.BASE_ADDRESS+"dashboard",params,new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+
+                try {
+                    String todaySell=response.getString("todaySell");
+                    /*todaysSale.setText(todaySell+ " ৳");
+
+                    String todayOrder=response.getString("todayOrder");
+                    orderSummary.setText(todayOrder);
+
+                    int todayTarget=response.getInt("todayTarget");
+                    todayTargetTv.setText(Integer.toString(todayTarget));
+
+                    String outletRemaining=response.getString("outletRemaining");
+                    remainningOutletTv.setText(outletRemaining);
+
+                    String overSell=response.getString("overSell");
+                    remainningTv.setText(overSell);*/
+
+                } catch (JSONException e) {
+
+                }
+
+            }
+
+
+            /*****************Must write*****************************/
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                Intent intent=new Intent(getContext(), LoginActivity.class);
+                getContext().startActivity(intent);
+                offlineInfo.setUserInfo("");
+            }
+
+            @Override
+            public void onPostProcessResponse(ResponseHandlerInterface instance, HttpResponse response) {
+                finalProgressDialog.dismiss(); //Just change dialog name
+            }
+            /***************************************/
+        });
 
 
     }
