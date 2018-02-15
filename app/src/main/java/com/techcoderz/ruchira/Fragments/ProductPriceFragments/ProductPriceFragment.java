@@ -209,24 +209,17 @@ public class ProductPriceFragment extends RuchiraFragment {
         client.addHeader("Authorization","Bearer "+offlineInfo.getUserInfo().token);
         /***********************************************************/
 
-        /*client.get("URL",new JsonHttpResponseHandler(){
 
-        });*/
 
         RequestParams params=new RequestParams();
 
         client.post(ServerInfo.BASE_ADDRESS+"product-price",params,new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                /*
-                    "todaySell": "2088.8",
-                    "todayOrder": "2",
-                    "todayTarget": 4127,
-                    "overSell": "00",
-                    "outletRemaining": "00"
-                */
+
 
                 try {
+
                     String todaySell=response.getString("todaySell");
 
 
