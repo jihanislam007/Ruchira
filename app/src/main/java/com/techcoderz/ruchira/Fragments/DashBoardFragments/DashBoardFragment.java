@@ -43,7 +43,6 @@ public class DashBoardFragment extends RuchiraFragment {
     private Fragment toLaunchFragment = null;
     private TextView view_more_txt,
             todaysSale,
-
             orderSummary,
             todayTargetTv,
             remainningOutletTv,

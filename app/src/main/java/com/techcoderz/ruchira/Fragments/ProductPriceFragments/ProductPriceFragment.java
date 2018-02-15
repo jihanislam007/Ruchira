@@ -1,6 +1,7 @@
 package com.techcoderz.ruchira.Fragments.ProductPriceFragments;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatSpinner;
@@ -13,7 +14,14 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.ResponseHandlerInterface;
+import com.techcoderz.ruchira.Activities.LoginActivity;
 import com.techcoderz.ruchira.All_product_price_Adaptor;
+import com.techcoderz.ruchira.Db.OfflineInfo;
 import com.techcoderz.ruchira.ModelClasses.Area;
 import com.techcoderz.ruchira.Profile_listview_adapter;
 import com.techcoderz.ruchira.R;
@@ -23,6 +31,7 @@ import com.techcoderz.ruchira.Application.RuchiraApplication;
 import com.techcoderz.ruchira.Fragments.OtherFragments.RuchiraFragment;
 import com.techcoderz.ruchira.ModelClasses.Company;
 import com.techcoderz.ruchira.ModelClasses.ProductList;
+import com.techcoderz.ruchira.ServerInfo.ServerInfo;
 import com.techcoderz.ruchira.Utils.AppConfig;
 import com.techcoderz.ruchira.Utils.NetworkUtils;
 import com.techcoderz.ruchira.Utils.TaskUtils;
@@ -37,9 +46,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.HttpResponse;
+
 /**
  * Created by Shahriar on 9/14/2016.
  */
+
 public class ProductPriceFragment extends RuchiraFragment {
     private final static String TAG = "ProductPriceFragment";
     private Fragment toLaunchFragment = null;
@@ -55,6 +68,8 @@ public class ProductPriceFragment extends RuchiraFragment {
     private ProductAdapter productAdapter;
     private LinearLayoutManager manager;
     private TextView company_title_txt;
+
+    OfflineInfo offlineInfo;
 
     ///////////////////////////////////////////////
     ListView listView;
@@ -83,8 +98,9 @@ public class ProductPriceFragment extends RuchiraFragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_product_price, container, false);
         setupToolbar();
+        offlineInfo = new OfflineInfo(getContext());
    //     initialize(rootView);
-//        action();
+   //     action();
         if(NetworkUtils.hasInternetConnection(mFragmentContext)) {
             fetchDataFromServer();
         }
@@ -103,6 +119,7 @@ public class ProductPriceFragment extends RuchiraFragment {
     //    company_title_txt = (TextView) rootView.findViewById(R.id.company_title_txt);
 
         ///////////////////////////////////////////////////
+
         DemoList = new ArrayList<>();
         listView = (ListView) rootView.findViewById(R.id.report_rcview);
 
@@ -186,6 +203,53 @@ public class ProductPriceFragment extends RuchiraFragment {
         String tag_string_req = "req_order";
         final ProgressDialog finalProgressDialog = progressDialog;
 
+
+        /*************Must write*************************************/
+        AsyncHttpClient client=new AsyncHttpClient();
+        client.addHeader("Authorization","Bearer "+offlineInfo.getUserInfo().token);
+        /***********************************************************/
+
+        /*client.get("URL",new JsonHttpResponseHandler(){
+
+        });*/
+
+        RequestParams params=new RequestParams();
+
+        client.post(ServerInfo.BASE_ADDRESS+"product-price",params,new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                /*
+                    "todaySell": "2088.8",
+                    "todayOrder": "2",
+                    "todayTarget": 4127,
+                    "overSell": "00",
+                    "outletRemaining": "00"
+                */
+
+                try {
+                    String todaySell=response.getString("todaySell");
+
+
+                } catch (JSONException e) {
+
+                }
+
+            }
+
+            /*****************Must write*****************************/
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                Intent intent=new Intent(getContext(), LoginActivity.class);
+                getContext().startActivity(intent);
+                offlineInfo.setUserInfo("");
+            }
+
+            @Override
+            public void onPostProcessResponse(ResponseHandlerInterface instance, HttpResponse response) {
+                finalProgressDialog.dismiss(); //Just change dialog name
+            }
+            /***************************************/
+        });
 
     }
 

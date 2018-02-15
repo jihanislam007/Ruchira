@@ -33,8 +33,8 @@ public class AllSummaryFragment extends RuchiraFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_all_summary, container, false);
-        /*setupActionBar();
-        initialize(rootView);
+        setupActionBar();
+       /* initialize(rootView);
         action();*/
         FragmentStatePagerItemAdapter adapter=new FragmentStatePagerItemAdapter(
                 ((AppCompatActivity)context).getSupportFragmentManager(),
@@ -59,11 +59,11 @@ public class AllSummaryFragment extends RuchiraFragment {
         this.context=context;
 
     }
-    /*private void setupActionBar() {
+    private void setupActionBar() {
         mFragmentContext.getSupportActionBar().show();
     }
 
-    private void initialize(View rootView) {
+  /*  private void initialize(View rootView) {
         editProfileLayout = (RelativeLayout)rootView.findViewById(R.id.editProfileLayout);
         sendFeedbackLayout = (RelativeLayout)rootView.findViewById(R.id.sendFeedbackLayout);
         aboutLayout = (RelativeLayout)rootView.findViewById(R.id.aboutLayout);

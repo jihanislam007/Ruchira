@@ -33,7 +33,7 @@
                     android:gravity="center_vertical">
 
                     <TextView
-                        android:id="@+id/UserIDTextView"
+                        android:id="@+id/YearlyUserIDTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Ujjal Gupta"
@@ -41,10 +41,10 @@
                         android:textSize="18sp" />
 
                     <TextView
-                        android:id="@+id/phone_txt"
+                        android:id="@+id/YearlyPhoneNumberTv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_toRightOf="@+id/UserIDTextView"
+                        android:layout_toRightOf="@+id/YearlyUserIDTextView"
                         android:gravity="end"
                         android:text="Cell: 01112122334"
                         android:textColor="@color/white"
@@ -65,7 +65,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/id_txt"
+                        android:id="@+id/YearlySRidTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="SR ID #003"
@@ -73,9 +73,10 @@
                         android:textSize="18sp" />
 
                     <TextView
+                        android:id="@+id/YearlyDateTv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_toRightOf="@+id/id_txt"
+                        android:layout_toRightOf="@+id/YearlySRidTv"
                         android:gravity="end"
                         android:text="Date: 12.12.17"
                         android:textColor="@color/white"
@@ -132,7 +133,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center"
-                            android:text="Order"
+                            android:text="Order's"
                             android:textColor="@color/white"
                             android:textSize="18sp" />
 
@@ -168,7 +169,7 @@
             android:background="@color/white">
 
             <ListView
-                android:id="@+id/AllSummaryListView"
+                android:id="@+id/YearlyAllSummaryListView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"></ListView>
 
@@ -204,7 +205,7 @@
                         android:textSize="18sp" />
 
                     <TextView
-                        android:id="@+id/TotalSellTextView"
+                        android:id="@+id/YearlyTotalSellTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginRight="24dp"
