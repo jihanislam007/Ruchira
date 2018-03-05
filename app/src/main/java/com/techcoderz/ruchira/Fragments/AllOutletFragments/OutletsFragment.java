@@ -19,6 +19,7 @@ import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.ResponseHandlerInterface;
 import com.techcoderz.ruchira.Activities.LoginActivity;
 import com.techcoderz.ruchira.Db.OfflineInfo;
+import com.techcoderz.ruchira.ModelClasses.Area;
 import com.techcoderz.ruchira.R;
 import com.techcoderz.ruchira.Adapters.orderBeatSpinnerAdapter;
 import com.techcoderz.ruchira.Adapters.OutletAdapter;
@@ -33,6 +34,8 @@ import com.techcoderz.ruchira.Utils.TaskUtils;
 import com.techcoderz.ruchira.Utils.UserPreferences;
 import com.techcoderz.ruchira.Utils.ViewUtils;
 
+import org.greenrobot.eventbus.Logger;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -67,8 +70,8 @@ public class OutletsFragment extends RuchiraFragment {
         View rootView = inflater.inflate(R.layout.fragment_outlets, container, false);
         offlineInfo = new OfflineInfo(getContext());
         setupToolbar();
-//        initialize(rootView);
- //       action();
+        initialize(rootView);
+        action();
         if(NetworkUtils.hasInternetConnection(mFragmentContext)) {
             fetchDataFromServer();
         }
@@ -85,16 +88,16 @@ public class OutletsFragment extends RuchiraFragment {
         outlet_rcview = (RecyclerView) rootView.findViewById(R.id.outlet_rcview);
         beatList = new ArrayList<>();
         outletList = new ArrayList<>();
-       /* swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_outlet_list);
+    //    swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_outlet_list);
         orderBeatSpinnerAdapter = new orderBeatSpinnerAdapter(mFragmentContext, R.layout.beat_list, beatList);
-        orderBeatSpinnerAdapter.setDropDownViewResource(R.layout.beat_list);*/
+        orderBeatSpinnerAdapter.setDropDownViewResource(R.layout.beat_list);
 
         gridLayoutManager = new GridLayoutManager(mFragmentContext, 3);
         outletAdapter = new OutletAdapter(mFragmentContext, outletList, 1);
 
-      /*  outlet_rcview.setAdapter(outletAdapter);
+        outlet_rcview.setAdapter(outletAdapter);
         outlet_rcview.setHasFixedSize(true);
-        outlet_rcview.setLayoutManager(gridLayoutManager);*/
+        outlet_rcview.setLayoutManager(gridLayoutManager);
     }
 
     private void action() {
@@ -127,21 +130,70 @@ public class OutletsFragment extends RuchiraFragment {
         final ProgressDialog finalProgressDialog = progressDialog;
 
 
-        /****************HttpClient responds****************/
+        /***************HttpClient responds***************/
         AsyncHttpClient client = new AsyncHttpClient();
         client.addHeader("Authorization", "Bearer "+offlineInfo.getUserInfo().token);
 
         RequestParams params = new RequestParams();
 
-        client.post(ServerInfo.BASE_ADDRESS+"dashboard",params,new JsonHttpResponseHandler(){
+        client.get(ServerInfo.BASE_ADDRESS+"outlet/"+id,params,new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
+                /*
+                {
+    "outlets": {
+        "total": 3,
+        "per_page": 20,
+        "current_page": 1,
+        "last_page": 1,
+        "next_page_url": null,
+        "prev_page_url": null,
+        "from": 1,
+        "to": 3,
+        "data": [
+            {
+                "outlet_id": 12,
+                "outlet_name": "Anamica Traders",
+                "outlet_group": "Silver"
+            },
+            {
+                "outlet_id": 13,
+                "outlet_name": "Sarder Traders",
+                "outlet_group": "Platinum"
+            },
+            {
+                "outlet_id": 14,
+                "outlet_name": "Sagor Traders",
+                "outlet_group": "Silver"
+            }
+        ]
+    }
+}
+                */
+                outletList.clear();
+                outletAdapter.notifyDataSetChanged();
 
+                try {
+                    JSONObject jsonObject = response.getJSONObject("outletList");
+
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+                    for(int i=0; i<jsonArray.length();i++){
+
+                        JSONObject jsonObject_2 = jsonArray.getJSONObject(i);
+
+                        outletList.add(new Outlet(jsonObject_2.getString("outlet_id"),jsonObject_2.getString("outlet_name"),jsonObject_2.getString("outlet_group"),"","",""));
+
+                    }
+                    outletAdapter.notifyDataSetChanged();
+                }
+                catch (Exception e){
+
+                };
             }
 
 
-            /*****************Must write*****************************/
+            /****************Must write****************************/
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 Intent intent=new Intent(getContext(), LoginActivity.class);
@@ -154,7 +206,7 @@ public class OutletsFragment extends RuchiraFragment {
                     response) {
                 finalProgressDialog.dismiss(); //Just change dialog name
             }
-            /***************************************/
+            /*************************************/
         });
 
     }
@@ -177,10 +229,46 @@ public class OutletsFragment extends RuchiraFragment {
 
         RequestParams params = new RequestParams();
 
-        client.post(ServerInfo.BASE_ADDRESS+"dashboard",params,new JsonHttpResponseHandler(){
+        client.get(ServerInfo.BASE_ADDRESS+"beat",params,new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+/*
+                {
+    "beatList": [
+        {
+            "beat_id": 19,
+            "beat_name": "Boro Bazar"
+        },
+        {
+            "beat_id": 23,
+            "beat_name": "Laboni More"
+        }
+    ]
+}
+                */
 
+              //  JSONArray jsonArray = response.getJSONArray("");
+
+                try{
+
+                    System.out.print(response.toString());
+
+                    JSONArray jsonArray = response.getJSONArray("beatList");
+
+                    for(int i=0 ; i<jsonArray.length(); i++){
+
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                        beatList.add(new Beat(jsonObject.getString("beat_id"),jsonObject.getString("beat_name")));
+
+                    }
+
+                    System.out.print("location size "+beatList.size());
+                    orderBeatSpinnerAdapter.notifyDataSetChanged();
+
+                } catch (Exception e){
+                    e.printStackTrace();
+                };
 
             }
 

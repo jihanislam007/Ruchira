@@ -159,7 +159,7 @@
                             android:id="@+id/orderSummary"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:text="4.26"
+                            android:text="000."
                             android:lines="2"
                             android:textColor="@color/yellow_new"/>
 
@@ -202,7 +202,7 @@
                             android:id="@+id/todayTarget"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:text="N/A"
+                            android:text="N/A."
                             android:lines="2"
                             android:textColor="@color/yellow_new"/>
 
@@ -246,7 +246,7 @@
                             android:id="@+id/remainningOutlet"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:text="23"
+                            android:text="000."
                             android:lines="2"
                             android:textColor="@color/yellow_new"/>
 
@@ -290,7 +290,7 @@
                             android:id="@+id/remainning"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:text="2792500"
+                            android:text="000."
                             android:lines="2"
                             android:textColor="@color/yellow_new"/>
 

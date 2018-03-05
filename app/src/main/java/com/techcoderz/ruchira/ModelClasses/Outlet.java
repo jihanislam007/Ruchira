@@ -12,6 +12,18 @@ public class Outlet {
     String reason;
     String outletId;
 
+    public Outlet() {
+    }
+
+    public Outlet(String oid, String title, String group, String flag, String reason, String outletId) {
+        this.oid = oid;
+        this.title = title;
+        this.group = group;
+        this.flag = flag;
+        this.reason = reason;
+        this.outletId = outletId;
+    }
+
     public String getOutletId() {
         return outletId;
     }

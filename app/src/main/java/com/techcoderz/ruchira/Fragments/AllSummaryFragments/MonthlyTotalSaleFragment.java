@@ -47,7 +47,7 @@ import cz.msebera.android.httpclient.HttpResponse;
 public class MonthlyTotalSaleFragment extends RuchiraFragment {
     private final static String TAG = "MonthlyTotalSale";
     private List<Report> reportList;
-    private ListView MonthlyAllSummaryListView;
+    private RecyclerView MonthlyAllSummaryRecyclerView;
     private TextView MonthlyUserIDTv,
             MonthlyphoneNumberTv,
             MonthlySRidTv,
@@ -82,16 +82,16 @@ public class MonthlyTotalSaleFragment extends RuchiraFragment {
         MonthlyUserIDTv = (TextView) rootView.findViewById(R.id.MonthlyUserIDTv);
         MonthlyphoneNumberTv = (TextView) rootView.findViewById(R.id.MonthlyphoneNumberTv);
         MonthlySRidTv = (TextView) rootView.findViewById(R.id.MonthlySRidTv);
-        MonthlyAllSummaryListView = (ListView) rootView.findViewById(R.id.MonthlyAllSummaryListView);
         MonthlyDateTv = (TextView) rootView.findViewById(R.id.MonthlyDateTv);
+        MonthlyAllSummaryRecyclerView = (RecyclerView) rootView.findViewById(R.id.MonthlyAllSummaryRecyclerView);
         MonthlyTotalSellTextView = (TextView) rootView.findViewById(R.id.MonthlyTotalSellTextView);
 
         manager = new LinearLayoutManager(mFragmentContext);
         reportAdapter = new ReportAdapter(mFragmentContext, reportList);
 
-//        MonthlyAllSummaryListView.setAdapter(reportAdapter);
- //       MonthlyAllSummaryListView.setHasFixedSize(true);
- //       MonthlyAllSummaryListView.setLayoutManager(manager);
+        MonthlyAllSummaryRecyclerView.setAdapter(reportAdapter);
+        MonthlyAllSummaryRecyclerView.setHasFixedSize(true);
+        MonthlyAllSummaryRecyclerView.setLayoutManager(manager);
     }
 
     private void fetchDataFromServer() {
@@ -117,13 +117,68 @@ public class MonthlyTotalSaleFragment extends RuchiraFragment {
 
         RequestParams params=new RequestParams();
 
-        client.post(ServerInfo.BASE_ADDRESS+"dashboard",params,new JsonHttpResponseHandler(){
+        client.get(ServerInfo.BASE_ADDRESS+"monthly-sale",params,new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
+                /*
+                {
+    "user_name": "Ruchira Admin",
+    "sr_id": "U007",
+    "cell_on": "01577832252",
+    "month": "February",
+
+    "monthlyList": {
+        "total": 4,
+        "per_page": 20,
+        "current_page": 1,
+        "last_page": 1,
+        "next_page_url": null,
+        "prev_page_url": null,
+        "from": 1,
+        "to": 4,
+        "data": [
+            {
+                "order_date": "2018-02-01",
+                "orders": 2,
+                "amount": 820
+            },
+            {
+                "order_date": "2018-02-21",
+                "orders": 1,
+                "amount": 1400
+            },
+            {
+                "order_date": "2018-02-22",
+                "orders": 1,
+                "amount": 566
+            },
+            {
+                "order_date": "2018-02-25",
+                "orders": 4,
+                "amount": 9870
+            }
+        ]
+    },
+    "monthlyTotal": 12656
+}*/
 
                 try {
-                    String todaySell=response.getString("todaySell");
+
+                    String user_name=response.getString("user_name");
+                    MonthlyUserIDTv.setText(user_name);
+
+                    String cell_on=response.getString("cell_on");
+                    MonthlyphoneNumberTv.setText(cell_on);
+
+                    String sr_id=response.getString("sr_id");
+                    MonthlySRidTv.setText(sr_id);
+
+                    String month=response.getString("month");
+                    MonthlyDateTv.setText(month);
+
+                    String monthlyTotal =response.getString("monthlyTotal");
+                    MonthlyTotalSellTextView.setText(monthlyTotal+" ৳");
 
 
                 } catch (JSONException e) {

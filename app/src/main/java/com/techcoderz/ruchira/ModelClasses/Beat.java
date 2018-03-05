@@ -8,6 +8,14 @@ public class Beat {
     String id;
     String title;
 
+    public Beat() {
+    }
+
+    public Beat(String id, String title) {
+        this.id = id;
+        this.title = title;
+    }
+
     public String getId() {
         return id;
     }

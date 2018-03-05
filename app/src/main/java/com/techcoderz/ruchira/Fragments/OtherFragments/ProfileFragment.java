@@ -12,9 +12,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -34,6 +37,7 @@ import com.techcoderz.ruchira.Utils.TaskUtils;
 import com.techcoderz.ruchira.Utils.UserPreferences;
 import com.techcoderz.ruchira.Utils.ViewUtils;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -54,17 +58,20 @@ public class ProfileFragment extends RuchiraFragment {
     private final static String TAG = "ProfileFragment";
     private Fragment toLaunchFragment = null;
     private List<Area> areaList;
-    private ListView profileListView;
-    private CircleImageView ProfileImageIconIv;
+    private RecyclerView profileRecyclerView;
+
+    private ImageView ProfileImageIconIv;
+
     private TextView ProfileUserNameTv,
             ProfileDesignationTv,
             ProfileJoiningDate,
-            status_txt;
+            ProfileTargetTv,
+            ProfieRemainingTv;
+    //   status_txt;
 
     private LinearLayoutManager manager;
     private AreaAdapter areaAdapter;
     OfflineInfo offlineInfo;
-
 
     public ProfileFragment() {
     }
@@ -80,7 +87,7 @@ public class ProfileFragment extends RuchiraFragment {
         View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
         offlineInfo = new OfflineInfo(getContext());
         setupToolbar();
-//        initialize(rootView);
+        initialize(rootView);
         if(NetworkUtils.hasInternetConnection(mFragmentContext)) {
             fetchDataFromServer();
         }
@@ -94,26 +101,25 @@ public class ProfileFragment extends RuchiraFragment {
 
     private void initialize(View rootView) {
         areaList = new ArrayList<>();
-        ProfileImageIconIv = (CircleImageView) rootView.findViewById(R.id.ProfileImageIconIv);
+
+        ProfileImageIconIv = (ImageView) rootView.findViewById(R.id.ProfileImageIconIv);
         ProfileUserNameTv = (TextView) rootView.findViewById(R.id.ProfileUserNameTv);
         ProfileDesignationTv = (TextView) rootView.findViewById(R.id.ProfileDesignationTv);
         ProfileJoiningDate = (TextView) rootView.findViewById(R.id.ProfileJoiningDate);
+        ProfileTargetTv = (TextView) rootView.findViewById(R.id.ProfileTargetTv);
+        ProfieRemainingTv = (TextView) rootView.findViewById(R.id.ProfieRemainingTv);
 
-        profileListView = (ListView) rootView.findViewById(R.id.profileListView);
-        status_txt = (TextView) rootView.findViewById(R.id.status_txt);
+        profileRecyclerView = (RecyclerView) rootView.findViewById(R.id.profileRecyclerView);
+        // status_txt = (TextView) rootView.findViewById(R.id.status_txt);
 
         manager = new LinearLayoutManager(mFragmentContext);
         areaAdapter = new AreaAdapter(mFragmentContext, areaList);
-     //   profileListView.setAdapter(areaAdapter);
-     //   profileListView.setHasFixedSize(true);
-     //   profileListView.setLayoutManager(manager);
 
-        ///////////////////////////////////////////////////
-       /* areaList = new ArrayList<>();
-        listView = (ListView) rootView.findViewById(R.id.profileListView);
+        profileRecyclerView.setAdapter(areaAdapter);
+        profileRecyclerView.setHasFixedSize(true);
+        profileRecyclerView.setLayoutManager(manager);
 
-        Profile_listview_adapter adapter = new Profile_listview_adapter(getContext() , Name);
-        listView.setAdapter(adapter);*/
+
     }
 
     private void fetchDataFromServer() {
@@ -143,47 +149,64 @@ public class ProfileFragment extends RuchiraFragment {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
-                /* "{
-                ""full_name"": ""Abul Kalam"",
-                        ""email"": ""kalam@gmail.com"",
-                        ""mobile_no"": ""01714343456"",
-                        ""designation "": ""Sales Representative"",
-                        ""joining_date"": ""07-01-2018"",
-                        ""image"": ""http://ruchira.techcoderz.com/public/Backend/image/user/mjUifMenWshZY8yTk9VP.jpg"",
-                                ""area"":
-                                    [
-                                        {
-                                        ""beat_name"": ""Laboni More""
-                                        },
-                                        {
-                                        ""beat_name"": ""Katia Bazar""
-                                        }
-                                    ]
-            }"*/
+                /* {
+    "image": "http://localhost/ruchira/public/Backend/image/user/user.png",
+    "user_name": "Ruchira Admin",
+    "designation ": "Admin",
+    "joining_date": "11-04-2017",
+    "totalTarget": 55500,
+    "remaingTarget": 42844,
+
+
+    "area_list": [
+        {
+            "beat_name": "Boro Bazar"
+        },
+        {
+            "beat_name": "Laboni More"
+        }
+    ]
+}*/
 
                 try {
 
-                    /*URL url = new URL("http://image10.bizrate-images.com/resize?sq=60&uid=2216744464");
-                    Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-                    ProfileImageIconIv.setImageBitmap(bmp);*/
+                    Glide.with(getContext())
+                            .load("image")
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .into(ProfileImageIconIv);
 
-                    String full_name=response.getString("full_name");
-                 //   ProfileUserNameTv.setText(full_name);
+                    String user_name=response.getString("user_name");
+                    ProfileUserNameTv.setText(user_name);
 
-                    String designation=response.getString("designation");
+                    String designation =response.getString("designation ");
                     ProfileDesignationTv.setText(designation);
 
-                    int joining_date=response.getInt("joining_date");
-                    ProfileJoiningDate.setText(Integer.toString(joining_date));
+                    String joining_date =response.getString("joining_date");
+                    ProfileJoiningDate.setText(joining_date);
 
-                    /*String outletRemaining=response.getString("outletRemaining");
-                    remainningOutletTv.setText(outletRemaining);
+                    int totalTarget =response.getInt("totalTarget");
+                    ProfileTargetTv.setText(Integer.toString(totalTarget));
 
-                    String overSell=response.getString("overSell");
-                    remainningTv.setText(overSell);*/
+                    String remaingTarget =response.getString("remaingTarget");
+                    ProfieRemainingTv.setText(remaingTarget);
+
+             //       System.out.println("Try to load area");
+             //       System.out.println(response.toString());
+
+                    JSONArray jsonArray = response.getJSONArray("areaList");
+                    System.out.println("area size "+jsonArray);
+                    for(int i=0 ; i<jsonArray.length(); i++){
+
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                        areaList.add(new Area(0+"",jsonObject.getString("beat_name")));
+
+                    }
+            //        System.out.print("location size "+areaList.size());
+                    areaAdapter.notifyDataSetChanged();
 
                 } catch (JSONException e) {
-
+                    e.printStackTrace();
                 }
 
             }
@@ -212,10 +235,18 @@ public class ProfileFragment extends RuchiraFragment {
             int responseResult = obj.getInt("success");
             Log.d(TAG, result.toString());
             if (responseResult == 1) {
-                ProfileJoiningDate.setText("Joining Date : "+obj.getString("joiningDate"));
-                ProfileDesignationTv.setText("Designation : "+obj.getString("desgination"));
-                ProfileUserNameTv.setText(obj.getString("userName"));
-                status_txt.setText(obj.getString("name"));
+
+                // ProfileJoiningDate.setText("Joining Date : "+obj.getString("joining_date"));
+
+                //  ProfileDesignationTv.setText("Designation : "+obj.getString("designation"));
+                ProfileUserNameTv.setText(obj.getString("user_name"));
+
+                ProfileJoiningDate.setText(obj.getString("joining_date"));
+                ProfileDesignationTv.setText(obj.getString("designation"));
+
+                ProfileTargetTv.setText(obj.getString("totalTarget"));
+                ProfieRemainingTv.setText(obj.getString("remaingTarget"));
+                //status_txt.setText(obj.getString("name"));
                 Picasso.with(mFragmentContext)
                         .load(obj.getString("profileImg"))
                         .into(ProfileImageIconIv);

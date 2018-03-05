@@ -8,6 +8,14 @@ public class Area {
     String beatId;
     String beatName;
 
+    public Area() {
+    }
+
+    public Area(String beatId, String beatName) {
+        this.beatId = beatId;
+        this.beatName = beatName;
+    }
+
     public String getBeatId() {
         return beatId;
     }

@@ -72,7 +72,7 @@ public class ProductPriceFragment extends RuchiraFragment {
     OfflineInfo offlineInfo;
 
     ///////////////////////////////////////////////
-    ListView listView;
+   // ListView listView;
     String[] Name ={"abc",
             "def",
             "sha",
@@ -99,8 +99,8 @@ public class ProductPriceFragment extends RuchiraFragment {
         View rootView = inflater.inflate(R.layout.fragment_product_price, container, false);
         setupToolbar();
         offlineInfo = new OfflineInfo(getContext());
-   //     initialize(rootView);
-   //     action();
+        initialize(rootView);
+        action();
         if(NetworkUtils.hasInternetConnection(mFragmentContext)) {
             fetchDataFromServer();
         }
@@ -115,20 +115,19 @@ public class ProductPriceFragment extends RuchiraFragment {
     private void initialize(View rootView) {
 
         beat_spinner = (AppCompatSpinner) rootView.findViewById(R.id.beat_spinner);
-    //    report_rcview = (RecyclerView) rootView.findViewById(R.id.report_rcview);
+        report_rcview = (RecyclerView) rootView.findViewById(R.id.report_rcview);
     //    company_title_txt = (TextView) rootView.findViewById(R.id.company_title_txt);
 
         ///////////////////////////////////////////////////
 
         DemoList = new ArrayList<>();
-        listView = (ListView) rootView.findViewById(R.id.report_rcview);
+        report_rcview = (RecyclerView) rootView.findViewById(R.id.report_rcview);
 
-        All_product_price_Adaptor adapter = new All_product_price_Adaptor(getContext() , Name , Price);
-        listView.setAdapter(adapter);
+        /*All_product_price_Adaptor adapter = new All_product_price_Adaptor(getContext() , Name , Price);
+        report_rcview.setAdapter(adapter);*/
 
         //////////////////////////////////////////////////
-/*
-        productList = new ArrayList<>();
+      /*  productList = new ArrayList<>();
         companyList = new ArrayList<>();
 
 
@@ -147,17 +146,16 @@ public class ProductPriceFragment extends RuchiraFragment {
         promotionCompanySpinnerAdapter.setDropDownViewResource(R.layout.beat_list);
 
         manager = new LinearLayoutManager(mFragmentContext,LinearLayoutManager.VERTICAL,false);
-        productAdapter = new ProductAdapter(mFragmentContext, productList);
+        productAdapter = new ProductAdapter(mFragmentContext, productList);*/
 
-
-        //report_rcview.setHasFixedSize(true);
+        report_rcview.setHasFixedSize(true);
         report_rcview.setLayoutManager(manager);
-        report_rcview.setAdapter(productAdapter);*/
+        report_rcview.setAdapter(productAdapter);
 
     }
 
     private void action() {
-    //    beat_spinner.setAdapter(promotionCompanySpinnerAdapter);
+        beat_spinner.setAdapter(promotionCompanySpinnerAdapter);
         beat_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -187,6 +185,46 @@ public class ProductPriceFragment extends RuchiraFragment {
 
         String tag_string_req = "req_product";
         final ProgressDialog finalProgressDialog = progressDialog;
+
+        /*************Must write*************************************/
+        AsyncHttpClient client=new AsyncHttpClient();
+        client.addHeader("Authorization","Bearer "+offlineInfo.getUserInfo().token);
+        /***********************************************************/
+
+
+
+        RequestParams params=new RequestParams();
+
+        client.post(ServerInfo.BASE_ADDRESS+"product-price",params,new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+
+                try {
+
+                    String todaySell=response.getString("todaySell");
+
+
+                } catch (JSONException e) {
+
+                }
+
+            }
+
+            /*****************Must write*****************************/
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                Intent intent=new Intent(getContext(), LoginActivity.class);
+                getContext().startActivity(intent);
+                offlineInfo.setUserInfo("");
+            }
+
+            @Override
+            public void onPostProcessResponse(ResponseHandlerInterface instance, HttpResponse response) {
+                finalProgressDialog.dismiss(); //Just change dialog name
+            }
+            /***************************************/
+        });
 
     }
 

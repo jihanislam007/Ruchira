@@ -119,35 +119,40 @@ public class DashBoardFragment extends RuchiraFragment {
 
         RequestParams params=new RequestParams();
 
-        client.post(ServerInfo.BASE_ADDRESS+"dashboard",params,new JsonHttpResponseHandler(){
+        client.get(ServerInfo.BASE_ADDRESS+"dashboard",params,new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                System.out.println(response);
                 /*
-                    "todaySell": "2088.8",
-                    "todayOrder": "2",
-                    "todayTarget": 4127,
-                    "overSell": "00",
-                    "outletRemaining": "00"
+                    {
+    "todaySell": 566,
+    "orderSummary": "00",
+    "todayTarget": 6390.71,
+    "outletRemaining": 15,
+    "remainingTarget": 44735
+}
                 */
 
                 try {
-                    String todaySell=response.getString("todaySell");
-                    todaysSale.setText(todaySell+ " ৳");
 
-                    String todayOrder=response.getString("todayOrder");
+                    int todaySell=response.getInt("todaySell");
+                    todaysSale.setText(Integer.toString(todaySell)+ " ৳");
+
+                    String todayOrder=response.getString("orderSummary");
                     orderSummary.setText(todayOrder);
 
-                    int todayTarget=response.getInt("todayTarget");
-                    todayTargetTv.setText(Integer.toString(todayTarget));
+                    String todayTarget=response.getString("todayTarget");
+                    todayTargetTv.setText(todayTarget);
 
                     String outletRemaining=response.getString("outletRemaining");
                     remainningOutletTv.setText(outletRemaining);
 
-                    String overSell=response.getString("overSell");
-                    remainningTv.setText(overSell);
+                    String remainingTarget=response.getString("remainingTarget");
+                    remainningTv.setText(remainingTarget);
+
 
                 } catch (JSONException e) {
-
+e.printStackTrace();
                 }
 
             }

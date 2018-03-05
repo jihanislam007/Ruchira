@@ -68,6 +68,7 @@ public class AreaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     class RecyclerViewSubHolders extends RecyclerView.ViewHolder {
+
         public TextView beat_name_txt;
         public RecyclerViewSubHolders(View itemView) {
             super(itemView);

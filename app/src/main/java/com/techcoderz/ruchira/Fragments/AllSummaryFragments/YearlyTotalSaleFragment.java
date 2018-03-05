@@ -45,7 +45,7 @@ import cz.msebera.android.httpclient.HttpResponse;
 public class YearlyTotalSaleFragment extends RuchiraFragment {
     private final static String TAG = "YearlyTotalSaleFragment";
     private List<Report> reportList;
-    private ListView YearlyAllSummaryListView;
+    private RecyclerView YearlyAllSummaryRecyclerView;
     private TextView YearlyUserIDTextView,
             YearlyPhoneNumberTv,
             YearlySRidTv,
@@ -78,15 +78,15 @@ public class YearlyTotalSaleFragment extends RuchiraFragment {
         YearlyPhoneNumberTv = (TextView) rootView.findViewById(R.id.YearlyPhoneNumberTv);
         YearlySRidTv = (TextView) rootView.findViewById(R.id.YearlySRidTv);
         YearlyDateTv = (TextView) rootView.findViewById(R.id.YearlyDateTv);
-        YearlyAllSummaryListView = (ListView) rootView.findViewById(R.id.YearlyAllSummaryListView);
+        YearlyAllSummaryRecyclerView = (RecyclerView) rootView.findViewById(R.id.YearlyAllSummaryRecyclerView);
         YearlyTotalSellTextView = (TextView) rootView.findViewById(R.id.YearlyTotalSellTextView);
 
         manager = new LinearLayoutManager(mFragmentContext);
         reportAdapter = new ReportAdapter(mFragmentContext, reportList);
 
-//        YearlyAllSummaryListView.setAdapter(reportAdapter);
- //       YearlyAllSummaryListView.setHasFixedSize(true);
- //       YearlyAllSummaryListView.setLayoutManager(manager);
+        YearlyAllSummaryRecyclerView.setAdapter(reportAdapter);
+        YearlyAllSummaryRecyclerView.setHasFixedSize(true);
+        YearlyAllSummaryRecyclerView.setLayoutManager(manager);
     }
 
     private void action() {
@@ -118,13 +118,49 @@ public class YearlyTotalSaleFragment extends RuchiraFragment {
 
         RequestParams params=new RequestParams();
 
-        client.post(ServerInfo.BASE_ADDRESS+"dashboard",params,new JsonHttpResponseHandler(){
+        client.get(ServerInfo.BASE_ADDRESS+"yearly-sale",params,new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
+                /*
+{
+    "user_name": "Ruchira Admin",
+    "sr_id": "U007",
+    "cell_on": "01577832252",
+    "year": "2018",
+
+    "yearlyList": [
+        {
+            "orders": 3,
+            "amount": 8000,
+            "month": "January"
+        },
+        {
+            "orders": 8,
+            "amount": 12656,
+            "month": "February"
+        }
+    ],
+
+    "yearlyTotal": 20656
+}*/
 
                 try {
-                    String todaySell=response.getString("todaySell");
+
+                    String user_name = response.getString("user_name");
+                    YearlyUserIDTextView.setText(user_name);
+
+                    String cell_on = response.getString("cell_on");
+                    YearlyPhoneNumberTv.setText(cell_on);
+
+                    String sr_id = response.getString("sr_id");
+                    YearlySRidTv.setText(sr_id);
+
+                    String year = response.getString("year");
+                    YearlyDateTv.setText(year);
+
+                    String yearlyTotal = response.getString("yearlyTotal");
+                    YearlyTotalSellTextView.setText(yearlyTotal+" ৳");
 
 
                 } catch (JSONException e) {

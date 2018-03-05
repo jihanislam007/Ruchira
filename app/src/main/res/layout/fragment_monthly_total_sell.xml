@@ -36,7 +36,7 @@
                         android:id="@+id/MonthlyUserIDTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Ujjal Gupta"
+                        android:text="User Name."
                         android:textColor="@color/white"
                         android:textSize="18sp" />
 
@@ -46,7 +46,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@+id/MonthlyUserIDTv"
                         android:gravity="end"
-                        android:text="Cell: 01112122334"
+                        android:text="Cell: 00000000000."
                         android:textColor="@color/white"
                         android:textSize="18sp" />
 
@@ -68,7 +68,7 @@
                         android:id="@+id/MonthlySRidTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="SR ID #003"
+                        android:text="SR ID #00."
                         android:textColor="@color/white"
                         android:textSize="18sp" />
 
@@ -78,7 +78,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@+id/MonthlySRidTv"
                         android:gravity="end"
-                        android:text="Date: 12.12.17"
+                        android:text="Date: yyyy.mm.dd"
                         android:textColor="@color/white"
                         android:textSize="18sp" />
 
@@ -168,10 +168,12 @@
             android:layout_weight="6.8"
             android:background="@color/white">
 
-            <ListView
-                android:id="@+id/MonthlyAllSummaryListView"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/MonthlyAllSummaryRecyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"></ListView>
+                android:layout_height="match_parent">
+
+            </android.support.v7.widget.RecyclerView>
 
         </LinearLayout>
 
@@ -211,7 +213,7 @@
                         android:layout_marginRight="24dp"
                         android:layout_toRightOf="@+id/righttv"
                         android:gravity="center"
-                        android:text="00 tk"
+                        android:text="00. tk"
                         android:textColor="@color/white"
                         android:textSize="18sp" />
 

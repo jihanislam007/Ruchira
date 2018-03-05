@@ -111,23 +111,74 @@ public class TodaysTotalSaleFragment extends RuchiraFragment {
         final ProgressDialog finalProgressDialog = progressDialog;
 
         /*************Must write*************************************/
-        AsyncHttpClient client=new AsyncHttpClient();
-        client.addHeader("Authorization","Bearer "+offlineInfo.getUserInfo().token);
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.addHeader("Authorization", "Bearer " + offlineInfo.getUserInfo().token);
         /***********************************************************/
 
         /*client.get("URL",new JsonHttpResponseHandler(){
 
         });*/
 
-        RequestParams params=new RequestParams();
+        RequestParams params = new RequestParams();
 
-        client.post(ServerInfo.BASE_ADDRESS+"dashboard",params,new JsonHttpResponseHandler(){
+        client.get(ServerInfo.BASE_ADDRESS + "today-sale", params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
 
+                /*
+                {
+    "user_name": "Ruchira Admin",
+    "sr_id": "U007",
+    "cell_on": "01577832252",
+    "date": "2018-02-25",
+
+    "todayList": {
+        "total": 8,
+        "per_page": 10,
+        "current_page": 1,
+        "last_page": 1,
+        "next_page_url": null,
+        "prev_page_url": null,
+        "from": 1,
+        "to": 8,
+        "data": [
+            {
+                "item_name": "Horlicks-18g",
+                "quantity": 10,
+                "amount": 105
+            },
+            {
+                "item_name": "Sensodyne Fresh Mint 130gm",
+                "quantity": 5,
+                "amount": 1250
+            },
+            {
+                "item_name": "Sensodyne Brush",
+                "quantity": 10,
+                "amount": 640
+            }
+        ]
+    },
+    "todayTotal": 9870
+}*/
+
+
                 try {
-                    String todaySell=response.getString("todaySell");
+                    String user_name = response.getString("user_name");
+                    TodayUserIdTv.setText(user_name);
+
+                    String cell_on = response.getString("cell_on");
+                    TodayPhoneTv.setText(cell_on);
+
+                    String sr_id = response.getString("sr_id");
+                    TodaySRidTv.setText(sr_id);
+
+                    String date = response.getString("date");
+                    TodayDateTv.setText(date);
+
+                    String todayTotal = response.getString("todayTotal");
+                    TodayTotalSellTv.setText(todayTotal+" ৳");
 
 
                 } catch (JSONException e) {
@@ -139,7 +190,7 @@ public class TodaysTotalSaleFragment extends RuchiraFragment {
             /*****************Must write*****************************/
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                Intent intent=new Intent(getContext(), LoginActivity.class);
+                Intent intent = new Intent(getContext(), LoginActivity.class);
                 getContext().startActivity(intent);
                 offlineInfo.setUserInfo("");
             }

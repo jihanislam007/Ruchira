@@ -42,7 +42,7 @@
                 android:id="@+id/ProfileUserNameTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ujjol Gupta"
+                android:text="User Name."
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -51,7 +51,7 @@
                 android:id="@+id/ProfileDesignationTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Admin"
+                android:text="Admin."
                 android:textColor="@color/white"
                 android:textSize="16sp" />
 
@@ -95,7 +95,7 @@
                     android:id="@+id/ProfileJoiningDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="31-12-2017"
+                    android:text="dd-mm-yyyy"
                     android:gravity="center"
                     android:textColor="@color/yellow_new"
                     android:textSize="16sp"/>
@@ -120,7 +120,7 @@
                     android:id="@+id/ProfileTargetTv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="25865 BDT"
+                    android:text="00. BDT"
                     android:gravity="center"
                     android:textColor="@color/yellow_new"
                     android:textSize="16sp"/>
@@ -145,7 +145,7 @@
                     android:id="@+id/ProfieRemainingTv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="54885 BDT"
+                    android:text="00. BDT"
                     android:gravity="center"
                     android:textColor="@color/yellow_new"
                     android:textSize="16sp"/>
@@ -173,12 +173,14 @@
             android:layout_weight="4"
             android:layout_marginBottom="16dp">
 
-            <ListView
-                android:id="@+id/profileListView"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/profileRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:divider="@color/white"
-                android:dividerHeight="1dp"></ListView>
+                android:dividerHeight="1dp">
+
+            </android.support.v7.widget.RecyclerView>
 
         </LinearLayout>
 

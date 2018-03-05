@@ -44,18 +44,19 @@ import cz.msebera.android.httpclient.HttpResponse;
 public class TodayStatusFragment extends RuchiraFragment {
     private final static String TAG = "TodayStatusFragment";
 
-    private TextView date_txt,
-            this_month_txt,
+    private TextView
+            targetThisMonthValueTV,
             current_achive_txt,
             remainnig_target_txt,
             remainnig_visit_txt,
             avg_target_visit_txt;
 
+
     private TextView total_outlet_txt,
             outlet_remained_txt,
-            outlet_visited_txt,
-            achive_percent_sr_txt,
-            achive_today_txt;
+            achive_today_txt,
+            visited_outlet_txt,
+            totalOutletSr_txt;
 
     private List<Target> targetList;
     private List<OutletRemainning> outletRemainingList;
@@ -88,19 +89,21 @@ public class TodayStatusFragment extends RuchiraFragment {
     }
 
     private void initialize(View rootView) {
-        date_txt = (TextView) rootView.findViewById(R.id.date_txt);
-        this_month_txt = (TextView) rootView.findViewById(R.id.this_month_txt);
+
+        targetThisMonthValueTV = (TextView) rootView.findViewById(R.id.targetThisMonthValueTV);
+
         current_achive_txt = (TextView) rootView.findViewById(R.id.current_achive_txt);
         remainnig_target_txt = (TextView) rootView.findViewById(R.id.remainnig_target_txt);
         remainnig_visit_txt = (TextView) rootView.findViewById(R.id.remainnig_visit_txt);
         avg_target_visit_txt = (TextView) rootView.findViewById(R.id.avg_target_visit_txt);
 
-        total_outlet_txt = (TextView) rootView.findViewById(R.id.total_outlet_txt);
-        outlet_remained_txt = (TextView) rootView.findViewById(R.id.outlet_remained_txt);
-        outlet_visited_txt = (TextView) rootView.findViewById(R.id.outlet_visited_txt);
 
-        achive_percent_sr_txt = (TextView) rootView.findViewById(R.id.achive_percent_sr_txt);
+        total_outlet_txt = (TextView) rootView.findViewById(R.id.totalOutletTvValue);
+
+        outlet_remained_txt = (TextView) rootView.findViewById(R.id.outlet_remained_txt);
         achive_today_txt = (TextView) rootView.findViewById(R.id.achive_today_txt);
+        visited_outlet_txt = (TextView) rootView.findViewById(R.id.visited_outlet_txt);
+        totalOutletSr_txt = (TextView) rootView.findViewById(R.id.totalOutletSr_txt);
 
         targetList = new ArrayList<>();
         outletRemainingList = new ArrayList<>();
@@ -129,26 +132,60 @@ public class TodayStatusFragment extends RuchiraFragment {
 
         RequestParams params=new RequestParams();
 
-        client.post(ServerInfo.BASE_ADDRESS+"dashboard",params,new JsonHttpResponseHandler(){
+        client.get(ServerInfo.BASE_ADDRESS+"today-status",params,new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                /*{
+                    "monthTarget": 55500,
+                        "achieved": 12656,
+                        "remaingTarget": 42844,
+                        "remaingVisit": 11,
+                        "avgTarget": 1982.14,
 
+                        "totalOutlet": 17,
+                        "outletRemainder": 11,
+                        "achieveToday": 9870,
+                        "visitedOutlet": 4,
+                        "sr": 1982.14
+                }*/
 
                 try {
-                    String todaySell=response.getString("todaySell");
-                    /*todaysSale.setText(todaySell+ " ৳");
+                    /*String monthTarget =response.getString("monthTarget");
+                    targetThisMonthValueTV.setText(monthTarget+ " ৳");*/
 
-                    String todayOrder=response.getString("todayOrder");
-                    orderSummary.setText(todayOrder);
+                    int monthTarget =response.getInt("monthTarget");
+                    targetThisMonthValueTV.setText(Integer.toString(monthTarget)+ " ৳");
 
-                    int todayTarget=response.getInt("todayTarget");
-                    todayTargetTv.setText(Integer.toString(todayTarget));
+                    int achieved =response.getInt("achieved");
+                    current_achive_txt.setText(Integer.toString(achieved));
 
-                    String outletRemaining=response.getString("outletRemaining");
-                    remainningOutletTv.setText(outletRemaining);
+                    int remaingTarget = response.getInt("remaingTarget");
+                    remainnig_target_txt.setText(Integer.toString(remaingTarget));
 
-                    String overSell=response.getString("overSell");
-                    remainningTv.setText(overSell);*/
+                    String remaingVisit = response.getString("remaingVisit");
+                    remainnig_visit_txt.setText(remaingVisit);
+
+                    Double avgTarget = response.getDouble("avgTarget");
+                    avg_target_visit_txt.setText(Double.toString(avgTarget));
+
+
+
+
+
+                    int totalOutlet = response.getInt("totalOutlet");
+                    total_outlet_txt.setText(Integer.toString(totalOutlet));
+
+                    String outletRemainder = response.getString("outletRemainder");
+                    outlet_remained_txt.setText(outletRemainder);
+
+                    String achieveToday = response.getString("achieveToday");
+                    achive_today_txt.setText(achieveToday);
+
+                    int visitedOutlet = response.getInt("visitedOutlet");
+                    visited_outlet_txt.setText(Integer.toString(visitedOutlet));
+
+                    Double sr = response.getDouble("sr");
+                    totalOutletSr_txt.setText(Double.toString(sr));
 
                 } catch (JSONException e) {
 
@@ -183,12 +220,12 @@ public class TodayStatusFragment extends RuchiraFragment {
             int responseResult = obj.getInt("success");
             Log.d(TAG, result.toString());
             if (responseResult == 1) {
-                date_txt.setText(obj.getString("orderDate"));
+              //  date_txt.setText(obj.getString("orderDate"));
                 targetList.addAll(TaskUtils.setTarget(result));
                 outletRemainingList.addAll(TaskUtils.setOutletRemainning(result));
 
                 try {
-                    this_month_txt.setText(targetList.get(0).getThisMonth() + " ৳");
+                    targetThisMonthValueTV.setText(targetList.get(0).getThisMonth() + " ৳");
                     current_achive_txt.setText(targetList.get(0).getCurrentAchive() + " ৳");
 
                     String remaining = targetList.get(0).getRemainningTarget();
@@ -205,9 +242,9 @@ public class TodayStatusFragment extends RuchiraFragment {
 
                     total_outlet_txt.setText(outletRemainingList.get(0).getTotalOutlet());
                     outlet_remained_txt.setText(outletRemainingList.get(0).getOutletRemained());
-                    outlet_visited_txt.setText(outletRemainingList.get(0).getOutletVisited());
+                    visited_outlet_txt.setText(outletRemainingList.get(0).getOutletVisited());
                     achive_today_txt.setText(outletRemainingList.get(0).getOutletAchieve() + " ৳");
-                    achive_percent_sr_txt.setText(outletRemainingList.get(0).getAchieveInPercent());
+                    totalOutletSr_txt.setText(outletRemainingList.get(0).getAchieveInPercent());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

@@ -50,7 +50,7 @@
                     android:id="@+id/total_bit_txt"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="000"
+                    android:text="000."
                     android:gravity="center"
                     android:textColor="@color/yellow_new"
                     android:textSize="18sp"/>
@@ -79,7 +79,7 @@
                     android:id="@+id/totalOutletTv"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="000"
+                    android:text="000."
                     android:gravity="center"
                     android:textColor="@color/yellow_new"
                     android:textSize="18sp"/>
@@ -135,7 +135,7 @@
                         android:id="@+id/today_sale_txt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="00"
+                        android:text="00."
                         android:textColor="@color/yellow_new"
                         android:textSize="16sp"
                         android:layout_marginLeft="8dp"
@@ -190,7 +190,7 @@
                                     android:id="@+id/sale_yesterDay_txt"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:text="00"
+                                    android:text="00."
                                     android:lines="2"
                                     android:textColor="@color/yellow_new"
                                     android:gravity="center"/>
@@ -235,7 +235,7 @@
                                     android:id="@+id/sale_monthAccumulation_txt"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:text="N/A"
+                                    android:text="N/A."
                                     android:textColor="@color/yellow_new"
                                     android:gravity="center_horizontal"/>
 
@@ -280,7 +280,7 @@
                                     android:id="@+id/sale_month_week_avg_txt"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:text="23"
+                                    android:text="00."
                                     android:lines="2"
                                     android:textColor="@color/yellow_new"
                                     android:gravity="center"/>
@@ -325,7 +325,7 @@
                                     android:id="@+id/sale_month_day_avg_txt"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:text="27"
+                                    android:text="00."
                                     android:textColor="@color/yellow_new"
                                     android:gravity="center"/>
 
@@ -387,7 +387,7 @@
                         android:id="@+id/today_order_txt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="00"
+                        android:text="00."
                         android:textColor="@color/yellow_new"
                         android:textSize="16sp"
                         android:layout_marginLeft="8dp"
@@ -443,7 +443,7 @@
                                     android:id="@+id/order_yesterday_txt"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:text="00"
+                                    android:text="00."
                                     android:lines="2"
                                     android:textColor="@color/yellow_new"
                                     android:gravity="center"/>
@@ -488,7 +488,7 @@
                                     android:id="@+id/order_monthAccumulation_txt"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:text="N/A"
+                                    android:text="N/A."
                                     android:textColor="@color/yellow_new"
                                     android:gravity="center_horizontal"/>
 
@@ -533,7 +533,7 @@
                                     android:id="@+id/order_monthWeekly_avg_txt"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:text="23"
+                                    android:text="00."
                                     android:lines="2"
                                     android:textColor="@color/yellow_new"
                                     android:gravity="center"/>
@@ -579,7 +579,7 @@
                                     android:id="@+id/order_monthDailyAvg_txt"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:text="27"
+                                    android:text="00."
                                     android:lines="2"
                                     android:textColor="@color/yellow_new"
                                     android:gravity="center"/>

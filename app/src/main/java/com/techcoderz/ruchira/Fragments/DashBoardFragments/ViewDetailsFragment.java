@@ -127,7 +127,7 @@ public class ViewDetailsFragment extends RuchiraFragment {
 
         RequestParams params = new RequestParams();
 
-        client.post(ServerInfo.BASE_ADDRESS+"dashboard-details",params,new JsonHttpResponseHandler(){
+        client.get(ServerInfo.BASE_ADDRESS+"dashboard-details",params,new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONObject response) {
                 /*

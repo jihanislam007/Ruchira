@@ -1,6 +1,7 @@
 package com.techcoderz.ruchira.Fragments.PromotionFragments;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatSpinner;
@@ -12,6 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.TextView;
+
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.ResponseHandlerInterface;
+import com.techcoderz.ruchira.Activities.LoginActivity;
+import com.techcoderz.ruchira.Db.OfflineInfo;
 import com.techcoderz.ruchira.R;
 import com.techcoderz.ruchira.Adapters.productPromotionAdapter;
 import com.techcoderz.ruchira.Adapters.PromotionCompanySpinnerAdapter;
@@ -19,6 +27,7 @@ import com.techcoderz.ruchira.Application.RuchiraApplication;
 import com.techcoderz.ruchira.Fragments.OtherFragments.RuchiraFragment;
 import com.techcoderz.ruchira.ModelClasses.Company;
 import com.techcoderz.ruchira.ModelClasses.Promotion;
+import com.techcoderz.ruchira.ServerInfo.ServerInfo;
 import com.techcoderz.ruchira.Utils.AppConfig;
 import com.techcoderz.ruchira.Utils.NetworkUtils;
 import com.techcoderz.ruchira.Utils.TaskUtils;
@@ -32,6 +41,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.HttpResponse;
 
 /**
  * Created by Shahriar on 9/14/2016.
@@ -51,6 +63,8 @@ public class ProductPromotionFragment extends RuchiraFragment {
     private LinearLayoutManager manager;
     private TextView company_title_txt;
 
+    OfflineInfo offlineInfo;
+
     public ProductPromotionFragment() {
     }
 
@@ -64,8 +78,9 @@ public class ProductPromotionFragment extends RuchiraFragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_product_promotion, container, false);
         setupToolbar();
-//        initialize(rootView);
-//        action();
+        offlineInfo = new OfflineInfo(getContext());
+        initialize(rootView);
+        action();
         if(NetworkUtils.hasInternetConnection(mFragmentContext)) {
             fetchDataFromServer();
         }
@@ -79,8 +94,8 @@ public class ProductPromotionFragment extends RuchiraFragment {
 
     private void initialize(View rootView) {
         beat_spinner = (AppCompatSpinner) rootView.findViewById(R.id.beat_spinner);
-//        report_rcview = (RecyclerView) rootView.findViewById(R.id.report_rcview);
-     //   company_title_txt = (TextView) rootView.findViewById(R.id.company_title_txt);
+        report_rcview = (RecyclerView) rootView.findViewById(R.id.report_rcview);
+      //  company_title_txt = (TextView) rootView.findViewById(R.id.company_title_txt);
 
         promotionList = new ArrayList<>();
         companyList = new ArrayList<>();
@@ -143,6 +158,35 @@ public class ProductPromotionFragment extends RuchiraFragment {
         String tag_string_req = "req_order";
         final ProgressDialog finalProgressDialog = progressDialog;
 
+/****************HttpClient responds****************/
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.addHeader("Authorization", "Bearer "+offlineInfo.getUserInfo().token);
+
+        RequestParams params = new RequestParams();
+
+        client.post(ServerInfo.BASE_ADDRESS+"dashboard",params,new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+
+            }
+
+
+            /*****************Must write*****************************/
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                Intent intent=new Intent(getContext(), LoginActivity.class);
+                getContext().startActivity(intent);
+                offlineInfo.setUserInfo("");
+            }
+
+            @Override
+            public void onPostProcessResponse(ResponseHandlerInterface instance, HttpResponse
+                    response) {
+                finalProgressDialog.dismiss(); //Just change dialog name
+            }
+            /***************************************/
+        });
 
     }
 
